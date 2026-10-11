@@ -41,3 +41,9 @@ Full process: [docs/process.md](docs/process.md)
 - [ ] C4, test strategy, release checklist, case study templates
 - [ ] Claude Code kit: sample `CLAUDE.md`, slash commands per stage, hooks
 - [ ] Refined after POC-1 and FieldOps
+
+## License
+
+[![CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+This playbook and its templates are licensed under [Creative Commons Attribution 4.0 International](LICENSE). You may use, adapt and share them, including commercially, as long as you give credit: "AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)".
