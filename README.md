@@ -40,7 +40,7 @@ Full process: [docs/process.md](docs/process.md)
 - [x] Process with gates, PRD / ADR / user story templates
 - [ ] C4, test strategy, release checklist, case study templates
 - [ ] Claude Code kit: sample `CLAUDE.md`, slash commands per stage, hooks
-- [ ] Refined after POC-1 and FieldOps
+- [ ] Refined after POC-1 and the news-site projects
 
 ## License
 
