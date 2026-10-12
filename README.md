@@ -31,7 +31,6 @@ Full process: [docs/process.md](docs/process.md)
 
 | Project | What it proves | Status |
 |---|---|---|
-| Product Listing Generator (POC-1) | Idea → deployed AI app in one weekend | Planned (Oct 2026) |
 | AI article finder for a news site | Retrieval-only AI (RAG search), evaluation, data kept in-country | In progress (private client) |
 | News site frontend modernization | Legacy ASP.NET WebForms → ASP.NET Core, strangler fig | Planned (private client) |
 
@@ -40,7 +39,7 @@ Full process: [docs/process.md](docs/process.md)
 - [x] Process with gates, PRD / ADR / user story templates
 - [ ] C4, test strategy, release checklist, case study templates
 - [ ] Claude Code kit: sample `CLAUDE.md`, slash commands per stage, hooks
-- [ ] Refined after POC-1 and the news-site projects
+- [ ] Refined after the news-site projects
 
 ## License
 
