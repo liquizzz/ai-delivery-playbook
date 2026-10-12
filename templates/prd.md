@@ -3,9 +3,11 @@
 | Field | Value |
 |---|---|
 | Owner | <name> |
-| Status | Draft / In review / Approved |
+| Status | Draft / In review / Locked (G2) |
+| Scope locked on | YYYY-MM-DD (after this date: next-phase backlog, or a CR on the board if blocking) |
 | Last updated | YYYY-MM-DD |
 | Time box | <e.g. one weekend, 8 hours> |
+| Proposal | `docs/proposal.md` |
 
 ## 1. Problem
 <Who has the problem, what it is, and what it costs them today. 2–4 sentences.>
