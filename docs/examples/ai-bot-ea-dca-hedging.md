@@ -9,7 +9,7 @@ A proof of concept delivered with this playbook by one human and AI agent sessio
 | Project type | POC run as **Agile** (the playbook's "longer than 2 weeks" mode): phase 1 once, then one iteration per version, each running phases 2–6 |
 | Time box | v1 (the trading bot): 1–2 weeks · v2 (AI support): 1–2 weeks |
 | Started | 04/10/2026 |
-| Team | 1 human (operator, decides every gate) + Claude Code sessions: Lead now; Dev and Test from phase 4 |
+| Team | 1 human (operator, decides every gate) + 3 Claude Code sessions: Lead, Dev, Test (UI/UX and DevOps dropped: no server deployment, the only UI is a small button panel on the chart) |
 
 ## Timeline
 
@@ -30,7 +30,7 @@ gantt
 | Stage | Phases | Dates | Gates | Status |
 |---|---|---|---|---|
 | Discovery | 1 Planning and Discovery | 04–14/10 | G1 Proposal locked 14/10 | Done |
-| Iteration 1: v1 trading bot | 2 Requirements → 6 Deployment | 14/10 → by 28/10 | G2 Requirements locked 14/10; G3–G6 next; G6 = release to a social-trading master account (no real money at risk) | In progress (phase 3) |
+| Iteration 1: v1 trading bot | 2 Requirements → 6 Deployment | 14/10 → by 28/10 | G2 and G3 locked 14/10; G4–G6 next; G6 = release to a social-trading master account (no real money at risk) | In progress (phase 4) |
 | Iteration 2: v2 AI support | 2 Requirements → 6 Deployment | after iteration 1, by 11/11 | G2–G6 | Planned |
 | Maintenance | 7 Maintenance | after iteration 1 | — | Forward test for 6–12 months |
 
@@ -81,11 +81,27 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 
 **Locked output (G2).** PRD with 16 must-haves and 29 numbered business rules, each with a numeric example; 16 user stories with Given/When/Then criteria; data notes with 13 findings; 41 dated decisions and one approved change request on the board.
 
-## 3–7. Design to Maintenance (iteration 1 planned; iteration 2 repeats phases 2–6 for AI support)
+## 3. Design (iteration 1, locked 14/10)
+
+**Questions first, then sections.** The AI asked six architecture questions one at a time (each with options, trade-offs and a recommendation), then presented the design in four sections for approval: modules and state machine; parameters, persistent state, log format and chart panel; broker errors and edge cases; testing and evaluation.
+
+| Decision | Choice |
+|---|---|
+| ADR-0001 | Every trading decision is a pure function of a snapshot of the real orders taken on each tick; trade events are used only for logging |
+| ADR-0002 | Three pieces of state that cannot be derived from orders (hedging flag, brake flag, last stop-loss time) are kept in terminal global variables |
+| ADR-0003 | Live trading uses the platform's economic calendar; backtests run without the news filter (a worse case than live) |
+| ADR-0004 | Pips, prices and money come from the symbol's specification, so the same code runs on other symbols and cent accounts |
+| ADR-0005 | Closing a whole basket sets a persistent "closing" flag and keeps closing until nothing is left; opposite positions are closed against each other to save one spread per pair |
+| ADR-0006 | Unit tests as a test EA inside the strategy tester; a rule checker reads the EA's log and checks every numbered business rule; scenarios run headless from config files |
+
+**Design reviews caught two gaps in the locked PRD.** Releasing the risk brake by hand would have been undone on the next tick (the loss was still over the threshold), so the brake got a third state, *manual*, that holds until the basket closes. And nothing said what hedging does when one side is switched off. Both went through change requests (CR-02, CR-03) instead of silently editing the locked document.
+
+**Contract between roles.** The log format (16 columns, 22 event types) is the interface between Dev and Test, so the Test session can build the rule checker in parallel with the code. The board lists Dev tasks D0–D8 and Test tasks T0–T5, each linked to stories and a done check.
+
+## 4–7. Implementation to Maintenance (planned; iteration 2 repeats phases 2–6 for AI support)
 
 | Phase | Plan |
 |---|---|
-| 3 Design | Spec with numbered, testable rules; module and state-machine design of the EA; ADRs; every number an input parameter (no hard-coded symbol, pip or contract size); a fixed log format for every trading decision |
 | 4 Implementation | Dev session writes MQL5 against the spec; Test session builds a checker that reads the EA's log and the tester's trade history and checks each rule |
 | 5 Testing | Scenario runs (range, strong trends, weekend gaps, stop-loss hit, restart, wrong inputs) must show zero rule violations; then the standard backtest against the success metric, with top-ups simulated inside the tester |
 | 6 Deployment | Release v1 to the operator's social-trading master account (no real money at risk) |
@@ -97,4 +113,5 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 |---|---|---|
 | Planning | Read the spec; asked structured discovery questions; simulated worst-case drawdown; proposed v1/v2 split | Purpose, capital, targets, stop-loss rule, backtest rule, scope; Agile with two 1–2 week iterations |
 | Requirements | Exported and analysed the old bot's history; recovered its rules; interviewed one question at a time; quantified worst-case risk; wrote PRD and stories | Chose old or improved behaviour per rule; described hedging and pruning; set risk brakes; approved CR-01 and G2 |
+| Design | Asked architecture questions with options; wrote spec, six ADRs, test strategy, eval plan, roles and tasks; found two gaps in the locked PRD | Chose each architecture option; approved CR-02, CR-03; cut the team to three roles; approved G3 |
 | Process | First drafted a project-specific POC playbook, then replaced it with this playbook's phases, gates, board and kit | Required one shared process so the project could serve as an example |
