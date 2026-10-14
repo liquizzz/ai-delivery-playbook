@@ -2,7 +2,7 @@
 
 From business idea to production, with a team of AI agents (Claude Code sessions) doing the production work and one human owning every decision.
 
-The process follows the classic software development life cycle (SDLC). Short projects (1–2 weeks) run it as **Waterfall**: each phase is completed and locked once, then the next phase starts. Worked examples: [AI chatbot](examples/ai-chatbot.md), [EA Bot trading with AI support](examples/ai-bot-ea-dca-hedging.md) (POC, Agile).
+The process follows the classic software development life cycle (SDLC). Short projects (1–2 weeks) run it as **Waterfall**: each phase is completed and locked once, then the next phase starts. Worked examples: [AI chatbot](examples/ai-chatbot.md), [EA Bot trading with AI support](examples/ai-bot-ea-dca-hedging.md) (POC, Agile), [AI CMS frontend](examples/ai-cms-frontend.md).
 
 ## Principles
 
