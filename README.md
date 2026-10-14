@@ -70,7 +70,7 @@ cp <playbook>/kit/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/
 | Project | What it proves | Status |
 |---|---|---|
 | [AI chatbot](docs/examples/ai-chatbot.md) | Retrieval-only AI (FAQ + hybrid article search), evaluation, data kept in-country, five-session agent team, Waterfall in one week | Implementation (demo 18/10/2026) |
-| [EA Bot trading with AI support](docs/examples/ai-bot-ea-dca-hedging.md) | POC run as Agile (two 1–2 week iterations): rebuilding a black-box MetaTrader 5 trading bot from its real trade history, rule-by-rule human decisions, backtest-based acceptance; AI support in iteration 2 | Iteration 1, Requirements and Analysis |
+| [EA Bot trading with AI support](docs/examples/ai-bot-ea-dca-hedging.md) | POC run as Agile (two 1–2 week iterations): rebuilding a black-box MetaTrader 5 trading bot from its real trade history, rule-by-rule human decisions, backtest-based acceptance; AI support in iteration 2 | Iteration 1, Design |
 | News site frontend modernization | Legacy ASP.NET WebForms → ASP.NET Core, strangler fig | Planned |
 
 ## License

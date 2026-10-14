@@ -29,8 +29,8 @@ gantt
 
 | Stage | Phases | Dates | Gates | Status |
 |---|---|---|---|---|
-| Discovery | 1 Planning and Discovery | 04–14/10 | G1 Proposal locked | Done, waiting for approval |
-| Iteration 1: v1 trading bot | 2 Requirements → 6 Deployment | 14/10 → by 28/10 | G2–G6; G6 = release to a social-trading master account (no real money at risk) | In progress (phase 2) |
+| Discovery | 1 Planning and Discovery | 04–14/10 | G1 Proposal locked 14/10 | Done |
+| Iteration 1: v1 trading bot | 2 Requirements → 6 Deployment | 14/10 → by 28/10 | G2 Requirements locked 14/10; G3–G6 next; G6 = release to a social-trading master account (no real money at risk) | In progress (phase 3) |
 | Iteration 2: v2 AI support | 2 Requirements → 6 Deployment | after iteration 1, by 11/11 | G2–G6 | Planned |
 | Maintenance | 7 Maintenance | after iteration 1 | — | Forward test for 6–12 months |
 
@@ -56,9 +56,9 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 
 **Delivery mode.** The human chose Agile over Waterfall: two versions of 1–2 weeks each fit the playbook's "longer than 2 weeks" row, so phases 2–6 run once per version instead of once for the whole project.
 
-**Success metric.** A backtest over the market regime the operator trusts (April 2025 to today) with a starting balance, a fixed stop-loss amount and a top-up rule written into the proposal: the account must never blow up, and the net profit after subtracting the starting balance and every top-up must exceed 100% of the starting balance.
+**Success metric.** A backtest with a starting balance, a fixed stop-loss amount and a top-up rule written into the proposal: the account must never blow up, and the net profit after subtracting the starting balance and every top-up must reach the minimum monthly target. The period was first set from April 2025; phase 2 found that real tick data on the broker only starts in January 2026, so a change request (CR-01) moved the backtest to January 2026 and turned the profit bar into a monthly rate.
 
-## 2. Requirements and Analysis (iteration 1, in progress)
+## 2. Requirements and Analysis (iteration 1, locked 14/10)
 
 **Real data analysis: reverse-engineering the old bot.** The operator logged in to MetaTrader 5 with a read-only password on their own machine; the AI read the history through the terminal's Python API and never handled the password. Raw data stays on the local machine and out of git.
 
@@ -72,6 +72,14 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 **What the human decided.** Of eight rules where spec and data differed, the operator chose per row: keep the old bot's behaviour for initial orders and for restarting after take-profit; keep the improved spec for when grid orders are placed, grid spacing and trailing; postpone "adding with the trend" to the next-phase backlog. Each choice is a dated `DEC-NN` line on the board; the deviations of the old bot are kept as data findings, not as links to old documents.
 
 **Course correction.** Midway, the operator stopped the deep analysis: describing the intended logic first and letting the AI verify it against the data was faster than inferring everything from the data. The analysis scripts stayed, so each later rule is checked in minutes.
+
+**The core logic came out of a structured interview.** The operator described a full scenario (price falling while the bot holds buys) in ten short messages without interruption; the AI then asked one multiple-choice question at a time, each with a numeric example. This surfaced a mechanism the original spec did not have: a *hedging mode* entered when one side holds a set number of orders more than the other, in which the smaller side adds orders with the trend, both sides close together at a money target, and a persistent flag survives restarts. An *order-pruning* rule (close the deepest profitable order together with two losing ones when their sum is positive) came the same way, and was then checked against the old bot's partial closes.
+
+**Data versus intent.** The history showed the old bot sized its take-profit by order count (about 2 per order) and closed hedged baskets at about 2. The operator kept volume-based take-profit and a larger hedging target on purpose; both are recorded as deliberate deviations, so a backtest difference is not mistaken for a bug.
+
+**Risk review before locking.** The AI quantified the worst case: with the first grid spacing, a dense grid hit the account stop-loss after a move smaller than gold's median daily range. The operator answered with wider spacing for deep levels and four brakes, each an input parameter: a loss threshold that stops averaging down and switches to hedging (also a persistent flag), a pause after a stop-loss, no new cycles late on Friday, and a maximum spread. The worst-case move to the stop-loss grew by about a third.
+
+**Locked output (G2).** PRD with 16 must-haves and 29 numbered business rules, each with a numeric example; 16 user stories with Given/When/Then criteria; data notes with 13 findings; 41 dated decisions and one approved change request on the board.
 
 ## 3–7. Design to Maintenance (iteration 1 planned; iteration 2 repeats phases 2–6 for AI support)
 
@@ -88,5 +96,5 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 | Phase | AI did | Human decided |
 |---|---|---|
 | Planning | Read the spec; asked structured discovery questions; simulated worst-case drawdown; proposed v1/v2 split | Purpose, capital, targets, stop-loss rule, backtest rule, scope; Agile with two 1–2 week iterations |
-| Requirements | Exported and analysed the old bot's history; recovered its rules; built a rule-by-rule comparison | Chose old or improved behaviour per rule; cut the deep analysis; postponed one feature |
+| Requirements | Exported and analysed the old bot's history; recovered its rules; interviewed one question at a time; quantified worst-case risk; wrote PRD and stories | Chose old or improved behaviour per rule; described hedging and pruning; set risk brakes; approved CR-01 and G2 |
 | Process | First drafted a project-specific POC playbook, then replaced it with this playbook's phases, gates, board and kit | Required one shared process so the project could serve as an example |
