@@ -1,4 +1,4 @@
-# Example: AI article finder (1–2 week project, Waterfall)
+# Example: AI chatbot (1–2 week project, Waterfall)
 
 A real client project delivered with this playbook by one human and a team of five AI agent sessions. The client's name and data stay private; everything below is the delivery record.
 
