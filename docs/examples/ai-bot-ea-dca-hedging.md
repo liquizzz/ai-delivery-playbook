@@ -1,12 +1,13 @@
-# Example: EA DCA Hedging (POC, rebuilding a black-box trading bot)
+# Example: EA Bot trading with AI support (POC, Agile)
 
-A proof of concept delivered with this playbook by one human and AI agent sessions: rebuild a grid trading bot for MetaTrader 5 whose source code is not available, then improve it. The interesting part is phase 2: the requirements were recovered from the real trade history of the old bot, so every rule in the new spec is either confirmed by data or a deliberate, recorded change.
+A proof of concept delivered with this playbook by one human and AI agent sessions: rebuild a grid trading bot for MetaTrader 5 whose source code is not available, improve it, then add AI support for the operator. The interesting part is phase 2: the requirements were recovered from the real trade history of the old bot, so every rule in the new spec is either confirmed by data or a deliberate, recorded change.
 
 | Field | Value |
 |---|---|
 | Client | Internal (the human is the bot operator) |
 | Product | Expert Advisor (EA) for MetaTrader 5: two independent DCA grids (buy and sell) on gold, entries by trailing stop orders, basket take-profit, fixed account stop-loss |
-| Project type | POC: prove the rebuilt bot follows its spec and meets a backtest target before building the full v1 |
+| Project type | POC run as **Agile** (the playbook's "longer than 2 weeks" mode): phase 1 once, then one iteration per version, each running phases 2–6 |
+| Time box | v1 (the trading bot): 1–2 weeks · v2 (AI support): 1–2 weeks |
 | Started | 04/10/2026 |
 | Team | 1 human (operator, decides every gate) + Claude Code sessions: Lead now; Dev and Test from phase 4 |
 
@@ -18,20 +19,22 @@ gantt
   axisFormat %d/%m
   tickInterval 2day
   todayMarker off
-  section Phases
+  section Discovery
   1 Planning and Discovery    :done,   p1, 2026-10-04, 10d
-  2 Requirements and Analysis :active, p2, 2026-10-14, 3d
+  section Iteration 1 (v1)
+  Phases 2-6 trading bot      :active, i1, 2026-10-14, 14d
+  section Iteration 2 (v2)
+  Phases 2-6 AI support       :        i2, after i1, 14d
 ```
 
-| # | Phase | Dates | Gate | Status |
+| Stage | Phases | Dates | Gates | Status |
 |---|---|---|---|---|
-| 1 | Planning and Discovery | 04–14/10 | G1 Proposal locked 14/10 (timeline and time box still open) | Done |
-| 2 | Requirements and Analysis | From 14/10 | G2 Requirements locked | In progress |
-| 3 | Design | — | G3 Design locked | Planned |
-| 4 | Implementation | — | G4 Build complete | Planned |
-| 5 | Testing | — | G5 Accepted | Planned |
-| 6 | Deployment | — | G6 Released to a non-real-money account | Planned |
-| 7 | Maintenance | — | — | Planned |
+| Discovery | 1 Planning and Discovery | 04–14/10 | G1 Proposal locked | Done, waiting for approval |
+| Iteration 1: v1 trading bot | 2 Requirements → 6 Deployment | 14/10 → by 28/10 | G2–G6; G6 = release to a social-trading master account (no real money at risk) | In progress (phase 2) |
+| Iteration 2: v2 AI support | 2 Requirements → 6 Deployment | after iteration 1, by 11/11 | G2–G6 | Planned |
+| Maintenance | 7 Maintenance | after iteration 1 | — | Forward test for 6–12 months |
+
+Each iteration locks its own documents once; ideas raised inside an iteration go to the next iteration's backlog.
 
 ## 1. Planning and Discovery (proposal locked 14/10)
 
@@ -49,11 +52,13 @@ gantt
 | **B (chosen)** | Rebuild with the improvements in the operator's spec (spacing by grid level, entry offset, delay, two-stage trailing, fixed account stop-loss); AI only analyses and alerts in a later version | Default parameter values must come from backtests |
 | C | Let AI decide trades | Cannot be verified by backtest; rejected |
 
-**Locked scope.** v1: the grid bot for gold, fixed stop-loss (amount or percent), manual control functions, news filter, trading hours. v2 (next phase): AI analysis and alerts (never placing trades), remote control over Telegram.
+**Locked scope.** v1 (iteration 1): the grid bot for gold, fixed stop-loss (amount or percent), manual control functions, news filter, trading hours. v2 (iteration 2): AI analysis and alerts (never placing trades), remote control over Telegram.
+
+**Delivery mode.** The human chose Agile over Waterfall: two versions of 1–2 weeks each fit the playbook's "longer than 2 weeks" row, so phases 2–6 run once per version instead of once for the whole project.
 
 **Success metric.** A backtest over the market regime the operator trusts (April 2025 to today) with a starting balance, a fixed stop-loss amount and a top-up rule written into the proposal: the account must never blow up, and the net profit after subtracting the starting balance and every top-up must exceed 100% of the starting balance.
 
-## 2. Requirements and Analysis (in progress)
+## 2. Requirements and Analysis (iteration 1, in progress)
 
 **Real data analysis: reverse-engineering the old bot.** The operator logged in to MetaTrader 5 with a read-only password on their own machine; the AI read the history through the terminal's Python API and never handled the password. Raw data stays on the local machine and out of git.
 
@@ -68,20 +73,20 @@ gantt
 
 **Course correction.** Midway, the operator stopped the deep analysis: describing the intended logic first and letting the AI verify it against the data was faster than inferring everything from the data. The analysis scripts stayed, so each later rule is checked in minutes.
 
-## 3–7. Design to Maintenance (planned)
+## 3–7. Design to Maintenance (iteration 1 planned; iteration 2 repeats phases 2–6 for AI support)
 
 | Phase | Plan |
 |---|---|
 | 3 Design | Spec with numbered, testable rules; module and state-machine design of the EA; ADRs; every number an input parameter (no hard-coded symbol, pip or contract size); a fixed log format for every trading decision |
 | 4 Implementation | Dev session writes MQL5 against the spec; Test session builds a checker that reads the EA's log and the tester's trade history and checks each rule |
 | 5 Testing | Scenario runs (range, strong trends, weekend gaps, stop-loss hit, restart, wrong inputs) must show zero rule violations; then the standard backtest against the success metric, with top-ups simulated inside the tester |
-| 6 Deployment | Release to the operator's social-trading master account (no real money at risk), followed for 6–12 months |
-| 7 Maintenance | Case study; v2 backlog (AI alerts, Telegram control, adding with the trend) |
+| 6 Deployment | Release v1 to the operator's social-trading master account (no real money at risk) |
+| 7 Maintenance | Forward test for 6–12 months; case study; backlog for later iterations (adding with the trend) |
 
 ## AI and human split
 
 | Phase | AI did | Human decided |
 |---|---|---|
-| Planning | Read the spec; asked structured discovery questions; simulated worst-case drawdown; proposed v1/v2 split | Purpose, capital, targets, stop-loss rule, backtest rule, scope |
+| Planning | Read the spec; asked structured discovery questions; simulated worst-case drawdown; proposed v1/v2 split | Purpose, capital, targets, stop-loss rule, backtest rule, scope; Agile with two 1–2 week iterations |
 | Requirements | Exported and analysed the old bot's history; recovered its rules; built a rule-by-rule comparison | Chose old or improved behaviour per rule; cut the deep analysis; postponed one feature |
 | Process | First drafted a project-specific POC playbook, then replaced it with this playbook's phases, gates, board and kit | Required one shared process so the project could serve as an example |

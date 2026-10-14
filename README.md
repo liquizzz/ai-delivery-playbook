@@ -27,7 +27,7 @@ flowchart LR
 - **Sessions follow the phases:** the Lead session starts in phase 1, UI/UX in phase 3, Dev, DevOps and Test in phase 4, each working only in its own files.
 - **Every task is logged:** what AI did, where the human stepped in, how much rework.
 
-Full process: [docs/process.md](docs/process.md) · Agent team: [docs/agent-team.md](docs/agent-team.md) · Worked examples: [AI chatbot](docs/examples/ai-chatbot.md) · [EA DCA Hedging](docs/examples/ai-bot-ea-dca-hedging.md)
+Full process: [docs/process.md](docs/process.md) · Agent team: [docs/agent-team.md](docs/agent-team.md) · Worked examples: [AI chatbot](docs/examples/ai-chatbot.md) · [EA Bot trading with AI support](docs/examples/ai-bot-ea-dca-hedging.md)
 
 ## What a client gets
 
@@ -70,7 +70,7 @@ cp <playbook>/kit/hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/
 | Project | What it proves | Status |
 |---|---|---|
 | [AI chatbot](docs/examples/ai-chatbot.md) | Retrieval-only AI (FAQ + hybrid article search), evaluation, data kept in-country, five-session agent team, Waterfall in one week | Implementation (demo 18/10/2026) |
-| [EA DCA Hedging](docs/examples/ai-bot-ea-dca-hedging.md) | POC rebuilding a black-box trading bot (MetaTrader 5): requirements recovered from the old bot's real trade history, rule-by-rule human decisions, backtest-based acceptance | Requirements and Analysis |
+| [EA Bot trading with AI support](docs/examples/ai-bot-ea-dca-hedging.md) | POC run as Agile (two 1–2 week iterations): rebuilding a black-box MetaTrader 5 trading bot from its real trade history, rule-by-rule human decisions, backtest-based acceptance; AI support in iteration 2 | Iteration 1, Requirements and Analysis |
 | News site frontend modernization | Legacy ASP.NET WebForms → ASP.NET Core, strangler fig | Planned |
 
 ## License
