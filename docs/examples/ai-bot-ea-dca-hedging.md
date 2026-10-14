@@ -98,11 +98,18 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 
 **Contract between roles.** The log format (16 columns, 22 event types) is the interface between Dev and Test, so the Test session can build the rule checker in parallel with the code. The board lists Dev tasks D0–D8 and Test tasks T0–T5, each linked to stories and a done check.
 
-## 4–7. Implementation to Maintenance (planned; iteration 2 repeats phases 2–6 for AI support)
+## 4. Implementation (iteration 1, in progress)
+
+**Plans first, reviewed by the Lead.** The Dev session wrote its plan (module order, unit tests written before each module, a pure-function core so rules are testable) and the Test session wrote its plan (25 rule checks read from the EA's log, eight tester scenarios, a manual checklist for what the tester cannot do). The Lead checked both against the spec, asked for missing tests, and turned their questions into two small change requests (CR-04, CR-05) instead of letting either session reinterpret the spec.
+
+**Test environment without real money or shared passwords.** Rule tests run on a demo account at a second broker in a separate MetaTrader 5 copy; the evaluation backtest stays on the target broker's data. When the human pasted a demo password into the chat, the AI did not use or store it and asked for it to be changed; the human logged in themselves. The second broker's gold symbol has three decimals instead of two, which became a free test that nothing in the code assumes gold's contract details.
+
+**A spec review that stopped the coding.** Before the first line of code, the human paused the Dev session (a hold on the board) to read the approved spec once more. One question at a time, the review produced 25 changes in a single change request (CR-06): trader-friendly parameter names, take-profit placed on the broker's server when one basket is open (to cut slippage) while the EA closes a hedged basket itself, a two-rule pruning scheme, a clearer hedging entry and exit, daily and manual take-profit / stop-loss, and a status panel. Working the rules through with numeric examples exposed several conflicts before they became bugs: a minimum-gap rule that blocked the very pruning meant to exit hedging, a hedging state that could not be derived from open orders alone, server-side stop-losses that would close the two sides at different prices because of the spread, and pending orders that could still fill after a side was switched off. The spec was rewritten, a seventh ADR recorded the take-profit decision, and four new user stories were added before the hold was lifted.
+
+## 5–7. Testing to Maintenance (planned; iteration 2 repeats phases 2–6 for AI support)
 
 | Phase | Plan |
 |---|---|
-| 4 Implementation | Dev session writes MQL5 against the spec; Test session builds a checker that reads the EA's log and the tester's trade history and checks each rule |
 | 5 Testing | Scenario runs (range, strong trends, weekend gaps, stop-loss hit, restart, wrong inputs) must show zero rule violations; then the standard backtest against the success metric, with top-ups simulated inside the tester |
 | 6 Deployment | Release v1 to the operator's social-trading master account (no real money at risk) |
 | 7 Maintenance | Forward test for 6–12 months; case study; backlog for later iterations (adding with the trend) |
@@ -114,4 +121,5 @@ Each iteration locks its own documents once; ideas raised inside an iteration go
 | Planning | Read the spec; asked structured discovery questions; simulated worst-case drawdown; proposed v1/v2 split | Purpose, capital, targets, stop-loss rule, backtest rule, scope; Agile with two 1–2 week iterations |
 | Requirements | Exported and analysed the old bot's history; recovered its rules; interviewed one question at a time; quantified worst-case risk; wrote PRD and stories | Chose old or improved behaviour per rule; described hedging and pruning; set risk brakes; approved CR-01 and G2 |
 | Design | Asked architecture questions with options; wrote spec, six ADRs, test strategy, eval plan, roles and tasks; found two gaps in the locked PRD | Chose each architecture option; approved CR-02, CR-03; cut the team to three roles; approved G3 |
+| Implementation (so far) | Reviewed the Dev and Test plans; set up an isolated test terminal; turned a spec review into one change request with conflicts resolved; rewrote the spec and stories | Paused coding to review the spec; decided 25 changes one question at a time; approved CR-04, CR-05, CR-06 |
 | Process | First drafted a project-specific POC playbook, then replaced it with this playbook's phases, gates, board and kit | Required one shared process so the project could serve as an example |
