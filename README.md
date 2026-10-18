@@ -3,7 +3,7 @@
 **A book and a kit for building real products with Claude Code** — one human (the owner) and a team of Claude Code sessions (PO, Lead, Dev, Test, UI/UX, DevOps) that plan, build, test and release with clear roles, written requirements and the owner's approval at every gate.
 
 - **What you get:** a step-by-step book of prompts ("ask this session this; it will ask you these questions; then it does this"), copy-ready templates, and a tested kit (shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows, scripts) installed with one command.
-- **What it gives you:** small releases every few days, an always-current SRS, a versioned changelog, and sessions that can restart without losing work.
+- **What it gives you:** a finished product, built fast and built right — requirements, code and documents that stay in step, deployments that are easy to run and to roll back, and a full trail of every decision and change.
 - **Built for:** Claude Code desktop, GitHub, Node.js. GitHub Free is enough.
 
 ## Start here
