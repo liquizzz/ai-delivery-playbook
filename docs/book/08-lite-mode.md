@@ -38,4 +38,6 @@ Move when any of these becomes true: a client or real users depend on it · mone
 
 **Claude does:** creates `staging` and the new worktrees, adds the deploy workflows, drafts the missing documents, updates `CLAUDE.md`, and the PO starts the end-of-day report.
 
-Next: [Appendix A — Templates](appendix-a-templates.md).
+> **Token tip:** Lite mode is the cheapest way to a demo: three sessions, no staging, one report a day.
+
+Next: [Chapter 9 — Token budget](09-token-budget.md).

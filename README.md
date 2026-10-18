@@ -9,9 +9,9 @@
 
 ## Start here
 
-1. Read [Chapter 0 — Introduction](docs/book/00-introduction.md) (5 minutes).
+1. Read [Chapter 0 — Introduction](docs/book/00-introduction.md) (5 minutes). It ends with a **Quick start: from idea to demo** in six prompts.
 2. Follow [Chapter 1 — Setup](docs/book/01-setup.md): open a Claude Code session in an empty folder and paste the setup prompt. It asks you a few questions, then installs everything.
-3. Talk to the PO session from then on.
+3. Talk to the PO session from then on. Keep [Appendix D — Process checklist](docs/book/appendix-d-checklist.md) at hand so no step is skipped, and [Chapter 9 — Token budget](docs/book/09-token-budget.md) to keep cost down.
 
 ## The book
 
@@ -23,12 +23,14 @@
 | 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1–G3) |
 | 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, run the morning plan, keep the milestone on date |
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
-| 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact and switch machines without losing work |
+| 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
 | 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds to the client while the product is built |
-| 8 | [Lite mode](docs/book/08-lite-mode.md) | Run a smaller version for POCs and small tools |
+| 8 | [Lite mode](docs/book/08-lite-mode.md) | Run a smaller version for demos, POCs and small tools |
+| 9 | [Token budget](docs/book/09-token-budget.md) | Keep cost under control; avoid `/goal` and `/loop` |
 | A | [Templates](docs/book/appendix-a-templates.md) | See every document the sessions fill in |
 | B | [Kit reference](docs/book/appendix-b-kit.md) | See what the kit installs and how to change it |
 | C | [FAQ and troubleshooting](docs/book/appendix-c-faq.md) | Fix common problems |
+| D | [Process checklist](docs/book/appendix-d-checklist.md) | Check that no step was skipped |
 
 ## A day with the team
 

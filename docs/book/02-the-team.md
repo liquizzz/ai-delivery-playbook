@@ -81,20 +81,15 @@ A blocked session sees the reason and changes course. An approval request appear
 | **1 Default** | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
 | **2 Sessions message each other** | The Lead notifies a session when it assigns work; the PO notifies the Lead when a CR is approved (Claude Code desktop can send messages between local sessions) | Open sessions; approve |
 | **3 Lead opens sessions** | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
-| **4 Scheduled checks** | Sessions check for work on a timer, e.g. Test every 30 minutes for merged PRs that need testing, the PO for the morning brief | Approve; watch cost |
+| **4 Timers (`/loop`, `/goal`)** | A session re-checks or keeps working on its own | **Not recommended:** every cycle costs tokens even when there is nothing to do |
 
-**Ask** — Lead session, to move to level 2 or 3:
+**Ask** — Lead session, to move to level 2 or 3 (recommended maximum):
 > From now on, message the receiving session when you assign work, and open the session yourself if it is not running.
 
 **Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
 
-**Ask** — Test session, for level 4:
-> /loop 30m Check for PRs merged into dev that need testing, test them by level and report.
-
-**Claude does:** checks on the timer, works when there is something to do, stays idle otherwise.
-
-**You check:** cost and noise after a day; stop the loop with "stop the loop" if it is not worth it.
-
 Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; approvals always wait for you; every running session uses tokens.
+
+> **Token tip:** levels 2–3 add almost no cost: a message only wakes a session when there is real work. Avoid level 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
 
 Next: [Chapter 3 — Foundation](03-foundation.md).

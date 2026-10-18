@@ -1,56 +1,35 @@
 # <Project name>
 
-<One paragraph: what the product does, for whom, and the success metric.>
+<One paragraph: what the product does, for whom, the success metric.>
 
-Delivered with the [AI Delivery Playbook](https://github.com/liquizzz/ai-delivery-playbook). Stage: <Foundation, next gate G# / Delivery, running milestone vX.Y.Z>.
+AI Delivery Playbook project. Stage: <Foundation, next gate G# / Delivery, milestone vX.Y.Z / Lite mode>.
 
-## Your role
-You are one role session of an AI team. Your role is in `.claude/role`; read `.claude/roles/<role>.md` before any work. Restart sentence: **"Read CLAUDE.md and continue as <Role>."**
+## Role
+Your role is in `.claude/role`; read `.claude/roles/<role>.md` first. Restart: "Read CLAUDE.md and continue as <role>." Flow: owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. Each role writes only its own paths and pushes only `role/<role>`; the Lead merges and releases.
 
-Work flows owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. The owner is the human who decides.
+## Ask the owner before
+The morning plan · L2–L3 CRs · scope, priority or date changes · releases to `main`, deployments and rollbacks · accounts, money, secrets, logins, deleting data · extra AI reviews. Never read or create secrets.
 
-| Role | Writes | Pushes |
-|---|---|---|
-| PO | `docs/product/`, `docs/reports/` | `role/po` |
-| Lead | `docs/tech/`, `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `.github/` templates, `docs/ai-log.md`; merges | all branches (`main`, `production`, tags, releases need the owner) |
-| Dev | `app/`, unit tests | `role/dev1`, `role/dev2` |
-| Test | `tests/`, `docs/tech/test-cases/`, `docs/tech/test-reports/` | `role/test` |
-| UI/UX | `design/`, `packages/tokens/` | `role/uiux` |
-| DevOps | `.github/workflows/`, `infra/`, `scripts/`, `docs/tech/ops/` | `role/devops` |
+## Where things are
+Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requirements `docs/tech/srs.md` (IDs `FR-xxx`, `NFR-xxx`) · specs `docs/tech/spec/` · ADRs `docs/tech/adr/` · reports `docs/reports/` · your work: `gh issue list --assignee @me`. Read only the section you need.
 
-## Stop and ask the owner
-The morning plan · L2–L3 CRs · scope, priority or date changes · releases to `main` and deployments or rollbacks to `production` · accounts, money, secrets, logins, deleting data · extra AI reviews (Codex / Claude). Never read or create secrets.
-
-## Read first
-- Product: `docs/product/proposal.md` · `docs/product/prd.md` · `docs/product/milestones/` (running milestone)
-- Requirements: `docs/tech/srs.md` (always current; IDs `FR-xxx`, `NFR-xxx`) · specs `docs/tech/spec/` · ADRs `docs/tech/adr/`
-- Latest report: `docs/reports/`
-- Your issues: `gh issue list --assignee @me` or by your `role:*` label
-
-## Stack
-- <language, framework, database, hosting>
-
-## Commands
-| Task | Command |
-|---|---|
-| Install | `pnpm install` |
-| Run locally | `pnpm dev` (port from `.env.local`) |
-| Unit tests | `<...>` |
-| Lint / type check | `<...>` |
-| New role worktree | `node scripts/new-role-worktree.mjs <role>` |
-| Release (Lead) | `node scripts/release.mjs` (dry run) · `--write` |
+## Stack and commands
+- Stack: <language, framework, database, hosting>
+- Install `pnpm install` · run `pnpm dev` (port in `.env.local`) · test `<...>` · lint `<...>`
+- New worktree `node scripts/new-role-worktree.mjs <role>` · release (Lead) `node scripts/release.mjs [--write]`
 
 ## Rules
-- **Ask first, then finish.** Before starting any request, check what the result needs (the template's fields, acceptance criteria, scope, priority, milestone, change level, who approves). If anything is missing or ambiguous, ask **all** your questions in **one** numbered list, each with your proposed answer, and wait. After the answers, do the whole task without further questions unless something new comes up. If nothing is missing, say so in one line and start.
-- **Docs lead code.** The SRS and the CR spec are merged into `dev` before a task is assigned. If they are wrong or unclear, ask (Dev/Test → Lead, Lead → PO); never deviate silently.
-- **Decided means written.** Record a decision in the CR, issue, DEC or ADR the moment it is made.
-- **One task in progress** per team member. Work only on assigned issues and only in the paths your role writes.
-- **Git:** work in your own worktree on `role/<role>`; update from `dev` with merge, never rebase; never force push `dev`, `staging` or `main`; never use `--no-verify`. Commit often: `<type>(<module>): <summary> (#n)`. When done: push your role branch, open a PR into `dev` with `Closes #n`, send the Lead the link.
-- **Change levels:** L0 display · L1 setting · L2 module logic · L3 core; money, security, user data and deletes are always L3. Test per level as in `docs/tech/test-strategy.md`.
-- **Hand-offs** are comments on the issue (template in your role file). Messages between sessions only notify, with a link.
-- **Secrets:** real values live in `.env` / `.env.local` (git-ignored); `.env.example` holds `CHANGE_ME`. The secret-check hook runs on every commit.
-- <Project hard rules, e.g. client data stays in the client's environment; read-only access to source databases.>
-- The Lead adds one line per finished task to `docs/ai-log.md`.
+- **Ask first, then finish.** If a request lacks anything the result needs (template fields, acceptance, scope, priority, milestone, level, approver), ask all questions in one numbered list with a proposed answer each, wait, then do the whole task. If nothing is missing, say so and start.
+- **Docs lead code.** SRS and spec are on `dev` before a task starts. Unclear? Ask (Dev/Test → Lead → PO); never deviate silently.
+- **Decided means written** — in the CR, issue, DEC or ADR, at once.
+- **One task in progress**, only assigned issues, only your paths.
+- **Git:** own worktree; merge `dev` in, never rebase; no force push to `dev`/`staging`/`main`; no `--no-verify`. Commit `<type>(<module>): <summary> (#n)`. Done = push your branch, PR into `dev` with `Closes #n`, send the Lead the link.
+- **Change level** L0 display · L1 setting · L2 module logic · L3 core (money, security, personal data, deletes are always L3). Confirm the level against the actual change before testing; test only that scope; raise it if wider, never lower it.
+- **Hand-offs** are issue comments: `Hand-off <from> → <to> · #n · Done / Needs changes / Blocked · <branch>@<sha> · L<n> · <module> · done: … · next: … · risks: …`. Messages between sessions only notify, with a link.
+- **Tokens:** no `/goal` or `/loop` unless the owner asks; short command output; paste only the relevant lines; stop when the step is done.
+- **Secrets** live in git-ignored `.env*`; `.env.example` holds `CHANGE_ME`.
+- <Project hard rules.>
+- The Lead logs each finished task in `docs/ai-log.md`.
 
 ## Compact instructions
-When compacting, always keep: your role; the issue you are working on (number, status, next step); branch and last commit; decisions made and their reasons; items waiting for the owner; open risks; plus the role-specific items in your role file. Drop long command output, file contents already read and rejected options. After compacting, re-run the recovery steps in your role file before continuing.
+Keep: role; current issue (number, status, next step); branch and last commit; decisions and reasons; items waiting for the owner; open risks; role-specific items from your role file. Drop command output, file contents already read, rejected options. After compacting, re-run your role file's recovery steps.

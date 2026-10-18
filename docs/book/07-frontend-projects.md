@@ -50,4 +50,6 @@ Design deploys from `dev`, so a new round reaches the client as soon as it is me
 
 **You check:** the build tasks in the next milestone.
 
+> **Token tip:** collect the client's comments into one feedback message per round instead of forwarding them one by one; close the UI/UX session between rounds.
+
 Next: [Chapter 8 — Lite mode](08-lite-mode.md).

@@ -26,7 +26,20 @@
 ```
 Team members also comment when they start, finish a major part, get blocked or finish.
 
-## 3. Compact a long session
+## 3. Trace a change
+
+**What it does:** answers "why does it work like this?" months later, from the record, so a fix or change starts from facts instead of memory.
+
+**Ask** — Lead session:
+> Why does `<behaviour>` work like this? Trace it.
+
+**Claude asks you:** only if the behaviour is ambiguous — which screen, feature or version.
+
+**Claude does:** finds the requirement in the SRS (`FR-xxx`, its origin and version), the CR and its acceptance criteria, the DEC or ADR behind it, the PRs and commits that built it and the release that shipped it; answers in a short chain: *FR-021 → CR-12 (DEC-4) → PR #47 → v1.4.0*, with links.
+
+**You check:** the chain. To change the behaviour, ask the PO for a CR that references it ([chapter 4](04-delivery-loop.md)).
+
+## 4. Compact a long session
 
 **What it does:** frees context without losing the thread.
 
@@ -37,13 +50,13 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 **You do:** type `/compact`. The compact instructions in `CLAUDE.md` keep role, current issue, branch and last commit, decisions, items waiting for you and open risks. To drop only a side discussion, use rewind → "Summarize from here".
 
-## 4. Work from a second machine
+## 5. Work from a second machine
 
 **What it does:** lets you follow and approve while away from the main machine.
 
 **You do:** read reports and PRs on GitHub (web or mobile); drive the main machine's sessions remotely (Remote Control / claude.ai). Never open a second session for a role that is already running.
 
-## 5. Move the team to another machine
+## 6. Move the team to another machine
 
 **Ask** — PO session on the old machine:
 > We are moving the team to another machine. Get every role ready.
@@ -54,5 +67,7 @@ Team members also comment when they start, finish a major part, get blocked or f
 > Recreate the worktrees for `<roles>`.
 
 Then open each role's session with the restart sentence. Fill in each `.env.local` yourself.
+
+> **Token tip:** a fresh session with the restart sentence is often cheaper than a long, compacted one; restart instead of compacting a second time.
 
 Next: [Chapter 7 — Front-end projects](07-frontend-projects.md).

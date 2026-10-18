@@ -94,4 +94,6 @@ These involve your machine, accounts or secrets:
 ```
 It uses your ChatGPT login and Codex limits; Claude's `/code-review` is the fallback. Usage: chapter 2.
 
+> **Token tip:** close the setup session as soon as PO and Lead are open; open other roles only when their first task is Ready.
+
 Next: [Chapter 2 — The team](02-the-team.md).

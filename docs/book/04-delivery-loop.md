@@ -74,15 +74,29 @@ A task is **Done** when it is pushed, its PR (`Closes #n`) passed CI and the Lea
 
 **You check:** choose. Only you can move the date.
 
-## Testing by level (reference)
+## 7. Test by change level
+
+**What it does:** tests exactly what the change level requires, so small changes cost little and risky ones are covered. The level is **confirmed before** any test starts.
 
 | Level | Dev before the PR | Test after merge |
 |---|---|---|
-| L0 | Build, lint, local check | In the milestone regression |
-| L1 | + unit tests for the change | Check the changed spot |
-| L2 | + unit tests; main scenario locally | Module scenarios |
-| L3 | + integration tests, edge cases | Core scenarios, related modules, part of regression |
+| L0 Display | Build, lint, local look | None now; covered by the milestone regression |
+| L1 Setting | + unit tests for the change | Check the changed spot only |
+| L2 Module logic | + unit tests; main scenario locally | That module's scenarios (by `FR-xxx`) |
+| L3 Core | + integration tests, edge cases | Core scenarios, related modules, part of the regression |
 
-The Lead sets the level; a Dev may raise it, never lower it. Full regression runs on `staging` before every release.
+**Claude does** — on its own, for every task:
+1. **Confirms the level first.** The tester (Dev before the PR, Test after the merge) reads the task's level and the files actually changed, and writes one line on the issue: *"Level L1 confirmed: only the default page size changed; testing the list page only."*
+2. **Raises the level if the change is wider than the label** (e.g. an "L1" that touched shared code or data becomes L3) and tells the Lead; it never lowers a level on its own.
+3. **Tests only that scope**, then records the result on the issue.
+
+**Ask** — Lead session, when you doubt a level:
+> Is #42 really L1? Show me what changed.
+
+**Claude does:** compares the diff with the level rules and confirms or raises it.
+
+Full regression runs on `staging` before every release, whatever the levels.
+
+> **Token tip:** most tasks are L0–L1. Keeping them at "build + changed spot" is where most testing tokens are saved; do not ask for a full regression after each merge.
 
 Next: [Chapter 5 — Releases](05-releases.md).

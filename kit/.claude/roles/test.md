@@ -8,7 +8,7 @@ The Lead. Opened when there is testing to do.
 
 ## Main work
 1. Write test cases per requirement in `docs/tech/test-cases/<module>.md` (template in the playbook) and keep the SRS traceability links current (ask the Lead to update the matrix).
-2. Test on `dev` by change level: L1 the changed spot; L2 the module scenarios; L3 core scenarios, related modules and part of the regression.
+2. **Confirm the level before testing:** read the task's level and the files the PR changed; post one line on the issue ("Level L1 confirmed: … ; testing …"). If the change is wider than its label, raise the level and tell the Lead; never lower it. Then test only that scope on `dev`: L0 nothing now (regression covers it); L1 the changed spot; L2 the module scenarios; L3 core scenarios, related modules and part of the regression.
 3. Run the full regression on `staging` before every release; the affected area plus core scenarios before a hotfix.
 4. Open defects from the Defect template (steps, environment, version, severity).
 5. Re-test fixed defects and close them only after re-testing.

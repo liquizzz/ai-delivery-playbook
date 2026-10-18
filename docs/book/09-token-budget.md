@@ -1,0 +1,40 @@
+# Chapter 9 — Token budget
+
+**Purpose:** get the product built for a reasonable cost. Most token waste comes from sessions that run without a reason, contexts that grow too large and work that is checked more than it needs.
+
+## The biggest costs, and what to do
+
+| Cost driver | Do this |
+|---|---|
+| **`/goal` and `/loop`** — a session keeps working or re-checking on its own, every cycle re-reading context | **Avoid them.** Give one clear prompt per step and let the session finish and stop. If you must use `/loop`, use a long interval (hours, not minutes), a clear stop condition, and stop it the same day |
+| **Too many open sessions** — each running session holds its own context | Open the minimum team (PO, Lead, one Dev). Open Test, UI/UX, DevOps only when there is work; close any session idle for a day |
+| **Large contexts** — long sessions re-send everything on every turn | Compact after each task or hand-off ([chapter 6](06-continuity.md)). Start a fresh session (restart sentence) instead of carrying a huge one |
+| **Reading whole documents** — the SRS and specs grow every release | Ask for the section you need: "read §3.2 of the SRS", "read the spec of CR-12" |
+| **Long pasted logs** | Paste only the error and a few lines around it |
+| **Many small questions** | Answer the morning brief's decisions in one reply; let "ask first, then finish" batch the questions |
+| **Over-testing** | Test by change level ([chapter 4](04-delivery-loop.md)); full regression only before a release |
+| **Extra AI reviews** | Only for L3, money, security or data, and before a release; you decide each time |
+| **Strong model everywhere** | Use the strongest model for the Lead (design, review); a cheaper, faster model is often enough for Dev and Test on routine tasks. Change it in the session's model setting |
+| **Verbose command output** | Ask sessions for short output (`--quiet`, `git log --oneline`); a tool that condenses command output helps further |
+
+## Habits that keep cost low
+
+1. **One step, one prompt, then stop.** Each prompt in this book ends when the step is done.
+2. **Close what is idle.** Nothing is lost: work lives in issues, documents and git.
+3. **Compact at natural breaks**, never in the middle of a fix.
+4. **Keep `CLAUDE.md` and role files short.** Every session reads them on every start; the kit keeps them brief.
+5. **Lite mode for demos** ([chapter 8](08-lite-mode.md)): fewer sessions, fewer documents, fewer tokens.
+6. **Plan before building.** A clear CR and spec avoid rework, which is the most expensive token of all.
+
+## Check what you spend
+
+**Ask** — any session, at the end of a day:
+> How much context are you holding, and should I compact or restart you?
+
+**Claude does:** reports its context size and recommends compacting or restarting with the restart sentence.
+
+**You check:** your plan's usage page once a day during the first week, to learn what a milestone costs; then once a week.
+
+> **Token tip:** if a milestone costs much more than the last one, ask the Lead: "Why did v0.4.0 cost more than v0.3.0?" The usual answers are a long-running session, a `/loop`, or rework from an unclear CR.
+
+Next: [Appendix A — Templates](appendix-a-templates.md).

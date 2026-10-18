@@ -4,8 +4,9 @@ Closes #
 ## Change
 <!-- What changed, in a few lines -->
 
-## Change level
+## Change level (confirmed against the files changed)
 - [ ] L0 display  - [ ] L1 setting  - [ ] L2 module logic  - [ ] L3 core
+- Same as the task's label? If wider, say why and tell the Lead:
 
 ## Checked
 - [ ] Build and lint pass

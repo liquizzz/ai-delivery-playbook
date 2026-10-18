@@ -66,4 +66,6 @@
 
 **Claude asks before:** running the deploy workflow; moving the `production` branch (only if the old version must stay live for a long time).
 
+> **Token tip:** run the full regression once per release, on `staging`, not after every merge. Close the Test session when the report is written.
+
 Next: [Chapter 6 — Continuity](06-continuity.md).
