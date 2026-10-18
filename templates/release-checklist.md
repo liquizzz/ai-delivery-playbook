@@ -18,28 +18,29 @@ Save as `docs/releases/vX.Y.Z.md`. Prepared by the Lead; the summary at the top 
 - [ ] Every milestone issue is Done or moved to the next milestone with a note
 - [ ] `dev` merged into `staging`; full regression passed (`docs/tech/test-reports/vX.Y.Z.md`); eval meets pass marks: <metric = value>
 - [ ] No open `sev:high` or `sev:medium` defects (or accepted by the owner: <#>)
-- [ ] Owner acceptance: the owner tried each scenario on staging and confirmed it
+- [ ] Owner acceptance: the owner tried each scenario on the `:staging` image and confirmed it
+- [ ] `release` script run: version computed from labels, `CHANGELOG.md` finalised, SRS version and Revision History updated
+- [ ] Secret check passes; no credentials or client data in the repo or images
+- [ ] Migrations reviewed; backup plan and rollback steps written (breaking or L3 data changes)
 
-## Owner acceptance scenarios (PO writes, owner tries on staging)
+## Owner acceptance scenarios (PO writes, owner tries on the staging image)
 | # | Scenario (plain steps) | Expected | Owner result |
 |---|---|---|---|
 | 1 | <Log in as … → do … → see …> | <...> | <ok / problem: …> |
 | 2 | <...> | <...> | <...> |
-- [ ] `release` script run: version computed from labels, `CHANGELOG.md` finalised, SRS version and Revision History updated
-- [ ] Secret check passes; no credentials or client data in the repo or build
-- [ ] Migrations reviewed; backup plan and rollback steps written (breaking or L3 data changes)
 
 ## Release (after the owner approves)
 - [ ] `staging` merged into `main`; tag `vX.Y.Z` pushed; GitHub release created from the changelog
 
-## Deployment (after the owner approves; from 1.0.0)
-- [ ] `production` moved to tag `vX.Y.Z`; pipeline green
+## Deployment (done by the owner; from 1.0.0)
+- [ ] Image `ghcr.io/<owner>/<project>-app:vX.Y.Z` built by `image-app`
+- [ ] Owner deployed it with their own setup; `production` branch moved to tag `vX.Y.Z`
 - [ ] Migrations applied
 - [ ] Smoke test of the main journey passed
 - [ ] Errors and monitoring checked for <30 min>
 
 ## Rollback (only if needed, owner approves)
-- [ ] Previous tag <vA.B.C> redeployed through the production pipeline (manual run)
+- [ ] Owner ran the previous image <vA.B.C> (e.g. `IMAGE_TAG=vA.B.C docker compose up -d`); data changes checked against the rollback plan
 - [ ] Defect `sev:high` opened; fix planned as hotfix <vX.Y.(Z+1)>
 - [ ] Recorded in the daily report and `CHANGELOG.md`
 

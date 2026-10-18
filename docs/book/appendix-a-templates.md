@@ -1,8 +1,8 @@
-# Appendix A — Templates
+# Appendix A: Templates
 
 **Purpose:** the documents sessions fill in. You rarely open them yourself: the session copies the template, asks you what is missing, and fills it in.
 
-**Ask** — any session:
+**Ask any session:**
 > Use the `<template>` template for `<topic>`.
 
 | Template | Written by | Saved as | Used in |

@@ -1,4 +1,4 @@
-# Appendix C — FAQ and troubleshooting
+# Appendix C: FAQ and troubleshooting
 
 **Purpose:** quick answers to the questions and problems that come up most.
 
@@ -48,6 +48,9 @@ Paste it to the PO: "Client request: …". It becomes a CR like any other.
 Tell the PO: "I am away until `<date>`. Keep working on approved items only; queue every decision for my return." Nothing that needs you will happen; work continues on what is already approved.
 
 ## Tools
+
+**`init.mjs` says Docker is missing.**
+Docker is required. Install Docker Desktop (Windows, macOS) or Docker Engine with the Compose plugin (Linux), check `docker compose version`, then run init again. If it says Docker is not running, start Docker Desktop.
 
 **Codex review fails or is out of quota.**
 The Lead reports it; reply "use /code-review instead" or "skip".

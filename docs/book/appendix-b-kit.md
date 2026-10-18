@@ -1,4 +1,4 @@
-# Appendix B — Kit reference
+# Appendix B: Kit reference
 
 **Purpose:** what `kit/init.mjs` installs in a project, what each part does, and how to change it with Claude.
 
@@ -10,20 +10,41 @@
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2) |
 | `.claude/hooks/role-guard.test.cjs` | 78 test cases for the hook, including wrapped and nested commands |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
-| `.claude/settings.json` | Registers the hook; shared allow and deny rules |
+| `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
 | `.claude/commands/gate.md` | `/gate G1`…`G6`: checks a gate against the repo and GitHub |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
-| `.github/workflows/` | **Templates** — `ci`, `docs-check`, `deploy-design`, `deploy-staging`, `deploy-production` — written for a pnpm front end on Cloudflare Pages, with `<project>` placeholders. Adapt them before the first deploy (chapter 1, step 4); for other stacks see below |
+| `.github/workflows/` | `ci`, `docs-check`, `image-design` and `image-app`: checks on every PR, and Docker images built per folder into `ghcr.io` |
+| `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |
 
+## Plugins
+
+The kit's `.claude/settings.json` declares the minimum set, so Claude Code offers to install it when a session opens the project and every role uses the same plugins.
+
+| Plugin | Marketplace (`/plugin marketplace add …`) | Who uses it | Level |
+|---|---|---|---|
+| superpowers | `anthropics/claude-plugins-official` (built in) | All roles | Required |
+| code-review | built in | Lead | Required |
+| github | built in | All roles | Required |
+| claude-mem | `thedotmack/claude-mem` | All roles | Required |
+| context7 | built in | Dev, Lead | Recommended |
+| frontend-design | built in | UI/UX, Dev on front ends | For products with a UI |
+| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX | For products with a UI |
+| figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
+| product-management | `anthropics/knowledge-work-plugins` | PO | Optional |
+| codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
+| humanizer | `blader/humanizer` | PO | Optional: client-facing text |
+
+Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plugins`. Each plugin adds its skill list to every session's context, and claude-mem also adds context at each session start, so leave out what the project does not use. To see what a plugin costs, run `claude plugin details <plugin>` in a terminal: it lists the plugin's skills, agents and hooks and its projected token cost per session (the Codex plugin, for example, adds about 450 tokens). To add a project-specific plugin for the whole team, ask the Lead: "Add `<plugin>` to the project's plugin list."
+
 ## Change the kit for one project
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > `<what you want to change>`, e.g. "Dev also owns the `db/` folder" or "Allow the Test role to run the e2e workflow".
 
 **Claude asks you:** which roles it affects and whether the change should go back to the playbook too.
@@ -32,26 +53,26 @@
 
 **Claude asks before:** nothing, unless the change touches a gate (pushing `main`, releases), which it will not loosen without you saying so explicitly.
 
-## Pipelines for another stack
+## Docker for another stack
 
-**What it does:** replaces the front-end workflow templates with pipelines for your stack (API server, database, containers, a VPS or another cloud).
+**What it does:** replaces the example Dockerfiles with ones for your stack (API server, database, worker, another language) while keeping one image per part and the per-folder builds.
 
-**Ask** — Lead session (or DevOps):
-> Our stack is `<stack>`. Redesign the CI/CD workflows for it, keeping the same branch rules: CI on PRs and dev, staging from staging, production from production with a manual tag rollback.
+**Ask the Lead** (or DevOps):
+> Our stack is `<stack>`. Rewrite the Docker setup and image workflows for it, keeping one image per part and builds only when that part changes.
 
 **Claude asks you:**
-1. Where each environment runs (host, region) and how it is reached.
+1. The services and how they talk to each other.
 2. Build, test and migration commands; how the database is migrated and backed up.
-3. Secrets the pipelines need (names only) and who creates them.
-4. Health check URL or command for the smoke test.
+3. Environment variables each service needs (names only).
+4. A health check URL or command for the smoke test.
 
-**Claude does:** rewrites `.github/workflows/`, keeps `deploy-production` disabled until go-live, writes deploy and rollback steps and secret names in `docs/tech/ops/`, runs CI on a test PR.
+**Claude does:** rewrites `docker-compose.yml`, `docker/` and the `image-*` workflows; writes run, migration and rollback commands and variable names in `docs/tech/ops/`; runs `docker compose up --build` and CI on a test PR.
 
-**Claude asks before:** running any workflow.
+**Claude asks before:** running any workflow by hand.
 
 ## Update a project to a newer kit
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > Update this project to the latest kit from `<path to playbook>`. Show me what changes first.
 
 **Claude does:** compares the project's kit files with the playbook, lists differences, keeps project-specific edits, applies the update after you agree, runs the tests.

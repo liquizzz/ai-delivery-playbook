@@ -8,20 +8,21 @@ AI Delivery Playbook project. Stage: <Foundation, next gate G# / Delivery, miles
 Your role is in `.claude/role`; read `.claude/roles/<role>.md` first. Restart: "Read CLAUDE.md and continue as <role>." Flow: owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. Each role writes only its own paths and pushes only `role/<role>`; the Lead merges and releases.
 
 ## Ask the owner before
-The morning plan · L2–L3 CRs · scope, priority or date changes · releases to `main`, deployments and rollbacks · accounts, money, secrets, logins, deleting data · extra AI reviews. Never read or create secrets.
+The morning plan · L2-L3 CRs · scope, priority or date changes · releases to `main`, deployments and rollbacks · accounts, money, secrets, logins, deleting data · extra AI reviews. Never read or create secrets.
 
 ## Where things are
 Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requirements `docs/tech/srs.md` (IDs `FR-xxx`, `NFR-xxx`) · specs `docs/tech/spec/` · ADRs `docs/tech/adr/` · reports `docs/reports/` · your work: `gh issue list --assignee @me`. Read only the section you need.
 
 ## Stack and commands
 - Stack: <language, framework, database, hosting>
-- Install `pnpm install` · run `pnpm dev` (port in `.env.local`) · test `<...>` · lint `<...>`
+- Install `pnpm install` · run `pnpm dev` (port in `.env.local`) or `docker compose up --build` · test `<...>` · lint `<...>`
+- Everything runs in Docker; each release tag builds an image. Deployment to servers is the owner's own process.
 - New worktree `node scripts/new-role-worktree.mjs <role>` · release (Lead) `node scripts/release.mjs [--write]`
 
 ## Rules
 - **Ask first, then finish.** If a request lacks anything the result needs (template fields, acceptance, scope, priority, milestone, level, approver), ask all questions in one numbered list with a proposed answer each, wait, then do the whole task. If nothing is missing, say so and start.
 - **Docs lead code.** SRS and spec are on `dev` before a task starts. Unclear? Ask (Dev/Test → Lead → PO); never deviate silently.
-- **Decided means written** — in the CR, issue, DEC or ADR, at once.
+- **Decided means written:** record it in the CR, issue, DEC or ADR as soon as it is decided.
 - **One task in progress**, only assigned issues, only your paths.
 - **Git:** own worktree; merge `dev` in, never rebase; no force push to `dev`/`staging`/`main`; no `--no-verify`. Commit `<type>(<module>): <summary> (#n)`. Done = push your branch, PR into `dev` with `Closes #n`, send the Lead the link.
 - **Change level** L0 display · L1 setting · L2 module logic · L3 core (money, security, personal data, deletes are always L3). Confirm the level against the actual change before testing; test only that scope; raise it if wider, never lower it.

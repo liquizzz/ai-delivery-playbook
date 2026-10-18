@@ -1,45 +1,47 @@
-# Chapter 5 — Releases
+# Chapter 5: Releases
 
 **Purpose:** ship each milestone as a numbered, approved version, and get back fast when something goes wrong.
 
-**Version rules:** `MAJOR.MINOR.PATCH`, computed from the labels of the milestone's closed issues: any `breaking` → MAJOR (from 1.0.0) · any `type:feature`/`type:change` → MINOR · only `type:fix` → PATCH. Before go-live versions are `0.x.y`. Every merge into `main` is a version. **Breaking** = something that works in production stops working the same way (data migration, changed API or core flow, different business result); it needs upgrade steps and a rollback plan in its spec.
+**Version rules:** `MAJOR.MINOR.PATCH`, computed from the labels of the milestone's closed issues: any `breaking` → MAJOR (from 1.0.0) · any `type:feature`/`type:change` → MINOR · only `type:fix` → PATCH. Before go-live versions are `0.x.y`. Every merge into `main` is a version. Breaking = something that works in production stops working the same way (data migration, changed API or core flow, different business result); it needs upgrade steps and a rollback plan in its spec.
+
+**What a release gives you:** a git tag `vX.Y.Z` and a Docker image `ghcr.io/<owner>/<project>-app:vX.Y.Z`, built by the `image-app` workflow. You run that image wherever you run the product. Choosing and operating servers is your part; this book assumes you already know how you will do it.
 
 ## 1. Release a milestone
 
-**What it does:** turns a finished milestone into an approved version with an updated changelog and SRS — after **you have tried it yourself**. AI tests check what the SRS says; only you can confirm it is what the business needs.
+**What it does:** turns a finished milestone into an approved version with an updated changelog and SRS, once you have tried it yourself. AI tests check what the SRS says; only you can confirm it is what the business needs.
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > Milestone `v1.4.0` is done. Prepare the release and my acceptance test.
 
-**Claude asks you:** only if something is open — unfinished issues (move them or wait?), open medium defects (accept or fix first?).
+**Claude asks you:** only if something is still open: unfinished issues (move them or wait?) or open medium defects (accept or fix first?).
 
 **Claude does:**
-- merges `dev` into `staging`; asks Test for the full regression and waits for the report;
-- with the PO, writes **3–5 acceptance scenarios** from the milestone's acceptance criteria, in plain steps ("Log in as a sales user → create an order with 2 items → total shows 1,250,000 VND"), and sends them with the staging link;
+- merges `dev` into `staging`, which builds the `:staging` image; asks Test for the full regression and waits for the report;
+- with the PO, writes 3-5 acceptance scenarios from the milestone's acceptance criteria, in plain steps ("Log in as a sales user → create an order with 2 items → total shows 1,250,000 VND"), and tells you how to run the staging image (`IMAGE_TAG=staging docker compose up`, or your own staging server);
 - runs `scripts/release.mjs` (version from labels; `CHANGELOG.md` and SRS Revision History updated);
 - writes `docs/releases/v1.4.0.md` ([template](../../templates/release-checklist.md)).
 
-**You do:** try each scenario on staging, plus anything you know real users do. Reply per scenario: "1 ok, 2 ok, 3 wrong total when discount applied".
+**You do:** try each scenario, plus anything you know real users do. Reply per scenario: "1 ok, 2 ok, 3 wrong total when discount applied".
 
 **Claude does:** turns each failure into a defect and fixes it in this milestone (or, if you agree, the next); when all pass, sends the summary:
-  > **v1.4.0** (from v1.3.2) · MINOR · CR-12, CR-15 · Fixed: #88, #91 · SRS §3.2, §5.1 · Regression passed · **Owner acceptance passed (5/5)** · Codex: 3 findings, 2 fixed · Risks: … · Buffer used: ½ day → **Approve / Approve and deploy / Reject**
+  > **v1.4.0** (from v1.3.2) · MINOR · CR-12, CR-15 · Fixed: #88, #91 · SRS §3.2, §5.1 · Regression passed · Owner acceptance passed (5/5) · Codex: 3 findings, 2 fixed · Risks: … · Buffer used: ½ day → Approve / Reject
 
-**You check:** the summary; reply **Approve**, **Approve and deploy** or **Reject** (with a reason).
+**You check:** the summary; reply Approve or Reject (with a reason). After Approve, the Lead merges into `main` and pushes the tag, and the `:v1.4.0` image is built. Deploy it when you choose.
 
-**Claude asks before:** pushing `main`, pushing the tag, creating the GitHub release, moving `production`.
+**Claude asks before:** pushing `main`, pushing the tag, creating the GitHub release.
 
 ## 2. Go live (first production release)
 
-**What it does:** creates `production`, turns on deployment and declares 1.0.0.
+**What it does:** marks the first live version, declares 1.0.0 and gives you what you need to deploy it.
 
-**Ask** — Lead session:
-> We are ready to go live. Prepare it.
+**Ask the Lead:**
+> We are ready to go live with `<version>`. Prepare the deployment notes.
 
-**Claude asks you:** which version goes live; the go-live time; who does the smoke test with you.
+**Claude asks you:** where it will run (only to tailor the notes), the go-live time, and who does the smoke test with you.
 
-**Claude does:** creates `production` from the chosen tag; tells you to enable the `deploy-production` workflow; watches the deployment and runs the smoke test; marks the next release as `1.0.0`.
+**Claude does:** creates the `production` branch from the chosen tag, which records what is live; writes `docs/tech/ops/deploy.md`: image tags, environment variables (names only), data migration and backup steps, the smoke test, and the rollback command; marks the next release as `1.0.0`.
 
-**You check:** the smoke test result.
+**You do:** deploy the image with your own setup, run the smoke test and tell the Lead the result.
 
 **Claude asks before:** pushing `production`.
 
@@ -47,30 +49,30 @@
 
 **What it does:** fixes a serious production defect outside the milestone.
 
-**Ask** — Lead session (or the PO routes it):
+**Ask the Lead** (or let the PO route it):
 > Production defect: `<what happens>`. Hotfix it.
 
 **Claude asks you:** steps to reproduce, who is affected, severity (proposed), workaround if any.
 
-**Claude does:** opens a `sev:high` defect; branches `hotfix/*` from `production`; a Dev fixes; Test checks the area and core scenarios; prepares `vX.Y.(Z+1)`; after your approval merges into `production` and `main`, then back into `staging` and `dev`.
+**Claude does:** opens a `sev:high` defect; branches `hotfix/*` from `production`; a Dev fixes; Test checks the area and core scenarios; prepares `vX.Y.(Z+1)`; after your approval merges into `production` and `main`, then back into `staging` and `dev`. The new tag builds a new image.
 
-**You check:** the fix summary; approve the release.
+**You do:** deploy the hotfix image.
 
 ## 4. Roll back
 
-**What it does:** puts the previous version back live in minutes.
+**What it does:** puts the previous version back live in minutes, because every release is a separate image.
 
-**Ask** — Lead session:
-> Roll back production to the previous version.
+**Ask the Lead:**
+> Production has a problem. Prepare a rollback to the previous version.
 
 **Claude asks you:** confirm the target version (proposed: the last tag before the current one) and the reason.
 
-**Claude does:** redeploys that tag through the production pipeline; opens a `sev:high` defect for the fix; records the rollback in the daily report and `CHANGELOG.md`.
+**Claude does:** checks whether data changes in between can be undone (from the spec's rollback plan), gives you the exact command for your setup, e.g. `IMAGE_TAG=v1.3.2 docker compose up -d`, opens a `sev:high` defect for the fix, and records the rollback in the daily report and `CHANGELOG.md`.
 
-**You check:** production works again.
+**You do:** run the rollback and confirm production works again.
 
-**Claude asks before:** running the deploy workflow; moving the `production` branch (only if the old version must stay live for a long time).
+**Claude asks before:** moving the `production` branch back (only if the old version will stay live for a long time).
 
 > **Token tip:** run the full regression once per release, on `staging`, not after every merge. Close the Test session when the report is written.
 
-Next: [Chapter 6 — Continuity](06-continuity.md).
+Next: [Chapter 6: Continuity](06-continuity.md).

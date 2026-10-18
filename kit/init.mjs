@@ -6,7 +6,7 @@
 //   node <playbook>/kit/init.mjs <project folder> [--force]
 //
 // It creates the folder and a git repo if needed, copies the kit (CLAUDE.md, .claude/, .github/, scripts/,
-// /gate command, secret-check hook), creates the docs folders and CHANGELOG.md, updates .gitignore and
+// /gate command, secret-check hook, docker-compose.yml and docker/), creates the docs folders and CHANGELOG.md, updates .gitignore and
 // creates the dev and staging branches. Existing files are kept unless --force is given.
 // It never pushes, never touches GitHub settings and never writes secrets.
 import { execSync } from "node:child_process";
@@ -21,6 +21,30 @@ if (!target) {
   console.error("Usage: node <playbook>/kit/init.mjs <project folder> [--force]");
   process.exit(1);
 }
+
+// 0. Required tools. Docker is required: every part of the product runs in it.
+function version(cmd) {
+  try {
+    return execSync(cmd, { stdio: ["ignore", "pipe", "ignore"] }).toString().trim().split("\n")[0];
+  } catch {
+    return null;
+  }
+}
+const missingTools = [];
+const nodeMajor = Number(process.versions.node.split(".")[0]);
+if (nodeMajor < 20) missingTools.push(`Node.js 20 or newer (found ${process.versions.node}): https://nodejs.org`);
+if (!version("git --version")) missingTools.push("Git: https://git-scm.com/downloads");
+const docker = version("docker --version");
+if (!docker) missingTools.push("Docker (Docker Desktop on Windows and macOS, Docker Engine on Linux): https://docs.docker.com/get-docker/");
+else if (!version("docker compose version")) missingTools.push(`Docker Compose v2 (found ${docker}, but "docker compose" does not work): https://docs.docker.com/compose/install/`);
+if (missingTools.length) {
+  console.error("Cannot set up the project. Install these first, then run init again:\n  - " + missingTools.join("\n  - "));
+  process.exit(1);
+}
+if (!version("docker info --format {{.ServerVersion}}")) {
+  console.warn("Warning: Docker is installed but not running. Start Docker before running the project.\n");
+}
+if (!version("gh --version")) console.warn("Warning: the GitHub CLI (gh) is not installed; you need it to connect GitHub (chapter 1).\n");
 
 const kit = path.dirname(fileURLToPath(import.meta.url));
 const playbook = path.dirname(kit);
@@ -72,6 +96,10 @@ copyFile(path.join(kit, "commands", "gate.md"), path.join(".claude", "commands",
 copyDir(path.join(kit, ".github"), ".github");
 copyDir(path.join(kit, "scripts"), "scripts");
 copyFile(path.join(playbook, "templates", "changelog.md"), "CHANGELOG.md");
+copyFile(path.join(kit, "docker", "docker-compose.yml"), "docker-compose.yml");
+copyFile(path.join(kit, "docker", "design.Dockerfile"), path.join("docker", "design.Dockerfile"));
+copyFile(path.join(kit, "docker", "app.Dockerfile"), path.join("docker", "app.Dockerfile"));
+copyFile(path.join(kit, "docker", ".dockerignore"), ".dockerignore");
 
 // 3. Docs folders
 const folders = [
@@ -135,7 +163,8 @@ console.log(`Created (${created.length}):\n  ${created.join("\n  ")}`);
 if (kept.length) console.log(`\nKept existing (${kept.length}, use --force to overwrite):\n  ${kept.join("\n  ")}`);
 console.log(`
 Next steps (chapter 1 of the book):
-  1. Fill in CLAUDE.md (product, stack, commands); adjust .claude/ownership.json if your folders differ.
+  1. Fill in CLAUDE.md (product, stack, commands); adjust .claude/ownership.json if your folders differ;
+     adapt docker-compose.yml and docker/*.Dockerfile to the stack (replace <owner> and <project>).
   2. node .claude/hooks/role-guard.test.cjs        (checks the guardrails)
   3. Commit, create the GitHub repo, push main, dev and staging.
   4. gh auth refresh -s project ; node scripts/setup-labels.mjs ; create the board and the first milestone.

@@ -1,4 +1,4 @@
-# Chapter 6 — Continuity
+# Chapter 6: Continuity
 
 **Purpose:** close, compact or move any session and have it continue within a minute, without retelling anything.
 
@@ -8,7 +8,7 @@
 
 **What it does:** brings a closed or confused session back to its work.
 
-**Ask** — open a session in the role's worktree:
+**Ask:** open a session in the role's worktree and say:
 > Read CLAUDE.md and continue as `<role>`.
 
 **Claude does:** reads `CLAUDE.md` and its role file; checks `git status` and recent commits; lists its issues and reads the last comment on each (PO and Lead also read the latest report and milestone file); reports in three lines: working on · where it stands · next step.
@@ -30,10 +30,10 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 **What it does:** answers "why does it work like this?" months later, from the record, so a fix or change starts from facts instead of memory.
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > Why does `<behaviour>` work like this? Trace it.
 
-**Claude asks you:** only if the behaviour is ambiguous — which screen, feature or version.
+**Claude asks you:** which screen, feature or version, if the behaviour is ambiguous.
 
 **Claude does:** finds the requirement in the SRS (`FR-xxx`, its origin and version), the CR and its acceptance criteria, the DEC or ADR behind it, the PRs and commits that built it and the release that shipped it; answers in a short chain: *FR-021 → CR-12 (DEC-4) → PR #47 → v1.4.0*, with links.
 
@@ -43,7 +43,7 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 **What it does:** frees context without losing the thread.
 
-**Ask** — in the session, after it finishes a task (not in the middle of a fix):
+**Ask the session** after it finishes a task, not in the middle of a fix:
 > Save your state to the issue, then I will compact.
 
 **Claude does:** writes any unwritten decision or progress to the issue or document, commits and pushes its branch, confirms.
@@ -58,7 +58,7 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 ## 6. Move the team to another machine
 
-**Ask** — PO session on the old machine:
+**Ask the PO** on the old machine:
 > We are moving the team to another machine. Get every role ready.
 
 **Claude does:** asks each running session to commit and push its branch; lists the worktrees to recreate.
@@ -70,4 +70,4 @@ Then open each role's session with the restart sentence. Fill in each `.env.loca
 
 > **Token tip:** a fresh session with the restart sentence is often cheaper than a long, compacted one; restart instead of compacting a second time.
 
-Next: [Chapter 7 — Front-end projects](07-frontend-projects.md).
+Next: [Chapter 7: Front-end projects](07-frontend-projects.md).

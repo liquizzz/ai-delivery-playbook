@@ -88,6 +88,8 @@ const editCases = [
   ["uiux", "packages/tokens/theme.css", "allow"],
   ["uiux", "app/src/login.ts", "block"],
   ["devops", ".github/workflows/ci.yml", "allow"],
+  ["devops", "docker/app.Dockerfile", "allow"],
+  ["dev1", "docker-compose.yml", "block"],
   ["devops", "docs/product/prd.md", "block"],
   ["lead", "docs/tech/srs.md", "allow"],
   ["lead", ".env.local", "block"],

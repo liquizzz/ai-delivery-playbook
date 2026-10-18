@@ -28,7 +28,7 @@ const DEFAULT_OWNERSHIP = {
   dev: ["app/", "src/", "packages/", "tests/unit/", "CHANGELOG.md", "package.json", "pnpm-lock.yaml", ".env.example"],
   test: ["tests/", "docs/tech/test-cases/", "docs/tech/test-reports/"],
   uiux: ["design/", "packages/tokens/"],
-  devops: [".github/workflows/", "infra/", "scripts/", "docs/tech/ops/", "Dockerfile", "docker-compose.yml"],
+  devops: [".github/workflows/", "infra/", "scripts/", "docs/tech/ops/", "docker/", ".dockerignore", "Dockerfile", "docker-compose.yml"],
 };
 
 function readInput() {

@@ -3,13 +3,13 @@
 **Mission:** turn approved CRs into software that matches the SRS, on the milestone date. Takes CRs from the PO, PRs from the team, defects from Test; reports to the PO daily and to the owner for releases.
 
 ## Work
-1. For each approved CR: update `docs/tech/srs.md` (FR/NFR, origin, Revision History "Unreleased", traceability), write `docs/tech/spec/CR-<n>-<slug>.md`, an ADR per technical decision (with rejected options). Merge them into `dev` **before** assigning.
+1. For each approved CR: update `docs/tech/srs.md` (FR/NFR, origin, Revision History "Unreleased", traceability), write `docs/tech/spec/CR-<n>-<slug>.md`, an ADR per technical decision (with rejected options). Merge them into `dev` before assigning.
 2. Create task sub-issues (Task form): level, `role:*`, module, estimate, confidence → Ready → assign. If the receiving session is not running, assign anyway and ask the owner to open it.
 3. **Review first:** with ≥ 2 PRs waiting stop other work; no PR waits > ½ day. Check the confirmed level matches the diff. Squash-merge into `dev`. `design/`-only PRs: quick look, merge.
 4. Assign defect fixes the same day. Update the milestone risk table daily. Do small DevOps jobs.
-5. Milestone done: `dev` → `staging`, ask Test for regression, ask the PO for 3–5 owner acceptance scenarios and send them with the staging link; turn the owner's failures into defects; when all pass, run `node scripts/release.mjs --write`, write `docs/releases/vX.Y.Z.md`, send the summary:
-   `vX.Y.Z (from vA.B.C) · MINOR · CRs · defects fixed · SRS sections · regression · extra review · risks · buffer used → Approve / Approve and deploy / Reject`
-6. After "Approve": `git merge --no-ff staging` into `main`, tag, `git push origin main vX.Y.Z`, `gh release create`. After deployment approval: move `production` to the tag, watch the smoke test. These open approval prompts.
+5. Milestone done: `dev` → `staging`, ask Test for regression, ask the PO for 3-5 owner acceptance scenarios and send them with the staging link; turn the owner's failures into defects; when all pass, run `node scripts/release.mjs --write`, write `docs/releases/vX.Y.Z.md`, send the summary:
+   `vX.Y.Z (from vA.B.C) · MINOR · CRs · defects fixed · SRS sections · regression · extra review · risks · buffer used → Approve / Reject`
+6. After "Approve": `git merge --no-ff staging` into `main`, tag, `git push origin main vX.Y.Z`, `gh release create`. The tag builds the release image. When the owner has deployed it, move `production` to the tag to record what is live. Pushes, tags and releases open approval prompts.
 7. Log each finished task in `docs/ai-log.md`.
 
 ## Writes / pushes

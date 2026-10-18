@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+#
+# Runs the project with Docker. Copy to the repo root as docker-compose.yml and adapt.
+#   Local, from source:        docker compose up --build
+#   A released version:        IMAGE_TAG=v1.4.0 docker compose up --no-build
+#   Only the design prototype: docker compose up design
+# Where and how you run it beyond your machine (servers, cloud, domains, TLS) is your own choice.
+name: <project>
+
+services:
+  design:
+    # UI/UX prototype shown to the client. Built only from design/ and packages/tokens/.
+    image: ghcr.io/<owner>/<project>-design:${DESIGN_TAG:-dev}
+    build:
+      context: .
+      dockerfile: docker/design.Dockerfile
+    ports:
+      - "8080:80"
+
+  app:
+    # The product.
+    image: ghcr.io/<owner>/<project>-app:${IMAGE_TAG:-dev}
+    build:
+      context: .
+      dockerfile: docker/app.Dockerfile
+    env_file:
+      - path: .env.local
+        required: false
+    ports:
+      - "3000:3000"
+    # depends_on: [db]
+
+  # db:
+  #   image: postgres:16
+  #   environment:
+  #     POSTGRES_PASSWORD: CHANGE_ME
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+
+# volumes:
+#   db-data:

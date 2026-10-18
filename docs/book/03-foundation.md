@@ -1,12 +1,12 @@
-# Chapter 3 — Foundation (phases 1–3)
+# Chapter 3: Foundation (phases 1-3)
 
-**Purpose:** turn an idea into an approved proposal, approved requirements and an approved design with an SRS baseline, so the delivery loop starts on solid ground. Runs once per project.
+**Purpose:** turn an idea into an approved proposal, approved requirements and an approved design with an SRS baseline, before any product code is written. Runs once per project.
 
 | Phase | Output | Gate you pass |
 |---|---|---|
-| 1 Planning | `docs/product/proposal.md` | **G1** problem, users, option, scope, metric, timeline, budget agreed |
-| 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/` | **G2** must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
-| 3 Design | `docs/tech/srs.md` baseline, ADRs, C4, `design/`, test strategy, eval plan, first milestone | **G3** SRS with FR/NFR IDs; ADRs accepted; UI approved; test pass marks; board ready |
+| 1 Planning | `docs/product/proposal.md` | G1 problem, users, option, scope, metric, timeline, budget agreed |
+| 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
+| 3 Design | `docs/tech/srs.md` baseline, ADRs, C4, `design/`, test strategy, eval plan, first milestone | G3 SRS with FR/NFR IDs; ADRs accepted; UI approved; test pass marks; board ready |
 
 Rules: proposal before PRD · real data during requirements · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice.
 
@@ -14,7 +14,7 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 **What it does:** decides what to build, for whom, and whether it is worth it.
 
-**Ask** — PO session:
+**Ask the PO:**
 > Start phase 1 for `<idea in two or three sentences>`. Interview me, then draft the proposal.
 
 **Claude asks you:**
@@ -32,9 +32,9 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 ## 2. Pass a gate
 
-**What it does:** confirms a phase is complete before the next starts. Works for G1–G6.
+**What it does:** confirms a phase is complete before the next starts. Works for G1-G6.
 
-**Ask** — the session that owns the phase (PO for G1–G2, Lead for G3–G6):
+**Ask the session that owns the phase** (PO for G1-G2, Lead for G3-G6):
 > Check G1 and tell me if it is ready for my approval.
 
 **Claude does:** runs `/gate G1`, reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes.
@@ -45,7 +45,7 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 **What it does:** fixes exactly what the product must do, on real data.
 
-**Ask** — PO session:
+**Ask the PO:**
 > G1 is approved. Start phase 2: PRD, data analysis and stories.
 
 **Claude asks you:**
@@ -57,13 +57,13 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 **Claude does:** drafts `docs/product/prd.md`; with the Lead, analyses the real data into `docs/product/data-notes.md` (counts and structure only, never real records); writes one story per must-have with Given/When/Then criteria; records each business decision as a DEC.
 
-**You check:** must-haves and non-goals; open questions answered; then pass **G2** (step 2). From now on every change to requirements is a CR.
+**You check:** must-haves and non-goals; open questions answered; then pass G2 (step 2). From now on every change to requirements is a CR.
 
 ## 4. Design and SRS baseline (phase 3)
 
 **What it does:** decides how to build it and writes the SRS everyone will work from.
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > G2 is approved. Start phase 3: SRS baseline, architecture, test strategy and the first milestone. Ask UI/UX for the main screens.
 
 **Claude asks you:**
@@ -78,11 +78,11 @@ Rules: proposal before PRD · real data during requirements · no production cod
 - UI/UX builds the prototype in `design/` (chapter 7); the client approves it, tagged `design-v1`;
 - the PO plans milestone `v0.1.0`; the Lead estimates it.
 
-**You check:** the ADR choices, the prototype, the first milestone; then pass **G3** (step 2). The delivery loop starts.
+**You check:** the ADR choices, the prototype, the first milestone; then pass G3 (step 2). The delivery loop starts.
 
 ## The SRS, in short
 
-- Describes the system **as it is now**; versioned with every release.
+- Describes the system as it is now; versioned with every release.
 - Stable IDs (`FR-021`, `NFR-004`) never reused, each with its origin (`CR-12, since v1.4.0`); removed requirements move to a "Removed" table.
 - Revision History and traceability matrix (requirement ↔ CR ↔ issue ↔ test).
 
@@ -90,4 +90,4 @@ To understand the product at any version, ask the Lead: "What does the system do
 
 > **Token tip:** answer each interview fully in one reply and attach the material up front; every extra round re-reads the whole conversation. Compact the PO and Lead after each gate.
 
-Next: [Chapter 4 — The delivery loop](04-delivery-loop.md).
+Next: [Chapter 4: The delivery loop](04-delivery-loop.md).

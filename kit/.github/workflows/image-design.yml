@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# image-design: builds the UI/UX prototype image only when design/ or the shared tokens change.
+# A merge into dev that touches only app/ does not rebuild it, so the client's demo stays as it was.
+#   push to dev (design/ or tokens changed)  ->  :dev and :dev-<sha>
+#   tag design-vN (approved design)          ->  :design-vN   (pin the client demo to this tag)
+name: image-design
+
+on:
+  push:
+    branches: [dev]
+    paths:
+      - "design/**"
+      - "packages/tokens/**"
+      - "docker/design.Dockerfile"
+    tags: ["design-v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}-design
+          tags: |
+            type=raw,value=dev,enable=${{ github.ref == 'refs/heads/dev' }}
+            type=sha,prefix=dev-,enable=${{ github.ref == 'refs/heads/dev' }}
+            type=ref,event=tag
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/design.Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}

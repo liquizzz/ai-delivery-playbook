@@ -1,4 +1,4 @@
-# Chapter 2 — The team
+# Chapter 2: The team
 
 **Purpose:** know which session does what, how code moves to production, and what stops a session from overstepping.
 
@@ -6,12 +6,12 @@
 
 | Role | Talk to it when you want to | Reports to | Open |
 |---|---|---|---|
-| **PO** | Ask for something, change priorities, see progress | You | Always |
-| **Lead** | Ask about design, quality or a release | PO | Always |
-| **Dev** (1–2) | Rarely; the Lead assigns its work | Lead | When tasks are ready |
-| **Test** | Rarely; the Lead assigns its work | Lead | When there is testing |
-| **UI/UX** | Review a design round | PO | Front-end products |
-| **DevOps** | Rarely; hosting and pipelines | Lead | Larger infrastructure work |
+| PO | Ask for something, change priorities, see progress | You | Always |
+| Lead | Ask about design, quality or a release | PO | Always |
+| Dev (1-2) | Rarely; the Lead assigns its work | Lead | When tasks are ready |
+| Test | Rarely; the Lead assigns its work | Lead | When there is testing |
+| UI/UX | Review a design round | PO | Front-end products |
+| DevOps | Rarely; hosting and pipelines | Lead | Larger infrastructure work |
 
 The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/roles/` ([kit](../../kit/.claude/roles/)).
 
@@ -30,10 +30,10 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 
 **What it does:** opens a Dev, Test, UI/UX or DevOps session when there is work for it.
 
-**Ask** — Lead session:
+**Ask the Lead:**
 > We need a dev1 for the tasks in milestone v0.1.0. Prepare it.
 
-**Claude asks you:** only if unclear — which role and which tasks it will take first.
+**Claude asks you:** only if it is unclear which role you need and which tasks it should take first.
 
 **Claude does:** creates the worktree `<project>-wt/dev1` on `role/dev1` with its local port; assigns the first Ready issues to it; tells you the folder to open.
 
@@ -53,7 +53,7 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 
 **What it does:** gets a second opinion from another model on a risky change.
 
-**Ask** — Lead session (it proposes one with the label `codex-review` or `claude-review` for L3, money, security, user data, or before a release):
+**Ask the Lead.** It proposes a review (label `codex-review` or `claude-review`) for L3 changes, anything touching money, security or user data, and before a release. You can also ask for one at any time:
 > Run the review you proposed on PR #42.
 
 **Claude asks you:** Codex adversarial review, Codex standard review or Claude `/code-review`? (proposed: adversarial for L3)
@@ -68,28 +68,28 @@ The `role-guard` hook ([kit](../../kit/.claude/hooks/role-guard.cjs)) checks eve
 
 | Blocked for everyone | Blocked for non-Lead roles | The Lead asks you first |
 |---|---|---|
-| Force push to `dev`, `staging`, `main`; `--no-verify`; `gh secret`; editing real `.env` files | Pushing any branch but their own; merging PRs; releases; running workflows; editing paths they do not own | Pushing `main` or `production`; pushing tags; GitHub releases; running a workflow (deploy, rollback) |
+| Force push to `dev`, `staging`, `main`; `--no-verify`; `gh secret`; editing real `.env` files | Pushing any branch but their own; merging PRs; releases; running workflows; editing paths they do not own | Pushing `main` or `production`; pushing tags; GitHub releases; running a workflow by hand |
 
-A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. The hook also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell. These rules stop mistakes; they are not a security boundary. On GitHub Free, private repos cannot use branch protection; on a paid plan, also protect `main` and `production` on GitHub.
+A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. The hook also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell. These rules catch mistakes, but a determined person could get around them. On GitHub Free, private repos cannot use branch protection; on a paid plan, also protect `main` and `production` on GitHub.
 
 ## 5. How automatic it is
 
-**What it does:** the team is **semi-automatic by design**: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise the level only as far as you are comfortable.
+**What it does:** the team is semi-automatic on purpose: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise the level only as far as you are comfortable.
 
 | Level | What happens on its own | What you still do |
 |---|---|---|
-| **1 Default** | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
-| **2 Sessions message each other** | The Lead notifies a session when it assigns work; the PO notifies the Lead when a CR is approved (Claude Code desktop can send messages between local sessions) | Open sessions; approve |
-| **3 Lead opens sessions** | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
-| **4 Timers (`/loop`, `/goal`)** | A session re-checks or keeps working on its own | **Not recommended:** every cycle costs tokens even when there is nothing to do |
+| 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
+| 2 Sessions message each other | The Lead notifies a session when it assigns work; the PO notifies the Lead when a CR is approved (Claude Code desktop can send messages between local sessions) | Open sessions; approve |
+| 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
+| 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
-**Ask** — Lead session, to move to level 2 or 3 (recommended maximum):
+**Ask the Lead,** to move to level 2 or 3 (the recommended maximum):
 > From now on, message the receiving session when you assign work, and open the session yourself if it is not running.
 
 **Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
 
 Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; approvals always wait for you; every running session uses tokens.
 
-> **Token tip:** levels 2–3 add almost no cost: a message only wakes a session when there is real work. Avoid level 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
+> **Token tip:** levels 2-3 add almost no cost: a message only wakes a session when there is real work. Avoid level 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
 
-Next: [Chapter 3 — Foundation](03-foundation.md).
+Next: [Chapter 3: Foundation](03-foundation.md).

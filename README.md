@@ -1,18 +1,18 @@
 # AI Delivery Playbook
 
-**A book and a kit for building real products with Claude Code** — one human (the owner) and a team of Claude Code sessions (PO, Lead, Dev, Test, UI/UX, DevOps) that you open, which plan, build, test and release with clear roles, written requirements and your approval at every gate. Start with a single session (Starter mode) and add roles only when the project needs them.
+A book and a kit for building real products with Claude Code. You (the owner) open a few Claude Code sessions, each playing one role: PO, Lead, Dev, Test, UI/UX or DevOps. They write the requirements, build, test and release, and they stop for your approval at each gate. For a first demo, one session is enough (Starter mode); you add roles when the project needs them.
 
-- **What you get:** a step-by-step book of prompts ("ask this session this; it will ask you these questions; then it does this"), copy-ready templates, and a tested kit (shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows, scripts) installed with one command.
-- **What it gives you:** a working product built fast, with the checks that keep it right — requirements, code and documents that stay in step, your own acceptance test before each release, deployments that are easy to run and to roll back, and a full trail of every decision and change.
-- **What it does not do:** teach programming, or replace your judgement. You still decide what is correct for the business and try it yourself before it ships ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)).
-- **Built for:** Claude Code desktop, GitHub, Node.js. GitHub Free is enough.
-- **Templates, not a platform:** the CI/CD workflows are starting points for a pnpm front end on Cloudflare Pages. For a back end, a database or another host, the DevOps or Lead session redesigns them from your answers ([chapter 1](docs/book/01-setup.md#4-before-the-first-deploy)). The team is semi-automatic by design ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
+The book is written as prompts: what to say to which session, the questions it will ask you back, and what it does after you answer. Next to the book are copy-ready templates and a tested kit (a shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows and scripts) that one command installs into a new project.
+
+What you end up with is a working product, built quickly, where the requirements, code and documents stay in step. You try each release yourself before it ships, deployments are easy to run and to roll back, and every decision and change can be traced later.
+
+The book does not teach programming, and it does not replace your judgement: you still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). It needs Claude Code desktop, GitHub (the free plan is enough), Node.js and Docker. Everything runs in Docker, and each release is a versioned image. Where those images run in production is up to you: the book is for people who already know how they will deploy ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## Start here
 
-1. Read [Chapter 0 — Introduction](docs/book/00-introduction.md) (5 minutes). It ends with a **Quick start: from idea to demo** in six prompts.
-2. Follow [Chapter 1 — Setup](docs/book/01-setup.md): open a Claude Code session in an empty folder and paste the setup prompt. It asks you a few questions, then installs everything.
-3. Talk to the PO session from then on. Keep [Appendix D — Process checklist](docs/book/appendix-d-checklist.md) at hand so no step is skipped, and [Chapter 9 — Token budget](docs/book/09-token-budget.md) to keep cost down.
+1. Read [Chapter 0: Introduction](docs/book/00-introduction.md) (5 minutes). It ends with a Quick start: from idea to demo in six prompts.
+2. Follow [Chapter 1: Setup](docs/book/01-setup.md): open a Claude Code session in an empty folder and paste the setup prompt. It asks you a few questions, then installs everything.
+3. Talk to the PO session from then on. Keep [Appendix D: Process checklist](docs/book/appendix-d-checklist.md) at hand so no step is skipped, and [Chapter 9: Token budget](docs/book/09-token-budget.md) to keep cost down.
 
 ## The book
 
@@ -21,7 +21,7 @@
 | 0 | [Introduction](docs/book/00-introduction.md) | Understand the model, the principles and how prompts work in this book |
 | 1 | [Setup](docs/book/01-setup.md) | Start a project, connect GitHub, open the first sessions |
 | 2 | [The team](docs/book/02-the-team.md) | Know who does what, how code moves, what the guardrails block |
-| 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1–G3) |
+| 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1-G3) |
 | 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, run the morning plan, keep the milestone on date |
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
