@@ -1,13 +1,17 @@
 # Start here: {{name}}
 
-Level: **Full process**. You talk mostly to the PO; the Lead runs the team (Dev, Test, UI/UX, DevOps sessions) and releases. Each step is one prompt to one session: paste it, answer the questions round by round, check the result, go on. The book explains any step in more depth (chapter numbers in brackets).
+Level: **Full process**. You talk mostly to the PO; the Lead runs the team (Dev, Test, UI/UX, DevOps sessions) and releases. Each step is one prompt to one session: paste it, answer the questions round by round (or say "you decide"), check the result, go on.
 
-Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{repo}}, and two worktrees: PO `{{po}}`, Lead `{{lead}}`.
+Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{repo}} with labels and a kanban board, and two worktrees: PO `{{po}}`, Lead `{{lead}}`.
+
+**Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 design and SRS, G4 built, G5 accepted on `staging`, G6 released. Appendix D of the book lists every step with its check.
 
 ## 1. Finish the setup (ch. 1). Session: Lead
 
 **Open** Claude Code desktop in `{{lead}}`, name it "{{name}} - Lead", and paste:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create the board and milestones v0.1.0 and v0.2.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestones v0.1.0 and v0.2.0 on GitHub.
+
+**You do:** if the repo is new, open {{actions}} and click **Enable Actions on this repository** if GitHub shows it. Open the board once (GitHub → your profile → Projects) and choose View → Layout → Board.
 
 ## 2. Open the PO session (ch. 1)
 
@@ -16,7 +20,7 @@ Open a session in `{{po}}` named "{{name}} - PO" and paste:
 
 ## 3. Proposal: gate G1 (ch. 3). Session: PO
 
-> Start phase 1 for `<your idea in two or three sentences>`. Interview me, then draft the proposal.
+> Start phase 1 for `<your idea in two or three sentences>`. Interview me one topic at a time, then draft the proposal.
 
 Then: "Check G1 and tell me if it is ready for my approval." Approve.
 
@@ -38,15 +42,31 @@ Open one session per worktree the Lead creates, each with "Read CLAUDE.md and co
 
 "Morning brief." before 10:00 · "I want `<change>`." for changes · "End-of-day report."
 
-## 8. Release (ch. 5). Session: Lead
+## 8. Release: gates G5-G6 (ch. 5). Session: Lead
 
 > Milestone v0.1.0 is done. Prepare the release and my acceptance test.
 
-The Test session runs the regression on `staging`; you try 3-5 scenarios yourself, then approve. The Lead asks before pushing `main` and the tag.
+The Test session runs the regression on `staging`; you try 3-5 scenarios yourself, then approve. The Lead asks before pushing `main` and the tag; the tag builds the image `{{image}}:v0.1.0`.
 
-## 9. Run the release in Docker (ch. 1, section 4). Session: Lead
+## 9. Run the release in Docker
 
-> Show me how to run v0.1.0 in Docker on this machine, from the tag and from the published image.
+From source, in a terminal:
+```
+cd {{main}}
+git pull
+git checkout v0.1.0
+docker compose up --build -d app
+```
+Open http://localhost:3000. Stop with `docker compose down`, then `git checkout main`.
+
+From the published image (private repo: log in once):
+```
+gh auth refresh -s read:packages
+gh auth token | docker login ghcr.io -u {{owner}} --password-stdin
+cd {{main}}
+$env:IMAGE_TAG="v0.1.0"; docker compose up --no-build -d app
+```
+On macOS or Linux, the last line is `IMAGE_TAG=v0.1.0 docker compose up --no-build -d app`.
 
 ## Any time
 

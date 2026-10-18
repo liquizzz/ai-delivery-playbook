@@ -2,7 +2,7 @@
 
 Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions round by round (or say "you decide"), check the result, go to the next step.
 
-Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and the Lead worktree `{{lead}}`.
+Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with labels and a kanban board, and the Lead worktree `{{lead}}`.
 
 **Gates** are the points where Claude stops and you approve before it goes on. The book has six (G1-G6); Starter joins G1-G3 into one approval of the brief. The book explains any step in more depth (chapter numbers in brackets).
 
@@ -14,7 +14,7 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and th
 > Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub.
 
 **Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules.
-**You do:** if the repo is new, open {{actions}} and click **Enable Actions on this repository** if GitHub shows it. Claude checks that CI ran.
+**You do:** if the repo is new, open {{actions}} and click **Enable Actions on this repository** if GitHub shows it; Claude then checks that CI ran. Open the kanban board once (GitHub → your profile → Projects) and choose View → Layout → Board.
 **You get:** CLAUDE.md, Docker files and CI fitted to your stack; ADR-001 for the stack; milestone v0.1.0.
 
 ## 2. Brief: gate G1-G3 (ch. 8)
