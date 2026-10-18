@@ -31,6 +31,9 @@ Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requi
 - **Change level** L0 display · L1 setting · L2 module logic · L3 core (money, security, personal data, deletes are always L3). Confirm the level against the actual change before testing; test only that scope; raise it if wider, never lower it.
 - **Hand-offs** are issue comments: `Hand-off <from> → <to> · #n · Done / Needs changes / Blocked · <branch>@<sha> · L<n> · <module> · done: … · next: … · risks: …`. Messages between sessions only notify, with a link.
 - **Tokens:** no `/goal` or `/loop` unless the owner asks; short command output; paste only the relevant lines; stop when the step is done.
+- **No waiting commands:** never run a command that waits for input. Use the non-interactive form (`gh … --body` or `--body-file`, `--yes`, `CI=1`, `COREPACK_ENABLE_DOWNLOAD_PROMPT=0`, `GIT_EDITOR=true`). If one hangs, stop it and rerun it without the prompt.
+- **Commands for the owner** are written for the owner's shell (PowerShell on Windows unless told otherwise), with full paths, one command per block.
+- **Report live state:** check CI runs, images, PRs and branches (`gh run list`, `gh pr view`, `git ls-remote`) right before reporting them; never repeat an earlier state as current.
 - **Secrets** live in git-ignored `.env*`; `.env.example` holds `CHANGE_ME`.
 - <Project hard rules.>
 - The Lead logs each finished task in `docs/ai-log.md`.
