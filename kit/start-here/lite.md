@@ -1,15 +1,15 @@
 # Start here: {{name}}
 
-Level: **Lite**. Three Claude Code sessions: PO (your requests), Lead (SRS, review, release) and Dev1 (builds). Each step is one prompt to one session: paste it, answer the questions in one reply, check the result, go on. The book explains any step in more depth (chapter numbers in brackets).
+Level: **Lite**. Three Claude Code sessions: PO (your requests), Lead (SRS, review, release) and Dev1 (builds). Each step is one prompt to one session: paste it, answer the questions round by round, check the result, go on. The book explains any step in more depth (chapter numbers in brackets).
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and three worktrees: PO `{{po}}`, Lead `{{lead}}`, Dev1 `{{dev1}}`.
 
 ## 1. Finish the setup (ch. 1)
 
 **Open** Claude Code desktop in `{{lead}}`, name it "{{name}} - Lead", and paste:
-> Read CLAUDE.md and continue as lead. Finish the Lite setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the Lite setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
 
-**Claude asks:** stack, run and test commands, hard rules.
+**Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules. Confirm each round, or say "you decide".
 **You get:** CLAUDE.md and Docker files fitted to your stack, merged into `dev`; milestone v0.1.0.
 
 ## 2. Open the other two sessions (ch. 2)

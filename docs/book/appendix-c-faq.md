@@ -5,10 +5,10 @@
 ## Working with sessions
 
 **A session starts work without asking anything, and gets it wrong.**
-Say: "Stop. Follow 'ask first, then finish' in CLAUDE.md: list what you need, then redo it." Check that `CLAUDE.md` still contains that rule.
+Say: "Stop. Follow 'ask first, in rounds, then finish' in CLAUDE.md: ask me what you need, then redo it." Check that `CLAUDE.md` still contains that rule.
 
 **A session asks too many questions.**
-Reply "use your proposals" to accept every proposed answer, or answer only the ones you care about and add "rest as proposed".
+Say "you decide" for the topics you do not care about; it settles them, lists its assumptions, and keeps asking only about the rest. The stack is the one decision it will not take for you unless you say so.
 
 **A session forgot what it was doing.**
 Say "Read CLAUDE.md and continue as `<role>`." If it still drifts, ask the Lead: "Post the current state of #42 on the issue", then restart the session.

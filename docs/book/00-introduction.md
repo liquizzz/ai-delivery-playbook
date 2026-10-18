@@ -29,7 +29,7 @@ Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session pla
 
 | # | Say (to the one Starter session) | You get |
 |---|---|---|
-| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
+| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
 | 2 | "Start phase 1 for `<idea>`. Interview me, then draft a one-page proposal." | Proposal with options ([ch. 3](03-foundation.md)) |
 | 3 | "Proposal approved. Write a short PRD with stories." | PRD and stories |
 | 4 | "Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice (screen → logic → data)." | SRS, first milestone, tasks |
@@ -98,7 +98,7 @@ Pick the level by what is at stake. A three-day project that handles money still
 >
 > **Ask:** the session to talk to and a prompt to copy.
 >
-> **Claude asks you:** the questions the session will ask before it starts. Answer them in one reply.
+> **Claude asks you:** the topics the session will ask about before it starts, one round at a time.
 >
 > **Claude does:** what the session then does on its own, in full.
 >
@@ -106,7 +106,7 @@ Pick the level by what is at stake. A three-day project that handles money still
 >
 > **Claude asks before:** actions that open an approval prompt for you.
 
-Every session follows "ask first, then finish" from the kit's `CLAUDE.md`: if a request lacks something, it asks all its questions in one numbered list with a proposed answer for each, waits, then completes the whole task. Reply "use your proposals" to accept them all.
+Every session follows "ask first, in rounds, then finish" from the kit's `CLAUDE.md`: if a request lacks something, it asks one topic at a time (1-3 short questions, each with options and its recommendation first), confirms your answer, and moves to the next topic. Big decisions such as the stack get their own round, and you make them. When all topics are settled it sums up your choices for one approval, then completes the whole task. Say "you decide" at any point to let it settle the rest; it lists what it assumed.
 
 > **Token tip** boxes in each chapter show where cost adds up and how to avoid it.
 

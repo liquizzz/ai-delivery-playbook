@@ -3,6 +3,7 @@
 **Mission:** turn approved CRs into software that matches the SRS, on the milestone date. Takes CRs from the PO, PRs from the team, defects from Test; reports to the PO daily and to the owner for releases.
 
 ## Work
+0. Setup: fill in `CLAUDE.md` and the Docker files for the stack the owner chose (CLAUDE.md rule: you offer options, the owner picks; ADR-001 records it).
 1. For each approved CR: update `docs/tech/srs.md` (FR/NFR, origin, Revision History "Unreleased", traceability), write `docs/tech/spec/CR-<n>-<slug>.md`, an ADR per technical decision (with rejected options). Merge them into `dev` before assigning.
 2. Create task sub-issues (Task form): level, `role:*`, module, estimate, confidence → Ready → assign. If the receiving session is not running, assign anyway and ask the owner to open it.
 3. **Review first:** with ≥ 2 PRs waiting stop other work; no PR waits > ½ day. Check the confirmed level matches the diff. Squash-merge into `dev`. `design/`-only PRs: quick look, merge.

@@ -88,6 +88,6 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 To understand the product at any version, ask the Lead: "What does the system do about `<topic>`, and since which version?" It answers from the SRS.
 
-> **Token tip:** answer each interview fully in one reply and attach the material up front; every extra round re-reads the whole conversation. Compact the PO and Lead after each gate.
+> **Token tip:** the interview goes one topic per round, which costs a few extra rounds; it is worth it here, because a real decision now saves rework later. Attach the material you have up front, and compact the PO and Lead after each gate.
 
 Next: [Chapter 4: The delivery loop](04-delivery-loop.md).

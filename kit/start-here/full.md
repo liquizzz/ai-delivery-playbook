@@ -1,13 +1,13 @@
 # Start here: {{name}}
 
-Level: **Full process**. You talk mostly to the PO; the Lead runs the team (Dev, Test, UI/UX, DevOps sessions) and releases. Each step is one prompt to one session: paste it, answer the questions in one reply, check the result, go on. The book explains any step in more depth (chapter numbers in brackets).
+Level: **Full process**. You talk mostly to the PO; the Lead runs the team (Dev, Test, UI/UX, DevOps sessions) and releases. Each step is one prompt to one session: paste it, answer the questions round by round, check the result, go on. The book explains any step in more depth (chapter numbers in brackets).
 
 Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{repo}}, and two worktrees: PO `{{po}}`, Lead `{{lead}}`.
 
 ## 1. Finish the setup (ch. 1). Session: Lead
 
 **Open** Claude Code desktop in `{{lead}}`, name it "{{name}} - Lead", and paste:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create the board and milestones v0.1.0 and v0.2.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create the board and milestones v0.1.0 and v0.2.0 on GitHub.
 
 ## 2. Open the PO session (ch. 1)
 

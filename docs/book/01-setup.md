@@ -47,10 +47,10 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --git
 **What it does:** fits `CLAUDE.md`, the guard paths and the Docker files to your stack, and creates the board and first milestones on GitHub.
 
 **Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and say:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create the board and the first milestones on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create the board and the first milestones on GitHub.
 
-**Claude asks you:**
-1. Stack (languages, frameworks, database).
+**Claude asks you,** one topic per round, confirming each before the next:
+1. What decides the stack (screens, users, data, growth), then 2-3 stack options from the lightest to the fullest. You choose; it records the choice as ADR-001.
 2. Front-end product with a design prototype? (keeps or removes the design pipeline)
 3. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
 4. Project hard rules (client data, read-only sources, compliance).

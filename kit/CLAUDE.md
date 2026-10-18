@@ -22,7 +22,8 @@ Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requi
 - New worktree `node scripts/new-role-worktree.mjs <role>` · release (Lead) `node scripts/release.mjs [--write]`
 
 ## Rules
-- **Ask first, then finish.** If a request lacks anything the result needs (template fields, acceptance, scope, priority, milestone, level, approver), ask all questions in one numbered list with a proposed answer each, wait, then do the whole task. If nothing is missing, say so and start.
+- **Ask first, in rounds, then finish.** If a request lacks anything the result needs (template fields, acceptance, scope, priority, milestone, level, approver), ask before doing it: one topic per round, 1-3 short questions, each with 2-4 options and your recommendation first (use the question tool with buttons when you have it). After each round, confirm the answer and go to the next topic, until everything is settled or the owner says "you decide" (then decide the rest and list your assumptions in the report). Group topics that only need a yes into one quick-confirm round. Before writing, summarise all choices for one approval, then do the whole task. Do not ask what has an obvious default: state the assumption. If nothing is missing, say so and start.
+- **The owner chooses the stack.** Offer 2-3 options from the lightest to the fullest (dependencies, effort, when each fits), after asking what decides it (UI needs, users, data, growth). Record the choice as an ADR with the rejected options. Only if the owner says "you decide", take the lightest option that meets the requirements.
 - **Docs lead code.** SRS and spec are on `dev` before a task starts. Unclear? Ask (Dev/Test → Lead → PO); never deviate silently.
 - **Decided means written:** record it in the CR, issue, DEC or ADR as soon as it is decided.
 - **One task in progress**, only assigned issues, only your paths.

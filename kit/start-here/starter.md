@@ -1,6 +1,6 @@
 # Start here: {{name}}
 
-Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions in one reply, check the result, go to the next step. The book explains any step in more depth (chapter numbers in brackets).
+Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions round by round, check the result, go to the next step. The book explains any step in more depth (chapter numbers in brackets).
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and the Lead worktree `{{lead}}`.
 
@@ -9,9 +9,9 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and th
 **Open** Claude Code desktop in `{{lead}}` and name the session "{{name}} - Lead". Use this one session for every step below.
 
 **Paste:**
-> Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
 
-**Claude asks:** stack, run and test commands, hard rules.
+**Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules. Confirm each round, or say "you decide".
 **You get:** CLAUDE.md and the Docker files fitted to your stack; milestone v0.1.0.
 
 ## 2. Proposal: gate G1 (ch. 3)
