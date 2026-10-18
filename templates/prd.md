@@ -60,7 +60,7 @@ Save as `docs/product/prd.md`. The detailed, always-current requirements live in
 | <...> | L/M/H | L/M/H | <...> |
 
 ## 10. Release plan
-Milestones of 2–3 days; each one is planned in `docs/product/milestones/vX.Y.Z.md`.
+Small milestones (a few days each); each one is planned in `docs/product/milestones/vX.Y.Z.md`.
 
 | Version | Target | Must-haves / CRs |
 |---|---|---|

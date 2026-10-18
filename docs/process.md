@@ -2,7 +2,7 @@
 
 From business idea to production with one human and a team of AI agents (Claude Code sessions). The agents do the production work. The human, called **the owner**, makes every decision that changes scope, risk, money or what goes live.
 
-The process follows the software development life cycle (SDLC) in two stages: a **Foundation** stage that runs phases 1–3 once, and a **Delivery loop** that runs phases 4–6 in small releases called **milestones** (2–3 days each). How the role sessions work together day to day is in [agent-team.md](agent-team.md).
+The process follows the software development life cycle (SDLC) in two stages: a **Foundation** stage that runs phases 1–3 once, and a **Delivery loop** that runs phases 4–6 in small releases called **milestones**. How the role sessions work together day to day is in [agent-team.md](agent-team.md).
 
 ## Principles
 
@@ -11,7 +11,7 @@ The process follows the software development life cycle (SDLC) in two stages: a 
 3. **Change goes through a change request, never silently.** Documents are versioned, not frozen. Every change is a CR, and every CR updates the SRS.
 4. **Decided means written.** A decision lives in a file or an issue the moment it is made (CR, DEC, ADR, SRS), never only in a chat.
 5. **Docs lead code.** The SRS and the spec for a CR are merged before any task for that CR is assigned.
-6. **Small, frequent releases.** A milestone holds 1–3 CRs and ships in 2–3 days. Late work moves to the next milestone instead of holding the release.
+6. **Small, frequent releases.** A milestone holds a few CRs and ships within days. Late work moves to the next milestone instead of holding the release.
 7. **Log the process.** Every task gets a line in `docs/ai-log.md`: what AI did, where the human stepped in, how much rework.
 
 ## Life cycle
@@ -68,7 +68,7 @@ Run `/gate <G#>` ([command](../kit/commands/gate.md)) to have the agent check a 
 ## Delivery loop
 
 ### Milestones
-- A milestone is the next release: **1–3 CRs, 2–3 days**. Only one milestone is running; one more ("next") collects what is approved but not started. A GitHub milestone named `vX.Y.Z` tracks it.
+- A milestone is the next release: **a few CRs, a few days**; each project sets its own cadence in the proposal. Only one milestone is running; one more ("next") collects what is approved but not started. A GitHub milestone named `vX.Y.Z` tracks it.
 - The plan is set every morning before 10:00 (PO brief, owner decides).
 - A milestone ships when it is done, not on a fixed date.
 
@@ -134,5 +134,5 @@ Reports are saved in `docs/reports/YYYY-MM-DD.md`; the PO pushes them and sends 
 | Project | Foundation (phases 1–3) | Delivery loop |
 |---|---|---|
 | Weekend POC (~8h) | ~2h | One milestone of ~6h |
-| Small product (1–2 weeks) | 1.5–3 days | Milestones of 2–3 days |
-| Larger product | 3–5 days | Milestones of 2–3 days, Foundation revisited only through CRs |
+| Small product (1–2 weeks) | 1.5–3 days | Short milestones |
+| Larger product | 3–5 days | Short milestones; Foundation revisited only through CRs |

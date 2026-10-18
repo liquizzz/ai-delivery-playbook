@@ -2,7 +2,7 @@
 
 > I take products from business idea to production — end to end — with one human and a team of AI agents.
 
-A practical, reusable operating model for delivering software with Claude Code role sessions (PO, Lead, Dev, Test, UI/UX, DevOps). AI drafts and builds; one human, the **owner**, decides at every gate. Projects run a **Foundation** stage once (phases 1–3), then ship in **milestones** of 2–3 days (phases 4–6), with a versioned SRS, GitHub issues as the work log and guardrails that keep each role in its lane.
+A practical, reusable operating model for delivering software with Claude Code role sessions (PO, Lead, Dev, Test, UI/UX, DevOps). AI drafts and builds; one human, the **owner**, decides at every gate. Projects run a **Foundation** stage once (phases 1–3), then ship in small **milestones** (phases 4–6), with a versioned SRS, GitHub issues as the work log and guardrails that keep each role in its lane.
 
 ## The life cycle
 
@@ -45,7 +45,7 @@ Full process: [docs/process.md](docs/process.md) · Agent team operating model: 
 | 1 Planning and Discovery | Proposal with options, effort, risks, scope, timeline and budget |
 | 2 Requirements and Analysis | PRD with success metrics; analysis of your real data (the data stays in your environment); user stories |
 | 3 Design | Clickable prototype; SRS with numbered requirements; C4 diagrams; architecture decisions (ADRs); test and evaluation plan |
-| Every milestone (2–3 days) | A staging demo; a release summary with version, changes, test results and risks to approve |
+| Every milestone (a small release) | A staging demo; a release summary with version, changes, test results and risks to approve |
 | Go-live and after | Release notes and changelog per version; rollback plan; case study and next-phase proposal |
 
 ## Templates

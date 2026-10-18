@@ -34,7 +34,7 @@ Save as `docs/product/proposal.md`.
 - **Later phases:** <what may follow, quoted separately>
 
 ## 5. Approach
-<Delivery with the AI Delivery Playbook: a Foundation stage (planning, requirements, design) followed by releases every 2–3 days (milestones). What the client reviews and when.>
+<Delivery with the AI Delivery Playbook: a Foundation stage (planning, requirements, design) followed by small, frequent releases (milestones). What the client reviews and when.>
 
 ## 6. Timeline
 | Phase | Dates | Client involvement |
@@ -42,7 +42,7 @@ Save as `docs/product/proposal.md`.
 | Planning and Discovery | <...> | Approve this proposal |
 | Requirements and Analysis | <...> | Confirm business rules, provide data access |
 | Design | <...> | Approve UI and architecture |
-| Delivery milestones (2–3 days each) | <...> | Review each staging demo; approve releases |
+| Delivery milestones | <...> | Review each staging demo; approve releases |
 | Go-live (1.0.0) | <...> | Approve go-live |
 
 ## 7. Budget and assumptions
