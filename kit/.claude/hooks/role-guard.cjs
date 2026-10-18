@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
+// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 // role-guard: Claude Code PreToolUse hook for Bash, PowerShell and file edits.
 // Enforces the AI Delivery Playbook rules per role. The role is read from .claude/role in the
 // worktree (one word: po, lead, dev1, dev2, test, uiux, devops), written by scripts/new-role-worktree.mjs.

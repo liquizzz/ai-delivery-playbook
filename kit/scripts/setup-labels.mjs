@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
+// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 // Create or update the playbook's GitHub labels in the current repo (needs the gh CLI).
 // Run:  node scripts/setup-labels.mjs
 import { execFileSync } from "node:child_process";

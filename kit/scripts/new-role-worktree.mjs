@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
+// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 // Create the worktree for one role: <parent>/<repo>-wt/<role> on branch role/<role>.
 // Run from the main checkout:  node scripts/new-role-worktree.mjs <role>
 // Roles: po, lead, dev1, dev2, test, uiux, devops

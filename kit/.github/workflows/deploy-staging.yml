@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 # deploy-staging: publishes the product from staging when app/ or the shared tokens change.
 # Secrets (entered by the owner): CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID. Replace with your host if not Cloudflare.
 name: deploy-staging

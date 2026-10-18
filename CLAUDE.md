@@ -11,6 +11,7 @@ Public playbook for AI-driven product delivery (idea → production with one own
 - Phase numbers (1–7), gate IDs (G1–G6), role names, branch names, label names and change levels (L0–L3) must match across README, process, agent-team, templates and kit.
 - `templates/` holds copy-ready documents. Keep placeholders in `<angle brackets>`. Refer to project files as code paths (`docs/tech/srs.md`), not links, so templates have no broken links.
 - `kit/` holds what is copied into a project: `CLAUDE.md`, `.claude/` (roles, `role-guard` hook, settings), `.github/`, `scripts/`, `/gate`, the secret-check hook and `github-setup.md`. Re-run `node kit/.claude/hooks/role-guard.test.cjs` after changing the hook, and the secret-check cases after changing `kit/hooks/pre-commit`.
+- Licenses: docs and templates are CC BY 4.0 (`LICENSE`); everything in `kit/` is MIT (`kit/LICENSE`). New code files in `kit/` start with the `SPDX-License-Identifier: MIT` line and the credit line (after the shebang, if any).
 - Log every task in `docs/ai-log.md`.
 - No real client data or internal numbers from any employer or client.
 - Commit/push only when the user asks.

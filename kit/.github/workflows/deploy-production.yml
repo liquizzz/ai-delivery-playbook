@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 # deploy-production: deploys what the production branch points at, or (manual run) any tag for a rollback.
 # Disabled until go-live (1.0.0): keep the workflow disabled in GitHub (Actions → Disable workflow) until the owner turns it on.
 # Manual runs and enabling are owner-approved (role-guard asks before the Lead runs them).

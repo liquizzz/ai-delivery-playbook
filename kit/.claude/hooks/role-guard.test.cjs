@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 // Test cases for role-guard.cjs. Run: node .claude/hooks/role-guard.test.cjs
 // Pushes without an explicit refspec use the current branch, so these cases always name the target.
 const path = require("path");
