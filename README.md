@@ -10,7 +10,17 @@ The book does not teach programming, and it does not replace your judgement: you
 
 ## Start here
 
-**[How to run](HOW-TO-RUN.md):** clone this repo, run `node ai-delivery-playbook/kit/init.mjs`, answer five questions (name, folder, level, description, GitHub repo), then follow the `START-HERE.md` it writes into your new project. Each step there is one prompt to paste.
+In a terminal, from the folder where your projects live:
+
+```bash
+git clone https://github.com/liquizzz/ai-delivery-playbook.git
+```
+
+```bash
+node ai-delivery-playbook/kit/init.mjs
+```
+
+Answer its seven questions (Enter takes each suggestion), then open the `START-HERE.md` it writes into your new project: every next step is one prompt to paste into Claude Code. [How to run](HOW-TO-RUN.md) has the one-time machine setup and what each question means.
 
 Read the book when you want the reasons behind a step: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) keeps cost down.
 

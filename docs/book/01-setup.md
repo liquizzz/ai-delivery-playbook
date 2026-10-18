@@ -38,7 +38,7 @@ node <path to playbook>/kit/init.mjs
 6. One-line description (optional).
 7. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
 
-**It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels.
+**It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels and the kanban board (`scripts/setup-board.mjs`).
 
 **You check:** the report, then open `START-HERE.md` in the project. If init created a repo, open its Actions tab on GitHub: a new repo may show **Enable Actions on this repository**, and nothing runs until you click it.
 
@@ -60,7 +60,7 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --git
 
 **Claude does:**
 - fills in `CLAUDE.md`; writes `.claude/ownership.json` if your folders differ; fits the Dockerfile and the `ci` workflow to the stack;
-- creates the repo if init did not, runs `scripts/setup-labels.mjs`, creates the GitHub Project (columns Backlog · Approved · Ready · In progress · In review · Testing · Done; fields Role, Module, Level, Priority) and the milestones;
+- creates the repo, labels and board if init did not (`scripts/setup-labels.mjs`, `scripts/setup-board.mjs`), and the milestones;
 - runs the guard and release tests; commits on `role/lead`, merges into `dev`, and checks that CI ran on GitHub.
 
 **You check:** the report (tests pass), `CLAUDE.md` and the board on GitHub.

@@ -23,6 +23,7 @@
 | `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
+| `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing · Done and fields Role, Module, Level, Priority |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |

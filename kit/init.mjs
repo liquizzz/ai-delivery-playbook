@@ -316,6 +316,13 @@ if (repo) {
   } catch (e) {
     warnings.push(`GitHub step failed: ${String(e.stderr || e.message).trim().split("\n")[0]}. Finish it later with the Lead: "Connect this project to GitHub."`);
   }
+  try {
+    const board = run("node", [path.join("scripts", "setup-board.mjs")]);
+    created.push(`(kanban board: ${(board.match(/https:\S+/) || ["GitHub Projects"])[0]})`);
+  } catch (e) {
+    warnings.push(`Kanban board not created: ${String(e.stderr || e.message).trim().split("\n")[0]} Then run: node scripts/setup-board.mjs`);
+  }
+  warnings.push(`Open https://github.com/${repo}/actions once: a new repo may show "Enable Actions on this repository", and CI and images do not run until you click it.`);
 }
 
 // 2i. Role worktrees for the level (they start from the committed kit, so only in a fresh repo)
@@ -338,7 +345,7 @@ const lead = worktreePath(dest, "lead");
 console.log(`\n${name} is set up in ${dest} (level ${LEVELS[level].title}).\n`);
 console.log(`Created (${created.length}):\n  ${created.join("\n  ")}`);
 if (kept.length) console.log(`\nKept existing (${kept.length}, use --force to overwrite):\n  ${kept.join("\n  ")}`);
-if (warnings.length) console.log(`\nWarnings:\n  ${warnings.join("\n  ")}`);
+if (warnings.length) console.log(`\nPlease check:\n  ${warnings.join("\n  ")}`);
 console.log(`
 Next: open ${path.join(dest, "START-HERE.md")} and follow it step by step.
 Step 1 is: open Claude Code desktop in ${lead} and paste the prompt shown there.`);
