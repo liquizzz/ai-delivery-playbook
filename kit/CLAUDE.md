@@ -39,5 +39,27 @@ Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requi
 - <Project hard rules.>
 - The Lead logs each finished task in `docs/ai-log.md`.
 
+## Skills
+Use the skill named for each task, every time; do not swap it for another. For work not listed, pick the skill that fits.
+
+| Task | Skill |
+|---|---|
+| Interview the owner: stack, proposal or brief, architecture options, an unclear request | `superpowers:brainstorming` |
+| Market or competitor context for a proposal | `product-management:competitive-brief` |
+| PRD and stories | `product-management:write-spec`, on the template in `docs/templates/` |
+| Milestone into tasks | `superpowers:writing-plans` |
+| Every document: proposal, brief, PRD, SRS, ADR, CR, spec, test report, release notes, changelog | `humanizer` after the draft, before the commit (daily reports: a short pass when there is prose) |
+| Update for a client | `product-management:stakeholder-update`, then `humanizer` |
+| UI work | `frontend-design`; with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |
+| Code a task | L2-L3: `superpowers:test-driven-development`; L1: unit test the change; L0: build and look |
+| Library, framework or tool syntax | `context7` |
+| Bug, defect, red CI, hotfix | `superpowers:systematic-debugging` |
+| Before saying done, opening a PR, merging or releasing | `superpowers:verification-before-completion` |
+| PR review | `code-review`; for L3 also `security-review` |
+| Check that the app runs | `run` |
+| Long session or end of day | `claude-mem:handoff` |
+
+Never use `superpowers:using-git-worktrees`, `finishing-a-development-branch`, `subagent-driven-development`, `dispatching-parallel-agents` or `executing-plans`: the kit's worktrees, merge rules and one session per role replace them.
+
 ## Compact instructions
 Keep: role; current issue (number, status, next step); branch and last commit; decisions and reasons; items waiting for the owner; open risks; role-specific items from your role file. Drop command output, file contents already read, rejected options. After compacting, re-run your role file's recovery steps.

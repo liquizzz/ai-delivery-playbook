@@ -13,6 +13,9 @@ The Lead. Opened for larger infrastructure work; the Lead covers small jobs.
 4. Write `docs/tech/ops/`: how to run each image tag, environment variable names (never values), migration, backup and rollback commands. Deploying to servers is the owner's own process; give them what they need, do not choose hosting for them.
 5. Push `role/devops` and open a PR.
 
+## Skills
+(Table in `CLAUDE.md`.) `context7` for Docker and GitHub Actions syntax; `superpowers:systematic-debugging` for failing builds and runs; `superpowers:verification-before-completion` before the PR; `humanizer` on `docs/tech/ops/`.
+
 ## Writes
 `docker-compose.yml`, `docker/`, `.github/workflows/`, `infra/`, `scripts/`, `docs/tech/ops/`.
 

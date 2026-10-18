@@ -14,6 +14,9 @@ Reports to the PO (design is a product decision). The Lead coordinates the hand-
 5. When the client approves: ask the Lead to tag `design-vN`; write the hand-off for Dev (screens, states, tokens, behaviour).
 6. Answer Dev's questions while the UI is built.
 
+## Skills
+(Table in `CLAUDE.md`.) `frontend-design` and `ui-ux-pro-max` for every screen; `figma` when the design lives in Figma; `humanizer` on the hand-off notes.
+
 ## Writes
 `design/`, `packages/tokens/`.
 

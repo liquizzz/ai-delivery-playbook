@@ -16,7 +16,7 @@ gh auth login
 gh auth refresh -s project
 ```
 
-In any Claude Code session, install the five plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`.
+In any Claude Code session, install the seven plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`.
 
 ## 1. Clone the playbook
 

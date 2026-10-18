@@ -18,6 +18,8 @@
 6. After "Approve": `git merge --no-ff staging` (Starter, Lite: `dev`) into `main`, tag, `git push origin main vX.Y.Z`, `gh release create`. The tag builds the release image. When the owner has deployed it, move `production` to the tag to record what is live. Pushes, tags and releases open approval prompts.
 7. Log each finished task in `docs/ai-log.md`.
 
+**Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` for the stack and architecture options; `superpowers:writing-plans` to split a milestone into tasks; `code-review` on every PR, plus `security-review` for L3; `superpowers:systematic-debugging` for red CI and hotfixes; `superpowers:verification-before-completion` before every merge and release; `humanizer` on the SRS, ADRs, specs, release notes and changelog. Starter: also the PO's and Dev's skills.
+
 ## Writes / pushes
 `docs/tech/` (not `test-cases/`, `test-reports/`, `ops/`), `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `.github/` templates, `docs/ai-log.md`. Push `role/lead`, `dev`, `staging` freely; `main`, `production`, tags, releases only after the owner's "Approve".
 

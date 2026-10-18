@@ -15,6 +15,7 @@
 | Over-testing | Test by change level ([chapter 4](04-delivery-loop.md)); full regression only before a release |
 | Extra AI reviews | Only for L3, money, security or data, and before a release; you decide each time |
 | Strong model everywhere | Use the strongest model for the Lead (design, review); a cheaper, faster model is often enough for Dev and Test on routine tasks. Change it in the session's model setting |
+| Skills | A skill loads its instructions only when a session uses it. The kit names one skill per task and leaves out the subagent skills, which multiply the cost; do not add others to a role file without a reason |
 | Plugins you do not use | Each plugin adds a fixed cost to every session. Check it with `claude plugin details <plugin>` ("Projected token cost") and disable what the project does not need with `claude plugin disable <plugin>` |
 | Verbose command output | Ask sessions for short output (`--quiet`, `git log --oneline`); a tool that condenses command output helps further |
 

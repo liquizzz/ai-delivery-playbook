@@ -5,6 +5,12 @@
     },
     "thedotmack": {
       "source": { "source": "github", "repo": "thedotmack/claude-mem" }
+    },
+    "humanizer": {
+      "source": { "source": "github", "repo": "blader/humanizer" }
+    },
+    "knowledge-work-plugins": {
+      "source": { "source": "github", "repo": "anthropics/knowledge-work-plugins" }
     }
   },
   "enabledPlugins": {
@@ -12,7 +18,9 @@
     "code-review@claude-plugins-official": true,
     "github@claude-plugins-official": true,
     "claude-mem@thedotmack": true,
-    "context7@claude-plugins-official": true
+    "context7@claude-plugins-official": true,
+    "humanizer@humanizer": true,
+    "product-management@knowledge-work-plugins": true
   },
   "hooks": {
     "PreToolUse": [

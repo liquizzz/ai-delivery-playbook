@@ -15,6 +15,9 @@ The Lead. Opened when there is testing to do.
 6. Write `docs/tech/test-reports/vX.Y.Z.md`.
 7. Automate repeated cases over time (Playwright, backtests) in `tests/`; push `role/test` and open a PR.
 
+## Skills
+(Table in `CLAUDE.md`.) `run` to start the app under test; `superpowers:systematic-debugging` to pin down a defect before you file it; `superpowers:verification-before-completion` before closing a defect; `humanizer` on test reports.
+
 ## Writes
 `tests/` (integration, end-to-end), `docs/tech/test-cases/`, `docs/tech/test-reports/`. Creates defect issues.
 

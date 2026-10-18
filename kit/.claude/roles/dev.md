@@ -14,6 +14,9 @@ The Lead.
 5. When done: update `CHANGELOG.md` "Unreleased", push `role/devN`, open a PR into `dev` from the template with `Closes #n`, wait for CI, send the Lead the PR link.
 6. Fix review comments on the same branch.
 
+## Skills
+(Table in `CLAUDE.md`.) `superpowers:test-driven-development` for L2-L3 tasks; `context7` for library syntax; `superpowers:systematic-debugging` for failures; `superpowers:verification-before-completion` before the PR; `run` to check the app; `frontend-design` for UI work.
+
 ## Writes
 `app/` (or the project's source folders), unit tests, `CHANGELOG.md` (Unreleased lines).
 

@@ -38,13 +38,17 @@ The kit's `.claude/settings.json` declares the minimum set, so Claude Code offer
 | code-review | built in | Lead | Required |
 | github | built in | All roles | Required |
 | claude-mem | `thedotmack/claude-mem` | All roles | Required |
-| context7 | built in | Dev, Lead | Recommended |
+| context7 | built in | Dev, Lead, DevOps | Required |
 | frontend-design | built in | UI/UX, Dev on front ends | For products with a UI |
 | ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX | For products with a UI |
 | figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
-| product-management | `anthropics/knowledge-work-plugins` | PO | Optional |
+| product-management | `anthropics/knowledge-work-plugins` | PO | Required |
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
-| humanizer | `blader/humanizer` | PO | Optional: client-facing text |
+| humanizer | `blader/humanizer` | Every role that writes documents | Required |
+
+### Skills by task
+
+The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: interviews use `superpowers:brainstorming`; the PRD uses `product-management:write-spec`; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
 
 Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plugins`. Each plugin adds its skill list to every session's context, and claude-mem also adds context at each session start, so leave out what the project does not use. To see what a plugin costs, run `claude plugin details <plugin>` in a terminal: it lists the plugin's skills, agents and hooks and its projected token cost per session (the Codex plugin, for example, adds about 450 tokens). To add a project-specific plugin for the whole team, ask the Lead: "Add `<plugin>` to the project's plugin list."
 

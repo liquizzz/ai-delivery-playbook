@@ -8,7 +8,7 @@ These involve your machine, accounts or secrets:
 - Install the Claude Code desktop app, Git, Node.js 20+, the GitHub CLI (`gh`), Docker and, for front-end products, pnpm. Docker is required: `kit/init.mjs` stops if `docker` or `docker compose` is missing, and warns if Docker is installed but not running. Check with `docker compose version`.
 - Clone the playbook: `git clone https://github.com/liquizzz/ai-delivery-playbook.git`.
 - Sign in to GitHub in a terminal: `gh auth login`, then `gh auth refresh -s project`.
-- Install the minimum Claude Code plugins, once per machine, by typing these in any Claude Code session:
+- Install the Claude Code plugins the kit uses, once per machine, by typing these in any Claude Code session:
 
 | Plugin | Why the playbook needs it | Install |
 |---|---|---|
@@ -17,8 +17,10 @@ These involve your machine, accounts or secrets:
 | github | Issues, PRs and the board from inside a session | `/plugin install github@claude-plugins-official` |
 | claude-mem | Memory across sessions, so a restarted session finds its context | `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack` |
 | context7 | Current library documentation for Dev sessions | `/plugin install context7@claude-plugins-official` |
+| humanizer | Every document the sessions write reads like a person wrote it | `/plugin marketplace add blader/humanizer` then `/plugin install humanizer@humanizer` |
+| product-management | The PO's PRD, market and client-update skills | `/plugin marketplace add anthropics/knowledge-work-plugins` then `/plugin install product-management@knowledge-work-plugins` |
 
-Then run `/reload-plugins`. Plugins for specific roles or projects (UI/UX, Figma, Codex review…) are listed in [Appendix B](appendix-b-kit.md#plugins). Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
+Then run `/reload-plugins`. Plugins for specific roles or projects (UI/UX, Figma, Codex review…) are listed in [Appendix B](appendix-b-kit.md#plugins). You do not pick skills: the kit's `CLAUDE.md` names the skill for each task, and every session uses it. Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
 
 ## 1. Create the project
 

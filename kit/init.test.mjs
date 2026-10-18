@@ -40,6 +40,8 @@ try {
   check("starter: compose project name", read(a, "docker-compose.yml").includes("name: tiny-todo"));
   check("starter: no design pipeline by default", !read(a, "docker-compose.yml").includes("design:") && !fs.existsSync(path.join(a, ".github", "workflows", "image-design.yml")) && !fs.existsSync(path.join(a, "docker", "design.Dockerfile")));
   check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
+  check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("humanizer@humanizer") && read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
+  check("starter: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming"));
   check("starter: templates installed", fs.existsSync(path.join(a, "docs", "templates", "brief.md")));
   check("starter: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 
