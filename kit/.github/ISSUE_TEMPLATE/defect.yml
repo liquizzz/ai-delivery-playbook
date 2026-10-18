@@ -1,0 +1,56 @@
+name: Defect
+description: A defect found in testing or in production.
+title: "Defect: <short description>"
+labels: ["defect", "type:fix"]
+body:
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (add the matching sev:* label)
+      options:
+        - "sev:high: main function blocked, data loss, wrong money, security"
+        - "sev:medium: function wrong, a workaround exists"
+        - "sev:low: cosmetic or minor"
+    validations:
+      required: true
+  - type: dropdown
+    id: env
+    attributes:
+      label: Environment
+      options: [local, dev, staging, production]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: "v1.4.0 or staging @ a1b2c3d"
+    validations:
+      required: true
+  - type: input
+    id: fr
+    attributes:
+      label: Related requirement
+      placeholder: "FR-021"
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. …
+        2. …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: Screenshots or logs if useful. Never paste secrets.
+    validations:
+      required: true

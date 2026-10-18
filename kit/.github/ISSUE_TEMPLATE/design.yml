@@ -1,0 +1,29 @@
+name: Design (fast lane)
+description: A change only in design/. No CR needed.
+title: "Design: <screen> — <change>"
+labels: ["role:uiux", "L0"]
+body:
+  - type: input
+    id: screen
+    attributes:
+      label: Screen or component
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What to do
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Client feedback (if any)
+      description: Quote or summarise, with the date.
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: Touches only design/. Token changes (packages/tokens) or business logic need a normal CR or task.
+          required: true

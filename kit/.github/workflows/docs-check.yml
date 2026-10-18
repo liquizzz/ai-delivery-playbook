@@ -1,0 +1,21 @@
+# docs-check: warns when a PR labelled type:* does not touch the SRS or the changelog.
+# It never fails the build; the Lead decides in review.
+name: docs-check
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, unlabeled]
+
+jobs:
+  check:
+    if: contains(join(github.event.pull_request.labels.*.name, ','), 'type:')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SRS and changelog touched?
+        run: |
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")
+          echo "$changed" | grep -qx 'docs/tech/srs.md' || echo "::warning::This PR has a type:* label but does not change docs/tech/srs.md. Is the SRS still accurate?"
+          echo "$changed" | grep -qx 'CHANGELOG.md' || echo "::warning::This PR does not add a line to CHANGELOG.md (Unreleased)."

@@ -1,0 +1,57 @@
+name: Change Request (CR)
+description: New or changed business requirement. Opened by the PO.
+title: "CR: <short title>"
+labels: ["cr"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why is this change needed? Who has the problem?
+    validations:
+      required: true
+  - type: textarea
+    id: request
+    attributes:
+      label: Business request
+      description: In business language, not technical design.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - Given … When … Then …
+        - Given … When … Then …
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type (add the matching type:* label)
+      options: ["type:feature", "type:change", "type:fix"]
+    validations:
+      required: true
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Compatibility (from 1.0.0 only, compared with production)
+      options:
+        - label: "breaking: changes data, an API or a core flow; users or systems must change. Add the breaking label and require upgrade steps and a rollback plan in the spec."
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options: [High, Medium, Low]
+    validations:
+      required: true
+  - type: textarea
+    id: out
+    attributes:
+      label: Out of scope
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decisions and rejected options
+      description: Related DEC, options considered and why they were rejected.

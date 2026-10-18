@@ -1,0 +1,74 @@
+name: Task
+description: Work for Dev, Test or DevOps, created by the Lead as a sub-issue of a CR.
+title: "<module>: <what to do>"
+body:
+  - type: input
+    id: parent
+    attributes:
+      label: Parent CR
+      placeholder: "#12"
+    validations:
+      required: true
+  - type: input
+    id: fr
+    attributes:
+      label: SRS requirements
+      placeholder: "FR-021, NFR-004"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What to do
+      description: "Reference the spec: docs/tech/spec/CR-<n>-<slug>.md"
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: Change level (add the matching L* label)
+      description: Money, security, user data or deletes are always L3. When in doubt, pick the higher level.
+      options: ["L0 Display", "L1 Setting", "L2 Module logic", "L3 Core"]
+    validations:
+      required: true
+  - type: input
+    id: module
+    attributes:
+      label: Module
+    validations:
+      required: true
+  - type: dropdown
+    id: role
+    attributes:
+      label: Role
+      options: [Dev1, Dev2, Test, DevOps]
+    validations:
+      required: true
+  - type: dropdown
+    id: estimate
+    attributes:
+      label: Estimate
+      options: ["½ day", "1 day", "1½ days", "2 days", "> 2 days (split it)"]
+    validations:
+      required: true
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: Confidence
+      options: [High, Medium, Low]
+    validations:
+      required: true
+  - type: checkboxes
+    id: dor
+    attributes:
+      label: Definition of Ready
+      options:
+        - label: CR approved (PO, plus the owner for L2–L3)
+        - label: SRS and spec merged into dev
+        - label: Nothing blocks it (dependencies, accounts, data, secrets)
