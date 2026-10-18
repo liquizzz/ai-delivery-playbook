@@ -3,7 +3,7 @@
 Save as `docs/releases/vX.Y.Z.md`. Prepared by the Lead; the summary at the top is what the owner reads to approve.
 
 ## Release summary
-> **v<X.Y.Z>** (from v<A.B.C>) · <MAJOR / MINOR / PATCH> · CRs: <CR-12, CR-15> · Defects fixed: <#88, #91> · SRS: <§3.2, §5.1> changed · Tests: <regression passed> · Extra review: <none / Codex: n findings, x fixed, y rejected> · Risks: <...> · Buffer used: <½ day>
+> **v<X.Y.Z>** (from v<A.B.C>) · <MAJOR / MINOR / PATCH> · CRs: <CR-12, CR-15> · Defects fixed: <#88, #91> · SRS: <§3.2, §5.1> changed · Tests: <regression passed> · Owner acceptance: <passed n/n> · Extra review: <none / Codex: n findings, x fixed, y rejected> · Risks: <...> · Buffer used: <½ day>
 >
 > **Approve / Approve and deploy / Reject**
 
@@ -18,6 +18,13 @@ Save as `docs/releases/vX.Y.Z.md`. Prepared by the Lead; the summary at the top 
 - [ ] Every milestone issue is Done or moved to the next milestone with a note
 - [ ] `dev` merged into `staging`; full regression passed (`docs/tech/test-reports/vX.Y.Z.md`); eval meets pass marks: <metric = value>
 - [ ] No open `sev:high` or `sev:medium` defects (or accepted by the owner: <#>)
+- [ ] Owner acceptance: the owner tried each scenario on staging and confirmed it
+
+## Owner acceptance scenarios (PO writes, owner tries on staging)
+| # | Scenario (plain steps) | Expected | Owner result |
+|---|---|---|---|
+| 1 | <Log in as … → do … → see …> | <...> | <ok / problem: …> |
+| 2 | <...> | <...> | <...> |
 - [ ] `release` script run: version computed from labels, `CHANGELOG.md` finalised, SRS version and Revision History updated
 - [ ] Secret check passes; no credentials or client data in the repo or build
 - [ ] Migrations reviewed; backup plan and rollback steps written (breaking or L3 data changes)

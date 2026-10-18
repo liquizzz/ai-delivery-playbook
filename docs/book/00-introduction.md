@@ -8,20 +8,34 @@ Advanced users with some technical background — you can read code, use a termi
 
 **What you need to know:** run a command in a terminal; what a git branch and a commit are; how to open a GitHub repo and read an issue or a pull request. Everything else (worktrees, hooks, pipelines) is set up and run by Claude.
 
+| Your experience | What this book gives you |
+|---|---|
+| No programming, git or terminal yet | A map of the work, but learn the basics first; the book does not teach them |
+| You can run a project, use git and read an error | A framework to build a small working product or MVP |
+| You are an experienced developer | A standard way to hand work to AI and keep it under control |
+
+## What this book does not do
+
+- It does **not teach programming.** It teaches how to direct Claude Code to build, test and release software.
+- It does **not replace your judgement.** Several AI roles do not make an independent check: if the PO misunderstands you, the Lead, Dev and Test can follow the same mistake. The process makes misunderstandings visible early (every role writes down what it understood), and you **try the product yourself** before each release ([chapter 5](05-releases.md)).
+- It does **not guarantee** a correct, secure or stable product if gates, tests or your acceptance are skipped.
+- It does **not run by itself.** You open the sessions; they pick up work from issues ([chapter 2](02-the-team.md#5-how-automatic-it-is)).
+
 ## Quick start: from idea to demo
 
-Lite mode ([chapter 8](08-lite-mode.md)) is the fastest path. Each step is one prompt; Claude asks what it needs, then does the whole step.
+Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. Each step is one prompt; Claude asks what it needs, then does the whole step.
 
-| # | Session | Say | You get |
-|---|---|---|---|
-| 1 | New session in an empty folder | "Set up this folder as a project with the AI Delivery Playbook kit at `<path>`, Lite mode. Read `<path>/docs/book/01-setup.md` first. Ask me everything you need first." | Repo, kit, branches, PO and Lead worktrees ([ch. 1](01-setup.md)) |
-| 2 | PO | "Start phase 1 for `<idea>`. Interview me, then draft a one-page proposal." | Proposal with options ([ch. 3](03-foundation.md)) |
-| 3 | PO | "Proposal approved. Write a short PRD with stories." | PRD and stories |
-| 4 | Lead | "Write the SRS baseline and plan milestone v0.1.0 as the thinnest working slice." | SRS, first milestone, tasks |
-| 5 | Lead | "Open dev1 and build milestone v0.1.0." | Code through reviewed PRs ([ch. 4](04-delivery-loop.md)) |
-| 6 | Lead | "Milestone v0.1.0 is done. Prepare the release." | Tagged demo version v0.1.0 ([ch. 5](05-releases.md)) |
+| # | Say (to the one Starter session) | You get |
+|---|---|---|
+| 1 | "Set up this folder as a project with the AI Delivery Playbook kit at `<path>`, Starter mode. Read `<path>/docs/book/08-lite-mode.md` first. Ask me everything you need first." | Repo, kit, branches ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
+| 2 | "Start phase 1 for `<idea>`. Interview me, then draft a one-page proposal." | Proposal with options ([ch. 3](03-foundation.md)) |
+| 3 | "Proposal approved. Write a short PRD with stories." | PRD and stories |
+| 4 | "Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice (screen → logic → data)." | SRS, first milestone, tasks |
+| 5 | "Build milestone v0.1.0." | Code, tests by level ([ch. 4](04-delivery-loop.md)) |
+| 6 | "Milestone v0.1.0 is done. Prepare the release and my acceptance test." | Scenarios you try, then tagged v0.1.0 ([ch. 5](05-releases.md)) |
+| 7 | **Prove the loop:** close the session, open a new one, say "Read CLAUDE.md and continue as lead", then "Small change: `<one fix>`". | The fix as CR → task → v0.1.1, picked up from the record alone |
 
-Then keep asking the PO for changes; each becomes a CR, a task and the next version.
+If step 7 works smoothly, the process holds: keep building, and move to Lite or Full when the stakes rise.
 
 ## The model
 
@@ -74,7 +88,8 @@ The stakes decide, not the size.
 | Use | When |
 |---|---|
 | **Full process** | Real users, a client, money, security or personal data are involved, even for a short project |
-| **[Lite mode](08-lite-mode.md)** | Low stakes: a demo, a POC, an internal tool, a weekend build. Move to Full when the stakes rise |
+| **[Lite mode](08-lite-mode.md)** | Low stakes but more than one session's work: a POC, an internal tool. Move to Full when the stakes rise |
+| **[Starter mode](08-lite-mode.md#starter-mode)** | A first demo or a throw-away POC, built by one session. Move to Lite as soon as real users or a second developer appear |
 | **No process needed** | A one-off script or a spike you will throw away |
 
 ## How each task is written in this book
@@ -106,7 +121,7 @@ Every session follows **"ask first, then finish"** from the kit's `CLAUDE.md`: i
 | [5 Releases](05-releases.md) | Release, deploy, hotfix, roll back |
 | [6 Continuity](06-continuity.md) | Restart, compact, trace a change, switch machines |
 | [7 Front-end projects](07-frontend-projects.md) | Show design to the client while the product is built |
-| [8 Lite mode](08-lite-mode.md) | Run a smaller version for demos and POCs |
+| [8 Starter and Lite modes](08-lite-mode.md) | Run with one session for a demo, or three for a small product |
 | [9 Token budget](09-token-budget.md) | Keep cost under control |
 | Appendices | [A Templates](appendix-a-templates.md) · [B Kit](appendix-b-kit.md) · [C FAQ](appendix-c-faq.md) · [D Process checklist](appendix-d-checklist.md) |
 

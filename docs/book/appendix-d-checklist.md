@@ -33,6 +33,7 @@
 | 15 | Merge | Lead | Squash merge into `dev` | Definition of Done; **G4** when all tasks are done |
 | 16 | End-of-day report | PO | Same report file | Buffer left shown |
 | 17 | Regression on staging | Test | `docs/tech/test-reports/vX.Y.Z.md` | **G5** |
+| 18a | Owner acceptance | PO writes, you try | Scenarios in `docs/releases/vX.Y.Z.md` | Every scenario confirmed by you |
 | 18 | Release | Lead | `CHANGELOG.md`, SRS revision, `docs/releases/vX.Y.Z.md`, tag | **G6**, your approval |
 | 19 | Log | Lead | Line in `docs/ai-log.md` | One line per finished task |
 
@@ -46,4 +47,4 @@
 | Trace a change | Lead | [6](06-continuity.md) |
 | Move from Lite to Full | Lead | [8](08-lite-mode.md) |
 
-In Lite mode, skip steps 6, 16 and 17 unless the product needs them.
+In Lite mode, skip steps 6, 16 and 17 unless the product needs them. In Starter mode, also skip step 3 (one session) and step 9 (no daily report); steps 10–15 are done by the one session, and step 18a (your acceptance) is never skipped.

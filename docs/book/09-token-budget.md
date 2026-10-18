@@ -23,7 +23,7 @@
 2. **Close what is idle.** Nothing is lost: work lives in issues, documents and git.
 3. **Compact at natural breaks**, never in the middle of a fix.
 4. **Keep `CLAUDE.md` and role files short.** Every session reads them on every start; the kit keeps them brief.
-5. **Lite mode for demos** ([chapter 8](08-lite-mode.md)): fewer sessions, fewer documents, fewer tokens.
+5. **Starter mode for a first demo, Lite for a small product** ([chapter 8](08-lite-mode.md)): fewer sessions, fewer documents, fewer tokens.
 6. **Plan before building.** A clear CR and spec avoid rework, which is the most expensive token of all.
 
 ## Check what you spend

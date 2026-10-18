@@ -1,9 +1,10 @@
 # AI Delivery Playbook
 
-**A book and a kit for building real products with Claude Code** — one human (the owner) and a team of Claude Code sessions (PO, Lead, Dev, Test, UI/UX, DevOps) that plan, build, test and release with clear roles, written requirements and the owner's approval at every gate.
+**A book and a kit for building real products with Claude Code** — one human (the owner) and a team of Claude Code sessions (PO, Lead, Dev, Test, UI/UX, DevOps) that you open, which plan, build, test and release with clear roles, written requirements and your approval at every gate. Start with a single session (Starter mode) and add roles only when the project needs them.
 
 - **What you get:** a step-by-step book of prompts ("ask this session this; it will ask you these questions; then it does this"), copy-ready templates, and a tested kit (shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows, scripts) installed with one command.
-- **What it gives you:** a finished product, built fast and built right — requirements, code and documents that stay in step, deployments that are easy to run and to roll back, and a full trail of every decision and change.
+- **What it gives you:** a working product built fast, with the checks that keep it right — requirements, code and documents that stay in step, your own acceptance test before each release, deployments that are easy to run and to roll back, and a full trail of every decision and change.
+- **What it does not do:** teach programming, or replace your judgement. You still decide what is correct for the business and try it yourself before it ships ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)).
 - **Built for:** Claude Code desktop, GitHub, Node.js. GitHub Free is enough.
 - **Templates, not a platform:** the CI/CD workflows are starting points for a pnpm front end on Cloudflare Pages. For a back end, a database or another host, the DevOps or Lead session redesigns them from your answers ([chapter 1](docs/book/01-setup.md#4-before-the-first-deploy)). The team is semi-automatic by design ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
 
@@ -25,7 +26,7 @@
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
 | 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds to the client while the product is built |
-| 8 | [Lite mode](docs/book/08-lite-mode.md) | Run a smaller version for demos, POCs and small tools |
+| 8 | [Starter and Lite modes](docs/book/08-lite-mode.md) | Start with one session for a demo; three for a small product |
 | 9 | [Token budget](docs/book/09-token-budget.md) | Keep cost under control; avoid `/goal` and `/loop` |
 | A | [Templates](docs/book/appendix-a-templates.md) | See every document the sessions fill in |
 | B | [Kit reference](docs/book/appendix-b-kit.md) | See what the kit installs and how to change it |

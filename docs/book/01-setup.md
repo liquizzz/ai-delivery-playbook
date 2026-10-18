@@ -19,7 +19,7 @@ These involve your machine, accounts or secrets:
 **Claude asks you:**
 1. Product name and one-paragraph description (who it is for, the success metric).
 2. Stack and hosting.
-3. Full process or Lite mode (chapter 8)?
+3. Full process, Lite mode or Starter mode (chapter 8)?
 4. Front-end product with a design prototype? (keeps or removes the design pipeline)
 5. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
 6. Project hard rules (client data, read-only sources, compliance).

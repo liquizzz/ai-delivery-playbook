@@ -6,18 +6,23 @@
 
 ## 1. Release a milestone
 
-**What it does:** turns a finished milestone into an approved version with an updated changelog and SRS.
+**What it does:** turns a finished milestone into an approved version with an updated changelog and SRS — after **you have tried it yourself**. AI tests check what the SRS says; only you can confirm it is what the business needs.
 
 **Ask** — Lead session:
-> Milestone `v1.4.0` is done. Prepare the release.
+> Milestone `v1.4.0` is done. Prepare the release and my acceptance test.
 
 **Claude asks you:** only if something is open — unfinished issues (move them or wait?), open medium defects (accept or fix first?).
 
 **Claude does:**
 - merges `dev` into `staging`; asks Test for the full regression and waits for the report;
+- with the PO, writes **3–5 acceptance scenarios** from the milestone's acceptance criteria, in plain steps ("Log in as a sales user → create an order with 2 items → total shows 1,250,000 VND"), and sends them with the staging link;
 - runs `scripts/release.mjs` (version from labels; `CHANGELOG.md` and SRS Revision History updated);
-- writes `docs/releases/v1.4.0.md` ([template](../../templates/release-checklist.md)) and sends you the summary:
-  > **v1.4.0** (from v1.3.2) · MINOR · CR-12, CR-15 · Fixed: #88, #91 · SRS §3.2, §5.1 · Regression passed · Codex: 3 findings, 2 fixed · Risks: … · Buffer used: ½ day → **Approve / Approve and deploy / Reject**
+- writes `docs/releases/v1.4.0.md` ([template](../../templates/release-checklist.md)).
+
+**You do:** try each scenario on staging, plus anything you know real users do. Reply per scenario: "1 ok, 2 ok, 3 wrong total when discount applied".
+
+**Claude does:** turns each failure into a defect and fixes it in this milestone (or, if you agree, the next); when all pass, sends the summary:
+  > **v1.4.0** (from v1.3.2) · MINOR · CR-12, CR-15 · Fixed: #88, #91 · SRS §3.2, §5.1 · Regression passed · **Owner acceptance passed (5/5)** · Codex: 3 findings, 2 fixed · Risks: … · Buffer used: ½ day → **Approve / Approve and deploy / Reject**
 
 **You check:** the summary; reply **Approve**, **Approve and deploy** or **Reject** (with a reason).
 
