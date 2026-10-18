@@ -44,11 +44,15 @@ flowchart LR
   P7 -->|"CR, hotfix"| P4
 ```
 
-## When to use it
+## Choose the level of process
 
-| Full process | [Lite mode](08-lite-mode.md) | Not this book |
-|---|---|---|
-| A product with users, a client, money or data at stake; more than a week of work | A POC, an internal tool, a weekend build | A one-off script or a throw-away spike |
+The stakes decide, not the size.
+
+| Use | When |
+|---|---|
+| **Full process** | Real users, a client, money, security or personal data are involved, even for a short project |
+| **[Lite mode](08-lite-mode.md)** | Low stakes: a POC, an internal tool, a weekend build. Move to Full when the stakes rise |
+| **No process needed** | A one-off script or a spike you will throw away |
 
 ## How each task is written in this book
 
