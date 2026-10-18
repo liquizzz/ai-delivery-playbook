@@ -15,7 +15,10 @@ import fs from "node:fs";
 const args = process.argv.slice(2);
 const write = args.includes("--write");
 const msIndex = args.indexOf("--milestone");
-const gh = (...a) => execFileSync("gh", a, { stdio: ["ignore", "pipe", "inherit"] }).toString();
+// RELEASE_GH_SHIM=<file.mjs> replaces the gh CLI with a script (used by the kit's tests).
+const shim = process.env.RELEASE_GH_SHIM;
+const gh = (...a) =>
+  execFileSync(shim ? process.execPath : "gh", shim ? [shim, ...a] : a, { stdio: ["ignore", "pipe", "inherit"] }).toString();
 const git = (...a) => execFileSync("git", a, { stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
 const today = new Date().toISOString().slice(0, 10);
 

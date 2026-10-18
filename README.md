@@ -1,82 +1,59 @@
 # AI Delivery Playbook
 
-> I take products from business idea to production — end to end — with one human and a team of AI agents.
+**A book and a kit for building real products with Claude Code** — one human (the owner) and a team of Claude Code sessions (PO, Lead, Dev, Test, UI/UX, DevOps) that plan, build, test and release with clear roles, written requirements and the owner's approval at every gate.
 
-A practical, reusable operating model for delivering software with Claude Code role sessions (PO, Lead, Dev, Test, UI/UX, DevOps). AI drafts and builds; one human, the **owner**, decides at every gate. Projects run a **Foundation** stage once (phases 1–3), then ship in small **milestones** (phases 4–6), with a versioned SRS, GitHub issues as the work log and guardrails that keep each role in its lane.
+- **What you get:** a step-by-step book of prompts ("ask this session this; it will ask you these questions; then it does this"), copy-ready templates, and a tested kit (shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows, scripts) installed with one command.
+- **What it gives you:** small releases every few days, an always-current SRS, a versioned changelog, and sessions that can restart without losing work.
+- **Built for:** Claude Code desktop, GitHub, Node.js. GitHub Free is enough.
 
-## The life cycle
+## Start here
 
-```mermaid
-flowchart LR
-  subgraph F["Foundation (once)"]
-    P1["1 Planning<br/>and Discovery"] --> P2["2 Requirements<br/>and Analysis"] --> P3["3 Design"]
-  end
-  subgraph L["Delivery loop (every milestone)"]
-    P4["4 Implementation"] --> P5["5 Testing"] --> P6["6 Deployment"]
-  end
-  P3 --> P4
-  P6 -->|next milestone| P4
-  P6 --> P7["7 Maintenance"]
+1. Read [Chapter 0 — Introduction](docs/book/00-introduction.md) (5 minutes).
+2. Follow [Chapter 1 — Setup](docs/book/01-setup.md): open a Claude Code session in an empty folder and paste the setup prompt. It asks you a few questions, then installs everything.
+3. Talk to the PO session from then on.
+
+## The book
+
+| | Chapter | Use it to |
+|---|---|---|
+| 0 | [Introduction](docs/book/00-introduction.md) | Understand the model, the principles and how prompts work in this book |
+| 1 | [Setup](docs/book/01-setup.md) | Start a project, connect GitHub, open the first sessions |
+| 2 | [The team](docs/book/02-the-team.md) | Know who does what, how code moves, what the guardrails block |
+| 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1–G3) |
+| 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, run the morning plan, keep the milestone on date |
+| 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
+| 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact and switch machines without losing work |
+| 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds to the client while the product is built |
+| 8 | [Lite mode](docs/book/08-lite-mode.md) | Run a smaller version for POCs and small tools |
+| A | [Templates](docs/book/appendix-a-templates.md) | See every document the sessions fill in |
+| B | [Kit reference](docs/book/appendix-b-kit.md) | See what the kit installs and how to change it |
+| C | [FAQ and troubleshooting](docs/book/appendix-c-faq.md) | Fix common problems |
+
+## A day with the team
+
+```text
+09:30  You → PO      "Morning brief."            PO lists yesterday, the plan and 3 decisions.
+09:40  You → PO      "1 yes, 2 next milestone, 3 yes."
+       PO → Lead     CRs approved → Lead updates the SRS and spec, creates tasks.
+       Lead → Devs   Devs build, open PRs; Lead reviews and merges; Test checks.
+14:00  You → PO      "I want users to export reports as CSV."
+       PO → You      Asks 4 questions → you answer → CR opened, fits in the buffer.
+18:00  PO → You      End-of-day report: done, blocked, buffer left.
+Day 3  Lead → You    "v0.4.0 ready: 2 CRs, regression passed. Approve?"  →  "Approve and deploy."
 ```
 
-| Phase | Question | Output | Gate |
-|---|---|---|---|
-| 1 Planning and Discovery | What do we build, for whom? | Proposal: options, scope, metric, timeline, budget | G1 |
-| 2 Requirements and Analysis | What exactly must it do? | PRD, real-data analysis, user stories | G2 |
-| 3 Design | How will we build it? | SRS baseline, ADRs, C4, UI, test strategy, eval plan, first milestone | G3 |
-| 4 Implementation | Does it work? | Code and tests through PRs, per milestone | G4 |
-| 5 Testing | Does it meet the SRS? | Regression and eval report on staging | G5 |
-| 6 Deployment | Is it released and safe? | Tagged version, changelog, SRS revision, release summary | G6 |
-| 7 Maintenance | Does it keep working; what next? | Hotfixes, next milestones, case study | — |
+## Repository
 
-- **The owner decides, AI drafts:** the morning plan, L2–L3 changes, scope and dates, every release and deployment, money, accounts and secrets.
-- **Change through CRs, not freezes:** every change is a CR issue; every CR updates the always-current SRS before code starts.
-- **Small releases:** 1–3 CRs per milestone, semantic version computed from issue labels, owner approves each release.
-- **Roles in their lanes:** one session and one git worktree per role; only the Lead merges; a hook enforces push and path rules.
-- **Nothing lives only in chat:** issues, documents and git are the source of truth, so any session can restart and continue.
-- **Every task is logged:** what AI did, where the human stepped in, how much rework.
-
-Full process: [docs/process.md](docs/process.md) · Agent team operating model: [docs/agent-team.md](docs/agent-team.md) · Project setup: [kit/github-setup.md](kit/github-setup.md)
-
-## What a client gets
-
-| Stage | Deliverable you review and approve |
+| Path | Contents |
 |---|---|
-| 1 Planning and Discovery | Proposal with options, effort, risks, scope, timeline and budget |
-| 2 Requirements and Analysis | PRD with success metrics; analysis of your real data (the data stays in your environment); user stories |
-| 3 Design | Clickable prototype; SRS with numbered requirements; C4 diagrams; architecture decisions (ADRs); test and evaluation plan |
-| Every milestone (a small release) | A staging demo; a release summary with version, changes, test results and risks to approve |
-| Go-live and after | Release notes and changelog per version; rollback plan; case study and next-phase proposal |
+| [docs/book/](docs/book/) | The book |
+| [templates/](templates/) | Documents the sessions fill in |
+| [kit/](kit/) | Files installed into a project by `kit/init.mjs` |
+| [docs/ai-log.md](docs/ai-log.md) | Log of how this playbook itself was built with AI |
 
-## Templates
+## Worked example
 
-| Stage | Template |
-|---|---|
-| 1 Planning and Discovery | [Proposal](templates/proposal.md) |
-| 2 Requirements and Analysis | [PRD](templates/prd.md) · [Data notes](templates/data-notes.md) · [User story](templates/user-story.md) |
-| 3 Design | [SRS](templates/srs.md) · [ADR](templates/adr.md) · [C4 diagrams](templates/c4.md) · [Test strategy](templates/test-strategy.md) · [Eval plan](templates/eval-plan.md) |
-| Delivery loop | [CR](templates/cr.md) · [DEC](templates/dec.md) · [Spec per CR](templates/spec.md) · [Milestone](templates/milestone.md) · [Daily report](templates/daily-report.md) · [Test cases](templates/test-cases.md) · [Test report](templates/test-report.md) · [Release](templates/release-checklist.md) · [Changelog](templates/changelog.md) |
-| 7 Maintenance | [Case study](templates/case-study.md) |
-
-## Claude Code kit
-
-| Path | Use |
-|---|---|
-| [kit/CLAUDE.md](kit/CLAUDE.md) | Shared project `CLAUDE.md`: roles, owner gates, rules, compact instructions |
-| [kit/.claude/roles/](kit/.claude/roles/) | One file per role: PO, Lead, Dev, Test, UI/UX, DevOps |
-| [kit/.claude/hooks/role-guard.cjs](kit/.claude/hooks/role-guard.cjs) | Push, merge and path rules per role; owner approval prompts for releases (with tests) |
-| [kit/.claude/settings.json](kit/.claude/settings.json) | Registers the hook; shared allow and deny rules |
-| [kit/.github/](kit/.github/) | Issue forms (CR, Task, Defect, Design), PR template, workflows (CI, docs check, design, staging, production) |
-| [kit/scripts/](kit/scripts/) | `new-role-worktree`, `setup-labels`, `release` (version from labels, changelog, SRS revision) |
-| [kit/commands/gate.md](kit/commands/gate.md) | `/gate <G#>`: the agent checks a gate against the repo and GitHub |
-| [kit/hooks/pre-commit](kit/hooks/pre-commit) | Secret check: blocks `.env` files and credential-like values |
-| [kit/github-setup.md](kit/github-setup.md) | Step-by-step setup of a new project, worktrees, GitHub board and pipelines |
-
-## Projects built with this playbook
-
-| Project | What it proves | Status |
-|---|---|---|
-| — | Worked examples will be added as projects are delivered with this process. | — |
+A complete sample project built by following this book will be linked here.
 
 ## License
 

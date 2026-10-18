@@ -66,9 +66,9 @@ if (!fs.existsSync(local)) {
 }
 
 const gitignore = fs.existsSync(path.join(root, ".gitignore")) ? fs.readFileSync(path.join(root, ".gitignore"), "utf8") : "";
-for (const entry of [".claude/role", ".env.local"]) {
-  if (!gitignore.includes(entry)) console.warn(`Warning: add "${entry}" to .gitignore`);
-}
+const ignored = gitignore.split(/\r?\n/);
+if (!ignored.includes(".claude/role")) console.warn('Warning: add ".claude/role" to .gitignore');
+if (!ignored.includes(".env.local") && !ignored.includes(".env.*")) console.warn('Warning: add ".env.local" to .gitignore');
 
 console.log(`
 Worktree ready: ${wtDir}

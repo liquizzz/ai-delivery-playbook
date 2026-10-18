@@ -41,6 +41,7 @@ The morning plan · L2–L3 CRs · scope, priority or date changes · releases t
 | Release (Lead) | `node scripts/release.mjs` (dry run) · `--write` |
 
 ## Rules
+- **Ask first, then finish.** Before starting any request, check what the result needs (the template's fields, acceptance criteria, scope, priority, milestone, change level, who approves). If anything is missing or ambiguous, ask **all** your questions in **one** numbered list, each with your proposed answer, and wait. After the answers, do the whole task without further questions unless something new comes up. If nothing is missing, say so in one line and start.
 - **Docs lead code.** The SRS and the CR spec are merged into `dev` before a task is assigned. If they are wrong or unclear, ask (Dev/Test → Lead, Lead → PO); never deviate silently.
 - **Decided means written.** Record a decision in the CR, issue, DEC or ADR the moment it is made.
 - **One task in progress** per team member. Work only on assigned issues and only in the paths your role writes.
