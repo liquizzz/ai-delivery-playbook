@@ -57,13 +57,14 @@ try {
 
   // 2. Lite through the questions (name, folder, level, description, GitHub, confirm)
   const b = path.join(tmp, "my-shop");
-  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "My Shop\n\n2\n\n\nA tiny shop.\nnone\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  // --github none keeps the questions the same whether or not gh is signed in on this machine.
+  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "My Shop\n\n2\n\n\nA tiny shop.\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("lite: folder from the suggested name", fs.existsSync(path.join(b, "CLAUDE.md")));
   check("lite: po, lead and dev1 worktrees", ["po", "lead", "dev1"].every((r) => fs.existsSync(wt(b, r))));
   check("lite: no staging", !branches(b).includes("staging"));
 
   // 3. Answering "no" changes nothing
-  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "Nope\n\n\n\n\n\nnone\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "Nope\n\n\n\n\n\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("no: nothing created", !fs.existsSync(path.join(tmp, "nope")));
 
   // 4. Full with flags
