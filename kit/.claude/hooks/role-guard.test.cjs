@@ -9,6 +9,30 @@ const root = path.resolve("/tmp/proj-wt/x");
 const outcome = (r) => (!r ? "allow" : r.block ? "block" : "ask");
 
 const commandCases = [
+  // wrapped and nested commands
+  ["dev1", "rtk git push origin main", "block"],
+  ["dev1", "rtk proxy git push origin main", "block"],
+  ["dev1", "rtk git push origin role/dev1", "allow"],
+  ["dev1", "env GIT_TRACE=1 git push origin dev", "block"],
+  ["dev1", "FOO=1 git push origin dev", "block"],
+  ["dev1", "command git push origin main", "block"],
+  ["dev1", "nohup git push origin main", "block"],
+  ["dev1", "/usr/bin/git push origin main", "block"],
+  ["dev1", "git.exe push origin main", "block"],
+  ["dev1", "bash -c \"git push origin main\"", "block"],
+  ["dev1", "sh -c 'cd app && git push origin staging'", "block"],
+  ["dev1", "cmd /c git push origin main", "block"],
+  ["dev1", "powershell -Command \"git push origin main\"", "block"],
+  ["dev1", "pwsh -c \"git push origin role/dev1\"", "allow"],
+  ["dev1", "powershell -EncodedCommand ZwBpAHQAIABwAHUAcwBoAA==", "block"],
+  ["dev1", "& git push origin main", "block"],
+  ["dev1", "rtk gh pr merge 12", "block"],
+  ["dev1", "bash -c \"gh release create v1.0.0\"", "block"],
+  ["dev1", "rtk git status", "allow"],
+  ["lead", "rtk git push origin main", "ask"],
+  ["lead", "bash -c \"git push --force origin dev\"", "block"],
+  ["lead", "rtk git push origin dev", "allow"],
+  // plain commands
   ["dev1", "git push origin role/dev1", "allow"],
   ["dev1", "git push -u origin role/dev1", "allow"],
   ["dev1", "git push origin HEAD:role/dev1", "allow"],

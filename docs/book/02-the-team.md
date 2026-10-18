@@ -70,6 +70,31 @@ The `role-guard` hook ([kit](../../kit/.claude/hooks/role-guard.cjs)) checks eve
 |---|---|---|
 | Force push to `dev`, `staging`, `main`; `--no-verify`; `gh secret`; editing real `.env` files | Pushing any branch but their own; merging PRs; releases; running workflows; editing paths they do not own | Pushing `main` or `production`; pushing tags; GitHub releases; running a workflow (deploy, rollback) |
 
-A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. These rules stop mistakes; they are not a security boundary.
+A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. The hook also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell. These rules stop mistakes; they are not a security boundary. On GitHub Free, private repos cannot use branch protection; on a paid plan, also protect `main` and `production` on GitHub.
+
+## 5. How automatic it is
+
+**What it does:** the team is **semi-automatic by design**: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise the level only as far as you are comfortable.
+
+| Level | What happens on its own | What you still do |
+|---|---|---|
+| **1 Default** | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
+| **2 Sessions message each other** | The Lead notifies a session when it assigns work; the PO notifies the Lead when a CR is approved (Claude Code desktop can send messages between local sessions) | Open sessions; approve |
+| **3 Lead opens sessions** | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
+| **4 Scheduled checks** | Sessions check for work on a timer, e.g. Test every 30 minutes for merged PRs that need testing, the PO for the morning brief | Approve; watch cost |
+
+**Ask** — Lead session, to move to level 2 or 3:
+> From now on, message the receiving session when you assign work, and open the session yourself if it is not running.
+
+**Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
+
+**Ask** — Test session, for level 4:
+> /loop 30m Check for PRs merged into dev that need testing, test them by level and report.
+
+**Claude does:** checks on the timer, works when there is something to do, stays idle otherwise.
+
+**You check:** cost and noise after a day; stop the loop with "stop the loop" if it is not worth it.
+
+Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; approvals always wait for you; every running session uses tokens.
 
 Next: [Chapter 3 — Foundation](03-foundation.md).

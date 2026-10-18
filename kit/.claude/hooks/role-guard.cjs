@@ -100,6 +100,38 @@ function splitCommands(line) {
 
 const isTool = (word, name) => new RegExp(`(^|[\\\\/])${name}(\\.exe)?$`, "i").test(word || "");
 
+// Wrappers that run another command: "rtk git push", "env X=1 git push", "command git push", "sudo git push" …
+const WRAPPERS = ["rtk", "env", "command", "builtin", "exec", "sudo", "nohup", "time", "nice", "npx", "&"];
+const SHELLS = ["bash", "sh", "zsh", "dash", "cmd", "powershell", "pwsh"];
+
+// Turn one simple command into the commands it actually runs: strip wrappers and open nested shells
+// ("bash -c 'git push …'", "powershell -Command \"…\"", "cmd /c …"). Returns a list of word arrays.
+function unwrap(words, depth = 0) {
+  if (depth > 4 || !words.length) return [words];
+  let i = 0;
+  for (;;) {
+    const w = words[i];
+    if (w === undefined) return [];
+    if (/^[A-Za-z_][A-Za-z0-9_]*=/.test(w)) { i++; continue; } // VAR=value prefix
+    const base = w.replace(/^.*[\\/]/, "").replace(/\.exe$/i, "").toLowerCase();
+    if (WRAPPERS.includes(base)) {
+      i++;
+      if (base === "rtk" && words[i] === "proxy") i++;
+      while (words[i] && words[i].startsWith("-") && base !== "&") i++; // wrapper options (env -i, nice -n …)
+      continue;
+    }
+    if (SHELLS.includes(base)) {
+      const flag = words.findIndex((x, k) => k > i && /^(-c|\/c|-command|-encodedcommand)$/i.test(x));
+      if (flag > i && /^-encodedcommand$/i.test(words[flag])) return [["-encodedcommand"]];
+      if (flag > i && words[flag + 1] !== undefined) {
+        const inner = words.slice(flag + 1).join(" ");
+        return splitCommands(inner).flatMap((cmd) => unwrap(cmd, depth + 1));
+      }
+    }
+    return [words.slice(i)];
+  }
+}
+
 // Return { sub, args } for a git command, skipping global options such as -C <dir> and -c <k=v>.
 function parseGit(words) {
   let i = 0;
@@ -164,7 +196,10 @@ function checkCommand(command, role, cwd) {
     return { block: "Do not skip checks with --no-verify. Fix the reported problem instead." };
   }
   let ask = null;
-  for (const words of splitCommands(command)) {
+  for (const words of splitCommands(command).flatMap((c) => unwrap(c))) {
+    if (/^-encodedcommand$/i.test(words[0] || "")) {
+      return { block: "Encoded PowerShell commands are not allowed; run the command in plain text." };
+    }
     if (isTool(words[0], "gh")) {
       if (words[1] === "pr" && words[2] === "merge" && role !== "lead") {
         return { block: `Role "${role || "unknown"}" may not merge PRs. Send the PR link to the Lead.` };
@@ -245,4 +280,4 @@ function main() {
 }
 
 if (require.main === module) main();
-module.exports = { checkCommand, checkEdit, splitCommands, parseGit, analysePush };
+module.exports = { checkCommand, checkEdit, splitCommands, unwrap, parseGit, analysePush };

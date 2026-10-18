@@ -5,6 +5,7 @@
 - **What you get:** a step-by-step book of prompts ("ask this session this; it will ask you these questions; then it does this"), copy-ready templates, and a tested kit (shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows, scripts) installed with one command.
 - **What it gives you:** a finished product, built fast and built right — requirements, code and documents that stay in step, deployments that are easy to run and to roll back, and a full trail of every decision and change.
 - **Built for:** Claude Code desktop, GitHub, Node.js. GitHub Free is enough.
+- **Templates, not a platform:** the CI/CD workflows are starting points for a pnpm front end on Cloudflare Pages. For a back end, a database or another host, the DevOps or Lead session redesigns them from your answers ([chapter 1](docs/book/01-setup.md#4-before-the-first-deploy)). The team is semi-automatic by design ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## Start here
 
