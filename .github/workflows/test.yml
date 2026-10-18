@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# test: runs the kit's three test suites on every push and pull request.
+# The workflows in kit/.github/ are templates that init copies into projects; this one tests the playbook itself.
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  kit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Git identity for the test repos init creates
+        run: |
+          git config --global user.name "playbook-ci"
+          git config --global user.email "playbook-ci@users.noreply.github.com"
+          git config --global init.defaultBranch main
+      - name: role-guard hook
+        run: node kit/.claude/hooks/role-guard.test.cjs
+      - name: release script
+        run: node kit/scripts/release.test.mjs
+      - name: init, set-level and session-start hook
+        run: node kit/init.test.mjs
