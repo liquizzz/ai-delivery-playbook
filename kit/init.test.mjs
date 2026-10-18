@@ -42,6 +42,14 @@ try {
   check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
   check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("humanizer@humanizer") && read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
   check("starter: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming"));
+  const hook = (dir) => {
+    const out = execFileSync("node", [path.join(dir, ".claude", "hooks", "session-start.cjs")], { input: "{}", env: { ...process.env, CLAUDE_PROJECT_DIR: dir } }).toString();
+    return out ? JSON.parse(out).hookSpecificOutput.additionalContext : "";
+  };
+  const leadReminder = hook(wt(a, "lead"));
+  check("session-start: lead gets role and skills", leadReminder.includes("you are the lead session") && leadReminder.includes("superpowers:writing-plans") && leadReminder.includes("one topic per round"));
+  check("session-start: main checkout is told to use a worktree", hook(a).includes("has no role"));
+  check("session-start: registered in settings", read(a, ".claude", "settings.json").includes("session-start.cjs"));
   check("starter: templates installed", fs.existsSync(path.join(a, "docs", "templates", "brief.md")));
   check("starter: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 

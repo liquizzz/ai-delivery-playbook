@@ -7,6 +7,9 @@
 **A session starts work without asking anything, and gets it wrong.**
 Say: "Stop. Follow 'ask first, in rounds, then finish' in CLAUDE.md: ask me what you need, then redo it." Check that `CLAUDE.md` still contains that rule.
 
+**A session skipped a skill, for example wrote a document without the humanizer pass.**
+You do not have to name skills: each session is reminded of its skills when it starts. If one still skips a step, say "Follow the Skills table in CLAUDE.md and redo the last step."
+
 **A session asks too many questions.**
 Say "you decide" for the topics you do not care about; it settles them, lists its assumptions, and keeps asking only about the rest. The stack is the one decision it will not take for you unless you say so.
 

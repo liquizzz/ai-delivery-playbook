@@ -8,7 +8,8 @@
 | `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, daily rhythm, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2) |
-| `.claude/hooks/role-guard.test.cjs` | 78 test cases for the hook, including wrapped and nested commands |
+| `.claude/hooks/role-guard.test.cjs` | 80 test cases for the hook, including wrapped and nested commands |
+| `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to ask you in rounds, so you never type it |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
 | `.claude/commands/gate.md` | `/gate G1`…`G6`: checks a gate against the repo and GitHub |
