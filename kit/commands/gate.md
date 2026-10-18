@@ -5,13 +5,17 @@ argument-hint: <gate, e.g. G3 or G5 v1.4.0>
 
 Check gate **$ARGUMENTS** of the AI Delivery Playbook for this repository.
 
-1. Find the gate's criteria in the table below. G4–G6 apply to a milestone: use the version given, or the running milestone.
+1. Read the level and whether there is a design prototype in `.claude/project.json` (no file: full process). Find the gate's criteria in the table below and apply the notes for the level. G4-G6 apply to a milestone: use the version given, or the running milestone.
 2. For each criterion, look for evidence in the repo and on GitHub (`gh issue list`, `gh pr list`, `gh run list`). Read the files and run the checks; do not assume.
 3. Report a table: criterion · pass / fail / unclear · evidence (file and line, issue, run) · what is missing.
-4. End with one line: **Ready for approval** or **Not ready**, and the smallest list of actions to get there.
+4. End with one line: **Ready for approval** or **Not ready**, and the smallest list of actions to get there. If ready, add the `For you` block from `CLAUDE.md`, so the owner knows what to try before approving.
 5. Do not change any file. Do not mark the gate as passed: only the owner approves a gate.
 
-**Starter level** (`.claude/project.json`): G1-G3 are one gate. It passes when `docs/product/brief.md` is approved (goal, stories with testable acceptance, out of scope, stack, v0.1.0 plan), `docs/tech/srs.md` covers every v0.1.0 story with FR IDs, ADR-001 records the stack, and milestone v0.1.0 exists on GitHub. G4-G6 apply without PRs and without `staging`: merged commits name their issue (`(#n)`), and `dev` is what the owner tries before release.
+**No design prototype** (`design: false`): skip the `design-v1` tag in G3; the screens are approved through the stories' acceptance instead.
+
+**Lite level:** G1 accepts a one-page proposal (timeline and budget in a line each). G2 needs the PRD and stories with testable acceptance (data notes only when data comes from an existing system). G3 needs the SRS baseline, ADRs for real choices, labels, the board and the first milestone; no C4, test strategy or eval plan, and no `staging` branch. G5: no `staging` and no Test session: CI is green on `dev`, each issue reports its level tests, and no `sev:high` or `sev:medium` defect is open. G6 merges `dev` into `main`.
+
+**Starter level:** G1-G3 are one gate. It passes when `docs/product/brief.md` is approved (goal, stories with testable acceptance, out of scope, stack, v0.1.0 plan), `docs/tech/srs.md` covers every v0.1.0 story with FR IDs, ADR-001 records the stack, and milestone v0.1.0 exists on GitHub. G4-G6 apply without PRs and without `staging`: merged commits name their issue (`(#n)`), G5 is as for Lite, and `dev` is what the owner tries before release.
 
 | Gate | Criteria |
 |---|---|

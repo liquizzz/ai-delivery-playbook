@@ -4,7 +4,7 @@ Level: **Full process**. You talk mostly to the PO; the Lead runs the team (Dev,
 
 Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{repo}} with labels and a kanban board, and two worktrees: PO `{{po}}`, Lead `{{lead}}`.
 
-**Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 design and SRS, G4 built, G5 accepted on `staging`, G6 released. Appendix D of the book lists every step with its check.
+**Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 design and SRS, G4 built, G5 accepted on `staging`, G6 released. Before each approval, Claude ends with a **For you** block: what the gate means, what to try yourself with the expected result and an example of a wrong one, and what tests and CI already prove. Try those items before you say "Approved". Appendix D of the book lists every step with its check.
 
 ## 1. Finish the setup (ch. 1). Session: Lead
 
@@ -36,7 +36,7 @@ Then: "Check G1 and tell me if it is ready for my approval." Approve.
 
 > We need dev1, test and uiux for milestone v0.1.0. Prepare them.
 
-Open one session per worktree the Lead creates, each with "Read CLAUDE.md and continue as `<role>`."
+Open one session per worktree the Lead creates, each with "Read CLAUDE.md and continue as `<role>`." From then on, each report that hands work over ends with **Next: open "{{name}} - <Role>" and paste: "…"**; the receiving session comments `Started #n` on the issue. To skip these switches, ask the Lead to message the other sessions itself (ch. 2, section 5).
 
 ## 7. Every day (ch. 4). Session: PO
 

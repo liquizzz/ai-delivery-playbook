@@ -83,6 +83,8 @@ A blocked session sees the reason and changes course. An approval request appear
 | 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
 | 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
+At level 1 you carry the work between sessions, and every hand-off tells you how: the report ends with **Next: open "<Project> - <Role>" and paste: "…"**. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
+
 **Ask the Lead,** to move to level 2 or 3 (the recommended maximum):
 > From now on, message the receiving session when you assign work, and open the session yourself if it is not running.
 

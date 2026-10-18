@@ -37,9 +37,9 @@ Rules: proposal before PRD · real data during requirements · no production cod
 **Ask the session that owns the phase** (PO for G1-G2, Lead for G3-G6):
 > Check G1 and tell me if it is ready for my approval.
 
-**Claude does:** runs `/gate G1`, reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes.
+**Claude does:** runs `/gate G1` with the criteria for your level (Starter, Lite or Full), reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes. When the gate is ready, it adds a **For you** block in plain words: what the gate means for the product, one to three things to try or read yourself (each with the expected result and an example of a wrong one), what you are confirming, and what tests, CI and review already prove, with links.
 
-**You check:** the report, then reply "G1 approved" (or ask for the fixes). The session records the approval date.
+**You check:** try the items in the For you block. You judge whether the product does what you want; the evidence covers the technical part, so you do not have to judge an ADR or a test report yourself. Then reply "G1 approved" (or what is wrong). The session records the approval date.
 
 ## 3. Write the requirements (phase 2)
 

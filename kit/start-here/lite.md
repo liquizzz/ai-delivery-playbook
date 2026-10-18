@@ -4,7 +4,7 @@ Level: **Lite**. Three Claude Code sessions: PO (your requests), Lead (SRS, revi
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with labels and a kanban board, and three worktrees: PO `{{po}}`, Lead `{{lead}}`, Dev1 `{{dev1}}`.
 
-**Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 SRS and plan, G4 built, G5 tested, G6 released. The book explains any step in more depth (chapter numbers in brackets).
+**Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 SRS and plan, G4 built, G5 tested, G6 released. Before each approval, Claude ends with a **For you** block: what the gate means, what to try yourself with the expected result and an example of a wrong one, and what tests and CI already prove. Try those items before you say "Approved". The book explains any step in more depth (chapter numbers in brackets).
 
 ## 1. Finish the setup (ch. 1). Session: Lead
 
@@ -40,7 +40,7 @@ Open a session in `{{po}}` named "{{name}} - PO" and one in `{{dev1}}` named "{{
 
 ## 6. Build: gates G4-G5 (ch. 4). Sessions: Dev1, then Lead
 
-Dev1 picks up its assigned tasks: "Start your next task." The Lead reviews each PR and merges it into `dev`. You only answer questions they raise.
+Paste into the Lead: "Assign the v0.1.0 tasks." Each time a session hands work to another, its report ends with **Next: open "{{name}} - <Role>" and paste: "…"**. Do exactly that: Dev1 starts its task and comments `Started #n` on the issue; when its PR is open, it tells you to go back to the Lead, who reviews and merges into `dev`. To skip these switches, ask the Lead to message the other sessions itself (ch. 2, section 5).
 
 ## 7. Release v0.1.0: gate G6 (ch. 5). Session: Lead
 

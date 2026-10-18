@@ -50,6 +50,8 @@ try {
   check("session-start: lead gets role and skills", leadReminder.includes("you are the lead session") && leadReminder.includes("superpowers:writing-plans") && leadReminder.includes("one topic per round"));
   check("session-start: main checkout is told to use a worktree", hook(a).includes("has no role"));
   check("session-start: registered in settings", read(a, ".claude", "settings.json").includes("session-start.cjs"));
+  check("gate: level-aware with owner block", read(a, ".claude", "commands", "gate.md").includes("**Lite level:**") && read(a, ".claude", "commands", "gate.md").includes("For you"));
+  check("CLAUDE.md: hand-off and For you rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block"));
   check("starter: templates installed", fs.existsSync(path.join(a, "docs", "templates", "brief.md")));
   check("starter: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 
