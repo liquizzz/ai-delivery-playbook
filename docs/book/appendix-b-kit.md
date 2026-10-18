@@ -14,7 +14,8 @@
 | `.claude/commands/gate.md` | `/gate G1`…`G6`: checks a gate against the repo and GitHub |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
-| `.github/workflows/` | `ci`, `docs-check`, `image-design` and `image-app`: checks on every PR, and Docker images built per folder into `ghcr.io` |
+| `.github/workflows/` | `ci` (builds the app image until setup adds the stack's lint and tests), `docs-check`, `image-app`, and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
+| `docs/templates/` | The document templates (brief, proposal, PRD, SRS, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
 | `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
 | `START-HERE.md` | The owner's steps for the project's level, as prompts to paste; rewritten by `set-level.mjs` |
 | `.claude/project.json`, `.claude/start-here/` | The project's name, level and repo; the `START-HERE.md` template for each level |

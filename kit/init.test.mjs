@@ -38,16 +38,20 @@ try {
   check("starter: START-HERE.md filled in", read(a, "START-HERE.md").includes("# Start here: Tiny Todo") && read(a, "START-HERE.md").includes(wt(a, "lead")) && !/\{\{\w+\}\}/.test(read(a, "START-HERE.md")));
   check("starter: START-HERE.md committed", git(a, "ls-files", "START-HERE.md") === "START-HERE.md" && git(a, "status", "--porcelain") === "");
   check("starter: compose project name", read(a, "docker-compose.yml").includes("name: tiny-todo"));
+  check("starter: no design pipeline by default", !read(a, "docker-compose.yml").includes("design:") && !fs.existsSync(path.join(a, ".github", "workflows", "image-design.yml")) && !fs.existsSync(path.join(a, "docker", "design.Dockerfile")));
+  check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
+  check("starter: templates installed", fs.existsSync(path.join(a, "docs", "templates", "brief.md")));
+  check("starter: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 
   // 2. Lite through the questions (name, folder, level, description, GitHub, confirm)
   const b = path.join(tmp, "my-shop");
-  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "My Shop\n\n2\nA tiny shop.\nnone\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "My Shop\n\n2\n\n\nA tiny shop.\nnone\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("lite: folder from the suggested name", fs.existsSync(path.join(b, "CLAUDE.md")));
   check("lite: po, lead and dev1 worktrees", ["po", "lead", "dev1"].every((r) => fs.existsSync(wt(b, r))));
   check("lite: no staging", !branches(b).includes("staging"));
 
   // 3. Answering "no" changes nothing
-  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "Nope\n\n\n\nnone\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  node([path.join(kit, "init.mjs")], { cwd: tmp, input: "Nope\n\n\n\n\n\nnone\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("no: nothing created", !fs.existsSync(path.join(tmp, "nope")));
 
   // 4. Full with flags
@@ -55,6 +59,12 @@ try {
   node([path.join(kit, "init.mjs"), c, "--level", "full", "--yes"]);
   check("full: staging branch", branches(c).includes("staging"));
   check("full: name from folder", /^# big-one$/m.test(read(c, "CLAUDE.md")));
+
+  // 4b. Language and design prototype
+  const d = path.join(tmp, "shop-vn");
+  node([path.join(kit, "init.mjs"), d, "--language", "Vietnamese", "--docs-language", "Vietnamese", "--design", "yes", "--yes"]);
+  check("language: written to CLAUDE.md", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese."));
+  check("design: pipeline kept", read(d, "docker-compose.yml").includes("design:") && fs.existsSync(path.join(d, ".github", "workflows", "image-design.yml")) && fs.existsSync(path.join(d, "docker", "design.Dockerfile")));
 
   // 5. set-level from the Starter lead worktree: up to lite, up to full, down to starter
   const lead = wt(a, "lead");

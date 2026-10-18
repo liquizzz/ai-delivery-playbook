@@ -22,23 +22,25 @@ Then run `/reload-plugins`. Plugins for specific roles or projects (UI/UX, Figma
 
 ## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as prompts to paste.
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as prompts to paste.
 
-**You run,** in a terminal, from the folder where your projects live:
+**You run,** in a terminal (the Claude Code Terminal panel opens in your home folder, so `cd` first), from the folder where your projects live:
 ```
 node <path to playbook>/kit/init.mjs
 ```
 
-**It asks you** (Enter takes the suggestion):
+**It asks you,** each question with a one-line hint (Enter takes the suggestion):
 1. Project name.
-2. Folder (suggested from the name).
+2. Where to create the project (a new folder, suggested from the name).
 3. Level: `starter`, `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
-4. One-line description (optional).
-5. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
+4. Your working language, and the language for documents if it is not English.
+5. A separate design prototype the client reviews ([chapter 7](07-frontend-projects.md))? Suggested: no.
+6. One-line description (optional).
+7. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
 
-**It does:** creates `main` and `dev` (and `staging` for the full process), commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels.
+**It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels.
 
-**You check:** the report, then open `START-HERE.md` in the project.
+**You check:** the report, then open `START-HERE.md` in the project. If init created a repo, open its Actions tab on GitHub: a new repo may show **Enable Actions on this repository**, and nothing runs until you click it.
 
 For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --github none --yes` asks nothing.
 
@@ -47,20 +49,19 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --git
 **What it does:** fits `CLAUDE.md`, the guard paths and the Docker files to your stack, and creates the board and first milestones on GitHub.
 
 **Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and say:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create the board and the first milestones on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create the board and the first milestones on GitHub.
 
 **Claude asks you,** one topic per round, confirming each before the next:
 1. What decides the stack (screens, users, data, growth), then 2-3 stack options from the lightest to the fullest. You choose; it records the choice as ADR-001.
-2. Front-end product with a design prototype? (keeps or removes the design pipeline)
-3. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
-4. Project hard rules (client data, read-only sources, compliance).
-5. Install, run, test and lint commands, if they exist yet.
-6. Names of the first milestones (proposed: `v0.1.0`, `v0.2.0`). If init created no repo: repo owner and name, private or public.
+2. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
+3. Project hard rules (client data, read-only sources, compliance).
+4. Install, run, test and lint commands, if they exist yet.
+5. Names of the first milestones (proposed: `v0.1.0`, `v0.2.0`). If init created no repo: repo owner and name, private or public.
 
 **Claude does:**
-- fills in `CLAUDE.md`; writes `.claude/ownership.json` if your folders differ; removes workflows you do not need;
+- fills in `CLAUDE.md`; writes `.claude/ownership.json` if your folders differ; fits the Dockerfile and the `ci` workflow to the stack;
 - creates the repo if init did not, runs `scripts/setup-labels.mjs`, creates the GitHub Project (columns Backlog · Approved · Ready · In progress · In review · Testing · Done; fields Role, Module, Level, Priority) and the milestones;
-- runs the guard and release tests; commits on `role/lead` and merges into `dev`.
+- runs the guard and release tests; commits on `role/lead`, merges into `dev`, and checks that CI ran on GitHub.
 
 **You check:** the report (tests pass), `CLAUDE.md` and the board on GitHub.
 

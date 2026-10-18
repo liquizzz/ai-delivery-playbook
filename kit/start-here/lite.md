@@ -7,7 +7,7 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and th
 ## 1. Finish the setup (ch. 1)
 
 **Open** Claude Code desktop in `{{lead}}`, name it "{{name}} - Lead", and paste:
-> Read CLAUDE.md and continue as lead. Finish the Lite setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the Lite setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub.
 
 **Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules. Confirm each round, or say "you decide".
 **You get:** CLAUDE.md and Docker files fitted to your stack, merged into `dev`; milestone v0.1.0.

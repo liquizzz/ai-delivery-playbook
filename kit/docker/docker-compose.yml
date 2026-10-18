@@ -9,6 +9,7 @@
 name: <project>
 
 services:
+  # design:start (removed by init when the project has no separate design prototype)
   design:
     # UI/UX prototype shown to the client. Built only from design/ and packages/tokens/.
     image: ghcr.io/<owner>/<project>-design:${DESIGN_TAG:-dev}
@@ -17,6 +18,7 @@ services:
       dockerfile: docker/design.Dockerfile
     ports:
       - "8080:80"
+  # design:end
 
   app:
     # The product.

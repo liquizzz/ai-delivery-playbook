@@ -9,6 +9,8 @@
 
 ## Foundation (once)
 
+Starter level: steps 4 to 8 are one brief (`docs/product/brief.md`) and a one-page SRS, approved once for G1-G3.
+
 | # | Step | Session | Output | Check |
 |---|---|---|---|---|
 | 1 | Create the project (`init.mjs`) | Owner | Kit, branches, worktrees, repo, `START-HERE.md` | Report shows no warnings |

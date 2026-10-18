@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 # CI: lint, type check, unit tests and build on every PR and every push to dev.
-# Adapt the commands to the project (pnpm workspace assumed).
+# Until the Lead adds the stack's lint and test steps during setup, it checks that the app image builds.
 name: ci
 
 on:
@@ -18,13 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm lint
-      - run: pnpm typecheck
-      - run: pnpm test
-      - run: pnpm build
+      # Setup adds the stack's install, lint, type check, test and build steps here.
+      - name: Build the app image
+        run: |
+          if [ -d app ]; then docker build -f docker/app.Dockerfile -t app-ci .; else echo "No app/ folder yet: nothing to build."; fi

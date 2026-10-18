@@ -1,65 +1,67 @@
 # Start here: {{name}}
 
-Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions round by round, check the result, go to the next step. The book explains any step in more depth (chapter numbers in brackets).
+Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions round by round (or say "you decide"), check the result, go to the next step.
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}}, and the Lead worktree `{{lead}}`.
+
+**Gates** are the points where Claude stops and you approve before it goes on. The book has six (G1-G6); Starter joins G1-G3 into one approval of the brief. The book explains any step in more depth (chapter numbers in brackets).
 
 ## 1. Finish the setup (ch. 1)
 
 **Open** Claude Code desktop in `{{lead}}` and name the session "{{name}} - Lead". Use this one session for every step below.
 
 **Paste:**
-> Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub.
 
-**Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules. Confirm each round, or say "you decide".
-**You get:** CLAUDE.md and the Docker files fitted to your stack; milestone v0.1.0.
+**Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules.
+**You do:** if the repo is new, open {{actions}} and click **Enable Actions on this repository** if GitHub shows it. Claude checks that CI ran.
+**You get:** CLAUDE.md, Docker files and CI fitted to your stack; ADR-001 for the stack; milestone v0.1.0.
 
-## 2. Proposal: gate G1 (ch. 3)
-
-**Paste:**
-> Start phase 1 for `<your idea in two or three sentences>`. Interview me, then draft a one-page proposal.
-
-**Claude asks:** who it is for, the problem, the success metric, limits.
-**You check:** the proposal and its options. Say "Approved" or what to change.
-
-## 3. Requirements: gate G2 (ch. 3)
+## 2. Brief: gate G1-G3 (ch. 8)
 
 **Paste:**
-> Proposal approved. Write a short PRD with stories.
+> Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
 
-**You check:** the stories cover what you want in v0.1.0. Approve.
+**Claude asks,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0 (the thinnest slice: screen → logic → data), what is out of scope, data and deletes.
+**You check:** `docs/product/brief.md`: the stories have testable acceptance, and v0.1.0 is small (a day or two of work). Say "Approved" or what to change.
 
-## 4. SRS and first milestone: gate G3 (ch. 3)
-
-**Paste:**
-> Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice (screen → logic → data).
-
-**You check:** the milestone is small (a few days at most). Approve.
-
-## 5. Build (ch. 4)
+## 3. Build: gates G4-G5 (ch. 4)
 
 **Paste:**
 > Build milestone v0.1.0.
 
-**Claude does:** a CR and tasks on GitHub, code on `role/lead`, tests by change level, merges into `dev`.
-**You check:** Claude's report: what was built, the level of each change, tests passing.
+**Claude does:** opens the CR and its tasks on GitHub, builds each task on `role/lead` with tests for its change level, commits with the issue number, and merges into `dev` when CI is green. No pull requests in Starter.
+**You check:** the report: what was built, the level of each change, tests and CI passing.
 
-## 6. Release v0.1.0 (ch. 5)
+## 4. Release v0.1.0: gate G6 (ch. 5)
 
 **Paste:**
 > Milestone v0.1.0 is done. Prepare the release and my acceptance test (Starter mode).
 
-**Claude gives you:** 3-5 scenarios and how to start the app.
-**You do:** try the scenarios yourself, then approve. Claude asks before pushing `main` and the tag `v0.1.0`.
+**Claude gives you:** 3-5 scenarios and the commands to start `dev` in Docker.
+**You do:** try every scenario yourself, then say "All pass. Approve v0.1.0" or what failed. Claude asks once more before pushing `main` and the tag `v0.1.0`; the tag builds the image `{{image}}:v0.1.0`.
 
-## 7. Run the release in Docker (ch. 1, section 4)
+## 5. Run the release in Docker
 
-**Paste:**
-> Show me how to run v0.1.0 in Docker on this machine, from the tag and from the published image.
+From source, in a terminal:
+```
+cd {{main}}
+git pull
+git checkout v0.1.0
+docker compose up --build -d app
+```
+Open http://localhost:3000. Stop with `docker compose down`, then `git checkout main`.
 
-**You get:** the commands, usually `git checkout v0.1.0` then `docker compose up --build` (from source), or `IMAGE_TAG=v0.1.0 docker compose up --no-build` (the image GitHub built from the tag). Open the app in a browser and try one scenario again.
+From the published image (private repo: log in once):
+```
+gh auth refresh -s read:packages
+gh auth token | docker login ghcr.io -u {{owner}} --password-stdin
+cd {{main}}
+$env:IMAGE_TAG="v0.1.0"; docker compose up --no-build -d app
+```
+On macOS or Linux, the last line is `IMAGE_TAG=v0.1.0 docker compose up --no-build -d app`.
 
-## 8. Prove the loop (optional, ch. 6)
+## 6. Prove the loop (optional, ch. 6)
 
 Close the session. Open a new one in `{{lead}}` and paste:
 > Read CLAUDE.md and continue as lead. Small change: `<one small fix>`.

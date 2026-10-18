@@ -3,9 +3,10 @@
 // AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 //
 // Set up a project for the AI Delivery Playbook in one command.
-//   node <playbook>/kit/init.mjs                      asks: name, folder, level, description, GitHub repo
+//   node <playbook>/kit/init.mjs                      asks: name, folder, level, language, design, description, GitHub
 //   node <playbook>/kit/init.mjs <folder> [options]   asks only what the options leave out
-// Options: --name "<name>"  --level starter|lite|full  --description "<text>"
+// Options: --name "<name>"  --level starter|lite|full  --language <lang>  --docs-language <lang>  --design yes|no
+//          --description "<text>"
 //          --github private|public|none  --repo <owner/name>  --yes (no questions, defaults)  --force
 //
 // It creates the folder and a git repo, copies the kit, fills in the project name, level and description,
@@ -26,7 +27,7 @@ const flag = (name) => {
 };
 const force = argv.includes("--force");
 const yes = argv.includes("--yes");
-const valued = new Set(["--name", "--level", "--description", "--github", "--repo"]);
+const valued = new Set(["--name", "--level", "--language", "--docs-language", "--design", "--description", "--github", "--repo"]);
 const target = argv.find((a, i) => !a.startsWith("--") && !valued.has(argv[i - 1]));
 
 // 0. Required tools. Docker is required: every part of the product runs in it.
@@ -81,36 +82,58 @@ async function ask(question, fallback, check = (v) => v) {
   }
 }
 
-if (interactive) console.log("AI Delivery Playbook: new project. Press Enter to accept the suggestion in [brackets].\n");
+if (interactive) console.log("AI Delivery Playbook: new project. Each question has a suggestion in [brackets]: press Enter to take it.");
+// A question with a one-line hint under its title.
+const topic = (title, hint) => interactive && console.log(`
+${title}
+   ${hint}`);
 
+topic("1. Project name", "Any name, for example Tiny Todo. It suggests the folder and the repo name.");
 const name = flag("name") || (target && !interactive ? path.basename(path.resolve(target)) : undefined)
-  || (await ask("1. Project name", target ? path.basename(path.resolve(target)) : ""));
+  || (await ask("   Name", target ? path.basename(path.resolve(target)) : ""));
 if (!name) {
   console.error("Give the project a name: node init.mjs <folder> or --name \"<name>\".");
   process.exit(1);
 }
 const slug = slugify(name) || "project";
 const parent = path.resolve(process.cwd()) === playbook ? path.dirname(playbook) : process.cwd();
-const dest = path.resolve(target || (await ask("2. Folder", path.join(parent, slug))));
+if (!target) topic("2. Where to create the project", "A new folder for its code and documents. The role worktrees go next to it, in <folder>-wt.");
+const dest = path.resolve(target || (await ask("   Folder", path.join(parent, slug))));
 
 let level = parseLevel(flag("level"));
 if (!level) {
-  if (interactive) {
-    console.log("3. Level of process (you can change it later with: node scripts/set-level.mjs <level>)");
-    LEVEL_ORDER.forEach((l, i) => console.log(`     ${i + 1}  ${l.padEnd(8)} ${LEVELS[l].help}`));
-  }
-  level = await ask("   Level", "1", parseLevel);
+  topic("3. Level of process", "How many Claude sessions work on it. Change it any time with: node scripts/set-level.mjs <level>");
+  if (interactive) LEVEL_ORDER.forEach((l, i) => console.log(`     ${i + 1}  ${l.padEnd(8)} ${LEVELS[l].help}`));
+  level = await ask("   Level (1, 2 or 3)", "1", parseLevel);
 }
-const description = flag("description") ?? (await ask("4. One-line description: who it is for, what it does (optional)", "", (v) => v || " ")).trim();
+
+topic("4. Your working language", "The sessions talk to you in it. For example English or Vietnamese.");
+const language = flag("language") || (await ask("   Language", "English"));
+let docsLanguage = flag("docs-language") || "English";
+if (!flag("docs-language") && !/^english$/i.test(language)) {
+  docsLanguage = await ask(`   Documents in English or ${language}`, "English");
+}
+
+let design = flag("design");
+if (!design) {
+  topic("5. Separate design prototype", "yes: a design/ folder and image the client reviews before the app is built (chapter 7). no: Claude designs inside the app.");
+  design = await ask("   Design prototype? yes or no", "no", (v) => (/^(y|yes|n|no)$/i.test(v) ? v.toLowerCase()[0] : null));
+}
+design = /^y/i.test(design);
+
+topic("6. One-line description (optional)", "Who it is for and what it does. Claude asks for the rest later.");
+const description = flag("description") ?? (await ask("   Description", "", (v) => v || " ")).trim();
 
 let github = flag("github");
 let repo = flag("repo");
 if (!github) {
   if (!ghUser) {
-    if (interactive) console.log(`5. GitHub repo: skipped (${hasGh ? "run gh auth login first" : "gh is not installed"}). Connect it later from START-HERE.md.`);
+    if (interactive) console.log(`
+7. GitHub repo: skipped (${hasGh ? "run gh auth login first" : "gh is not installed"}). The Lead connects it later.`);
     github = "none";
   } else {
-    github = await ask("5. Create the GitHub repo now? private, public or none", interactive ? "private" : "none",
+    topic("7. GitHub repo", "private (only you see it), public, or none to connect later. It pushes the branches and creates the labels.");
+    github = await ask("   Create it now? private, public or none", interactive ? "private" : "none",
       (v) => (["private", "public", "none"].includes(v.toLowerCase()) ? v.toLowerCase() : null));
   }
 }
@@ -126,7 +149,13 @@ if (github !== "none" && !repo) repo = await ask("   Repo name", `${ghUser}/${sl
 if (github === "none") repo = undefined;
 
 if (interactive) {
-  console.log(`\nAbout to set up:\n  ${name} in ${dest}\n  Level: ${LEVELS[level].title}\n  GitHub: ${repo ? `${repo} (${github}), branches pushed, labels created` : "none"}`);
+  console.log(`
+About to set up:
+  ${name} in ${dest}
+  Level: ${LEVELS[level].title}
+  Language: ${language} (documents: ${docsLanguage})
+  Design prototype: ${design ? "yes" : "no"}
+  GitHub: ${repo ? `${repo} (${github}), branches pushed, labels created` : "none"}`);
   const go = await ask("Go ahead? yes or no", "yes");
   if (!/^y/i.test(go)) {
     console.log("Stopped. Nothing was changed.");
@@ -182,10 +211,15 @@ copyFile(path.join(kit, ".claude", "settings.json"), path.join(".claude", "setti
 copyFile(path.join(kit, "commands", "gate.md"), path.join(".claude", "commands", "gate.md"));
 copyDir(path.join(kit, "start-here"), path.join(".claude", "start-here"));
 copyDir(path.join(kit, ".github"), ".github");
+if (!design && created.includes(".github/workflows/image-design.yml")) {
+  fs.rmSync(path.join(dest, ".github", "workflows", "image-design.yml"));
+  created.splice(created.indexOf(".github/workflows/image-design.yml"), 1);
+}
 copyDir(path.join(kit, "scripts"), "scripts");
 copyFile(path.join(playbook, "templates", "changelog.md"), "CHANGELOG.md");
+copyDir(path.join(playbook, "templates"), path.join("docs", "templates"));
 copyFile(path.join(kit, "docker", "docker-compose.yml"), "docker-compose.yml");
-copyFile(path.join(kit, "docker", "design.Dockerfile"), path.join("docker", "design.Dockerfile"));
+if (design) copyFile(path.join(kit, "docker", "design.Dockerfile"), path.join("docker", "design.Dockerfile"));
 copyFile(path.join(kit, "docker", "app.Dockerfile"), path.join("docker", "app.Dockerfile"));
 copyFile(path.join(kit, "docker", ".dockerignore"), ".dockerignore");
 
@@ -196,15 +230,17 @@ const fill = (rel, edit) => {
   fs.writeFileSync(file, edit(fs.readFileSync(file, "utf8")));
 };
 fill("CLAUDE.md", (t) => t.replace("# <Project name>", `# ${name}`)
-  .replace(/^<One paragraph: what the product does.*$/m, description || "$&"));
+  .replace(/^<One paragraph: what the product does.*$/m, (line) => description || line)
+  .replace(/^- Language: .*$/m, `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Code, commits and identifiers stay in English.`));
 setClaudeLevel(dest, level);
 const owner = repo ? repo.split("/")[0].toLowerCase() : null;
 const project = repo ? repo.split("/")[1].toLowerCase() : slug;
 fill("docker-compose.yml", (t) => {
+  if (!design) t = t.replace(/ *# design:start[\s\S]*?# design:end\r?\n/, "");
   t = t.replaceAll("<project>", project);
   return owner ? t.replaceAll("<owner>", owner) : t;
 });
-writeProject(dest, { name, level, repo: repo || null });
+writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design });
 renderStartHere(dest, { name, level, repo }, dest);
 created.push(".claude/project.json", "START-HERE.md");
 

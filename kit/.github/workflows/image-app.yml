@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 # AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
-# image-app: builds the product image only when app/ or the shared tokens change, plus every release tag.
+# image-app: builds the product image only when the app or its Docker file changes, plus every release tag.
 #   push to dev      ->  :dev, :dev-<sha>
 #   push to staging  ->  :staging, :staging-<sha>   (regression and owner acceptance run on this)
 #   tag vX.Y.Z       ->  :vX.Y.Z, :latest           (what you deploy; roll back by running an older tag)
@@ -12,8 +12,9 @@ on:
     branches: [dev, staging]
     paths:
       - "app/**"
-      - "packages/tokens/**"
+      - "packages/**"
       - "docker/app.Dockerfile"
+      - "package*.json"
       - "pnpm-lock.yaml"
     tags: ["v*"]
   workflow_dispatch:

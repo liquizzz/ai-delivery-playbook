@@ -7,7 +7,7 @@ Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{rep
 ## 1. Finish the setup (ch. 1). Session: Lead
 
 **Open** Claude Code desktop in `{{lead}}`, name it "{{name}} - Lead", and paste:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create the board and milestones v0.1.0 and v0.2.0 on GitHub.
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create the board and milestones v0.1.0 and v0.2.0 on GitHub.
 
 ## 2. Open the PO session (ch. 1)
 

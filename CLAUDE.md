@@ -12,6 +12,7 @@ A public book and kit for building real products with Claude Code: one owner and
 - Phase numbers (1–7), gate IDs (G1–G6), role names, branch names, label names and change levels (L0–L3) must match across the book, templates and kit.
 - `docs/examples/` (added later) holds worked examples. Clients are named "the client"; no client names, domains or internal numbers.
 - Licenses: docs and templates are CC BY 4.0 (`LICENSE`); everything in `kit/` is MIT (`kit/LICENSE`). New code files in `kit/` start with the `SPDX-License-Identifier: MIT` line and the credit line (after the shebang, if any).
+- Run the humanizer skill on every prose change (book, README, HOW-TO-RUN, templates, kit role files and START-HERE) before committing: no em or en dashes, no "not X but Y", no decorative bold, no one-line closers. Keep code, commands, paths and the fixed task labels unchanged.
 - Log every task in `docs/ai-log.md`.
 - No real client data or internal numbers from any employer or client.
 - Commit/push only when the user asks.

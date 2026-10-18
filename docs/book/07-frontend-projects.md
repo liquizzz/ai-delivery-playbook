@@ -2,6 +2,8 @@
 
 **Purpose:** show the client each design round the same day, without exposing unfinished product code.
 
+**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile.
+
 **Layout:** one repo with a pnpm workspace: `design/` (UI/UX prototype), `packages/tokens/` (shared design tokens), `app/` (product code). Use a second repo only if an outside partner makes the design or the client must see the design repo.
 
 **Images.** Everything runs in Docker with one image per part, and each image is rebuilt only when its own folders change:

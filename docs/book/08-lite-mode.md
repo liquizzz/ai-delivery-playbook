@@ -6,8 +6,8 @@
 |---|---|---|---|
 | Sessions | PO, Lead, Dev1-2, Test, UI/UX, DevOps | PO, Lead, one Dev | One session playing PO, Lead and Dev |
 | Branches | `role/*` → `dev` → `staging` → `main` → `production` | `role/*` → `dev` → `main` | `role/lead` → `dev` → `main` |
-| Review | Lead reviews every PR | Lead reviews every PR | No second reviewer; you look at the demo |
-| Foundation | Proposal, PRD, data notes, stories, SRS, ADRs, C4, test strategy, eval plan | One-page proposal, short PRD with stories, SRS, ADRs only for real choices | Same as Lite |
+| Review | Lead reviews every PR | Lead reviews every PR | No PRs: the session merges each task into `dev` when its tests and CI pass; you look at the demo |
+| Foundation | Proposal, PRD, data notes, stories, SRS, ADRs, C4, test strategy, eval plan | One-page proposal, short PRD with stories, SRS, ADRs only for real choices | One brief (goal, stories with acceptance, out of scope, stack, v0.1.0 plan) and a one-page SRS; one approval passes G1-G3 |
 | Milestones | Buffer and risk table | One milestone; one-line buffer and risk | One milestone at a time |
 | Reports | Morning brief and end of day | Morning brief | None; ask "Where are we?" when you need it |
 | Testing | L0-L3 with a Test session; regression on staging | L0-L3 by the Dev and CI | L0-L3 by the session; main journey before release |
@@ -28,16 +28,30 @@
 
 **You do:** open one session in the `lead` worktree and follow `START-HERE.md`. Its first prompt finishes the setup (stack, Docker files, milestone).
 
-### 2. Work
+### 2. Brief
 
-Use the same prompts as the rest of the book, all in the one session: proposal and PRD (chapter 3), "I want …" for changes (chapter 4). The session opens the CR, updates the SRS, builds on `role/lead`, confirms the level and tests, then merges into `dev` itself.
+**Ask:**
+> Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
 
-### 3. Release
+**Claude asks you,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0, what is out of scope, data and deletes.
+
+**Claude does:** writes `docs/product/brief.md` from `docs/templates/brief.md`, a one-page `docs/tech/srs.md`, and milestone v0.1.0 with its tasks.
+
+**You check:** each story has testable acceptance, and v0.1.0 is a day or two of work. Your approval passes G1-G3.
+
+### 3. Build
+
+**Ask:**
+> Build milestone v0.1.0.
+
+**Claude does:** opens the CR and its tasks, builds each task on `role/lead` with tests for its change level, commits with the issue number, merges into `dev` when CI is green and closes the issue. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
+
+### 4. Release
 
 **Ask:**
 > The milestone is done. Prepare the release and my acceptance test (Starter mode).
 
-**Claude does:** checks the main journey; writes 3-5 acceptance scenarios and tells you how to run the app (locally or a preview link); after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
+**Claude does:** checks the main journey; writes 3-5 acceptance scenarios and the commands to start `dev` in Docker; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 
 **Claude asks before:** pushing `main` and the tag.
 
@@ -73,7 +87,7 @@ Use the same prompts as the rest of the book, all in the one session: proposal a
 
 **Claude asks you:** going up, which roles to add now and which missing Foundation documents matter for this product.
 
-**Claude does:** runs `node scripts/set-level.mjs <level>`. Up: it creates the new branches (`staging` for Full) and worktrees; Claude drafts the missing documents and hands the PO role to a new PO session if there was none. Down: nothing is deleted; documents, branches, worktrees and history stay; it lists the sessions you can close and releases go from `dev` to `main`. Either way `CLAUDE.md`, `.claude/project.json` and `START-HERE.md` are updated and committed.
+**Claude does:** runs `node scripts/set-level.mjs <level>`. Up: it creates the new branches (`staging` for Full) and worktrees; Claude splits a Starter brief into the proposal, PRD and stories, drafts the other missing documents and hands the PO role to a new PO session if there was none. Down: nothing is deleted; documents, branches, worktrees and history stay; it lists the sessions you can close and releases go from `dev` to `main`. Either way `CLAUDE.md`, `.claude/project.json` and `START-HERE.md` are updated and committed.
 
 **Claude asks before:** pushing a new `staging` branch.
 

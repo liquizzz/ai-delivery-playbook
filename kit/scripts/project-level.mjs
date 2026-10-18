@@ -78,9 +78,13 @@ export function setClaudeLevel(dir, level) {
 export function renderStartHere(dir, project, root = dir) {
   const template = path.join(dir, ".claude", "start-here", `${project.level}.md`);
   if (!fs.existsSync(template)) return false;
+  const [owner, repoName] = project.repo ? project.repo.toLowerCase().split("/") : ["<github-user>", "<repo>"];
   const values = {
     name: project.name,
     repo: project.repo || "(no GitHub repo yet)",
+    actions: project.repo ? `https://github.com/${project.repo}/actions` : "your repo's Actions tab on GitHub",
+    owner,
+    image: `ghcr.io/${owner}/${repoName}-app`,
     main: root,
     po: worktreePath(root, "po"),
     lead: worktreePath(root, "lead"),

@@ -11,6 +11,8 @@ Check gate **$ARGUMENTS** of the AI Delivery Playbook for this repository.
 4. End with one line: **Ready for approval** or **Not ready**, and the smallest list of actions to get there.
 5. Do not change any file. Do not mark the gate as passed: only the owner approves a gate.
 
+**Starter level** (`.claude/project.json`): G1-G3 are one gate. It passes when `docs/product/brief.md` is approved (goal, stories with testable acceptance, out of scope, stack, v0.1.0 plan), `docs/tech/srs.md` covers every v0.1.0 story with FR IDs, ADR-001 records the stack, and milestone v0.1.0 exists on GitHub. G4-G6 apply without PRs and without `staging`: merged commits name their issue (`(#n)`), and `dev` is what the owner tries before release.
+
 | Gate | Criteria |
 |---|---|
 | G1 Proposal approved | `docs/product/proposal.md` states problem, users, chosen option, scope, out of scope, success metric, timeline and budget, with an approval date; `CLAUDE.md`, `.claude/` (roles, hook, settings), `.github/` and `scripts/` in place; `.gitignore` covers `.env*`, `.claude/role`; secret-check hook installed; `docker compose version` works and `docker compose up --build` starts the project; `node .claude/hooks/role-guard.test.cjs` passes |

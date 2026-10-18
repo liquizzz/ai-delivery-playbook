@@ -29,15 +29,14 @@ Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session pla
 
 | # | Say (to the one Starter session) | You get |
 |---|---|---|
-| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
-| 2 | "Start phase 1 for `<idea>`. Interview me, then draft a one-page proposal." | Proposal with options ([ch. 3](03-foundation.md)) |
-| 3 | "Proposal approved. Write a short PRD with stories." | PRD and stories |
-| 4 | "Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice (screen → logic → data)." | SRS, first milestone, tasks |
-| 5 | "Build milestone v0.1.0." | Code, tests by level ([ch. 4](04-delivery-loop.md)) |
-| 6 | "Milestone v0.1.0 is done. Prepare the release and my acceptance test." | Scenarios you try, then tagged v0.1.0 ([ch. 5](05-releases.md)) |
-| 7 | Prove the loop: close the session, open a new one, say "Read CLAUDE.md and continue as lead", then "Small change: `<one fix>`". | The fix as CR → task → v0.1.1, picked up from the record alone |
+| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files and CI for the stack you chose ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
+| 2 | "Start the Starter brief for `<idea>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan." | Brief, SRS and the v0.1.0 tasks; your approval passes G1-G3 ([ch. 8](08-lite-mode.md)) |
+| 3 | "Build milestone v0.1.0." | Code, tests by level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
+| 4 | "Milestone v0.1.0 is done. Prepare the release and my acceptance test (Starter mode)." | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
+| 5 | Run the commands in step 5 of `START-HERE.md`. | v0.1.0 running in Docker on your machine |
+| 6 | Prove the loop: close the session, open a new one, say "Read CLAUDE.md and continue as lead", then "Small change: `<one fix>`". | The fix as CR → task → v0.1.1, picked up from the record alone |
 
-If the new session in step 7 picks up the fix without you explaining anything, keep building. Move to Lite or Full when the stakes rise.
+If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite or Full when the stakes rise.
 
 ## The model
 
