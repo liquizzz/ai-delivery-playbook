@@ -16,6 +16,10 @@
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
 | `.github/workflows/` | `ci`, `docs-check`, `image-design` and `image-app`: checks on every PR, and Docker images built per folder into `ghcr.io` |
 | `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
+| `START-HERE.md` | The owner's steps for the project's level, as prompts to paste; rewritten by `set-level.mjs` |
+| `.claude/project.json`, `.claude/start-here/` | The project's name, level and repo; the `START-HERE.md` template for each level |
+| `scripts/set-level.mjs` | Changes the level (starter, lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
+| `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS |

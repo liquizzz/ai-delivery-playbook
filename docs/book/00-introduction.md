@@ -25,11 +25,11 @@ This book is for people with some technical background who want to turn an idea 
 
 ## Quick start: from idea to demo
 
-Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. Each step is one prompt; Claude asks what it needs, then does the whole step.
+Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. You run one command, then each step is one prompt; Claude asks what it needs, then does the whole step. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
 
 | # | Say (to the one Starter session) | You get |
 |---|---|---|
-| 1 | "Set up this folder as a project with the AI Delivery Playbook kit at `<path>`, Starter mode. Read `<path>/docs/book/08-lite-mode.md` first. Ask me everything you need first." | Repo, kit, branches ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
+| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
 | 2 | "Start phase 1 for `<idea>`. Interview me, then draft a one-page proposal." | Proposal with options ([ch. 3](03-foundation.md)) |
 | 3 | "Proposal approved. Write a short PRD with stories." | PRD and stories |
 | 4 | "Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice (screen → logic → data)." | SRS, first milestone, tasks |

@@ -3,24 +3,31 @@
 // AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 //
 // Set up a project for the AI Delivery Playbook in one command.
-//   node <playbook>/kit/init.mjs <project folder> [--force]
+//   node <playbook>/kit/init.mjs                      asks: name, folder, level, description, GitHub repo
+//   node <playbook>/kit/init.mjs <folder> [options]   asks only what the options leave out
+// Options: --name "<name>"  --level starter|lite|full  --description "<text>"
+//          --github private|public|none  --repo <owner/name>  --yes (no questions, defaults)  --force
 //
-// It creates the folder and a git repo if needed, copies the kit (CLAUDE.md, .claude/, .github/, scripts/,
-// /gate command, secret-check hook, docker-compose.yml and docker/), creates the docs folders and CHANGELOG.md, updates .gitignore and
-// creates the dev and staging branches. Existing files are kept unless --force is given.
-// It never pushes, never touches GitHub settings and never writes secrets.
-import { execSync } from "node:child_process";
+// It creates the folder and a git repo, copies the kit, fills in the project name, level and description,
+// writes START-HERE.md (the owner's steps for that level), creates the branches and role worktrees the level
+// needs and, only if you choose it, creates the GitHub repo, pushes the branches and sets up the labels.
+// Existing files are kept unless --force is given. It never writes secrets.
+import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import readline from "node:readline";
 import { fileURLToPath } from "node:url";
+import { LEVELS, LEVEL_ORDER, parseLevel, renderStartHere, setClaudeLevel, slugify, worktreePath, writeProject } from "./scripts/project-level.mjs";
 
-const args = process.argv.slice(2);
-const force = args.includes("--force");
-const target = args.find((a) => !a.startsWith("--"));
-if (!target) {
-  console.error("Usage: node <playbook>/kit/init.mjs <project folder> [--force]");
-  process.exit(1);
-}
+const argv = process.argv.slice(2);
+const flag = (name) => {
+  const i = argv.indexOf(`--${name}`);
+  return i >= 0 && argv[i + 1] && !argv[i + 1].startsWith("--") ? argv[i + 1] : undefined;
+};
+const force = argv.includes("--force");
+const yes = argv.includes("--yes");
+const valued = new Set(["--name", "--level", "--description", "--github", "--repo"]);
+const target = argv.find((a, i) => !a.startsWith("--") && !valued.has(argv[i - 1]));
 
 // 0. Required tools. Docker is required: every part of the product runs in it.
 function version(cmd) {
@@ -44,15 +51,95 @@ if (missingTools.length) {
 if (!version("docker info --format {{.ServerVersion}}")) {
   console.warn("Warning: Docker is installed but not running. Start Docker before running the project.\n");
 }
-if (!version("gh --version")) console.warn("Warning: the GitHub CLI (gh) is not installed; you need it to connect GitHub (chapter 1).\n");
+const hasGh = Boolean(version("gh --version"));
+const ghUser = hasGh ? version("gh api user --jq .login") : null;
+if (!hasGh) console.warn("Warning: the GitHub CLI (gh) is not installed; install it to connect GitHub (chapter 1).\n");
 
 const kit = path.dirname(fileURLToPath(import.meta.url));
 const playbook = path.dirname(kit);
-const dest = path.resolve(target);
+
+// 1. Questions. Each has a default; Enter accepts it. --yes or a non-interactive run takes the defaults.
+// PLAYBOOK_INIT_INTERACTIVE=1 asks the questions even with piped input (used by the kit's tests).
+const interactive = !yes && (process.stdin.isTTY || process.env.PLAYBOOK_INIT_INTERACTIVE === "1");
+// Lines are read through an iterator, which buffers them, so piped answers are not lost.
+const rl = interactive ? readline.createInterface({ input: process.stdin, terminal: false }) : null;
+const lines = rl?.[Symbol.asyncIterator]();
+async function ask(question, fallback, check = (v) => v) {
+  if (!rl) return check(fallback);
+  for (;;) {
+    process.stdout.write(`${question}${fallback ? ` [${fallback}]` : ""}: `);
+    const next = await lines.next();
+    if (next.done) {
+      console.error("\nNo more input. Stopped; nothing was changed.");
+      process.exit(1);
+    }
+    if (!process.stdin.isTTY) console.log(next.value);
+    const answer = next.value.trim() || fallback || "";
+    const value = check(answer);
+    if (value !== null && value !== undefined && value !== "") return value;
+    console.log("  Please answer this one.");
+  }
+}
+
+if (interactive) console.log("AI Delivery Playbook: new project. Press Enter to accept the suggestion in [brackets].\n");
+
+const name = flag("name") || (target && !interactive ? path.basename(path.resolve(target)) : undefined)
+  || (await ask("1. Project name", target ? path.basename(path.resolve(target)) : ""));
+if (!name) {
+  console.error("Give the project a name: node init.mjs <folder> or --name \"<name>\".");
+  process.exit(1);
+}
+const slug = slugify(name) || "project";
+const parent = path.resolve(process.cwd()) === playbook ? path.dirname(playbook) : process.cwd();
+const dest = path.resolve(target || (await ask("2. Folder", path.join(parent, slug))));
+
+let level = parseLevel(flag("level"));
+if (!level) {
+  if (interactive) {
+    console.log("3. Level of process (you can change it later with: node scripts/set-level.mjs <level>)");
+    LEVEL_ORDER.forEach((l, i) => console.log(`     ${i + 1}  ${l.padEnd(8)} ${LEVELS[l].help}`));
+  }
+  level = await ask("   Level", "1", parseLevel);
+}
+const description = flag("description") ?? (await ask("4. One-line description: who it is for, what it does (optional)", "", (v) => v || " ")).trim();
+
+let github = flag("github");
+let repo = flag("repo");
+if (!github) {
+  if (!ghUser) {
+    if (interactive) console.log(`5. GitHub repo: skipped (${hasGh ? "run gh auth login first" : "gh is not installed"}). Connect it later from START-HERE.md.`);
+    github = "none";
+  } else {
+    github = await ask("5. Create the GitHub repo now? private, public or none", interactive ? "private" : "none",
+      (v) => (["private", "public", "none"].includes(v.toLowerCase()) ? v.toLowerCase() : null));
+  }
+}
+if (!["private", "public", "none"].includes(github)) {
+  console.error("--github must be private, public or none.");
+  process.exit(1);
+}
+if (github !== "none" && !repo && !ghUser) {
+  console.error("Cannot create the GitHub repo: run gh auth login first, or pass --repo <owner/name>.");
+  process.exit(1);
+}
+if (github !== "none" && !repo) repo = await ask("   Repo name", `${ghUser}/${slug}`);
+if (github === "none") repo = undefined;
+
+if (interactive) {
+  console.log(`\nAbout to set up:\n  ${name} in ${dest}\n  Level: ${LEVELS[level].title}\n  GitHub: ${repo ? `${repo} (${github}), branches pushed, labels created` : "none"}`);
+  const go = await ask("Go ahead? yes or no", "yes");
+  if (!/^y/i.test(go)) {
+    console.log("Stopped. Nothing was changed.");
+    process.exit(0);
+  }
+}
+rl?.close();
+
+// 2. Set up
 const created = [];
 const kept = [];
-
 const sh = (cmd) => execSync(cmd, { cwd: dest, stdio: ["ignore", "pipe", "pipe"] }).toString().trim();
+const run = (file, args) => execFileSync(file, args, { cwd: dest, stdio: ["ignore", "pipe", "pipe"] }).toString().trim();
 const ok = (cmd) => {
   try {
     sh(cmd);
@@ -80,19 +167,20 @@ function copyDir(from, to) {
   }
 }
 
-// 1. Folder and git repo
+// 2a. Folder and git repo
 fs.mkdirSync(dest, { recursive: true });
 if (!ok("git rev-parse --is-inside-work-tree")) {
   sh("git init -b main");
   created.push("(git repo, branch main)");
 }
 
-// 2. Kit files
+// 2b. Kit files
 copyFile(path.join(kit, "CLAUDE.md"), "CLAUDE.md");
 copyDir(path.join(kit, ".claude", "roles"), path.join(".claude", "roles"));
 copyDir(path.join(kit, ".claude", "hooks"), path.join(".claude", "hooks"));
 copyFile(path.join(kit, ".claude", "settings.json"), path.join(".claude", "settings.json"));
 copyFile(path.join(kit, "commands", "gate.md"), path.join(".claude", "commands", "gate.md"));
+copyDir(path.join(kit, "start-here"), path.join(".claude", "start-here"));
 copyDir(path.join(kit, ".github"), ".github");
 copyDir(path.join(kit, "scripts"), "scripts");
 copyFile(path.join(playbook, "templates", "changelog.md"), "CHANGELOG.md");
@@ -101,7 +189,26 @@ copyFile(path.join(kit, "docker", "design.Dockerfile"), path.join("docker", "des
 copyFile(path.join(kit, "docker", "app.Dockerfile"), path.join("docker", "app.Dockerfile"));
 copyFile(path.join(kit, "docker", ".dockerignore"), ".dockerignore");
 
-// 3. Docs folders
+// 2c. Name, description, level
+const fill = (rel, edit) => {
+  const file = path.join(dest, rel);
+  if (!created.includes(rel)) return;
+  fs.writeFileSync(file, edit(fs.readFileSync(file, "utf8")));
+};
+fill("CLAUDE.md", (t) => t.replace("# <Project name>", `# ${name}`)
+  .replace(/^<One paragraph: what the product does.*$/m, description || "$&"));
+setClaudeLevel(dest, level);
+const owner = repo ? repo.split("/")[0].toLowerCase() : null;
+const project = repo ? repo.split("/")[1].toLowerCase() : slug;
+fill("docker-compose.yml", (t) => {
+  t = t.replaceAll("<project>", project);
+  return owner ? t.replaceAll("<owner>", owner) : t;
+});
+writeProject(dest, { name, level, repo: repo || null });
+renderStartHere(dest, { name, level, repo }, dest);
+created.push(".claude/project.json", "START-HERE.md");
+
+// 2d. Docs folders
 const folders = [
   "docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones",
   "docs/tech/spec", "docs/tech/adr", "docs/tech/test-cases", "docs/tech/test-reports", "docs/tech/ops",
@@ -126,7 +233,7 @@ if (!fs.existsSync(envExample)) {
   created.push(".env.example");
 }
 
-// 4. .gitignore
+// 2e. .gitignore
 const ignorePath = path.join(dest, ".gitignore");
 const ignore = fs.existsSync(ignorePath) ? fs.readFileSync(ignorePath, "utf8") : "";
 const needed = [".env", ".env.*", "!.env.example", ".claude/role", ".claude/settings.local.json", "node_modules/", "dist/"];
@@ -136,7 +243,7 @@ if (missing.length) {
   created.push(`.gitignore (+${missing.length} lines)`);
 }
 
-// 5. Secret-check git hook
+// 2f. Secret-check git hook
 const hookOut = path.join(dest, ".git", "hooks", "pre-commit");
 if (!fs.existsSync(hookOut) || force) {
   fs.copyFileSync(path.join(kit, "hooks", "pre-commit"), hookOut);
@@ -144,28 +251,58 @@ if (!fs.existsSync(hookOut) || force) {
   created.push(".git/hooks/pre-commit");
 } else kept.push(".git/hooks/pre-commit");
 
-// 6. First commit and branches
-if (!ok("git rev-parse --verify HEAD")) {
+// 2g. First commit and the level's branches. An existing repo is not committed for you.
+const fresh = !ok("git rev-parse --verify HEAD");
+if (fresh) {
   sh("git add -A");
-  sh('git commit -m "Set up AI Delivery Playbook kit"');
+  run("git", ["commit", "-m", `Set up AI Delivery Playbook kit (${LEVELS[level].title})`]);
   created.push("(first commit)");
 }
-for (const b of ["dev", "staging"]) {
+for (const b of LEVELS[level].branches) {
   if (!ok(`git show-ref --verify --quiet refs/heads/${b}`)) {
     sh(`git branch ${b}`);
     created.push(`(branch ${b})`);
   }
 }
 
-// 7. Report
-console.log(`AI Delivery Playbook kit set up in ${dest}\n`);
+// 2h. GitHub, only if chosen
+const warnings = [];
+if (repo) {
+  try {
+    if (!ok("git remote get-url origin")) {
+      run("gh", ["repo", "create", repo, `--${github}`, "--source", ".", "--remote", "origin"]);
+      created.push(`(GitHub repo ${repo}, ${github})`);
+    }
+    run("git", ["push", "-u", "origin", "main", ...LEVELS[level].branches]);
+    created.push(`(pushed main, ${LEVELS[level].branches.join(", ")})`);
+    run("node", [path.join("scripts", "setup-labels.mjs")]);
+    created.push("(GitHub labels)");
+  } catch (e) {
+    warnings.push(`GitHub step failed: ${String(e.stderr || e.message).trim().split("\n")[0]}. Finish it later with the Lead: "Connect this project to GitHub."`);
+  }
+}
+
+// 2i. Role worktrees for the level (they start from the committed kit, so only in a fresh repo)
+if (!fresh) warnings.push(`Existing repo: commit the kit files, then run node scripts/set-level.mjs ${level} to create the worktrees.`);
+for (const role of fresh ? LEVELS[level].worktrees : []) {
+  if (fs.existsSync(worktreePath(dest, role))) {
+    kept.push(`worktree ${role}`);
+    continue;
+  }
+  try {
+    run("node", [path.join("scripts", "new-role-worktree.mjs"), role]);
+    created.push(`(worktree ${role}: ${worktreePath(dest, role)})`);
+  } catch (e) {
+    warnings.push(`Worktree ${role} failed: ${String(e.stderr || e.message).trim().split("\n")[0]}`);
+  }
+}
+
+// 3. Report
+const lead = worktreePath(dest, "lead");
+console.log(`\n${name} is set up in ${dest} (level ${LEVELS[level].title}).\n`);
 console.log(`Created (${created.length}):\n  ${created.join("\n  ")}`);
 if (kept.length) console.log(`\nKept existing (${kept.length}, use --force to overwrite):\n  ${kept.join("\n  ")}`);
+if (warnings.length) console.log(`\nWarnings:\n  ${warnings.join("\n  ")}`);
 console.log(`
-Next steps (chapter 1 of the book):
-  1. Fill in CLAUDE.md (product, stack, commands); adjust .claude/ownership.json if your folders differ;
-     adapt docker-compose.yml and docker/*.Dockerfile to the stack (replace <owner> and <project>).
-  2. node .claude/hooks/role-guard.test.cjs        (checks the guardrails)
-  3. Commit, create the GitHub repo, push main, dev and staging.
-  4. gh auth refresh -s project ; node scripts/setup-labels.mjs ; create the board and the first milestone.
-  5. node scripts/new-role-worktree.mjs po   (then lead, dev1 …) and open one Claude Code session per worktree.`);
+Next: open ${path.join(dest, "START-HERE.md")} and follow it step by step.
+Step 1 is: open Claude Code desktop in ${lead} and paste the prompt shown there.`);

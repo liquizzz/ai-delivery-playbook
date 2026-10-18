@@ -10,9 +10,9 @@ The book does not teach programming, and it does not replace your judgement: you
 
 ## Start here
 
-1. Read [Chapter 0: Introduction](docs/book/00-introduction.md) (5 minutes). It ends with a Quick start: from idea to demo in six prompts.
-2. Follow [Chapter 1: Setup](docs/book/01-setup.md): open a Claude Code session in an empty folder and paste the setup prompt. It asks you a few questions, then installs everything.
-3. Talk to the PO session from then on. Keep [Appendix D: Process checklist](docs/book/appendix-d-checklist.md) at hand so no step is skipped, and [Chapter 9: Token budget](docs/book/09-token-budget.md) to keep cost down.
+**[How to run](HOW-TO-RUN.md):** clone this repo, run `node ai-delivery-playbook/kit/init.mjs`, answer five questions (name, folder, level, description, GitHub repo), then follow the `START-HERE.md` it writes into your new project. Each step there is one prompt to paste.
+
+Read the book when you want the reasons behind a step: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) keeps cost down.
 
 ## The book
 
@@ -41,6 +41,7 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 
 | Path | Contents |
 |---|---|
+| [HOW-TO-RUN.md](HOW-TO-RUN.md) | From clone to your first project in three steps |
 | [docs/book/](docs/book/) | The book |
 | [templates/](templates/) | Documents the sessions fill in |
 | [kit/](kit/) | Files installed into a project by `kit/init.mjs` |

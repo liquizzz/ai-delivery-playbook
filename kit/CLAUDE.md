@@ -2,7 +2,9 @@
 
 <One paragraph: what the product does, for whom, the success metric.>
 
-AI Delivery Playbook project. Stage: <Foundation, next gate G# / Delivery, milestone vX.Y.Z / Lite mode>.
+AI Delivery Playbook project. Steps for the owner: `START-HERE.md`.
+- Level: <Starter / Lite / Full process>. Change it with `node scripts/set-level.mjs <starter|lite|full>`.
+- Stage: <Foundation, next gate G# / Delivery, milestone vX.Y.Z>.
 
 ## Role
 Your role is in `.claude/role`; read `.claude/roles/<role>.md` first. Restart: "Read CLAUDE.md and continue as <role>." Flow: owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. Each role writes only its own paths and pushes only `role/<role>`; the Lead merges and releases.

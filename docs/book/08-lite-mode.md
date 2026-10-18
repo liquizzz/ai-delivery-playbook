@@ -22,13 +22,11 @@
 
 ### 1. Start
 
-**Ask:** use the setup prompt of chapter 1 and say "Starter mode", or follow the Quick start in [chapter 0](00-introduction.md#quick-start-from-idea-to-demo).
+**You run:** `node <path to playbook>/kit/init.mjs` and choose level `starter` ([chapter 1](01-setup.md#1-create-the-project)).
 
-**Claude asks you:** the setup questions of chapter 1 (product, stack, folders, hard rules, commands).
+**It does:** creates `main` and `dev` only (images build from `dev` and release tags), writes the Starter level in `CLAUDE.md`, creates only the `lead` worktree (the Lead's permissions cover all paths) and writes `START-HERE.md` with the Starter steps.
 
-**Claude does:** runs `kit/init.mjs`, deletes the `staging` branch (images build from `dev` and release tags), writes "Starter mode: this session plays PO, Lead and Dev" in `CLAUDE.md`, creates only the `lead` worktree (the Lead's permissions cover all paths), and tells you to open one session there.
-
-**You do:** open a session in the `lead` worktree and say "Read CLAUDE.md and continue as lead".
+**You do:** open one session in the `lead` worktree and follow `START-HERE.md`. Its first prompt finishes the setup (stack, Docker files, milestone).
 
 ### 2. Work
 
@@ -49,9 +47,9 @@ Use the same prompts as the rest of the book, all in the one session: proposal a
 
 ### 1. Start
 
-**Ask:** use the setup prompt of chapter 1 and say "Lite mode".
+**You run:** `node <path to playbook>/kit/init.mjs` and choose level `lite`.
 
-**Claude does:** sets up the kit without `staging`; writes "Lite mode" in `CLAUDE.md`; creates the po, lead and dev1 worktrees.
+**It does:** sets up the kit without `staging`; writes the Lite level in `CLAUDE.md`; creates the po, lead and dev1 worktrees; writes `START-HERE.md` with the Lite steps.
 
 ### 2. Release
 
@@ -62,19 +60,22 @@ Use the same prompts as the rest of the book, all in the one session: proposal a
 
 **Claude asks before:** pushing `main` and the tag.
 
-## Move up
+## Move up or down
 
 | From → to | When |
 |---|---|
 | Starter → Lite | Real users, a second developer, or money, security or personal data |
 | Lite → Full | A client depends on it, releases need a staging check, or more roles are needed |
+| Full → Lite → Starter | The stakes dropped: the client left, the product is parked, or it is back to a demo |
 
 **Ask the Lead:**
-> Move this project from Starter (or Lite) mode to Lite (or the full process).
+> Move this project to `<starter, lite or full>`.
 
-**Claude asks you:** which roles to add now, and which missing Foundation documents matter for this product.
+**Claude asks you:** going up, which roles to add now and which missing Foundation documents matter for this product.
 
-**Claude does:** creates the new worktrees (and `staging` for Full), drafts the missing documents, updates `CLAUDE.md`, and hands the PO role to a new PO session if there was none.
+**Claude does:** runs `node scripts/set-level.mjs <level>`. Up: it creates the new branches (`staging` for Full) and worktrees; Claude drafts the missing documents and hands the PO role to a new PO session if there was none. Down: nothing is deleted; documents, branches, worktrees and history stay; it lists the sessions you can close and releases go from `dev` to `main`. Either way `CLAUDE.md`, `.claude/project.json` and `START-HERE.md` are updated and committed.
+
+**Claude asks before:** pushing a new `staging` branch.
 
 > **Token tip:** Starter is the cheapest path to a first demo (one session, no reports). Compact it after each milestone; it carries every role's context.
 

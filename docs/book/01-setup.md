@@ -20,61 +20,64 @@ These involve your machine, accounts or secrets:
 
 Then run `/reload-plugins`. Plugins for specific roles or projects (UI/UX, Figma, Codex review…) are listed in [Appendix B](appendix-b-kit.md#plugins). Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
 
-## 1. Set up the project
+## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files), creates the docs folders and the `dev` and `staging` branches, and fills in `CLAUDE.md` for your product.
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as prompts to paste.
 
-**Ask:** open a Claude Code session in the new project folder, which becomes the main checkout, and say:
-> Set up this folder as a project with the AI Delivery Playbook kit at `<path to playbook>`. Read `<path to playbook>/docs/book/01-setup.md` first. Before changing anything, ask me everything you need in one numbered list, with a proposed answer for each. Then do the whole setup and report.
+**You run,** in a terminal, from the folder where your projects live:
+```
+node <path to playbook>/kit/init.mjs
+```
+
+**It asks you** (Enter takes the suggestion):
+1. Project name.
+2. Folder (suggested from the name).
+3. Level: `starter`, `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
+4. One-line description (optional).
+5. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
+
+**It does:** creates `main` and `dev` (and `staging` for the full process), commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels.
+
+**You check:** the report, then open `START-HERE.md` in the project.
+
+For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --github none --yes` asks nothing.
+
+## 2. Finish the setup
+
+**What it does:** fits `CLAUDE.md`, the guard paths and the Docker files to your stack, and creates the board and first milestones on GitHub.
+
+**Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and say:
+> Read CLAUDE.md and continue as lead. Finish the setup: ask me the stack and commands, then fill in CLAUDE.md and the Docker files, and create the board and the first milestones on GitHub.
 
 **Claude asks you:**
-1. Product name and one-paragraph description (who it is for, the success metric).
-2. Stack (languages, frameworks, database).
-3. Full process, Lite mode or Starter mode (chapter 8)?
-4. Front-end product with a design prototype? (keeps or removes the design pipeline)
-5. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
-6. Project hard rules (client data, read-only sources, compliance).
-7. Install, run, test and lint commands, if they exist yet.
+1. Stack (languages, frameworks, database).
+2. Front-end product with a design prototype? (keeps or removes the design pipeline)
+3. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
+4. Project hard rules (client data, read-only sources, compliance).
+5. Install, run, test and lint commands, if they exist yet.
+6. Names of the first milestones (proposed: `v0.1.0`, `v0.2.0`). If init created no repo: repo owner and name, private or public.
 
 **Claude does:**
-- runs `kit/init.mjs` on the folder;
 - fills in `CLAUDE.md`; writes `.claude/ownership.json` if your folders differ; removes workflows you do not need;
-- runs the guard and release tests;
-- commits and reports what it created.
+- creates the repo if init did not, runs `scripts/setup-labels.mjs`, creates the GitHub Project (columns Backlog · Approved · Ready · In progress · In review · Testing · Done; fields Role, Module, Level, Priority) and the milestones;
+- runs the guard and release tests; commits on `role/lead` and merges into `dev`.
 
-**You check:** the report (tests pass) and `CLAUDE.md`.
-
-## 2. Connect GitHub
-
-**What it does:** creates the repo, labels, board and first milestones.
-
-**Ask in the same session:**
-> Connect this project to GitHub: repo, branches, labels, board and the first two milestones. Ask me what you need first.
-
-**Claude asks you:**
-1. Repo owner and name; private or public?
-2. Create the repo now with `gh`, or do you create it yourself?
-3. Names of the first two milestones (proposed: `v0.1.0`, `v0.2.0`).
-
-**Claude does:** creates or connects the repo, pushes `main`, `dev`, `staging`, runs `scripts/setup-labels.mjs`, creates the GitHub Project (columns Backlog · Approved · Ready · In progress · In review · Testing · Done; fields Role, Module, Level, Priority) and the milestones.
-
-**You check:** the board on GitHub.
+**You check:** the report (tests pass), `CLAUDE.md` and the board on GitHub.
 
 **Claude asks before:** creating the repo, pushing `main`.
 
-## 3. Open the PO and Lead sessions
+## 3. Open the other sessions
 
-**What it does:** gives the PO and the Lead their own worktree and session.
+**What it does:** gives each role its own session in the worktree init created.
 
-**Ask in the same session:**
-> Create the worktrees for po and lead.
-
-**Claude does:** runs `scripts/new-role-worktree.mjs` for each; each worktree lands in `<projects>/<project>-wt/<role>/` on `role/<role>`.
-
-**You do:** open a new Claude Code session in each worktree folder, titled `<Project> - PO` and `<Project> - Lead`, and say:
+**You do:** open a new Claude Code session in each worktree folder (Lite: po and dev1; Full: po), titled `<Project> - <Role>`, and say:
 > Read CLAUDE.md and continue as po.
 
-**You check:** each session answers with its role, current state and next step. Close the setup session; from now on you work through the PO.
+**You check:** each session answers with its role, current state and next step. From now on you work through the PO (Starter: through the one Lead session).
+
+## Change the level later
+
+**You run,** in the project: `node scripts/set-level.mjs <starter|lite|full>`. Going up creates the branches and worktrees the level needs; going down deletes nothing and lists the sessions you can close. Then ask the Lead to commit it and, when going up, "Draft what this level still lacks." ([chapter 8](08-lite-mode.md#move-up-or-down)).
 
 ## 4. Run it with Docker
 

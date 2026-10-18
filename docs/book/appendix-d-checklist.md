@@ -11,8 +11,8 @@
 
 | # | Step | Session | Output | Check |
 |---|---|---|---|---|
-| 1 | Set up the project | Setup | Kit, `CLAUDE.md`, branches | Guard and release tests pass |
-| 2 | Connect GitHub | Setup | Repo, labels, board, milestones | Board visible on GitHub |
+| 1 | Create the project (`init.mjs`) | Owner | Kit, branches, worktrees, repo, `START-HERE.md` | Report shows no warnings |
+| 2 | Finish the setup | Lead | `CLAUDE.md`, Docker files, labels, board, milestones | Guard and release tests pass; board visible on GitHub |
 | 3 | Open PO and Lead | You | Two worktrees and sessions | Both answer the restart sentence |
 | 4 | Proposal | PO | `docs/product/proposal.md` | G1 |
 | 5 | PRD, data notes, stories | PO (+ Lead) | `docs/product/` | G2 |

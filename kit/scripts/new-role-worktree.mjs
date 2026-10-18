@@ -27,7 +27,8 @@ const ok = (cmd) => {
   }
 };
 
-const root = sh("git rev-parse --show-toplevel");
+// The main checkout, also when this runs inside a role worktree.
+const root = path.dirname(sh("git rev-parse --path-format=absolute --git-common-dir"));
 const branch = `role/${role}`;
 const wtDir = path.join(path.dirname(root), `${path.basename(root)}-wt`, role);
 

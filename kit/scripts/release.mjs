@@ -89,11 +89,14 @@ if (milestone !== `v${version}`) console.log(`Note: milestone "${milestone}" ≠
 console.log(`\n${versionBlock}\n`);
 if (!srs) console.log(`Warning: ${srsPath} not found; SRS not updated.`);
 
+// Starter and Lite release from dev; the full process from staging (.claude/project.json).
+const level = fs.existsSync(".claude/project.json") ? JSON.parse(fs.readFileSync(".claude/project.json", "utf8")).level : "full";
+const releaseFrom = level === "full" ? "staging" : "dev";
 if (write) {
   fs.writeFileSync("CHANGELOG.md", changelog);
   if (srs) fs.writeFileSync(srsPath, srs);
   console.log("Written: CHANGELOG.md" + (srs ? `, ${srsPath}` : ""));
-  console.log(`After the owner approves:\n  git checkout main && git merge --no-ff staging && git tag v${version} && git push origin main v${version}\n  gh release create v${version} --title v${version} --notes-file <section>`);
+  console.log(`After the owner approves:\n  git checkout main && git merge --no-ff ${releaseFrom} && git tag v${version} && git push origin main v${version}\n  gh release create v${version} --title v${version} --notes-file <section>`);
 } else {
   console.log("Dry run. Add --write to apply.");
 }
