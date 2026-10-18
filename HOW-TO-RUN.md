@@ -1,6 +1,6 @@
 # How to run
 
-From nothing to a project you can work on, in about ten minutes. You do not need to read the book first: the project you create gets its own `START-HERE.md`, with every next step as a prompt to paste.
+From nothing to a project you can work on: about five minutes once your machine has the tools of step 0. You do not need to read the book first: the project you create gets its own `START-HERE.md`, with every next step as a prompt to paste.
 
 Steps 0 to 2 happen in a terminal. You need a Claude Code session only from step 3.
 

@@ -1,16 +1,8 @@
 # AI Delivery Playbook
 
-A book and a kit for building real products with Claude Code. You (the owner) open a few Claude Code sessions, each playing one role: PO, Lead, Dev, Test, UI/UX or DevOps. They write the requirements, build, test and release, and they stop for your approval at each gate. For a first demo, one session is enough (Starter mode); you add roles when the project needs them.
+A kit and a book for building real products with Claude Code. One command sets up your project, and from then on every Claude session already knows its role, which skills to use for each task, how to ask you questions and how to keep token use down. You decide and approve; you do not have to tune Claude Code yourself first.
 
-The book is written as prompts: what to say to which session, the questions it will ask you back, and what it does after you answer. Next to the book are copy-ready templates and a tested kit (a shared `CLAUDE.md`, role files, a guard hook, issue forms, workflows and scripts) that one command installs into a new project.
-
-What you end up with is a working product, built quickly, where the requirements, code and documents stay in step. You try each release yourself before it ships, deployments are easy to run and to roll back, and every decision and change can be traced later.
-
-The book does not teach programming, and it does not replace your judgement: you still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). It needs Claude Code desktop, GitHub (the free plan is enough), Node.js and Docker. Everything runs in Docker, and each release is a versioned image. Where those images run in production is up to you: the book is for people who already know how they will deploy ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
-
-## Start here
-
-In a terminal, from the folder where your projects live:
+**[Start a project in 5 minutes: How to run](HOW-TO-RUN.md)**
 
 ```bash
 git clone https://github.com/liquizzz/ai-delivery-playbook.git
@@ -20,9 +12,26 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-Answer its seven questions (Enter takes each suggestion), then open the `START-HERE.md` it writes into your new project: every next step is one prompt to paste into Claude Code. [How to run](HOW-TO-RUN.md) has the one-time machine setup and what each question means.
+The first time, install the tools listed in How to run (once per machine). Then answer seven short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one prompt to paste.
 
-Read the book when you want the reasons behind a step: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) keeps cost down.
+## What the kit sets up for you
+
+| You get | How |
+|---|---|
+| A ready project in one command | `init.mjs` creates the folder, git branches, a worktree per role, the private GitHub repo with labels and a kanban board, CI and Docker image builds, and `START-HERE.md` |
+| Sessions that know their job | Each role (PO, Lead, Dev, Test, UI/UX, DevOps) has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
+| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, the Lead reviews every change, and every document gets a humanizer pass. A hook reminds each session at start, so you never name a skill |
+| Questions you can answer quickly | One topic per round, two to four options with a recommendation first; say "you decide" to let Claude settle the rest |
+| Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, and Starter mode: one session and a one-page brief for a first demo |
+| Quality you can check | Gates you approve, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
+| Room to grow | `node scripts/set-level.mjs` moves a project from Starter to Lite to the full six-role team, or back, without redoing anything |
+| Releases you can run anywhere | Each version tag builds a Docker image; you run it, or roll back, by tag |
+
+## What it is not
+
+The kit does not teach programming, and it does not replace your judgement: you still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). It needs Claude Code desktop, GitHub (the free plan is enough), Node.js and Docker. Where the Docker images run in production is up to you ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
+
+The book explains why each step works the way it does, as prompts: what to say to which session, what it asks you back, and what it does. Read it when you want the reasons: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) covers cost.
 
 ## The book
 
