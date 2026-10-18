@@ -33,18 +33,9 @@ The book does not teach programming, and it does not replace your judgement: you
 | C | [FAQ and troubleshooting](docs/book/appendix-c-faq.md) | Fix common problems |
 | D | [Process checklist](docs/book/appendix-d-checklist.md) | Check that no step was skipped |
 
-## A day with the team
+## How a project goes
 
-```text
-09:30  You → PO      "Morning brief."            PO lists yesterday, the plan and 3 decisions.
-09:40  You → PO      "1 yes, 2 next milestone, 3 yes."
-       PO → Lead     CRs approved → Lead updates the SRS and spec, creates tasks.
-       Lead → Devs   Devs build, open PRs; Lead reviews and merges; Test checks.
-14:00  You → PO      "I want users to export reports as CSV."
-       PO → You      Asks 4 questions → you answer → CR opened, fits in the buffer.
-18:00  PO → You      End-of-day report: done, blocked, buffer left.
-Day 3  Lead → You    "v0.4.0 ready: 2 CRs, regression passed. Approve?"  →  "Approve and deploy."
-```
+The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in seven prompts, from an empty folder to a tested, tagged demo.
 
 ## Repository
 
