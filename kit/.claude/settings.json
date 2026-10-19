@@ -9,9 +9,6 @@
     "humanizer": {
       "source": { "source": "github", "repo": "blader/humanizer" }
     },
-    "knowledge-work-plugins": {
-      "source": { "source": "github", "repo": "anthropics/knowledge-work-plugins" }
-    },
     "ui-ux-pro-max-skill": {
       "source": { "source": "github", "repo": "nextlevelbuilder/ui-ux-pro-max-skill" }
     }
@@ -19,11 +16,9 @@
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
-    "github@claude-plugins-official": true,
     "claude-mem@thedotmack": true,
     "context7@claude-plugins-official": true,
-    "humanizer@humanizer": true,
-    "product-management@knowledge-work-plugins": true
+    "humanizer@humanizer": true
   },
   "hooks": {
     "SessionStart": [

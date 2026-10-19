@@ -59,11 +59,11 @@ Use the skill named for each task, every time; do not swap it for another. For w
 | Task | Skill |
 |---|---|
 | Suggest ideas when the owner asks ("suggest"): stack, scope, stories, architecture options, an unclear request | `superpowers:brainstorming` |
-| Market or competitor context for a proposal | `product-management:competitive-brief` |
-| PRD and stories | `product-management:write-spec`, on the template in `docs/templates/` |
+| Market or competitor context for a proposal | Web search; a short table of 3-5 alternatives with what they do and miss, sources linked |
+| PRD and stories | The template in `docs/templates/` |
 | Milestone into tasks | `superpowers:writing-plans` |
 | Every document: proposal, brief, PRD, SRS, ADR, CR, spec, test report, release notes, changelog | Documents polished: `humanizer` after the draft, before the commit. Documents plain: no humanizer; write short sentences, no filler |
-| Update for a client | `product-management:stakeholder-update`, then `humanizer` if documents are polished |
+| Update for a client | A short note: done, next, what the client must decide, risks; then `humanizer` if documents are polished |
 | Owner says "Polish documents from now on" (or the opposite) | Lead: set `humanize` in `.claude/project.json`, add or remove `"humanizer@humanizer": true` under `enabledPlugins` in `.claude/settings.json`, update the Documents line above, commit, and tell the owner to run `/reload-plugins` |
 | Look and feel, once per product with screens, before the first UI task | `ui-ux-pro-max`: search styles, palettes and font pairs that fit the product type and its users; show 2-3 directions side by side in one static page `docs/design/look-and-feel.html` (the main screen in each); the owner picks one in a question round |
 | UI work | `frontend-design`, following the chosen look and feel (setup enables `frontend-design` and `ui-ux-pro-max` in `.claude/settings.json` when the product has screens); with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |

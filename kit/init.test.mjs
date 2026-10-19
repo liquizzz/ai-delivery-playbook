@@ -40,7 +40,7 @@ try {
   check("starter: compose project name", read(a, "docker-compose.yml").includes("name: tiny-todo"));
   check("starter: no design pipeline by default", !read(a, "docker-compose.yml").includes("design:") && !fs.existsSync(path.join(a, ".github", "workflows", "image-design.yml")) && !fs.existsSync(path.join(a, "docker", "design.Dockerfile")));
   check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
-  check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
+  check("starter: core plugins declared, no github MCP or product-management", read(a, ".claude", "settings.json").includes("superpowers@claude-plugins-official") && !read(a, ".claude", "settings.json").includes("github@claude-plugins-official") && !read(a, ".claude", "settings.json").includes("product-management@"));
   check("starter: security checks installed", fs.existsSync(path.join(a, ".github", "dependabot.yml")) && read(a, ".github", "workflows", "codeql.yml").includes("vars.CODEQL_LANGUAGES") && read(a, ".github", "workflows", "image-app.yml").includes("attest-build-provenance"));
   check("starter: NFR rows follow ISO 25010", read(a, "docs", "templates", "srs.md").includes("ISO/IEC 25010") && read(a, "docs", "templates", "srs.md").includes("### 2.4 Constraints"));
   check("starter: plain documents by default, no humanizer plugin", read(a, "CLAUDE.md").includes("- Documents: plain") && !read(a, ".claude", "settings.json").includes("humanizer@humanizer") && JSON.parse(read(a, ".claude", "project.json")).humanize === false);

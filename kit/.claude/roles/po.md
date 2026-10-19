@@ -13,7 +13,7 @@
 8. Morning brief before 10:00 and end-of-day report in `docs/reports/YYYY-MM-DD.md`; push; send the link. Batch all decisions for the owner into the brief.
 9. On "Where are we?": check the project against the playbook's process checklist (Appendix D) and list skipped steps.
 
-**Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` when the owner asks for suggestions (interviews follow "The owner leads" in `CLAUDE.md`); `product-management:competitive-brief` for market context; `product-management:write-spec` for the PRD and stories; `product-management:stakeholder-update` for client updates; `humanizer` on every document before you push when documents are polished.
+**Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` when the owner asks for suggestions (interviews follow "The owner leads" in `CLAUDE.md`); web search for market context; the templates in `docs/templates/` for the PRD and stories; `humanizer` on every document before you push when documents are polished.
 
 ## Writes / pushes
 `docs/product/`, `docs/reports/`, issues and the board. Push `role/po` only.

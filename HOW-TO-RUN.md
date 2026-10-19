@@ -16,7 +16,7 @@ gh auth login
 gh auth refresh -s project
 ```
 
-In any Claude Code session, install the plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`: six always, plus humanizer if you want polished documents and the two design plugins if the product has screens.
+In any Claude Code session, install the plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`: four always, plus humanizer if you want polished documents and the two design plugins if the product has screens.
 
 ## 1. Clone the playbook
 

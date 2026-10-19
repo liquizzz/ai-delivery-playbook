@@ -28,7 +28,7 @@ Run the next foundation step of this AI Delivery Playbook project. The owner's i
    > **PRD: what you need to say**: the must-haves, the non-goals, and for each must-have what "done" looks like.
    > **SRS (Lead): what you need to say**: anything the SRS must respect (limits, speed, devices, data rules); the Lead drafts the rest from the PRD.
 
-   Ask only what is missing or unclear, then "Anything else? Want me to suggest more?", until the owner says "lock". Use `superpowers:brainstorming` only when they ask for suggestions, and `product-management:write-spec` for the PRD and stories.
+   Ask only what is missing or unclear, then "Anything else? Want me to suggest more?", until the owner says "lock". Use `superpowers:brainstorming` only when they ask for suggestions.
 3. Look and feel, for a product with screens (skip with a design prototype or a UI/UX session): first ask whether the owner already has a look in mind (a site they like, colours, light or dark). Then `ui-ux-pro-max` finds styles, palettes and fonts that fit, and you show 2-3 directions (theirs first, if they gave one) in `docs/design/look-and-feel.html`. The owner picks, mixes or changes them.
 4. Summarise every decision and every call you made yourself, and ask whether it is final. After the owner approves, write the documents from the templates, keep v0.1.0 to a day or two of work, create the task issues and put them on the board in Ready (`node scripts/board-status.mjs <n> Ready`), then check the step's gate with the criteria in `.claude/commands/gate.md`.
 5. End with the `For you` block and ask the owner to approve the gate. After "Approved", set the Status field, commit, merge into `dev`, push, and give the next step.
