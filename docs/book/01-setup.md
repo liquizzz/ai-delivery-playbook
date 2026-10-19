@@ -20,7 +20,7 @@ These involve your machine, accounts or secrets:
 | frontend-design | Products with screens: screens that look designed, in the look and feel you picked | `/plugin install frontend-design@claude-plugins-official` |
 | ui-ux-pro-max | Products with screens: searches styles, palettes and fonts for the look-and-feel options | `/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill` then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill` |
 
-Then run `/reload-plugins`. Plugins for specific projects (Figma, Codex review…) are listed in [Appendix B](appendix-b-kit.md#plugins). You do not pick skills: the kit's `CLAUDE.md` names the skill for each task, and every session uses it. Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
+Then run `/reload-plugins`. Optional plugins (Figma, Codex review, product-management for the PO…) are listed in [Appendix B](appendix-b-kit.md#plugins). You do not pick skills: the kit's `CLAUDE.md` names the skill for each task, and every session uses it. Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
 
 ## 1. Create the project
 

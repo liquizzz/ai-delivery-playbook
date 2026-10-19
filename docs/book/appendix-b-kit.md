@@ -45,6 +45,7 @@ The kit's `.claude/settings.json` declares the minimum set, so Claude Code offer
 | ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Starter and Lite | Products with screens (setup enables it) |
 | figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
+| product-management | `anthropics/knowledge-work-plugins` | PO | Optional: `write-spec`, `competitive-brief` and `stakeholder-update` for a PO who wants them; adds about 850 tokens and several connectors to each session |
 | humanizer | `blader/humanizer` | Every role that writes documents | Only with polished documents (init question 6) |
 
 ### Skills by task
