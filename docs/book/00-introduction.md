@@ -122,7 +122,7 @@ Every session follows "ask first, in rounds, then finish" from the kit's `CLAUDE
 | [7 Front-end projects](07-frontend-projects.md) | Show design to the client while the product is built |
 | [8 Starter and Lite modes](08-lite-mode.md) | Run with one session for a demo, or three for a small product |
 | [9 Token budget](09-token-budget.md) | Keep cost under control |
-| Appendices | [A Templates](appendix-a-templates.md) · [B Kit](appendix-b-kit.md) · [C FAQ](appendix-c-faq.md) · [D Process checklist](appendix-d-checklist.md) |
+| Appendices | [A Templates](appendix-a-templates.md) · [B Kit](appendix-b-kit.md) · [C FAQ](appendix-c-faq.md) · [D Process checklist](appendix-d-checklist.md) · [E Standards map](appendix-e-standards.md) |
 
 ## Words
 

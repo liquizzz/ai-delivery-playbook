@@ -41,6 +41,8 @@ try {
   check("starter: no design pipeline by default", !read(a, "docker-compose.yml").includes("design:") && !fs.existsSync(path.join(a, ".github", "workflows", "image-design.yml")) && !fs.existsSync(path.join(a, "docker", "design.Dockerfile")));
   check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
   check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("humanizer@humanizer") && read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
+  check("starter: security checks installed", fs.existsSync(path.join(a, ".github", "dependabot.yml")) && read(a, ".github", "workflows", "codeql.yml").includes("vars.CODEQL_LANGUAGES") && read(a, ".github", "workflows", "image-app.yml").includes("attest-build-provenance"));
+  check("starter: NFR rows follow ISO 25010", read(a, "docs", "templates", "srs.md").includes("ISO/IEC 25010") && read(a, "docs", "templates", "srs.md").includes("### 2.4 Constraints"));
   check("starter: design plugins declared", read(a, ".claude", "settings.json").includes("frontend-design@claude-plugins-official") && read(a, ".claude", "settings.json").includes("ui-ux-pro-max@ui-ux-pro-max-skill"));
   check("starter: look and feel in brief and START-HERE", read(a, "docs", "templates", "brief.md").includes("## 6. Look and feel") && read(a, "START-HERE.md").includes("docs/design/look-and-feel.html"));
   check("starter: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming"));

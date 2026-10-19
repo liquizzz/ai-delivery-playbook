@@ -4,7 +4,7 @@
 
 **Version rules:** `MAJOR.MINOR.PATCH`, computed from the labels of the milestone's closed issues: any `breaking` → MAJOR (from 1.0.0) · any `type:feature`/`type:change` → MINOR · only `type:fix` → PATCH. Before go-live versions are `0.x.y`. Every merge into `main` is a version. Breaking = something that works in production stops working the same way (data migration, changed API or core flow, different business result); it needs upgrade steps and a rollback plan in its spec.
 
-**What a release gives you:** a git tag `vX.Y.Z` and a Docker image `ghcr.io/<owner>/<project>-app:vX.Y.Z`, built by the `image-app` workflow. You run that image wherever you run the product. Choosing and operating servers is your part; this book assumes you already know how you will do it.
+**What a release gives you:** a git tag `vX.Y.Z` and a Docker image `ghcr.io/<owner>/<project>-app:vX.Y.Z`, built by the `image-app` workflow, with an SBOM (every library in the image) and, on public repos, a provenance attestation you can check with `gh attestation verify`. You run that image wherever you run the product. Choosing and operating servers is your part; this book assumes you already know how you will do it.
 
 ## 1. Release a milestone
 

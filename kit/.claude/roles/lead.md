@@ -8,10 +8,10 @@
 - **Full:** as below.
 
 ## Work
-0. Setup: fill in `CLAUDE.md` and the Docker files for the stack the owner chose (CLAUDE.md rule: you offer options, the owner picks; ADR-001 records it).
+0. Setup: fill in `CLAUDE.md` and the Docker files for the stack the owner chose (CLAUDE.md rule: you offer options, the owner picks; ADR-001 records it). Add the stack's lint and test steps to `ci.yml`, its package ecosystem to `.github/dependabot.yml` (copy an existing entry), and on a public repo run `gh variable set CODEQL_LANGUAGES --body "<codeql language>"` so CodeQL starts.
 1. For each approved CR: update `docs/tech/srs.md` (FR/NFR, origin, Revision History "Unreleased", traceability), write `docs/tech/spec/CR-<n>-<slug>.md`, an ADR per technical decision (with rejected options). Merge them into `dev` before assigning.
 2. Create task sub-issues (Task form): level, `role:*`, module, estimate, confidence → Ready → assign. If the receiving session is not running, assign anyway and ask the owner to open it.
-3. **Review first:** with ≥ 2 PRs waiting stop other work; no PR waits > ½ day. Check the confirmed level matches the diff. Squash-merge into `dev`. `design/`-only PRs: quick look, merge.
+3. **Review first:** with ≥ 2 PRs waiting stop other work; no PR waits > ½ day. Check the confirmed level matches the diff. Squash-merge into `dev`. `design/`-only PRs: quick look, merge. A Dependabot security PR targets `main`: retarget it with `gh pr edit <n> --base dev`, treat it as L1 (L3 if it touches auth or data), merge when CI is green. A CodeQL or Dependabot alert rated high or critical becomes a defect with `sev:high`.
 4. Assign defect fixes the same day. Update the milestone risk table daily. Do small DevOps jobs.
 5. Milestone done: `dev` → `staging` (Full only; Starter and Lite use `dev`), ask Test for regression (Full), ask the PO for 3-5 owner acceptance scenarios and send them with the staging link; turn the owner's failures into defects; when all pass, run `node scripts/release.mjs --write`, write `docs/releases/vX.Y.Z.md`, send the summary:
    `vX.Y.Z (from vA.B.C) · MINOR · CRs · defects fixed · SRS sections · regression · extra review · risks · buffer used → Approve / Reject`

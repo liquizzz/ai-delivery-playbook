@@ -1,6 +1,6 @@
 # Test strategy: <Project name>
 
-Save as `docs/tech/test-strategy.md`. Written by the Lead, approved at G3.
+Save as `docs/tech/test-strategy.md`. Written by the Lead, approved at G3. A short form of the test plan in ISO/IEC/IEEE 29119-3.
 
 | Field | Value |
 |---|---|
@@ -8,8 +8,10 @@ Save as `docs/tech/test-strategy.md`. Written by the Lead, approved at G3.
 | Status | Draft / Approved (G3) |
 | Last updated | YYYY-MM-DD |
 
-## 1. What must be true to release
-<The requirements and non-functional targets that decide a release (G5), in 3–5 bullets, with FR/NFR IDs.>
+## 1. What must be true to release (exit criteria)
+<The requirements and non-functional targets that decide a release (G5), in 3-5 bullets, with FR/NFR IDs.>
+
+Product risks tested first: <the 2-3 things that would hurt most if wrong, with FR/NFR IDs>.
 
 ## 2. Testing by change level
 Every task carries a change level, set by the Lead. Money, security, user data and deletes are always L3. When in doubt, use the higher level.

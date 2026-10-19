@@ -1,6 +1,6 @@
 # Software Requirements Specification: <Project name>
 
-Save as `docs/tech/srs.md`. Owned by the Lead; the PO approves business sections. **Mandatory for every project.** It always describes the system as it is now; every CR updates it before its tasks are assigned; its version equals the release version.
+Save as `docs/tech/srs.md`. Structure follows ISO/IEC/IEEE 29148 (software requirements), cut down to what one owner needs. Owned by the Lead; the PO approves business sections. **Mandatory for every project.** It always describes the system as it is now; every CR updates it before its tasks are assigned; its version equals the release version.
 
 **Version:** 0.0.0 · **Status:** Baseline draft (G3) · **Last updated:** YYYY-MM-DD
 
@@ -37,7 +37,7 @@ Newest first. The `release` script adds the row for each release; the Lead adds 
 ### 2.3 Look and feel
 <Direction the owner picked in `docs/design/look-and-feel.html`: style, palette (hex), fonts, layout; rejected directions in one line each. Skip if the product has no screens or has a design prototype.>
 
-### 2.3 Constraints and assumptions
+### 2.4 Constraints and assumptions
 - <...>
 
 ## 3. Functional requirements
@@ -65,12 +65,19 @@ One subsection per module. Every requirement has a stable ID that is never reuse
 | <Broker API / CMS DB> | <in / out> | <link or summary> | <FR-0NN> |
 
 ## 6. Non-functional requirements
-| ID | Attribute | Requirement | How verified |
+One row per quality characteristic of ISO/IEC 25010. Write `n/a` where it does not apply; do not ask the owner about those rows.
+
+| ID | Characteristic | Requirement | How verified |
 |---|---|---|---|
 | NFR-001 | Performance | <p95 < 1.5 s on <...>> | <load test> |
-| NFR-002 | Security | <...> | <...> |
-| NFR-003 | Availability | <...> | <...> |
-| NFR-004 | Cost | <...> | <...> |
+| NFR-002 | Reliability (availability, backup, recovery) | <...> | <...> |
+| NFR-003 | Security (auth, personal data, secrets) | <...> | <CodeQL, review of L3 changes> |
+| NFR-004 | Usability and accessibility | <...> | <...> |
+| NFR-005 | Compatibility (browsers, devices, integrations) | <...> | <...> |
+| NFR-006 | Maintainability (tests, lint, module limits) | <...> | <CI> |
+| NFR-007 | Portability (runs in Docker) | Runs from the release image with `docker compose up` | <release check> |
+| NFR-008 | Safety | <n/a for most products> | <...> |
+| NFR-009 | Cost (not in 25010) | <...> | <...> |
 
 ## 7. Removed requirements
 Requirements are never deleted silently; they move here.

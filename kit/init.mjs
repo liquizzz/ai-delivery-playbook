@@ -316,6 +316,17 @@ if (repo) {
   } catch (e) {
     warnings.push(`GitHub step failed: ${String(e.stderr || e.message).trim().split("\n")[0]}. Finish it later with the Lead: "Connect this project to GitHub."`);
   }
+  // Security checks GitHub runs for free: Dependabot alerts and fixes on every repo, secret scanning on public repos.
+  try {
+    run("gh", ["api", "-X", "PUT", `repos/${repo}/vulnerability-alerts`]);
+    run("gh", ["api", "-X", "PUT", `repos/${repo}/automated-security-fixes`]);
+    if (github === "public") {
+      run("gh", ["api", "-X", "PATCH", `repos/${repo}`, "-f", "security_and_analysis[secret_scanning][status]=enabled", "-f", "security_and_analysis[secret_scanning_push_protection][status]=enabled"]);
+    }
+    created.push(`(security: Dependabot alerts and fixes${github === "public" ? ", secret scanning with push protection" : ""})`);
+  } catch (e) {
+    warnings.push(`Security settings not changed: ${String(e.stderr || e.message).trim().split("\n")[0]} Turn on Dependabot alerts in the repo's Settings → Advanced Security.`);
+  }
   try {
     const board = run("node", [path.join("scripts", "setup-board.mjs")]);
     created.push(`(kanban board: ${(board.match(/https:\S+/) || ["GitHub Projects"])[0]})`);

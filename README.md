@@ -51,6 +51,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 | B | [Kit reference](docs/book/appendix-b-kit.md) | See what the kit installs and how to change it |
 | C | [FAQ and troubleshooting](docs/book/appendix-c-faq.md) | Fix common problems |
 | D | [Process checklist](docs/book/appendix-d-checklist.md) | Check that no step was skipped |
+| E | [Standards map](docs/book/appendix-e-standards.md) | See which standard each step follows and what is left out |
 
 ## How a project goes
 

@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: MIT
+# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Dependabot: security fixes only, grouped into one PR per ecosystem. No version-bump PRs
+# (open-pull-requests-limit: 0 turns those off; security updates are not affected).
+# Security PRs target the default branch (main): the Lead retargets them to dev and merges as usual.
+# Setup adds the stack's ecosystem (npm, pip, gomod, maven, nuget...) as one more entry like these.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: docker
+    directory: /docker
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
