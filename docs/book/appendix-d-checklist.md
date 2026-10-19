@@ -18,7 +18,7 @@ Starter level: steps 4 to 8 are one brief (`docs/product/brief.md`) and a one-pa
 | 3 | Open PO and Lead | You | Two worktrees and sessions | Both answer the restart sentence |
 | 4 | Proposal | PO | `docs/product/proposal.md` | G1 |
 | 5 | PRD, data notes, stories | PO (+ Lead) | `docs/product/` | G2 |
-| 6 | Design round(s) | UI/UX | `design/`, tag `design-v1` | Client approval |
+| 6 | Look and feel, then design round(s) | UI/UX (Starter, Lite: Lead) | `docs/design/look-and-feel.html`; with a prototype `design/`, tag `design-v1` | You picked a direction; client approval of the prototype |
 | 7 | SRS baseline, ADRs, C4, test strategy, eval plan | Lead | `docs/tech/` | Part of G3 |
 | 8 | First milestone plan | PO + Lead | `docs/product/milestones/v0.1.0.md`, issues | G3 |
 

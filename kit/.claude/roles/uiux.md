@@ -7,12 +7,13 @@ Design the experience so the client can approve it and Dev can build it exactly.
 Reports to the PO (design is a product decision). The Lead coordinates the hand-off to Dev. Always open for front-end projects; opened in rounds otherwise.
 
 ## Main work
-1. Build the prototype in `design/` (HTML, Tailwind built with pnpm); run it locally on port 5100.
-2. Own the design tokens in `packages/tokens/`.
-3. For each design round: commit, push `role/uiux`, open a PR into `dev` (Design template, fast lane). When the Lead merges, the "staging design" link for the client updates by itself.
-4. Take client feedback through the PO; record it on the Design issue.
-5. When the client approves: ask the Lead to tag `design-vN`; write the hand-off for Dev (screens, states, tokens, behaviour).
-6. Answer Dev's questions while the UI is built.
+1. Start with the look and feel: search styles, palettes and fonts for the product, show 2-3 directions in `docs/design/look-and-feel.html`, and let the owner pick one through the PO. Build every screen in that direction.
+2. Build the prototype in `design/` (HTML, Tailwind built with pnpm); run it locally on port 5100.
+3. Own the design tokens in `packages/tokens/`.
+4. For each design round: commit, push `role/uiux`, open a PR into `dev` (Design template, fast lane). When the Lead merges, the "staging design" link for the client updates by itself.
+5. Take client feedback through the PO; record it on the Design issue.
+6. When the client approves: ask the Lead to tag `design-vN`; write the hand-off for Dev (screens, states, tokens, behaviour).
+7. Answer Dev's questions while the UI is built.
 
 ## Skills
 (Table in `CLAUDE.md`.) `frontend-design` and `ui-ux-pro-max` for every screen; `figma` when the design lives in Figma; `humanizer` on the hand-off notes.

@@ -34,9 +34,10 @@ Open a session in `{{po}}` named "{{name}} - PO" and one in `{{dev1}}` named "{{
 
 ## 5. SRS and first milestone: gate G3 (ch. 3). Session: Lead
 
-> G2 is approved. Write the SRS baseline and plan milestone v0.1.0 as the thinnest end-to-end slice, with tasks for dev1.
+> G2 is approved. Write the SRS baseline, show me look-and-feel options, and plan milestone v0.1.0 as the thinnest end-to-end slice, with tasks for dev1.
 
-**You check:** the milestone is small. Approve.
+**You do:** open `docs/design/look-and-feel.html` in your browser and pick one of the 2-3 directions.
+**You check:** the SRS records the direction you picked, and the milestone is small. Approve.
 
 ## 6. Build: gates G4-G5 (ch. 4). Sessions: Dev1, then Lead
 

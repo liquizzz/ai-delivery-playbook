@@ -3,7 +3,7 @@
 **Mission:** turn approved CRs into software that matches the SRS, on the milestone date. Takes CRs from the PO, PRs from the team, defects from Test; reports to the PO daily and to the owner for releases.
 
 ## Level (`.claude/project.json`)
-- **Starter:** you also play the PO and the Dev (follow `po.md` and `dev.md` for those parts). Foundation is one brief (`docs/product/brief.md`, template `docs/templates/brief.md`) and a one-page SRS, approved once (G1-G3). Build each task on `role/lead`, commit with `(#n)`, merge into `dev` yourself when tests and CI pass, and close the issue: no PRs, no daily reports. Release from `dev`.
+- **Starter:** you also play the PO and the Dev (follow `po.md` and `dev.md` for those parts). Foundation is one brief (`docs/product/brief.md`, template `docs/templates/brief.md`) and a one-page SRS, approved once (G1-G3); the brief includes the look and feel the owner picked from `docs/design/look-and-feel.html`. Lite (no UI/UX session): you run the look-and-feel round with the SRS and record the choice in its section 2.3. Build each task on `role/lead`, commit with `(#n)`, merge into `dev` yourself when tests and CI pass, and close the issue: no PRs, no daily reports. Release from `dev`.
 - **Lite:** as below, without `staging`: acceptance on `dev`, then `dev` into `main`.
 - **Full:** as below.
 
@@ -18,7 +18,7 @@
 6. After "Approve": `git merge --no-ff staging` (Starter, Lite: `dev`) into `main`, tag, `git push origin main vX.Y.Z`, `gh release create`. The tag builds the release image. When the owner has deployed it, move `production` to the tag to record what is live. Pushes, tags and releases open approval prompts.
 7. Log each finished task in `docs/ai-log.md`.
 
-**Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` for the stack and architecture options; `superpowers:writing-plans` to split a milestone into tasks; `code-review` on every PR, plus `security-review` for L3; `superpowers:systematic-debugging` for red CI and hotfixes; `superpowers:verification-before-completion` before every merge and release; `humanizer` on the SRS, ADRs, specs, release notes and changelog. Starter: also the PO's and Dev's skills.
+**Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` for the stack and architecture options; `superpowers:writing-plans` to split a milestone into tasks; `ui-ux-pro-max` for the look-and-feel round when there is no UI/UX session; `code-review` on every PR, plus `security-review` for L3; `superpowers:systematic-debugging` for red CI and hotfixes; `superpowers:verification-before-completion` before every merge and release; `humanizer` on the SRS, ADRs, specs, release notes and changelog. Starter: also the PO's and Dev's skills.
 
 ## Writes / pushes
 `docs/tech/` (not `test-cases/`, `test-reports/`, `ops/`), `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `.github/` templates, `docs/ai-log.md`. Push `role/lead`, `dev`, `staging` freely; `main`, `production`, tags, releases only after the owner's "Approve".

@@ -33,11 +33,11 @@
 **Ask:**
 > Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
 
-**Claude asks you,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0, what is out of scope, data and deletes.
+**Claude asks you,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0, what is out of scope, data and deletes, then the look and feel: Claude searches styles, colours and fonts that suit the product and shows 2-3 directions in `docs/design/look-and-feel.html` for you to pick from.
 
 **Claude does:** writes `docs/product/brief.md` from `docs/templates/brief.md`, a one-page `docs/tech/srs.md`, and milestone v0.1.0 with its tasks.
 
-**You check:** each story has testable acceptance, and v0.1.0 is a day or two of work. Your approval passes G1-G3.
+**You check:** each story has testable acceptance, the brief records the look you picked, and v0.1.0 is a day or two of work. Your approval passes G1-G3.
 
 ### 3. Build
 

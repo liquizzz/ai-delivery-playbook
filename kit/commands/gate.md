@@ -11,7 +11,7 @@ Check gate **$ARGUMENTS** of the AI Delivery Playbook for this repository.
 4. End with one line: **Ready for approval** or **Not ready**, and the smallest list of actions to get there. If ready, add the `For you` block from `CLAUDE.md`, so the owner knows what to try before approving.
 5. Do not change any file. Do not mark the gate as passed: only the owner approves a gate.
 
-**No design prototype** (`design: false`): skip the `design-v1` tag in G3; the screens are approved through the stories' acceptance instead.
+**No design prototype** (`design: false`): skip the `design-v1` tag in G3; the screens are approved through the stories' acceptance and the look and feel the owner picked (brief section 6 at Starter, SRS section 2.3 otherwise) instead.
 
 **Lite level:** G1 accepts a one-page proposal (timeline and budget in a line each). G2 needs the PRD and stories with testable acceptance (data notes only when data comes from an existing system). G3 needs the SRS baseline, ADRs for real choices, labels, the board and the first milestone; no C4, test strategy or eval plan, and no `staging` branch. G5: no `staging` and no Test session: CI is green on `dev`, each issue reports its level tests, and no `sev:high` or `sev:medium` defect is open. G6 merges `dev` into `main`.
 

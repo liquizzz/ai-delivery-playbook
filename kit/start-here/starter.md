@@ -22,8 +22,9 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with la
 **Paste:**
 > Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
 
-**Claude asks,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0 (the thinnest slice: screen → logic → data), what is out of scope, data and deletes.
-**You check:** `docs/product/brief.md`: the stories have testable acceptance, and v0.1.0 is small (a day or two of work). Say "Approved" or what to change.
+**Claude asks,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0 (the thinnest slice: screen → logic → data), what is out of scope, data and deletes, then the look and feel: Claude searches styles, colours and fonts that suit the product and shows 2-3 directions in `docs/design/look-and-feel.html`.
+**You do:** open that file in your browser and pick a direction (or ask for a mix).
+**You check:** `docs/product/brief.md`: the stories have testable acceptance, the look and feel is the one you picked, and v0.1.0 is small (a day or two of work). Say "Approved" or what to change.
 
 ## 3. Build: gates G4-G5 (ch. 4)
 

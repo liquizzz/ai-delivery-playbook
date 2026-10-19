@@ -51,7 +51,8 @@ Use the skill named for each task, every time; do not swap it for another. For w
 | Milestone into tasks | `superpowers:writing-plans` |
 | Every document: proposal, brief, PRD, SRS, ADR, CR, spec, test report, release notes, changelog | `humanizer` after the draft, before the commit (daily reports: a short pass when there is prose) |
 | Update for a client | `product-management:stakeholder-update`, then `humanizer` |
-| UI work | `frontend-design`; with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |
+| Look and feel, once per product with screens, before the first UI task | `ui-ux-pro-max`: search styles, palettes and font pairs that fit the product type and its users; show 2-3 directions side by side in one static page `docs/design/look-and-feel.html` (the main screen in each); the owner picks one in a question round |
+| UI work | `frontend-design`, following the chosen look and feel; with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |
 | Code a task | L2-L3: `superpowers:test-driven-development`; L1: unit test the change; L0: build and look |
 | Library, framework or tool syntax | `context7` |
 | Bug, defect, red CI, hotfix | `superpowers:systematic-debugging` |

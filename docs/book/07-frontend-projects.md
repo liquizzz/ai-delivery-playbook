@@ -2,7 +2,7 @@
 
 **Purpose:** show the client each design round the same day, without exposing unfinished product code.
 
-**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile.
+**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile; the product still gets a look-and-feel round (2-3 directions in `docs/design/look-and-feel.html`, you pick one) in the Starter brief or the Lite SRS.
 
 **Layout:** one repo with a pnpm workspace: `design/` (UI/UX prototype), `packages/tokens/` (shared design tokens), `app/` (product code). Use a second repo only if an outside partner makes the design or the client must see the design repo.
 

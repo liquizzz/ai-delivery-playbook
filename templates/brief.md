@@ -31,7 +31,13 @@ Later versions: <stories kept for v0.2.0 and after>.
 ## 5. Stack
 <The stack the owner chose, with the rejected options in one line each; details in ADR-001.>
 
-## 6. Plan for v0.1.0
+## 6. Look and feel
+- **Direction:** <the one the owner chose in `docs/design/look-and-feel.html`, with what it fits>
+- **Style:** <e.g. minimal, soft, bold> · **Palette:** <primary, accent, background, text as hex> · **Fonts:** <heading / body>
+- **Layout:** <main screen in one line; mobile first or desktop first>
+- **Rejected:** <the other directions, one line each>
+
+## 7. Plan for v0.1.0
 | Task | Stories | Level | Estimate |
 |---|---|---|---|
 | <thinnest slice: screen → logic → data> | S1 | L<n> | <hours> |
