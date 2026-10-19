@@ -1,6 +1,6 @@
 # How to run
 
-From nothing to a project you can work on: about five minutes once your machine has the tools of step 0. You do not need to read the book first: the project you create gets its own `START-HERE.md`, with every next step as a prompt to paste.
+From nothing to a project you can work on: about five minutes once your machine has the tools of step 0. You do not need to read the book first: the project you create gets its own `START-HERE.md`, with every next step as a short command to type.
 
 Steps 0 to 2 happen in a terminal. You need a Claude Code session only from step 3.
 
@@ -57,8 +57,8 @@ Read the "Please check" lines at the end of its report. On a new repo, open its 
 
 ## 3. Follow START-HERE.md
 
-Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree next to the project, such as `tiny-todo-wt\lead`) and the prompt to paste. Each later step names the session, the prompt, what Claude asks you, and what you get.
+Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree next to the project, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Each later step names the session, the command, what Claude asks you, and what you get.
 
-In Starter mode it goes: setup, brief (your one approval before code), build, release `v0.1.0` after you try it yourself, then run it in Docker.
+In Starter mode it goes: `/setup`, `/brief <your idea>` (your one approval before code), `/build`, `/release` (v0.1.0, after you try it yourself), then run it in Docker. `/status` tells you where the project stands at any time.
 
 When you want to know why a step works the way it does, the [book](README.md#the-book) has a chapter for it.

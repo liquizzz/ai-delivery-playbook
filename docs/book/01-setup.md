@@ -26,7 +26,7 @@ Then run `/reload-plugins`. Plugins for specific projects (Figma, Codex reviewâ€
 
 ## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as prompts to paste.
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build`, `/release`).
 
 **You run,** in a terminal (the Claude Code Terminal panel opens in your home folder, so `cd` first), from the folder where your projects live:
 ```

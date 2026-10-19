@@ -216,7 +216,7 @@ copyFile(path.join(kit, "CLAUDE.md"), "CLAUDE.md");
 copyDir(path.join(kit, ".claude", "roles"), path.join(".claude", "roles"));
 copyDir(path.join(kit, ".claude", "hooks"), path.join(".claude", "hooks"));
 copyFile(path.join(kit, ".claude", "settings.json"), path.join(".claude", "settings.json"));
-copyFile(path.join(kit, "commands", "gate.md"), path.join(".claude", "commands", "gate.md"));
+copyDir(path.join(kit, "commands"), path.join(".claude", "commands"));
 copyDir(path.join(kit, "start-here"), path.join(".claude", "start-here"));
 copyDir(path.join(kit, ".github"), ".github");
 if (!design && created.includes(".github/workflows/image-design.yml")) {

@@ -26,12 +26,12 @@
 
 **It does:** creates `main` and `dev` only (images build from `dev` and release tags), writes the Starter level in `CLAUDE.md`, creates only the `lead` worktree (the Lead's permissions cover all paths) and writes `START-HERE.md` with the Starter steps.
 
-**You do:** open one session in the `lead` worktree and follow `START-HERE.md`. Its first prompt finishes the setup (stack, Docker files, milestone).
+**You do:** open one session in the `lead` worktree and follow `START-HERE.md`. Its first command, `/setup`, finishes the setup (stack, Docker files, milestone).
 
 ### 2. Brief
 
-**Ask:**
-> Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
+**Ask:** `/brief <your idea in two or three sentences>`. It runs the same as saying:
+> Start the Starter brief for `<your idea>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
 
 **Claude asks you,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0, what is out of scope, data and deletes, then the look and feel: Claude searches styles, colours and fonts that suit the product and shows 2-3 directions in `docs/design/look-and-feel.html` for you to pick from.
 
@@ -41,15 +41,13 @@
 
 ### 3. Build
 
-**Ask:**
-> Build milestone v0.1.0.
+**Ask:** `/build` (the same as "Build milestone v0.1.0.")
 
 **Claude does:** opens the CR and its tasks, builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev`, and closes the issue when CI on `dev` is green. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
 
 ### 4. Release
 
-**Ask:**
-> The milestone is done. Prepare the release and my acceptance test (Starter mode).
+**Ask:** `/release` (the same as "The milestone is done. Prepare the release and my acceptance test.")
 
 **Claude does:** checks the main journey; writes 3-5 acceptance scenarios and the commands to start `dev` in Docker; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 
@@ -67,8 +65,7 @@
 
 ### 2. Release
 
-**Ask the Lead:**
-> The milestone is done. Prepare the release and my acceptance test (Lite mode).
+**Ask the Lead:** `/release`
 
 **Claude does:** checks the main journey; sends you the acceptance scenarios; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 

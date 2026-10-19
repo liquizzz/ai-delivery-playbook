@@ -57,6 +57,8 @@ try {
   check("session-start: registered in settings", read(a, ".claude", "settings.json").includes("session-start.cjs"));
   check("gate: level-aware with owner block", read(a, ".claude", "commands", "gate.md").includes("**Lite level:**") && read(a, ".claude", "commands", "gate.md").includes("For you"));
   check("CLAUDE.md: hand-off and For you rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block"));
+  check("starter: step commands installed", ["setup", "brief", "build", "release", "change", "status", "gate"].every((c) => fs.existsSync(path.join(a, ".claude", "commands", `${c}.md`))));
+  check("starter: START-HERE uses the commands", ["`/setup`", "`/brief <", "`/build`", "`/release`", "`/status`"].every((c) => read(a, "START-HERE.md").includes(c)));
   check("starter: templates installed", fs.existsSync(path.join(a, "docs", "templates", "brief.md")));
   check("starter: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 

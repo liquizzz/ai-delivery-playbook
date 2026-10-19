@@ -25,16 +25,16 @@ This book is for people with some technical background who want to turn an idea 
 
 ## Quick start: from idea to demo
 
-Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. You run one command, then each step is one prompt; Claude asks what it needs, then does the whole step. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
+Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. You run one command, then each step is one slash command the kit installs; Claude asks what it needs, then does the whole step. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
 
-| # | Say (to the one Starter session) | You get |
+| # | Type (in the one Starter session) | You get |
 |---|---|---|
-| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree: "Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub." | Repo, kit, branches, Docker files and CI for the stack you chose ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
-| 2 | "Start the Starter brief for `<idea>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan." | Brief, SRS and the v0.1.0 tasks; your approval passes G1-G3 ([ch. 8](08-lite-mode.md)) |
-| 3 | "Build milestone v0.1.0." | Code, tests by level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
-| 4 | "Milestone v0.1.0 is done. Prepare the release and my acceptance test (Starter mode)." | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
+| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree and type `/setup` | Repo, kit, branches, Docker files and CI for the stack you chose ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
+| 2 | `/brief <idea>` | Brief, SRS and the v0.1.0 tasks; your approval passes G1-G3 ([ch. 8](08-lite-mode.md)) |
+| 3 | `/build` | Code, tests by level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
+| 4 | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
 | 5 | Run the commands in step 5 of `START-HERE.md`. | v0.1.0 running in Docker on your machine |
-| 6 | Prove the loop: close the session, open a new one, say "Read CLAUDE.md and continue as lead", then "Small change: `<one fix>`". | The fix as CR → task → v0.1.1, picked up from the record alone |
+| 6 | Prove the loop: close the session, open a new one, type `/change <one fix>`, then `/build` and `/release` | The fix as CR → task → v0.1.1, picked up from the record alone |
 
 If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite when other people start using it, and to Full when a client, money, security or personal data comes in.
 

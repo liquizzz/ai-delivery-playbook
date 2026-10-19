@@ -1,6 +1,6 @@
 # Start here: {{name}}
 
-Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one prompt: paste it, answer Claude's questions round by round (or say "you decide"), check the result, go to the next step.
+Level: **Starter**. One Claude Code session plays PO, Lead and Dev. Each step is one command: type it, answer Claude's questions round by round (or say "you decide"), check the result, go to the next step. Type `/` in the session to see the kit's commands.
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with labels and a kanban board, and the Lead worktree `{{lead}}`.
 
@@ -10,17 +10,15 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with la
 
 **Open** Claude Code desktop in `{{lead}}` and name the session "{{name}} - Lead". Use this one session for every step below.
 
-**Paste:**
-> Read CLAUDE.md and continue as lead. Finish the Starter setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create milestone v0.1.0 on GitHub.
+**Type:** `/setup`
 
 **Claude asks,** one topic per round: what the product needs (screens, users, data), then 2-3 stack options for you to choose from, then commands and hard rules.
 **You do:** if the repo is new, open {{actions}} and click **Enable Actions on this repository** if GitHub shows it; Claude then checks that CI ran. Open the kanban board once (GitHub → your profile → Projects) and choose View → Layout → Board.
-**You get:** CLAUDE.md, Docker files and CI fitted to your stack; ADR-001 for the stack; milestone v0.1.0.
+**You get:** CLAUDE.md, Docker files and CI fitted to your stack; ADR-001 for the stack; milestone v0.1.0. If Claude enabled the design plugins, run `/reload-plugins`.
 
 ## 2. Brief: gate G1-G3 (ch. 8)
 
-**Paste:**
-> Start the Starter brief for `<your idea in two or three sentences>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
+**Type:** `/brief <your idea in two or three sentences>`
 
 **Claude asks,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0 (the thinnest slice: screen → logic → data), what is out of scope, data and deletes, then the look and feel: Claude searches styles, colours and fonts that suit the product and shows 2-3 directions in `docs/design/look-and-feel.html`.
 **You do:** open that file in your browser and pick a direction (or ask for a mix).
@@ -28,16 +26,14 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with la
 
 ## 3. Build: gates G4-G5 (ch. 4)
 
-**Paste:**
-> Build milestone v0.1.0.
+**Type:** `/build`
 
-**Claude does:** opens the CR and its tasks on GitHub, builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev` and pushes. CI then runs on `dev`; Claude closes the issue only when that run is green. No pull requests in Starter.
+**Claude does:** builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev` and pushes. CI then runs on `dev`; Claude closes the issue only when that run is green. No pull requests in Starter.
 **You check:** the report: what was built, the level of each change, tests and CI passing.
 
 ## 4. Release v0.1.0: gate G6 (ch. 5)
 
-**Paste:**
-> Milestone v0.1.0 is done. Prepare the release and my acceptance test (Starter mode).
+**Type:** `/release`
 
 **Claude gives you:** 3-5 scenarios and the commands to start `dev` in Docker.
 **You do:** try every scenario yourself, then say "All pass. Approve v0.1.0" or what failed. Claude asks once more before pushing `main` and the tag `v0.1.0`; the tag builds the image `{{image}}:v0.1.0`.
@@ -64,17 +60,17 @@ On macOS or Linux, the last line is `IMAGE_TAG=v0.1.0 docker compose up --no-bui
 
 ## 6. Prove the loop (optional, ch. 6)
 
-Close the session. Open a new one in `{{lead}}` and paste:
-> Read CLAUDE.md and continue as lead. Small change: `<one small fix>`.
+Close the session. Open a new one in `{{lead}}` and type `/change <one small fix>`, then `/build` and `/release`.
 
 **You check:** the new session finds everything from the record alone and releases the fix as v0.1.1.
 
 ## Any time
 
-| Need | Say or run |
+| Need | Type or run |
 |---|---|
-| Where the project stands | "Where are we?" |
-| A change | "I want `<what, in business terms>`." |
+| Where the project stands | `/status` |
+| A change | `/change <what, in business terms>` |
+| Is a gate ready? | `/gate <G1-G6>` |
 | Restart after closing a session | "Read CLAUDE.md and continue as lead." |
 | Other people start using it | `node scripts/set-level.mjs lite` in `{{main}}`, then tell the Lead: "We moved to Lite. Draft what this level still lacks." A client, money, security or personal data: use `full` instead |
 | Save tokens | `/compact` after each milestone |

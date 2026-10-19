@@ -12,7 +12,7 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one prompt to paste.
+The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/brief <your idea>`, `/build` or `/release`.
 
 ## What the kit sets up for you
 
@@ -55,7 +55,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 
 ## How a project goes
 
-The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in six prompts, from an empty folder to a tested, tagged demo.
+The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in six steps, from an empty folder to a tested, tagged demo.
 
 ## Repository
 
