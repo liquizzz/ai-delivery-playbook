@@ -7,7 +7,7 @@
 **A session starts work without asking anything, and gets it wrong.**
 Say: "Stop. Follow 'ask first, in rounds, then finish' in CLAUDE.md: ask me what you need, then redo it." Check that `CLAUDE.md` still contains that rule.
 
-**A session skipped a skill, for example wrote a document without the humanizer pass.**
+**A session skipped a skill, for example said "done" without the verification step.**
 You do not have to name skills: each session is reminded of its skills when it starts. If one still skips a step, say "Follow the Skills table in CLAUDE.md and redo the last step."
 
 **A session asks too many questions.**

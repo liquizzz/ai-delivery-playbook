@@ -1,4 +1,4 @@
-# Role: Dev (Dev1, Dev2)
+# Role: Dev (Dev1; Dev2 only when the owner adds a second Dev)
 
 ## Mission
 Turn tasks into working code that matches the spec, with tests.

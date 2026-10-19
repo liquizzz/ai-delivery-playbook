@@ -36,7 +36,7 @@ Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session pla
 | 5 | Run the commands in step 5 of `START-HERE.md`. | v0.1.0 running in Docker on your machine |
 | 6 | Prove the loop: close the session, open a new one, say "Read CLAUDE.md and continue as lead", then "Small change: `<one fix>`". | The fix as CR → task → v0.1.1, picked up from the record alone |
 
-If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite or Full when the stakes rise.
+If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite when other people start using it, and to Full when a client, money, security or personal data comes in.
 
 ## The model
 
@@ -44,11 +44,13 @@ If the new session in step 6 picks up the fix without you explaining anything, k
 flowchart LR
   O(["Owner<br/>(you)"]) <--> PO["PO session"]
   PO --> Lead["Lead session"]
-  Lead --> Dev["Dev sessions"]
-  Lead --> Test["Test session"]
-  Lead --> DevOps["DevOps session"]
-  PO --> UX["UI/UX session"]
+  Lead --> Dev["Dev session"]
+  Lead -.-> Test["Test session"]
+  Lead -.-> DevOps["DevOps session"]
+  PO -.-> UX["UI/UX session"]
 ```
+
+Solid lines are the three sessions most projects run (Lite). Dotted ones join at Full, only when there is work for them.
 
 You are the owner. You talk mostly to the PO, decide at a few gates and approve every release. Each role is a separate Claude Code session with its own git worktree and role file. The work is written down in GitHub issues, repo documents and git, so a skipped step shows up, and any change can be traced and fixed later.
 
@@ -82,14 +84,16 @@ The full list of steps, in order, with a check for each: [Appendix D: Process ch
 
 ## Choose the level of process
 
-Pick the level by what is at stake. A three-day project that handles money still needs the full process.
+Pick the level by what is at stake: a three-day project that handles money still needs Full. Most projects run on Lite.
 
-| Use | When |
-|---|---|
-| Full process | Real users, a client, money, security or personal data are involved, even for a short project |
-| [Lite mode](08-lite-mode.md) | Low stakes but more than one session's work: a POC, an internal tool. Move to Full when the stakes rise |
-| [Starter mode](08-lite-mode.md#starter-mode) | A first demo or a throw-away POC, built by one session. Move to Lite as soon as real users or a second developer appear |
-| No process needed | A one-off script or a spike you will throw away |
+| Level | Sessions | Use when |
+|---|---|---|
+| [Starter](08-lite-mode.md#starter-mode) | One session plays PO, Lead and Dev | A first demo or a throw-away POC that only you use |
+| [Lite](08-lite-mode.md), for most projects | Three: PO, Lead, Dev | Other people use it: an internal tool, a small product |
+| Full | PO, Lead, Dev, and Test, UI/UX or DevOps when there is work for them | A client, money, security or personal data, even for a short project |
+| No process needed | | A one-off script or a spike you will throw away |
+
+One Dev session is the default at every level. Add a second (`dev2`) only if you already split and manage work across developers; five or more sessions are hard for one owner to follow.
 
 ## How each task is written in this book
 

@@ -16,7 +16,7 @@ Reports to the PO (design is a product decision). The Lead coordinates the hand-
 7. Answer Dev's questions while the UI is built.
 
 ## Skills
-(Table in `CLAUDE.md`.) `frontend-design` and `ui-ux-pro-max` for every screen; `figma` when the design lives in Figma; `humanizer` on the hand-off notes.
+(Table in `CLAUDE.md`.) `frontend-design` and `ui-ux-pro-max` for every screen; `figma` when the design lives in Figma; `humanizer` on the hand-off notes when documents are polished.
 
 ## Writes
 `design/`, `packages/tokens/`.

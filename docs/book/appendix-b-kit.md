@@ -41,16 +41,16 @@ The kit's `.claude/settings.json` declares the minimum set, so Claude Code offer
 | github | built in | All roles | Required |
 | claude-mem | `thedotmack/claude-mem` | All roles | Required |
 | context7 | built in | Dev, Lead, DevOps | Required |
-| frontend-design | built in | UI/UX, Dev on front ends | Required for products with screens |
-| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Starter and Lite | Required for products with screens |
+| frontend-design | built in | UI/UX, Dev on front ends | Products with screens (setup enables it) |
+| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Starter and Lite | Products with screens (setup enables it) |
 | figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
 | product-management | `anthropics/knowledge-work-plugins` | PO | Required |
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
-| humanizer | `blader/humanizer` | Every role that writes documents | Required |
+| humanizer | `blader/humanizer` | Every role that writes documents | Only with polished documents (init question 6) |
 
 ### Skills by task
 
-The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: interviews use `superpowers:brainstorming`; the PRD uses `product-management:write-spec`; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; the look-and-feel options come from `ui-ux-pro-max` and screens are built with `frontend-design`; every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
+The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: interviews use `superpowers:brainstorming`; the PRD uses `product-management:write-spec`; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; the look-and-feel options come from `ui-ux-pro-max` and screens are built with `frontend-design`; with polished documents, every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
 
 Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plugins`. Each plugin adds its skill list to every session's context, and claude-mem also adds context at each session start, so leave out what the project does not use. To see what a plugin costs, run `claude plugin details <plugin>` in a terminal: it lists the plugin's skills, agents and hooks and its projected token cost per session (the Codex plugin, for example, adds about 450 tokens). To add a project-specific plugin for the whole team, ask the Lead: "Add `<plugin>` to the project's plugin list."
 

@@ -14,7 +14,7 @@ The Lead. Opened for larger infrastructure work; the Lead covers small jobs.
 5. Push `role/devops` and open a PR.
 
 ## Skills
-(Table in `CLAUDE.md`.) `context7` for Docker and GitHub Actions syntax; `superpowers:systematic-debugging` for failing builds and runs; `superpowers:verification-before-completion` before the PR; `humanizer` on `docs/tech/ops/`.
+(Table in `CLAUDE.md`.) `context7` for Docker and GitHub Actions syntax; `superpowers:systematic-debugging` for failing builds and runs; `superpowers:verification-before-completion` before the PR; `humanizer` on `docs/tech/ops/` when documents are polished.
 
 ## Writes
 `docker-compose.yml`, `docker/`, `.github/workflows/`, `infra/`, `scripts/`, `docs/tech/ops/`.

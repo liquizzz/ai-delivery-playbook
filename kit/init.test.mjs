@@ -40,10 +40,11 @@ try {
   check("starter: compose project name", read(a, "docker-compose.yml").includes("name: tiny-todo"));
   check("starter: no design pipeline by default", !read(a, "docker-compose.yml").includes("design:") && !fs.existsSync(path.join(a, ".github", "workflows", "image-design.yml")) && !fs.existsSync(path.join(a, "docker", "design.Dockerfile")));
   check("starter: English by default", read(a, "CLAUDE.md").includes("- Language: talk to the owner in English; write documents in English."));
-  check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("humanizer@humanizer") && read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
+  check("starter: skills plugins declared", read(a, ".claude", "settings.json").includes("product-management@knowledge-work-plugins"));
   check("starter: security checks installed", fs.existsSync(path.join(a, ".github", "dependabot.yml")) && read(a, ".github", "workflows", "codeql.yml").includes("vars.CODEQL_LANGUAGES") && read(a, ".github", "workflows", "image-app.yml").includes("attest-build-provenance"));
   check("starter: NFR rows follow ISO 25010", read(a, "docs", "templates", "srs.md").includes("ISO/IEC 25010") && read(a, "docs", "templates", "srs.md").includes("### 2.4 Constraints"));
-  check("starter: design plugins declared", read(a, ".claude", "settings.json").includes("frontend-design@claude-plugins-official") && read(a, ".claude", "settings.json").includes("ui-ux-pro-max@ui-ux-pro-max-skill"));
+  check("starter: plain documents by default, no humanizer plugin", read(a, "CLAUDE.md").includes("- Documents: plain") && !read(a, ".claude", "settings.json").includes("humanizer@humanizer") && JSON.parse(read(a, ".claude", "project.json")).humanize === false);
+  check("starter: design plugins left to setup", !read(a, ".claude", "settings.json").includes("ui-ux-pro-max@ui-ux-pro-max-skill\": true") && read(a, "CLAUDE.md").includes("setup enables `frontend-design`"));
   check("starter: look and feel in brief and START-HERE", read(a, "docs", "templates", "brief.md").includes("## 6. Look and feel") && read(a, "START-HERE.md").includes("docs/design/look-and-feel.html"));
   check("starter: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming"));
   const hook = (dir) => {
@@ -62,13 +63,13 @@ try {
   // 2. Lite through the questions (name, folder, level, description, GitHub, confirm)
   const b = path.join(tmp, "my-shop");
   // --github none keeps the questions the same whether or not gh is signed in on this machine.
-  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "My Shop\n\n2\n\n\nA tiny shop.\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "My Shop\n\n2\n\n\n\nA tiny shop.\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("lite: folder from the suggested name", fs.existsSync(path.join(b, "CLAUDE.md")));
   check("lite: po, lead and dev1 worktrees", ["po", "lead", "dev1"].every((r) => fs.existsSync(wt(b, r))));
   check("lite: no staging", !branches(b).includes("staging"));
 
   // 3. Answering "no" changes nothing
-  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "Nope\n\n\n\n\n\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
+  node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "Nope\n\n\n\n\n\n\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("no: nothing created", !fs.existsSync(path.join(tmp, "nope")));
 
   // 4. Full with flags
@@ -79,7 +80,8 @@ try {
 
   // 4b. Language and design prototype
   const d = path.join(tmp, "shop-vn");
-  node([path.join(kit, "init.mjs"), d, "--language", "Vietnamese", "--docs-language", "Vietnamese", "--design", "yes", "--yes"]);
+  node([path.join(kit, "init.mjs"), d, "--language", "Vietnamese", "--docs-language", "Vietnamese", "--design", "yes", "--humanize", "yes", "--yes"]);
+  check("humanize: plugin and CLAUDE.md line", read(d, ".claude", "settings.json").includes("humanizer@humanizer") && read(d, "CLAUDE.md").includes("- Documents: polished"));
   check("language: written to CLAUDE.md", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese."));
   check("design: pipeline kept", read(d, "docker-compose.yml").includes("design:") && fs.existsSync(path.join(d, ".github", "workflows", "image-design.yml")) && fs.existsSync(path.join(d, "docker", "design.Dockerfile")));
 

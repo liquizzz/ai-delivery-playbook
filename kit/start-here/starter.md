@@ -31,7 +31,7 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with la
 **Paste:**
 > Build milestone v0.1.0.
 
-**Claude does:** opens the CR and its tasks on GitHub, builds each task on `role/lead` with tests for its change level, commits with the issue number, and merges into `dev` when CI is green. No pull requests in Starter.
+**Claude does:** opens the CR and its tasks on GitHub, builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev` and pushes. CI then runs on `dev`; Claude closes the issue only when that run is green. No pull requests in Starter.
 **You check:** the report: what was built, the level of each change, tests and CI passing.
 
 ## 4. Release v0.1.0: gate G6 (ch. 5)
@@ -76,5 +76,5 @@ Close the session. Open a new one in `{{lead}}` and paste:
 | Where the project stands | "Where are we?" |
 | A change | "I want `<what, in business terms>`." |
 | Restart after closing a session | "Read CLAUDE.md and continue as lead." |
-| More roles (real users, a second developer, personal data) | `node scripts/set-level.mjs lite` in `{{main}}`, then tell the Lead: "We moved to Lite. Draft what this level still lacks." |
+| Other people start using it | `node scripts/set-level.mjs lite` in `{{main}}`, then tell the Lead: "We moved to Lite. Draft what this level still lacks." A client, money, security or personal data: use `full` instead |
 | Save tokens | `/compact` after each milestone |

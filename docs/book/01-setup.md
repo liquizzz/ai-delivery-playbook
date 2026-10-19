@@ -17,10 +17,10 @@ These involve your machine, accounts or secrets:
 | github | Issues, PRs and the board from inside a session | `/plugin install github@claude-plugins-official` |
 | claude-mem | Memory across sessions, so a restarted session finds its context | `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack` |
 | context7 | Current library documentation for Dev sessions | `/plugin install context7@claude-plugins-official` |
-| humanizer | Every document the sessions write reads like a person wrote it | `/plugin marketplace add blader/humanizer` then `/plugin install humanizer@humanizer` |
+| humanizer | Only if you want polished documents (init question 6): each document reads like a person wrote it | `/plugin marketplace add blader/humanizer` then `/plugin install humanizer@humanizer` |
 | product-management | The PO's PRD, market and client-update skills | `/plugin marketplace add anthropics/knowledge-work-plugins` then `/plugin install product-management@knowledge-work-plugins` |
-| frontend-design | Screens that look designed, in the look and feel you picked | `/plugin install frontend-design@claude-plugins-official` |
-| ui-ux-pro-max | Searches styles, palettes and fonts for the look-and-feel options | `/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill` then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill` |
+| frontend-design | Products with screens: screens that look designed, in the look and feel you picked | `/plugin install frontend-design@claude-plugins-official` |
+| ui-ux-pro-max | Products with screens: searches styles, palettes and fonts for the look-and-feel options | `/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill` then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill` |
 
 Then run `/reload-plugins`. Plugins for specific projects (Figma, Codex review…) are listed in [Appendix B](appendix-b-kit.md#plugins). You do not pick skills: the kit's `CLAUDE.md` names the skill for each task, and every session uses it. Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
 
@@ -39,8 +39,9 @@ node <path to playbook>/kit/init.mjs
 3. Level: `starter`, `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
 4. Your working language, and the language for documents if it is not English.
 5. A separate design prototype the client reviews ([chapter 7](07-frontend-projects.md))? Suggested: no.
-6. One-line description (optional).
-7. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
+6. Polished documents? Suggested: no. Yes gives every document a humanizer pass: it reads better and costs more tokens, so it pays off when documents go to a client. Tell the Lead "Polish documents from now on" to turn it on later.
+7. One-line description (optional).
+8. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
 
 **It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels and the kanban board (`scripts/setup-board.mjs`).
 

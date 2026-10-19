@@ -5,6 +5,7 @@
 AI Delivery Playbook project. Steps for the owner: `START-HERE.md`.
 - Level: <Starter / Lite / Full process>. Change it with `node scripts/set-level.mjs <starter|lite|full>`.
 - Language: talk to the owner in <language>; write documents in <language>. Code, commits and identifiers stay in English.
+- Documents: <plain / polished>.
 - Stage: <Foundation, next gate G# / Delivery, milestone vX.Y.Z>.
 
 ## Role
@@ -49,10 +50,11 @@ Use the skill named for each task, every time; do not swap it for another. For w
 | Market or competitor context for a proposal | `product-management:competitive-brief` |
 | PRD and stories | `product-management:write-spec`, on the template in `docs/templates/` |
 | Milestone into tasks | `superpowers:writing-plans` |
-| Every document: proposal, brief, PRD, SRS, ADR, CR, spec, test report, release notes, changelog | `humanizer` after the draft, before the commit (daily reports: a short pass when there is prose) |
-| Update for a client | `product-management:stakeholder-update`, then `humanizer` |
+| Every document: proposal, brief, PRD, SRS, ADR, CR, spec, test report, release notes, changelog | Documents polished: `humanizer` after the draft, before the commit. Documents plain: no humanizer; write short sentences, no filler |
+| Update for a client | `product-management:stakeholder-update`, then `humanizer` if documents are polished |
+| Owner says "Polish documents from now on" (or the opposite) | Lead: set `humanize` in `.claude/project.json`, add or remove `"humanizer@humanizer": true` under `enabledPlugins` in `.claude/settings.json`, update the Documents line above, commit, and tell the owner to run `/reload-plugins` |
 | Look and feel, once per product with screens, before the first UI task | `ui-ux-pro-max`: search styles, palettes and font pairs that fit the product type and its users; show 2-3 directions side by side in one static page `docs/design/look-and-feel.html` (the main screen in each); the owner picks one in a question round |
-| UI work | `frontend-design`, following the chosen look and feel; with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |
+| UI work | `frontend-design`, following the chosen look and feel (setup enables `frontend-design` and `ui-ux-pro-max` in `.claude/settings.json` when the product has screens); with a design prototype also `ui-ux-pro-max`; `figma` when the design lives in Figma |
 | Code a task | L2-L3: `superpowers:test-driven-development`; L1: unit test the change; L0: build and look |
 | Library, framework or tool syntax | `context7` |
 | Bug, defect, red CI, hotfix | `superpowers:systematic-debugging` |

@@ -3,10 +3,10 @@
 // AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 //
 // Set up a project for the AI Delivery Playbook in one command.
-//   node <playbook>/kit/init.mjs                      asks: name, folder, level, language, design, description, GitHub
+//   node <playbook>/kit/init.mjs                      asks: name, folder, level, language, design, documents, description, GitHub
 //   node <playbook>/kit/init.mjs <folder> [options]   asks only what the options leave out
 // Options: --name "<name>"  --level starter|lite|full  --language <lang>  --docs-language <lang>  --design yes|no
-//          --description "<text>"
+//          --humanize yes|no  --description "<text>"
 //          --github private|public|none  --repo <owner/name>  --yes (no questions, defaults)  --force
 //
 // It creates the folder and a git repo, copies the kit, fills in the project name, level and description,
@@ -27,7 +27,7 @@ const flag = (name) => {
 };
 const force = argv.includes("--force");
 const yes = argv.includes("--yes");
-const valued = new Set(["--name", "--level", "--language", "--docs-language", "--design", "--description", "--github", "--repo"]);
+const valued = new Set(["--name", "--level", "--language", "--docs-language", "--design", "--humanize", "--description", "--github", "--repo"]);
 const target = argv.find((a, i) => !a.startsWith("--") && !valued.has(argv[i - 1]));
 
 // 0. Required tools. Docker is required: every part of the product runs in it.
@@ -121,7 +121,14 @@ if (!design) {
 }
 design = /^y/i.test(design);
 
-topic("6. One-line description (optional)", "Who it is for and what it does. Claude asks for the rest later.");
+let humanize = flag("humanize");
+if (!humanize) {
+  topic("6. Documents for readers outside the team", "yes: every document gets a humanizer pass so it reads like a person wrote it (more tokens; for client reports). no: plain, short documents. Turn it on later by telling the Lead.");
+  humanize = await ask("   Polish documents? yes or no", "no", (v) => (/^(y|yes|n|no)$/i.test(v) ? v.toLowerCase()[0] : null));
+}
+humanize = /^y/i.test(humanize);
+
+topic("7. One-line description (optional)", "Who it is for and what it does. Claude asks for the rest later.");
 const description = flag("description") ?? (await ask("   Description", "", (v) => v || " ")).trim();
 
 let github = flag("github");
@@ -129,10 +136,10 @@ let repo = flag("repo");
 if (!github) {
   if (!ghUser) {
     if (interactive) console.log(`
-7. GitHub repo: skipped (${hasGh ? "run gh auth login first" : "gh is not installed"}). The Lead connects it later.`);
+8. GitHub repo: skipped (${hasGh ? "run gh auth login first" : "gh is not installed"}). The Lead connects it later.`);
     github = "none";
   } else {
-    topic("7. GitHub repo", "private (only you see it), public, or none to connect later. It pushes the branches and creates the labels.");
+    topic("8. GitHub repo", "private (only you see it), public, or none to connect later. It pushes the branches and creates the labels.");
     github = await ask("   Create it now? private, public or none", interactive ? "private" : "none",
       (v) => (["private", "public", "none"].includes(v.toLowerCase()) ? v.toLowerCase() : null));
   }
@@ -155,6 +162,7 @@ About to set up:
   Level: ${LEVELS[level].title}
   Language: ${language} (documents: ${docsLanguage})
   Design prototype: ${design ? "yes" : "no"}
+  Polished documents (humanizer): ${humanize ? "yes" : "no"}
   GitHub: ${repo ? `${repo} (${github}), branches pushed, labels created` : "none"}`);
   const go = await ask("Go ahead? yes or no", "yes");
   if (!/^y/i.test(go)) {
@@ -230,6 +238,7 @@ const fill = (rel, edit) => {
   fs.writeFileSync(file, edit(fs.readFileSync(file, "utf8")));
 };
 fill("CLAUDE.md", (t) => t.replace("# <Project name>", `# ${name}`)
+  .replace(/^- Documents: .*$/m, humanize ? "- Documents: polished (humanizer pass on each document)." : "- Documents: plain (no humanizer pass). To turn it on, the owner tells the Lead: \"Polish documents from now on.\"")
   .replace(/^<One paragraph: what the product does.*$/m, (line) => description || line)
   .replace(/^- Language: .*$/m, `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Code, commits and identifiers stay in English.`));
 setClaudeLevel(dest, level);
@@ -240,7 +249,13 @@ fill("docker-compose.yml", (t) => {
   t = t.replaceAll("<project>", project);
   return owner ? t.replaceAll("<owner>", owner) : t;
 });
-writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design });
+// Plugins: humanizer only for polished documents; the design plugins are enabled by the setup step when the product has screens.
+fill(".claude/settings.json", (t) => {
+  const s = JSON.parse(t);
+  if (!humanize) delete s.enabledPlugins["humanizer@humanizer"];
+  return JSON.stringify(s, null, 2) + "\n";
+});
+writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design, humanize });
 renderStartHere(dest, { name, level, repo }, dest);
 created.push(".claude/project.json", "START-HERE.md");
 

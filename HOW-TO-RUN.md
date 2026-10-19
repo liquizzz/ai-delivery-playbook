@@ -16,7 +16,7 @@ gh auth login
 gh auth refresh -s project
 ```
 
-In any Claude Code session, install the seven plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`.
+In any Claude Code session, install the plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`: six always, plus humanizer if you want polished documents and the two design plugins if the product has screens.
 
 ## 1. Clone the playbook
 
@@ -38,17 +38,18 @@ In the same terminal and folder:
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-It asks seven questions, each with a one-line hint. Press Enter to take the suggestion in brackets.
+It asks eight questions, each with a one-line hint. Press Enter to take the suggestion in brackets.
 
 | # | Question | Suggestion | Note |
 |---|---|---|---|
 | 1 | Project name | | Any name, for example "Tiny Todo" |
 | 2 | Where to create the project | `./tiny-todo` | A new folder; init creates it |
-| 3 | Level | `1` (starter) | Starter: one session, for a first demo. Lite: PO, Lead, Dev. Full: all six roles. Change it any time |
+| 3 | Level | `1` (starter) | Starter: one session, for a first demo only you use. Lite: PO, Lead, Dev, for most projects. Full: adds Test, UI/UX and DevOps for a client, money, security or personal data. Change it any time |
 | 4 | Working language | `English` | The sessions talk to you in it; you also choose the language of the documents |
 | 5 | Separate design prototype | `no` | Yes only if a client reviews a design before the app is built |
-| 6 | One-line description | | Optional; Claude asks for the rest later |
-| 7 | GitHub repo | `private`, as `<you>/tiny-todo` | `none` to connect later |
+| 6 | Polished documents | `no` | Yes adds a humanizer pass to every document: reads better, costs more tokens. Worth it for client reports; turn it on later by telling the Lead |
+| 7 | One-line description | | Optional; Claude asks for the rest later |
+| 8 | GitHub repo | `private`, as `<you>/tiny-todo` | `none` to connect later |
 
 Then it installs the kit, creates the branches and the role worktrees for your level, creates and pushes the GitHub repo with its labels and kanban board, and writes `START-HERE.md`.
 

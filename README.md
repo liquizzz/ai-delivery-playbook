@@ -2,7 +2,7 @@
 
 A kit and a book for building real products with Claude Code. One command sets up your project, and from then on every Claude session already knows its role, which skills to use for each task, how to ask you questions and how to keep token use down. You decide and approve; you do not have to tune Claude Code yourself first.
 
-**[Start a project in 5 minutes: How to run](HOW-TO-RUN.md)**
+**[Start a project in 5 minutes: How to run](HOW-TO-RUN.md)** (once Claude Code, Git, Node.js, Docker and the GitHub CLI are installed)
 
 ```bash
 git clone https://github.com/liquizzz/ai-delivery-playbook.git
@@ -12,19 +12,19 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-The first time, install the tools listed in How to run (once per machine). Then answer seven short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one prompt to paste.
+The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one prompt to paste.
 
 ## What the kit sets up for you
 
 | You get | How |
 |---|---|
-| A ready project in one command | `init.mjs` creates the folder, git branches, a worktree per role, the private GitHub repo with labels and a kanban board, CI and Docker image builds, and `START-HERE.md` |
-| Sessions that know their job | Each role (PO, Lead, Dev, Test, UI/UX, DevOps) has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
-| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, the Lead reviews every change, and every document gets a humanizer pass. A hook reminds each session at start, so you never name a skill |
+| A ready project in one command | `init.mjs` creates the folder, git branches, a worktree per role, the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md` |
+| A small team that knows its job | Most projects run with three sessions: PO (your requests), Lead (plan, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
+| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents for a client can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
 | Questions you can answer quickly | One topic per round, two to four options with a recommendation first; say "you decide" to let Claude settle the rest |
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, and Starter mode: one session and a one-page brief for a first demo |
 | Quality you can check | Gates you approve, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
-| Room to grow | `node scripts/set-level.mjs` moves a project from Starter to Lite to the full six-role team, or back, without redoing anything |
+| Room to grow | `node scripts/set-level.mjs` moves a project from Starter (one session) to Lite (three) to Full, or back, without redoing anything |
 | Releases you can run anywhere | Each version tag builds a Docker image; you run it, or roll back, by tag |
 
 ## What it is not
@@ -55,7 +55,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 
 ## How a project goes
 
-The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in seven prompts, from an empty folder to a tested, tagged demo.
+The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in six prompts, from an empty folder to a tested, tagged demo.
 
 ## Repository
 

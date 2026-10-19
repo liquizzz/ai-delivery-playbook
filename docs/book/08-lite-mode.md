@@ -4,9 +4,9 @@
 
 | Area | Full process | Lite mode | Starter mode |
 |---|---|---|---|
-| Sessions | PO, Lead, Dev1-2, Test, UI/UX, DevOps | PO, Lead, one Dev | One session playing PO, Lead and Dev |
+| Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (a second Dev only for owners who already manage several developers) | PO, Lead, one Dev | One session playing PO, Lead and Dev |
 | Branches | `role/*` → `dev` → `staging` → `main` → `production` | `role/*` → `dev` → `main` | `role/lead` → `dev` → `main` |
-| Review | Lead reviews every PR | Lead reviews every PR | No PRs: the session merges each task into `dev` when its tests and CI pass; you look at the demo |
+| Review | Lead reviews every PR | Lead reviews every PR | No PRs: the session runs the tests locally, merges each task into `dev`, and closes it when CI on `dev` is green; you look at the demo |
 | Foundation | Proposal, PRD, data notes, stories, SRS, ADRs, C4, test strategy, eval plan | One-page proposal, short PRD with stories, SRS, ADRs only for real choices | One brief (goal, stories with acceptance, out of scope, stack, v0.1.0 plan) and a one-page SRS; one approval passes G1-G3 |
 | Milestones | Buffer and risk table | One milestone; one-line buffer and risk | One milestone at a time |
 | Reports | Morning brief and end of day | Morning brief | None; ask "Where are we?" when you need it |
@@ -18,7 +18,7 @@
 
 **What it does:** gets a first demo out fastest. One session does everything, but every change still goes through a CR, the SRS, tests by level, your acceptance and a version tag, so the demo can grow into a real product later.
 
-**Use it for:** a first demo or a throw-away POC only. Move to Lite as soon as real users depend on it, a second developer is needed, or money, security or personal data is involved.
+**Use it for:** a first demo or a throw-away POC that only you use. Move to Lite as soon as other people use it, and to Full if a client, money, security or personal data is involved ([chapter 0](00-introduction.md#choose-the-level-of-process)).
 
 ### 1. Start
 
@@ -44,7 +44,7 @@
 **Ask:**
 > Build milestone v0.1.0.
 
-**Claude does:** opens the CR and its tasks, builds each task on `role/lead` with tests for its change level, commits with the issue number, merges into `dev` when CI is green and closes the issue. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
+**Claude does:** opens the CR and its tasks, builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev`, and closes the issue when CI on `dev` is green. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
 
 ### 4. Release
 
@@ -78,8 +78,8 @@
 
 | From → to | When |
 |---|---|
-| Starter → Lite | Real users, a second developer, or money, security or personal data |
-| Lite → Full | A client depends on it, releases need a staging check, or more roles are needed |
+| Starter → Lite | Other people start using it |
+| Starter or Lite → Full | A client, money, security or personal data comes in, or releases need a staging check |
 | Full → Lite → Starter | The stakes dropped: the client left, the product is parked, or it is back to a demo |
 
 **Ask the Lead:**
