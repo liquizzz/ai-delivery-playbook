@@ -69,7 +69,9 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 
 ## Worked example
 
-A complete sample project built by following this book will be linked here.
+[Habit Tracker](docs/examples/habit-tracker/README.md): one Starter session from an empty folder to two released Docker images in about 1 h 40 min, with screenshots of each step, what the owner typed, and what went wrong.
+
+[![Habit Tracker v0.2.0](docs/examples/habit-tracker/img/app-v0.2.0.png)](docs/examples/habit-tracker/README.md)
 
 ## License
 
