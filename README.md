@@ -66,6 +66,7 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 | [docs/book/](docs/book/) | The book |
 | [templates/](templates/) | Documents the sessions fill in |
 | [kit/](kit/) | Files installed into a project by `kit/init.mjs` |
+| [docs/spec/](docs/spec/) | The playbook's own SRS and decision log |
 | [docs/ai-log.md](docs/ai-log.md) | Log of how this playbook itself was built with AI |
 
 ## License
