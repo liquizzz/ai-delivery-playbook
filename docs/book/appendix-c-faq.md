@@ -11,10 +11,10 @@ Say: "Stop. Follow 'ask first, in rounds, then finish' in CLAUDE.md: ask me what
 You do not have to name skills: each session is reminded of its skills when it starts. If one still skips a step, say "Follow the Skills table in CLAUDE.md and redo the last step."
 
 **A session asks too many questions.**
-Say "you decide" for the topics you do not care about; it settles them, lists its assumptions, and keeps asking only about the rest. The stack is the one decision it will not take for you unless you say so.
+Say "you decide" for the topics you do not care about; it settles them, lists its assumptions, and keeps asking only about the rest. The stack is the one decision it will not take for you unless you say so, and it comes after the design.
 
 **A session forgot what it was doing.**
-Say "Read CLAUDE.md and continue as `<role>`." If it still drifts, ask the Lead: "Post the current state of #42 on the issue", then restart the session.
+Open a new session in the same folder: it recovers its state from the issues and git. You can also say "Read CLAUDE.md and continue as `<role>`." If it still drifts, ask the Lead: "Post the current state of #42 on the issue", then restart the session.
 
 **Two sessions edited the same thing.**
 That should not happen: each role has its own worktree and paths. Ask the Lead: "Check which paths each role touched in the last day and fix the overlap." Review `.claude/ownership.json`.

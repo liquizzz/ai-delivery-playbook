@@ -6,16 +6,18 @@
 |---|---|---|
 | 1 Planning | `docs/product/proposal.md` | G1 problem, users, option, scope, metric, timeline, budget agreed |
 | 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
-| 3 Design | `docs/tech/srs.md` baseline, ADRs, C4, `design/`, test strategy, eval plan, first milestone | G3 SRS with FR/NFR IDs; ADRs accepted; UI approved; test pass marks; board ready |
+| 3 Design | `design/` (look and feel, screens), the stack ADR, `docs/tech/srs.md` baseline, ADRs, C4, test strategy, eval plan, first milestone | G3 design approved before the stack; stack ADR; SRS with FR/NFR IDs; test pass marks; board ready |
 
-Rules: proposal before PRD · real data during requirements · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice.
+Rules: proposal before PRD · real data during requirements · design before stack · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice. Each gate has its issue (label `gate`), and the gate's commits name it.
 
 ## 1. Write the proposal (phase 1)
 
 **What it does:** decides what to build, for whom, and whether it is worth it.
 
 **Ask the PO:**
-> Start phase 1 for `<idea in two or three sentences>`. Interview me, then draft the proposal.
+> /brief `<idea in two or three sentences>`
+
+Start wherever you like. If you name a product to copy or beat, the PO tries it in the browser first and reports how it works, its strengths and its weaknesses. It checks facts it can check, such as the libraries a live site loads.
 
 **Claude asks you:**
 1. Who has the problem, and what does it cost them today?
@@ -37,16 +39,16 @@ Rules: proposal before PRD · real data during requirements · no production cod
 **Ask the session that owns the phase** (PO for G1-G2, Lead for G3-G6):
 > Check G1 and tell me if it is ready for my approval.
 
-**Claude does:** runs `/gate G1` with the criteria for your level (Starter, Lite or Full), reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes. When the gate is ready, it adds a **For you** block in plain words: what the gate means for the product, one to three things to try or read yourself (each with the expected result and an example of a wrong one), what you are confirming, and what tests, CI and review already prove, with links.
+**Claude does:** runs `/gate G1` with the criteria for your level (Lite or Full), reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes. When the gate is ready, it adds a **For you** block in plain words: what the gate means for the product, one to three things to try or read yourself (each a link, with the expected result and an example of a wrong one), what you are confirming, and what tests, CI and review already prove, with links.
 
-**You check:** try the items in the For you block. You judge whether the product does what you want; the evidence covers the technical part, so you do not have to judge an ADR or a test report yourself. Then reply "G1 approved" (or what is wrong). The session records the approval date.
+**You check:** try the items in the For you block. You judge whether the product does what you want; the evidence covers the technical part, so you do not have to judge an ADR or a test report yourself. Then reply "G1 approved" (or what is wrong). The session records the approval date and closes the gate's issue. An item that waits for someone outside the team, such as a table description from the client, can be approved later when it has an issue and a due date.
 
 ## 3. Write the requirements (phase 2)
 
 **What it does:** fixes exactly what the product must do, on real data.
 
 **Ask the PO:**
-> G1 is approved. Start phase 2: PRD, data analysis and stories.
+> /brief
 
 **Claude asks you:**
 1. Business rules you already know (statuses, permissions, calculations).
@@ -59,26 +61,25 @@ Rules: proposal before PRD · real data during requirements · no production cod
 
 **You check:** must-haves and non-goals; open questions answered; then pass G2 (step 2). From now on every change to requirements is a CR.
 
-## 4. Design and SRS baseline (phase 3)
+## 4. Design, stack and SRS (phase 3)
 
-**What it does:** decides how to build it and writes the SRS everyone will work from.
+**What it does:** shows the client what they will get, then decides how to build it and writes the SRS everyone will work from. Design comes before the stack, because a client can judge screens and seldom a stack.
 
 **Ask the Lead:**
-> G2 is approved. Start phase 3: SRS baseline, architecture, test strategy and the first milestone. Ask UI/UX for the main screens.
+> /brief
 
 **Claude asks you:**
-1. Architecture options it found, with a recommendation for each decision (one question per ADR).
-2. Any technology you require or forbid.
-3. Pass marks for AI features (if any), e.g. accuracy, latency.
+1. Whether you have a look in mind: a site you like, colours, light or dark.
+2. Any technology the client requires or forbids.
+3. Pass marks for AI features (if any), such as accuracy or latency.
 4. Scope of the first milestone (proposed: the thinnest end-to-end slice of must-have 1).
 
-**Claude does:**
-- writes `docs/tech/srs.md` version `0.0.0` ([template](../../templates/srs.md)): FR/NFR IDs, data, interfaces, Revision History, traceability;
-- writes the ADRs and C4 diagrams, the test strategy and the eval plan;
-- UI/UX builds the prototype in `design/` (chapter 7); the client approves it, tagged `design-v1`;
-- the PO plans milestone `v0.1.0`; the Lead estimates it.
+**Claude does,** in this order:
+1. **Design:** for a product with screens, 2-3 named look-and-feel directions in `design/look-and-feel.html`, then every main screen and state in the one you pick (Full: the Lead proposes the UI/UX session for this and gives you its prompt; Lite: the Lead does it). Meanwhile the Lead writes the flows, data and integrations. You approve the design; with a prototype it is tagged `design-v1` ([chapter 7](07-frontend-projects.md)).
+2. **Stack:** 2-3 options that fit the design and the requirements, from the lightest to the fullest; the one you pick is installed once on your machine before it is written down as an ADR with the rejected options. Docker and CI are fitted to it, so `docker compose up --build` starts the project.
+3. **SRS and plan:** `docs/tech/srs.md` version `0.0.0` ([template](../../templates/srs.md)) with FR/NFR IDs, data, interfaces, Revision History and traceability; the ADRs; at Full also C4 diagrams, the test strategy and the eval plan; milestone `v0.1.0` with its tasks in Ready.
 
-**You check:** the ADR choices, the prototype, the first milestone; then pass G3 (step 2). The delivery loop starts.
+**You check:** the design, the stack choice and the first milestone; then pass G3 (step 2). The Lead then proposes the sessions the milestone needs and gives you a prompt for each. The delivery loop starts.
 
 ## The SRS, in short
 

@@ -9,16 +9,15 @@
 
 ## Foundation (once)
 
-Starter level: steps 4 to 8 are one brief (`docs/product/brief.md`) and a one-page SRS, approved once for G1-G3.
-
 | # | Step | Session | Output | Check |
 |---|---|---|---|---|
-| 1 | Create the project (`init.mjs`) | Owner | Kit, branches, worktrees, repo, `START-HERE.md` | Report shows no warnings |
-| 2 | Finish the setup | Lead | `CLAUDE.md`, Docker files, labels, board, milestones | Guard and release tests pass; board visible on GitHub |
-| 3 | Open PO and Lead | You | Two worktrees and sessions | Both answer the restart sentence |
+| 1 | Create the project (`init.mjs`) | Owner | Kit, branches, the Lead's worktree, repo, `START-HERE.md` | Report shows no warnings |
+| 2 | Finish the setup (first, before any other session) | Lead | `CLAUDE.md`, labels, board, milestones, gate issues G1-G3, the PO's worktree (Lite: also Dev1's) | `"setup": true`; CI ran; board visible on GitHub |
+| 3 | Open the PO | You | The PO's session, from the setup's prompt | It answers with its role and the next step |
 | 4 | Proposal | PO | `docs/product/proposal.md` | G1 |
 | 5 | PRD, data notes, stories | PO (+ Lead) | `docs/product/` | G2 |
-| 6 | Look and feel, then design round(s) | UI/UX (Starter, Lite: Lead) | `docs/design/look-and-feel.html`; with a prototype `design/`, tag `design-v1` | You picked a direction; client approval of the prototype |
+| 6 | Design: look and feel, main screens, flows (before the stack) | UI/UX and Lead (Lite: Lead) | `design/look-and-feel.html`, screens in `design/`; with a prototype, tag `design-v1` | You approved the design |
+| 6b | Stack | Lead | Stack ADR with rejected options; Docker and CI fitted | Installed once on your machine; `docker compose up --build` starts |
 | 7 | SRS baseline, ADRs, C4, test strategy, eval plan | Lead | `docs/tech/` | Part of G3 |
 | 8 | First milestone plan | PO + Lead | `docs/product/milestones/v0.1.0.md`, issues | G3 |
 
@@ -49,4 +48,4 @@ Starter level: steps 4 to 8 are one brief (`docs/product/brief.md`) and a one-pa
 | Trace a change | Lead | [6](06-continuity.md) |
 | Move from Lite to Full | Lead | [8](08-lite-mode.md) |
 
-In Lite mode, skip steps 6, 16 and 17 unless the product needs them. In Starter mode, also skip step 3 (one session) and step 9 (no daily report); steps 10-15 are done by the one session, and step 18a (your acceptance) is never skipped.
+In Lite mode, skip steps 16 and 17 unless the product needs them; step 6 is done by the Lead, and step 18a (your acceptance) is never skipped.

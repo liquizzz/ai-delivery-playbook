@@ -4,7 +4,7 @@
 
 ## Who this book is for
 
-This book is for people with some technical background who want to turn an idea into working software fast. You can read code, use a terminal, and you know what git and GitHub are. You decide what to build and approve the results; Claude Code sessions do the planning documents, code, tests and releases.
+This book is for people with some technical background who deliver software, most of all freelancers and team leads who build projects for clients. You direct the Claude Code sessions the way you would direct a small team, and every decision a client may ask about is written down. You can read code, use a terminal, and you know what git and GitHub are. You decide what to build and approve the results; Claude Code sessions do the planning documents, code, tests and releases.
 
 **What you need to know:** run a command in a terminal; what a git branch and a commit are; how to open a GitHub repo and read an issue or a pull request; how to start and stop containers with Docker. Everything else (worktrees, hooks, pipelines) is set up and run by Claude.
 
@@ -25,18 +25,19 @@ This book is for people with some technical background who want to turn an idea 
 
 ## Quick start: from idea to demo
 
-Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session plays every role. You run one command, then each step is one slash command the kit installs; Claude asks what it needs, then does the whole step. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
+Lite ([chapter 8](08-lite-mode.md)) is the starting level: three sessions, PO, Lead and Dev1, that you direct like a small team. You run one command, then each step is one slash command the kit installs; Claude asks what it needs, then does the whole step. When work moves to another session, the report ends with the session to open and a prompt in a box you copy with one click. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
 
-| # | Type (in the one Starter session) | You get |
-|---|---|---|
-| 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree and type `/setup` | Repo, kit, branches, Docker files and CI for the stack you chose ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
-| 2 | `/brief <idea>` | Brief, SRS and the v0.1.0 tasks; your approval passes G1-G3 ([ch. 8](08-lite-mode.md)) |
-| 3 | `/build dev` while you look, `/build done` per finished task | Code you can try at once; then tests at each task's level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
-| 4 | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
-| 5 | Run the commands in step 5 of `START-HERE.md`. | v0.1.0 running in Docker on your machine |
-| 6 | Prove the loop: close the session, open a new one, type `/change <one fix>`, then `/build done` and `/release` | The fix as CR → task → v0.1.1, picked up from the record alone |
+| # | Session | Type | You get |
+|---|---|---|---|
+| 1 | Terminal, then Lead | Run `node <path>/kit/init.mjs`, open a session in the `lead` worktree and type `/setup` | Repo, kit, branches, the gate issues, and the PO's and Dev1's folders ([ch. 1](01-setup.md)) |
+| 2 | PO | `/brief <idea>`, then `/brief` again | The proposal (G1), then the PRD and stories (G2) ([ch. 3](03-foundation.md)) |
+| 3 | Lead | `/brief` | A design you approve, then the stack, the SRS and the v0.1.0 tasks (G3) ([ch. 3](03-foundation.md)) |
+| 4 | Dev1 | `/build dev #<n>` while you look, `/build done #<n>` per finished task | Code you can try at once; then tests at each task's level and a PR the Lead merges ([ch. 4](04-delivery-loop.md)) |
+| 5 | Lead | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
+| 6 | Terminal | The commands in the "Run the release in Docker" step of `START-HERE.md` | v0.1.0 running in Docker on your machine |
+| 7 | PO, then Dev1 | Prove the loop: close the sessions, open new ones, `/change <one fix>` | The fix as CR, task and v0.1.1, picked up from the record alone |
 
-If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite when other people start using it, and to Full when a client, money, security or personal data comes in.
+If the new sessions in step 7 pick up the fix without you explaining anything, keep building. Move to Full when money, security or personal data comes in, or when a client signs off each release.
 
 ## The model
 
@@ -88,12 +89,11 @@ Pick the level by what is at stake: a three-day project that handles money still
 
 | Level | Sessions | Use when |
 |---|---|---|
-| [Starter](08-lite-mode.md#starter-mode) | One session plays PO, Lead and Dev | A first demo or a throw-away POC that only you use |
-| [Lite](08-lite-mode.md), for most projects | Three: PO, Lead, Dev | Other people use it: an internal tool, a small product |
+| [Lite](08-lite-mode.md), the starting level | Three: PO, Lead, Dev | Any client project or product other people use |
 | Full | PO, Lead, Dev, and Test, UI/UX or DevOps when there is work for them | A client, money, security or personal data, even for a short project |
 | No process needed | | A one-off script or a spike you will throw away |
 
-One Dev session is the default at every level. Add a second (`dev2`) only if you already split and manage work across developers; five or more sessions are hard for one owner to follow.
+There is no single-session level: one session playing every role runs slower than three sessions working side by side, and it hides the hand-offs you need to see. One Dev session is the default at every level. Add a second (`dev2`) only if you already split and manage work across developers; five or more sessions are hard for one owner to follow.
 
 ## How each task is written in this book
 
@@ -109,7 +109,7 @@ One Dev session is the default at every level. Add a second (`dev2`) only if you
 >
 > **Claude asks before:** actions that open an approval prompt for you.
 
-Every session follows "the owner leads; Claude keeps the process" from the kit's `CLAUDE.md`. Each step shows a short guide of what it needs from you, and you answer in your own words. Claude asks only about what is missing, suggests ideas only when you say "suggest", and keeps going until you say "lock"; then it sums up and writes only after you approve. Say "later" for anything you have not decided: it is listed under Open decisions and asked again only when a step needs it. Say "you decide" and Claude settles the rest, listing its calls so you can change them.
+Every session follows "the owner leads; Claude keeps the process" from the kit's `CLAUDE.md`. Each step shows a short guide of what it needs from you, and you answer in your own words, in any order: start from a product you want to copy or from your constraints if that is how you think. Claude asks only about what is missing, suggests ideas only when you say "suggest", and before you lock shows a checklist of what you settled and what is still its assumption. After you say "lock" it asks once whether that is final or you want to review it, then writes. Say "later" for anything you have not decided: it is listed under Open decisions and asked again only when a step needs it. Say "you decide" and Claude settles the rest, listing its calls so you can change them.
 
 > **Token tip** boxes in each chapter show where cost adds up and how to avoid it.
 
@@ -124,7 +124,7 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 | [5 Releases](05-releases.md) | Release, deploy, hotfix, roll back |
 | [6 Continuity](06-continuity.md) | Restart, compact, trace a change, switch machines |
 | [7 Front-end projects](07-frontend-projects.md) | Show design to the client while the product is built |
-| [8 Starter and Lite modes](08-lite-mode.md) | Run with one session for a demo, or three for a small product |
+| [8 Lite mode](08-lite-mode.md) | Run with three sessions; move to Full and back |
 | [9 Token budget](09-token-budget.md) | Keep cost under control |
 | Appendices | [A Templates](appendix-a-templates.md) · [B Kit](appendix-b-kit.md) · [C FAQ](appendix-c-faq.md) · [D Process checklist](appendix-d-checklist.md) · [E Standards map](appendix-e-standards.md) |
 

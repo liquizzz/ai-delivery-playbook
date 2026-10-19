@@ -1,6 +1,6 @@
 # Chapter 1: Setup
 
-**Purpose:** go from an empty folder to a project with the kit installed, GitHub ready and the first role sessions open.
+**Purpose:** go from an empty folder to a project with the kit installed, GitHub ready, the setup done and the PO's session ready to open.
 
 ## You do this yourself (once)
 
@@ -24,7 +24,7 @@ Then run `/reload-plugins`. Optional plugins (Figma, Codex review, product-manag
 
 ## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build dev`, `/build done`, `/release`).
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the Lead's worktree, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build dev`, `/build done`, `/release`).
 
 **You run,** in a terminal (the Claude Code Terminal panel opens in your home folder, so `cd` first), from the folder where your projects live:
 ```
@@ -34,54 +34,53 @@ node <path to playbook>/kit/init.mjs
 **It asks you,** each question with a one-line hint (Enter takes the suggestion):
 1. Project name.
 2. Where to create the project (a new folder, suggested from the name).
-3. Level: `starter`, `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
+3. Level: `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
 4. Your working language, and the language for documents if it is not English.
 5. A separate design prototype the client reviews ([chapter 7](07-frontend-projects.md))? Suggested: no.
 6. Polished documents? Suggested: no. Yes gives every document a humanizer pass: it reads better and costs more tokens, so it pays off when documents go to a client. Tell the Lead "Polish documents from now on" to turn it on later.
 7. One-line description (optional).
 8. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
 
-**It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the worktrees (Starter: lead; Lite: po, lead, dev1; Full: po, lead) in `<projects>/<project>-wt/<role>/`; if you chose a repo, creates it, pushes the branches and creates the labels and the kanban board (`scripts/setup-board.mjs`).
+**It does:** creates `main` and `dev` (and `staging` for the full process), writes your language into `CLAUDE.md`, leaves out the design pipeline unless you asked for it, commits the kit, creates the Lead's worktree in `<projects>/<project>-wt/lead/` (setup creates the others), marks the setup as not done yet; if you chose a repo, creates it, pushes the branches and creates the labels and the kanban board (`scripts/setup-board.mjs`).
 
 **You check:** the report, then open `START-HERE.md` in the project. If init created a repo, open its Actions tab on GitHub: a new repo may show **Enable Actions on this repository**, and nothing runs until you click it.
 
-For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --github none --yes` asks nothing.
+For scripts or CI: `node init.mjs <folder> --name "<name>" --level lite --github none --yes` asks nothing.
 
 ## 2. Finish the setup
 
-**What it does:** fits `CLAUDE.md`, the guard paths and the Docker files to your stack, and creates the board and first milestones on GitHub.
+**What it does:** fits `CLAUDE.md` to your project, opens the gate issues and milestones on GitHub, and creates the PO's folder (Lite: also Dev1's). Setup comes first: until it is done, any other session only tells you to finish it.
 
-**Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and say:
+**Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and type:
 > /setup
 
 **You say,** following the short guide Claude shows (anything can be "later"; it goes under Open decisions in `CLAUDE.md` and is asked again only when a step needs it):
-1. Whether you already have a stack. If not, and you say "suggest", Claude offers 2-3 options from the lightest to the fullest and installs your pick once to check it works. It records the choice as ADR-001.
-2. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
-3. Project hard rules (client data, read-only sources, compliance).
-4. Install, run, test and lint commands, if they exist yet.
-5. Names of the first milestones (proposed: `v0.1.0`, `v0.2.0`). If init created no repo: repo owner and name, private or public.
+1. Whether the client requires a platform, language or database. You do not choose a stack here: it comes at G3, after you approve the design ([chapter 3](03-foundation.md#4-design-stack-and-srs-phase-3)).
+2. Whether the product has screens, who uses it and where.
+3. What data it keeps, and whether it must survive a restart.
+4. Hard rules: client data, systems it must work with, a deadline.
 
 **Claude does:**
-- fills in `CLAUDE.md`; writes `.claude/ownership.json` if your folders differ; fits the Dockerfile and the `ci` workflow to the stack;
-- creates the repo, labels and board if init did not (`scripts/setup-labels.mjs`, `scripts/setup-board.mjs`), and the milestones;
-- runs the guard and release tests; commits on `role/lead`, merges into `dev`, and checks that CI ran on GitHub.
+- fills in `CLAUDE.md`; fits Docker and CI only if the client requires a stack; enables the design plugins for a product with screens;
+- creates the repo, labels and board if init did not, milestone v0.1.0, and one issue per foundation gate (G1, G2, G3);
+- marks the setup done, merges into `dev`, checks that CI ran on GitHub;
+- creates the PO's worktree (Lite: also Dev1's) and ends with the PO's prompt in a box to copy.
 
-**You check:** the report (tests pass), `CLAUDE.md` and the board on GitHub.
+**You check:** the report, `CLAUDE.md` and the board on GitHub.
 
 **Claude asks before:** creating the repo, pushing `main`.
 
-## 3. Open the other sessions
+## 3. Open the next session
 
-**What it does:** gives each role its own session in the worktree init created.
-
-**You do:** open a new Claude Code session in each worktree folder (Lite: po and dev1; Full: po), titled `<Project> - <Role>`, and say:
-> Read CLAUDE.md and continue as po.
-
-**You check:** each session answers with its role, current state and next step. From now on you work through the PO (Starter: through the one Lead session).
+**You do:** open a session in the folder the report names, titled `<Project> - PO`, and paste the prompt from the box. A session knows its role when it starts and finds where the work stands by itself; after a restart, open a new session in the same folder.
 
 ## Change the level later
 
-**You run,** in the project: `node scripts/set-level.mjs <starter|lite|full>`. Going up creates the branches and worktrees the level needs; going down deletes nothing and lists the sessions you can close. Then ask the Lead to commit it and, when going up, "Draft what this level still lacks." ([chapter 8](08-lite-mode.md#move-up-or-down)).
+**You run,** in the Lead's worktree: `node scripts/set-level.mjs <lite|full>`. Going up creates the branches and worktrees the level needs; going down deletes nothing and lists the sessions you can close. Then ask the Lead to commit it and, when going up, "Draft what this level still lacks." ([chapter 8](08-lite-mode.md#move-up-or-down)).
+
+## Secrets
+
+**You run,** once per secret (an API key, a database password): `node scripts/set-secret.mjs <NAME>`, then paste the value when asked. It is not shown; it goes into the git-ignored `.env.local` of every checkout, and new worktrees get it too. Never paste a secret into a session or send a screenshot of a terminal that shows one.
 
 ## 4. Run it with Docker
 
@@ -97,7 +96,7 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --git
 
 **Claude does:** adapts `docker-compose.yml` and the Dockerfiles, replaces `<owner>` and `<project>`, runs `docker compose up --build` and checks each service starts, writes the variable names in `docs/tech/ops/`.
 
-**You do:** fill in `.env.local` with real values.
+**You do:** set each secret with `node scripts/set-secret.mjs <NAME>`.
 
 **You check:** `docker compose up` starts the product on your machine.
 
@@ -114,6 +113,6 @@ Deploying the images to servers is not covered by this book. You need your own p
 ```
 It uses your ChatGPT login and Codex limits; Claude's `/code-review` is the fallback. Usage: chapter 2.
 
-> **Token tip:** close the setup session as soon as PO and Lead are open; open other roles only when their first task is Ready.
+> **Token tip:** compact the Lead after setup; open other roles only when the Lead proposes them for Ready work.
 
 Next: [Chapter 2: The team](02-the-team.md).

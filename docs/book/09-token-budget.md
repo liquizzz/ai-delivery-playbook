@@ -25,7 +25,7 @@
 2. Close sessions that are idle. Their work is in issues, documents and git, so nothing is lost.
 3. Compact at natural breaks, never in the middle of a fix.
 4. Keep `CLAUDE.md` and the role files short, because every session reads them each time it starts.
-5. Use Starter mode for a first demo and Lite for a small product ([chapter 8](08-lite-mode.md)). Fewer sessions means less context to pay for.
+5. Start at Lite and move to Full only when the stakes call for it ([chapter 8](08-lite-mode.md)). Open a role only when the Lead proposes it for Ready work: fewer open sessions means less context to pay for.
 6. Plan before you build. A clear CR and spec prevent rework, and rework is where tokens are wasted most.
 
 ## Check what you spend

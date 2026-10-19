@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: MIT
 // AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
 // Create the worktree for one role: <parent>/<repo>-wt/<role> on branch role/<role>.
-// Run from the main checkout:  node scripts/new-role-worktree.mjs <role>
+// Run it from your own worktree (the Lead's has dev's version of this script):  node scripts/new-role-worktree.mjs <role>
+// The new worktree gets .env.local with its port and the secrets already set in the main checkout's .env.local.
 // Roles: po, lead, dev1, dev2, test, uiux, devops
 import { execSync } from "node:child_process";
 import fs from "node:fs";
@@ -59,6 +60,16 @@ const example = path.join(wtDir, ".env.example");
 const local = path.join(wtDir, ".env.local");
 if (!fs.existsSync(local)) {
   let env = fs.existsSync(example) ? fs.readFileSync(example, "utf8") : "";
+  // Secrets set with scripts/set-secret.mjs live in the main checkout's .env.local: copy them, never print them.
+  const mainEnv = path.join(root, ".env.local");
+  const carried = fs.existsSync(mainEnv)
+    ? fs.readFileSync(mainEnv, "utf8").split(/\r?\n/).filter((l) => /^[A-Z][A-Z0-9_]*=/.test(l) && !l.startsWith("PORT="))
+    : [];
+  for (const line of carried) {
+    const key = line.slice(0, line.indexOf("="));
+    env = env.split(/\r?\n/).filter((l) => !l.startsWith(`${key}=`)).join("\n");
+    env += `${env && !env.endsWith("\n") ? "\n" : ""}${line}\n`;
+  }
   if (PORTS[role]) {
     env = env.replace(/^PORT=.*\n?/m, "");
     env += `${env && !env.endsWith("\n") ? "\n" : ""}PORT=${PORTS[role]}\n`;
@@ -71,8 +82,12 @@ const ignored = gitignore.split(/\r?\n/);
 if (!ignored.includes(".claude/role")) console.warn('Warning: add ".claude/role" to .gitignore');
 if (!ignored.includes(".env.local") && !ignored.includes(".env.*")) console.warn('Warning: add ".env.local" to .gitignore');
 
+let name = "<Project>";
+try {
+  name = JSON.parse(fs.readFileSync(path.join(wtDir, ".claude", "project.json"), "utf8")).name || name;
+} catch {}
+const title = { po: "PO", uiux: "UI/UX", devops: "DevOps" }[role] || role[0].toUpperCase() + role.slice(1);
 console.log(`
 Worktree ready: ${wtDir}
 Branch: ${branch}${PORTS[role] ? ` · local port ${PORTS[role]}` : ""}
-Next: open a Claude Code session in that folder, title it "<Project> - ${role}", and start with:
-  "Read CLAUDE.md and continue as ${role}."`);
+Next: open a Claude Code session in that folder and name it "${name} - ${title}". It knows its role when it starts.`);

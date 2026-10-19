@@ -2,7 +2,7 @@
 
 **Purpose:** show the client each design round the same day, without exposing unfinished product code.
 
-**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile; the product still gets a look-and-feel round (2-3 directions in `docs/design/look-and-feel.html`, you pick one) in the Starter brief or the Lite SRS.
+**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile; the product still gets its design at the start of G3, before the stack: 2-3 named directions in `design/look-and-feel.html`, you pick one, then the main screens; the choice is recorded in SRS section 2.3.
 
 **Layout:** one repo with a pnpm workspace: `design/` (UI/UX prototype), `packages/tokens/` (shared design tokens), `app/` (product code). Use a second repo only if an outside partner makes the design or the client must see the design repo.
 
@@ -58,4 +58,4 @@ Where the client opens the demo (your server, a cloud service, a tunnel) and how
 
 > **Token tip:** collect the client's comments into one feedback message per round instead of forwarding them one by one; close the UI/UX session between rounds.
 
-Next: [Chapter 8: Starter and Lite modes](08-lite-mode.md).
+Next: [Chapter 8: Lite mode](08-lite-mode.md).

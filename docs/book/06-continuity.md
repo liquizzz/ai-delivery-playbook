@@ -8,7 +8,7 @@
 
 **What it does:** brings a closed or confused session back to its work.
 
-**Ask:** open a session in the role's worktree and say:
+**Ask:** open a new session in the role's worktree. It knows its role and recovers by itself; to be sure, say:
 > Read CLAUDE.md and continue as `<role>`.
 
 **Claude does:** reads `CLAUDE.md` and its role file; checks `git status` and recent commits; lists its issues and reads the last comment on each (PO and Lead also read the latest report and milestone file); reports in three lines: working on · where it stands · next step.

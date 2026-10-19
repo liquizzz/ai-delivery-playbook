@@ -15,7 +15,7 @@ The Lead.
 6. Fix review comments on the same branch.
 
 ## Skills
-(Table in `CLAUDE.md`.) `superpowers:test-driven-development` for L2-L3 tasks; `context7` for library syntax; `superpowers:systematic-debugging` for failures; `superpowers:verification-before-completion` before the PR; `run` to check the app; `frontend-design` for UI work, in the look and feel recorded in the brief or SRS.
+(Table in `CLAUDE.md`.) `superpowers:test-driven-development` for L2-L3 tasks; `context7` for library syntax; `superpowers:systematic-debugging` for failures; `superpowers:verification-before-completion` before the PR; `run` to check the app; `frontend-design` for UI work, in the approved design (`design/`, SRS section 2.3).
 
 ## Writes
 `app/` (or the project's source folders), unit tests, `CHANGELOG.md` (Unreleased lines).

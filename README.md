@@ -1,6 +1,6 @@
 # AI Delivery Playbook
 
-A kit and a book for building real products with Claude Code. One command sets up your project, and from then on every Claude session already knows its role, which skills to use for each task, how to ask you questions and how to keep token use down. You decide and approve; you do not have to tune Claude Code yourself first.
+A kit and a book for delivering real projects with Claude Code, written first for freelancers and team leads who build for clients. You direct a small team of Claude sessions (PO, Lead, Dev) the way you would direct staff, and you approve at every gate. One command sets up your project, and from then on every session already knows its role, which skills to use for each task, how to ask you questions and how to keep token use down.
 
 **[Start a project in 5 minutes: How to run](HOW-TO-RUN.md)** (once Claude Code, Git, Node.js, Docker and the GitHub CLI are installed)
 
@@ -12,19 +12,20 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/brief <your idea>`, `/build dev`, `/build done` or `/release`.
+The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/setup`, `/brief <your idea>`, `/build dev`, `/build done` or `/release`, and each hand-off ends with a prompt you copy with one click.
 
 ## What the kit sets up for you
 
 | You get | How |
 |---|---|
-| A ready project in one command | `init.mjs` creates the folder, git branches, a worktree per role, the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md` |
-| A small team that knows its job | Most projects run with three sessions: PO (your requests), Lead (plan, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
+| A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree, the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
+| A small team that knows its job | Every project starts with three sessions: PO (your requests), Lead (design, stack, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
 | The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents for a client can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
-| You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it |
-| Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, and Starter mode: one session and a one-page brief for a first demo |
-| Quality you can check | Gates you approve, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
-| Room to grow | `node scripts/set-level.mjs` moves a project from Starter (one session) to Lite (three) to Full, or back, without redoing anything |
+| You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, in any order, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it. A product you name is tried in the browser, and facts you give are checked |
+| Design before stack | The client sees the look and feel and the main screens at G3; the stack is chosen after, to fit the approved design |
+| Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, short hand-off prompts, and roles opened only when there is work for them |
+| Quality you can check | Gates you approve, each with a For you block of things to try and links to the evidence, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
+| Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check), or back, without redoing anything |
 | Releases you can run anywhere | Each version tag builds a Docker image; you run it, or roll back, by tag |
 
 ## What it is not
@@ -45,7 +46,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
 | 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds to the client while the product is built |
-| 8 | [Starter and Lite modes](docs/book/08-lite-mode.md) | Start with one session for a demo; three for a small product |
+| 8 | [Lite mode](docs/book/08-lite-mode.md) | Run with three sessions; move to Full and back |
 | 9 | [Token budget](docs/book/09-token-budget.md) | Keep cost under control; avoid `/goal` and `/loop` |
 | A | [Templates](docs/book/appendix-a-templates.md) | See every document the sessions fill in |
 | B | [Kit reference](docs/book/appendix-b-kit.md) | See what the kit installs and how to change it |
@@ -55,7 +56,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 
 ## How a project goes
 
-The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in six steps, from an empty folder to a tested, tagged demo.
+The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-idea-to-demo) walks through a whole project in seven steps, from an empty folder to a tested, tagged demo.
 
 ## Repository
 
@@ -66,12 +67,6 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 | [templates/](templates/) | Documents the sessions fill in |
 | [kit/](kit/) | Files installed into a project by `kit/init.mjs` |
 | [docs/ai-log.md](docs/ai-log.md) | Log of how this playbook itself was built with AI |
-
-## Worked example
-
-[Habit Tracker](docs/examples/habit-tracker/README.md): one Starter session from an empty folder to two released Docker images in about 1 h 40 min, with screenshots of each step, what the owner typed, and what went wrong.
-
-[![Habit Tracker v0.2.0](docs/examples/habit-tracker/img/app-v0.2.0.png)](docs/examples/habit-tracker/README.md)
 
 ## License
 

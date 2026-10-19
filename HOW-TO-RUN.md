@@ -44,21 +44,21 @@ It asks eight questions, each with a one-line hint. Press Enter to take the sugg
 |---|---|---|---|
 | 1 | Project name | | Any name, for example "Tiny Todo" |
 | 2 | Where to create the project | `./tiny-todo` | A new folder; init creates it |
-| 3 | Level | `1` (starter) | Starter: one session, for a first demo only you use. Lite: PO, Lead, Dev, for most projects. Full: adds Test, UI/UX and DevOps for a client, money, security or personal data. Change it any time |
+| 3 | Level | `1` (lite) | Lite: PO, Lead and Dev sessions, the starting level for any client project. Full: adds Test, UI/UX, DevOps and a staging check, for money, security, personal data or a client who signs off each release. Change it any time |
 | 4 | Working language | `English` | The sessions talk to you in it; you also choose the language of the documents |
 | 5 | Separate design prototype | `no` | Yes only if a client reviews a design before the app is built |
 | 6 | Polished documents | `no` | Yes adds a humanizer pass to every document: reads better, costs more tokens. Worth it for client reports; turn it on later by telling the Lead |
 | 7 | One-line description | | Optional; Claude asks for the rest later |
 | 8 | GitHub repo | `private`, as `<you>/tiny-todo` | `none` to connect later |
 
-Then it installs the kit, creates the branches and the role worktrees for your level, creates and pushes the GitHub repo with its labels and kanban board, and writes `START-HERE.md`.
+Then it installs the kit, creates the branches and the Lead's worktree, creates and pushes the GitHub repo with its labels and kanban board, and writes `START-HERE.md`.
 
 Read the "Please check" lines at the end of its report. On a new repo, open its Actions tab on GitHub once: if it shows **Enable Actions on this repository**, click it, or CI and the Docker images never run.
 
 ## 3. Follow START-HERE.md
 
-Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree next to the project, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Each later step names the session, the command, what Claude asks you, and what you get.
+Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree next to the project, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Setup comes first: it creates the other sessions' folders and ends with the next session's prompt in a box you copy. Each later step names the session, the command, what Claude asks you, and what you get.
 
-In Starter mode it goes: `/setup`, `/brief <your idea>` (your one approval before code), `/build dev` and `/build done`, `/release` (v0.1.0, after you try it yourself), then run it in Docker. `/status` tells you where the project stands at any time.
+At Lite it goes: `/setup` (Lead), `/brief <your idea>` and `/brief` again (PO: proposal, then requirements), `/brief` (Lead: design you approve, then the stack and the plan), `/build dev` and `/build done` (Dev1), `/release` (Lead, after you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
 
 When you want to know why a step works the way it does, the [book](README.md#the-book) has a chapter for it.

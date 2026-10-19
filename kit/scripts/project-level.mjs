@@ -6,30 +6,27 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
+// worktrees: the role worktrees the level uses once /setup is done. init creates only the Lead's;
+// /setup creates the others (setup comes first; the session-start hook enforces it).
 export const LEVELS = {
-  starter: {
-    title: "Starter",
-    branches: ["dev"],
-    worktrees: ["lead"],
-    help: "One session plays PO, Lead and Dev. A first demo or a throw-away POC that only you use.",
-    line: "Starter (one session plays PO, Lead and Dev; book chapter 8)",
-  },
   lite: {
     title: "Lite",
     branches: ["dev"],
     worktrees: ["po", "lead", "dev1"],
-    help: "PO, Lead and one Dev. Most projects: other people use it (an internal tool, a small product).",
+    help: "PO, Lead and one Dev, each in its own session. The starting level for any client project or product.",
     line: "Lite (PO, Lead and Dev1 sessions; book chapter 8)",
   },
   full: {
     title: "Full",
     branches: ["dev", "staging"],
     worktrees: ["po", "lead"],
-    help: "PO, Lead, one Dev, plus Test, UI/UX, DevOps when needed. A client, money, security or personal data.",
+    help: "Adds Test, UI/UX and DevOps sessions and a staging check. Money, security, personal data, or a client who signs off each release.",
     line: "Full process (PO and Lead, then Dev, Test, UI/UX and DevOps as needed; book chapter 2)",
   },
 };
-export const LEVEL_ORDER = ["starter", "lite", "full"];
+export const LEVEL_ORDER = ["lite", "full"];
+// Removed levels and the level to use instead.
+export const REMOVED_LEVELS = { starter: "lite" };
 
 export function parseLevel(value) {
   const v = String(value || "").trim().toLowerCase();
@@ -70,7 +67,7 @@ export function setClaudeLevel(dir, level) {
   if (!fs.existsSync(file)) return false;
   const text = fs.readFileSync(file, "utf8");
   if (!/^- Level: .*$/m.test(text)) return false;
-  fs.writeFileSync(file, text.replace(/^- Level: .*$/m, `- Level: ${LEVELS[level].line}. Change it with \`node scripts/set-level.mjs <starter|lite|full>\`.`));
+  fs.writeFileSync(file, text.replace(/^- Level: .*$/m, `- Level: ${LEVELS[level].line}. Change it with \`node scripts/set-level.mjs <lite|full>\`.`));
   return true;
 }
 

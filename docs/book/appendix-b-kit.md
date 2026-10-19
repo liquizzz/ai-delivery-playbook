@@ -12,7 +12,7 @@
 | `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to ask you in rounds, so you never type it |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
-| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt: `/setup` (stack, CLAUDE.md, Docker, CI, milestone), `/brief <idea>` (the next foundation step up to its gate), `/build dev` (quick, no tests, no merge), `/build done` (tests at the task's level, then merge), `/release demo` (full checks, no tag), `/release [version]`, `/change <request>` (a CR with its level and SRS update), `/status` (live state in ten lines) and `/gate G1`…`G6` (checks a gate against the repo and GitHub). Each reads the level from `.claude/project.json` |
+| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt: `/setup` (first: constraints, CLAUDE.md, gate issues, milestone, the team's worktrees), `/brief <idea>` (the next foundation step up to its gate; G3 is design, then stack, then SRS), `/build dev` (quick, no tests, no merge), `/build done` (tests at the task's level, then merge), `/release demo` (full checks, no tag), `/release [version]`, `/change <request>` (a CR with its level and SRS update), `/progress` (live state in ten lines; named so it does not clash with Claude Code's own `/status`) and `/gate G1`…`G6` (checks a gate against the repo and GitHub). Each reads the level from `.claude/project.json` |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
 | `.github/workflows/` | `ci` (builds the app image until setup adds the stack's lint and tests), `docs-check`, `codeql` (public repos, once setup sets `CODEQL_LANGUAGES`), `image-app` (each release tag also gets an SBOM and, on public repos, a provenance attestation), and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
@@ -21,7 +21,8 @@
 | `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
 | `START-HERE.md` | The owner's steps for the project's level, as commands to type; rewritten by `set-level.mjs` |
 | `.claude/project.json`, `.claude/start-here/` | The project's name, level and repo; the `START-HERE.md` template for each level |
-| `scripts/set-level.mjs` | Changes the level (starter, lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
+| `scripts/set-level.mjs` | Changes the level (lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
+| `scripts/set-secret.mjs` | The owner sets one secret: hidden input, written to the git-ignored `.env.local` of every checkout; new worktrees copy it |
 | `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
@@ -42,7 +43,7 @@ The kit's `.claude/settings.json` declares the minimum set, so Claude Code offer
 | claude-mem | `thedotmack/claude-mem` | All roles | Required |
 | context7 | built in | Dev, Lead, DevOps | Required |
 | frontend-design | built in | UI/UX, Dev on front ends | Products with screens (setup enables it) |
-| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Starter and Lite | Products with screens (setup enables it) |
+| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Lite | Products with screens (setup enables it) |
 | figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
 | product-management | `anthropics/knowledge-work-plugins` | PO | Optional: `write-spec`, `competitive-brief` and `stakeholder-update` for a PO who wants them; adds about 850 tokens and several connectors to each session |

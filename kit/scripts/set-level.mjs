@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
 // AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
-// Change the project's level of process, up or down:  node scripts/set-level.mjs <starter|lite|full>
+// Change the project's level of process, up or down:  node scripts/set-level.mjs <lite|full>
 // Run it in the main checkout or a role worktree. Up: creates the branches and worktrees the level needs.
 // Down: deletes nothing; it lists the sessions you no longer need. Both update .claude/project.json,
 // the "Level:" line in CLAUDE.md and START-HERE.md in the current checkout; commit those as usual.
@@ -9,13 +9,18 @@
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { LEVELS, LEVEL_ORDER, mainCheckout, parseLevel, readProject, renderStartHere, setClaudeLevel, worktreePath, writeProject } from "./project-level.mjs";
+import { fileURLToPath } from "node:url";
+import { LEVELS, LEVEL_ORDER, REMOVED_LEVELS, mainCheckout, parseLevel, readProject, renderStartHere, setClaudeLevel, worktreePath, writeProject } from "./project-level.mjs";
 
-const level = parseLevel(process.argv[2]);
+const asked = String(process.argv[2] || "").toLowerCase();
+const level = parseLevel(asked) || REMOVED_LEVELS[asked];
 if (!level) {
-  console.error("Usage: node scripts/set-level.mjs <starter|lite|full>");
+  console.error("Usage: node scripts/set-level.mjs <lite|full>");
   process.exit(1);
 }
+if (REMOVED_LEVELS[asked]) console.log(`The ${asked} level was removed; using ${LEVELS[level].title}, the smallest level.`);
+// The worktree script next to this one: the version of the branch you run it from (the Lead's worktree has dev's).
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 
 const git = (args, cwd) => execFileSync("git", args, { cwd, stdio: ["ignore", "pipe", "pipe"] }).toString().trim();
 const has = (args, cwd) => {
@@ -44,10 +49,11 @@ for (const b of LEVELS[level].branches) {
     done.push(`created branch ${b} (push it: git push -u origin ${b})`);
   }
 }
-// Worktrees the level needs
-for (const role of LEVELS[level].worktrees) {
+// Worktrees the level needs. Before /setup is done only the Lead's: setup creates the others.
+const roles = project.setup === false ? ["lead"] : LEVELS[level].worktrees;
+for (const role of roles) {
   if (fs.existsSync(worktreePath(root, role))) continue;
-  execFileSync("node", [path.join(root, "scripts", "new-role-worktree.mjs"), role], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
+  execFileSync("node", [path.join(scriptDir, "new-role-worktree.mjs"), role], { cwd: here, stdio: ["ignore", "pipe", "pipe"] });
   done.push(`created worktree ${role}: ${worktreePath(root, role)}`);
 }
 // Worktrees the level no longer uses: kept, only listed (the full process can use every role)
@@ -60,8 +66,8 @@ const claude = setClaudeLevel(here, level);
 const start = renderStartHere(here, project, root);
 done.push(`updated .claude/project.json${claude ? ", CLAUDE.md" : ""}${start ? ", START-HERE.md" : ""}`);
 
-const up = !from || LEVEL_ORDER.indexOf(level) > LEVEL_ORDER.indexOf(from);
-console.log(`Level: ${from ? LEVELS[from].title : "(not set)"} → ${LEVELS[level].title}\n  ${done.join("\n  ")}`);
+const up = !LEVELS[from] || LEVEL_ORDER.indexOf(level) > LEVEL_ORDER.indexOf(from);
+console.log(`Level: ${from ? (LEVELS[from] ? LEVELS[from].title : from) : "(not set)"} → ${LEVELS[level].title}\n  ${done.join("\n  ")}`);
 if (!claude) console.warn('Warning: CLAUDE.md has no "- Level:" line; add one by hand.');
 if (unused.length) {
   console.log(`\nNo longer used at this level: ${unused.join(", ")}. Close those sessions; their branches and worktrees are kept.`);

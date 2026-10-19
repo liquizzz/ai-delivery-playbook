@@ -5,20 +5,21 @@
 // Set up a project for the AI Delivery Playbook in one command.
 //   node <playbook>/kit/init.mjs                      asks: name, folder, level, language, design, documents, description, GitHub
 //   node <playbook>/kit/init.mjs <folder> [options]   asks only what the options leave out
-// Options: --name "<name>"  --level starter|lite|full  --language <lang>  --docs-language <lang>  --design yes|no
+// Options: --name "<name>"  --level lite|full  --language <lang>  --docs-language <lang>  --design yes|no
 //          --humanize yes|no  --description "<text>"
 //          --github private|public|none  --repo <owner/name>  --yes (no questions, defaults)  --force
 //
 // It creates the folder and a git repo, copies the kit, fills in the project name, level and description,
-// writes START-HERE.md (the owner's steps for that level), creates the branches and role worktrees the level
-// needs and, only if you choose it, creates the GitHub repo, pushes the branches and sets up the labels.
+// writes START-HERE.md (the owner's steps for that level), creates the branches and the Lead's worktree
+// (the Lead's /setup creates the other roles' worktrees) and, only if you choose it, creates the GitHub repo,
+// pushes the branches and sets up the labels and the board.
 // Existing files are kept unless --force is given. It never writes secrets.
 import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
-import { LEVELS, LEVEL_ORDER, parseLevel, renderStartHere, setClaudeLevel, slugify, worktreePath, writeProject } from "./scripts/project-level.mjs";
+import { LEVELS, LEVEL_ORDER, REMOVED_LEVELS, parseLevel, renderStartHere, setClaudeLevel, slugify, worktreePath, writeProject } from "./scripts/project-level.mjs";
 
 const argv = process.argv.slice(2);
 const flag = (name) => {
@@ -100,11 +101,11 @@ const parent = path.resolve(process.cwd()) === playbook ? path.dirname(playbook)
 if (!target) topic("2. Where to create the project", "A new folder for its code and documents. The role worktrees go next to it, in <folder>-wt.");
 const dest = path.resolve(target || (await ask("   Folder", path.join(parent, slug))));
 
-let level = parseLevel(flag("level"));
+let level = parseLevel(flag("level")) || REMOVED_LEVELS[String(flag("level") || "").toLowerCase()];
 if (!level) {
   topic("3. Level of process", "How many Claude sessions work on it. Change it any time with: node scripts/set-level.mjs <level>");
-  if (interactive) LEVEL_ORDER.forEach((l, i) => console.log(`     ${i + 1}  ${l.padEnd(8)} ${LEVELS[l].help}`));
-  level = await ask("   Level (1, 2 or 3)", "1", parseLevel);
+  if (interactive) LEVEL_ORDER.forEach((l, i) => console.log(`     ${i + 1}  ${l.padEnd(5)} ${LEVELS[l].help}`));
+  level = await ask("   Level (1 or 2)", "1", parseLevel);
 }
 
 topic("4. Your working language", "The sessions talk to you in it. For example English or Vietnamese.");
@@ -255,7 +256,8 @@ fill(".claude/settings.json", (t) => {
   if (!humanize) delete s.enabledPlugins["humanizer@humanizer"];
   return JSON.stringify(s, null, 2) + "\n";
 });
-writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design, humanize });
+// setup: false until the Lead's /setup is done; the session-start hook keeps other roles waiting until then.
+writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design, humanize, setup: false });
 renderStartHere(dest, { name, level, repo }, dest);
 created.push(".claude/project.json", "START-HERE.md");
 
@@ -356,9 +358,9 @@ if (repo) {
   warnings.push(`Open https://github.com/${repo}/actions once: a new repo may show "Enable Actions on this repository", and CI and images do not run until you click it.`);
 }
 
-// 2i. Role worktrees for the level (they start from the committed kit, so only in a fresh repo)
-if (!fresh) warnings.push(`Existing repo: commit the kit files, then run node scripts/set-level.mjs ${level} to create the worktrees.`);
-for (const role of fresh ? LEVELS[level].worktrees : []) {
+// 2i. The Lead's worktree (it starts from the committed kit, so only in a fresh repo). /setup creates the others.
+if (!fresh) warnings.push(`Existing repo: commit the kit files, then run node scripts/new-role-worktree.mjs lead to create the Lead's worktree.`);
+for (const role of fresh ? ["lead"] : []) {
   if (fs.existsSync(worktreePath(dest, role))) {
     kept.push(`worktree ${role}`);
     continue;
@@ -379,4 +381,6 @@ if (kept.length) console.log(`\nKept existing (${kept.length}, use --force to ov
 if (warnings.length) console.log(`\nPlease check:\n  ${warnings.join("\n  ")}`);
 console.log(`
 Next: open ${path.join(dest, "START-HERE.md")} and follow it step by step.
-Step 1 is: open Claude Code desktop in ${lead} and type /setup.`);
+Step 1: open Claude Code desktop in this folder, name the session "${name} - Lead", and type /setup:
+  ${lead}
+Setup comes first: it creates the other sessions' folders and tells you which to open next.`);

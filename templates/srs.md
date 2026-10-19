@@ -35,7 +35,7 @@ Newest first. The `release` script adds the row for each release; the Lead adds 
 <Platforms, browsers, hosting, integrations.>
 
 ### 2.3 Look and feel
-<Direction the owner picked in `docs/design/look-and-feel.html`: style, palette (hex), fonts, layout; rejected directions in one line each. Skip if the product has no screens or has a design prototype.>
+<Direction the owner picked in `design/look-and-feel.html`: style, palette (hex), fonts, layout; rejected directions in one line each. Skip if the product has no screens or has a design prototype.>
 
 ### 2.4 Constraints and assumptions
 - <...>
