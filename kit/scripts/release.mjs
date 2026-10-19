@@ -21,6 +21,9 @@ const gh = (...a) =>
   execFileSync(shim ? process.execPath : "gh", shim ? [shim, ...a] : a, { stdio: ["ignore", "pipe", "inherit"] }).toString();
 const git = (...a) => execFileSync("git", a, { stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
 const today = new Date().toISOString().slice(0, 10);
+// Windows working copies (core.autocrlf=true) have CRLF: work on LF, write back in the file's own line endings.
+const read = (p) => { const t = fs.readFileSync(p, "utf8"); return { text: t.replace(/\r\n/g, "\n"), crlf: t.includes("\r\n") }; };
+const save = (p, text, crlf) => fs.writeFileSync(p, crlf ? text.replace(/\n/g, "\r\n") : text);
 
 // 1. Milestone
 let milestone = msIndex >= 0 ? args[msIndex + 1] : null;
@@ -61,8 +64,11 @@ const section = [
   ...(breaking.length && maj >= 1 ? ["### Breaking", ...breaking.map((i) => `${line(i)}: see upgrade steps in the spec`)] : []),
 ].join("\n");
 
-let changelog = fs.existsSync("CHANGELOG.md") ? fs.readFileSync("CHANGELOG.md", "utf8") : "# Changelog\n\n## [Unreleased]\n";
+const changelogFile = fs.existsSync("CHANGELOG.md") ? read("CHANGELOG.md") : { text: "# Changelog\n\n## [Unreleased]\n", crlf: false };
+let changelog = changelogFile.text;
 const unreleased = /## \[Unreleased\]\n([\s\S]*?)(?=\n## \[|$)/.exec(changelog);
+// An "## [Unreleased]" heading the regex does not match would be left behind with its entries: warn loudly below.
+const unreleasedMissed = !unreleased && /^## \[Unreleased\]/m.test(changelog);
 const unreleasedBody = unreleased ? unreleased[1].trim() : "";
 const versionBlock = unreleasedBody ? `## [${version}] - ${today}\n${unreleasedBody}` : section;
 changelog = unreleased
@@ -71,10 +77,12 @@ changelog = unreleased
 
 // 5. SRS
 const srsPath = "docs/tech/srs.md";
-let srs = fs.existsSync(srsPath) ? fs.readFileSync(srsPath, "utf8") : null;
+const srsFile = fs.existsSync(srsPath) ? read(srsPath) : null;
+let srs = srsFile ? srsFile.text : null;
 const crs = issues.filter((i) => has(i, "cr")).map((i) => `CR-${i.number}`).join(", ") || "—";
 if (srs) {
   srs = srs.replace(/\*\*Version:\*\* [^ ·\n]+/, `**Version:** ${version}`).replace(/\*\*Last updated:\*\* [^ ·\n]+/, `**Last updated:** ${today}`);
+  srs = srs.replace(/\*\*Status:\*\* [^·\n]*?(?= ·|\n|$)/, `**Status:** Released v${version}`);
   if (/^\| Unreleased \|.*$/m.test(srs)) {
     srs = srs.replace(/^\| Unreleased \| [^|]* \| [^|]* \|(.*)$/m, `| Unreleased | — | — | | | |\n| ${version} | v${version} | ${today} |$1`);
   } else {
@@ -88,13 +96,17 @@ console.log(`Version: ${last} → v${version} (${bump})${maj < 1 && breaking.len
 if (milestone !== `v${version}`) console.log(`Note: milestone "${milestone}" ≠ computed v${version}. Rename the milestone if needed.`);
 console.log(`\n${versionBlock}\n`);
 if (!srs) console.log(`Warning: ${srsPath} not found; SRS not updated.`);
+if (unreleasedMissed) {
+  console.log(`!!! WARNING: CHANGELOG.md has a "## [Unreleased]" heading that was NOT turned into [${version}].`);
+  console.log(`!!! Its entries are missing from the version block above. Make the heading exactly "## [Unreleased]" and rerun.\n`);
+}
 
 // Starter and Lite release from dev; the full process from staging (.claude/project.json).
 const level = fs.existsSync(".claude/project.json") ? JSON.parse(fs.readFileSync(".claude/project.json", "utf8")).level : "full";
 const releaseFrom = level === "full" ? "staging" : "dev";
 if (write) {
-  fs.writeFileSync("CHANGELOG.md", changelog);
-  if (srs) fs.writeFileSync(srsPath, srs);
+  save("CHANGELOG.md", changelog, changelogFile.crlf);
+  if (srs) save(srsPath, srs, srsFile.crlf);
   console.log("Written: CHANGELOG.md" + (srs ? `, ${srsPath}` : ""));
   console.log(`After the owner approves:\n  git checkout main && git merge --no-ff ${releaseFrom} && git tag v${version} && git push origin main v${version}\n  gh release create v${version} --title v${version} --notes-file <section>`);
 } else {

@@ -4,7 +4,8 @@
 // Create the project's kanban board on GitHub (a GitHub Project linked to this repo), once.
 // Run from the repo:  node scripts/setup-board.mjs
 // Needs the gh CLI with the "project" scope:  gh auth refresh -s project
-// GitHub's API cannot switch a project to the board layout: open the project once and choose View → Layout → Board.
+// GitHub's API cannot switch a project to the board layout: open the project once, choose View → Layout → Board, then Save.
+// Issues move between columns with: node scripts/board-status.mjs <issue> "<column>"
 import { execFileSync } from "node:child_process";
 
 const STATUSES = [
@@ -36,7 +37,7 @@ try {
 }
 if (!/'project'/.test(scopes)) fail('The gh token has no "project" scope. Run: gh auth refresh -s project   then run this again.');
 
-const repo = JSON.parse(gh("repo", "view", "--json", "name,owner,url"));
+const repo = JSON.parse(gh("repo", "view", "--json", "name,owner,url,visibility"));
 const owner = repo.owner.login;
 const title = `${repo.name} board`;
 
@@ -48,6 +49,8 @@ if (existing) {
 
 const project = JSON.parse(gh("project", "create", "--owner", owner, "--title", title, "--format", "json"));
 gh("project", "link", String(project.number), "--owner", owner, "--repo", `${owner}/${repo.name}`);
+// A public repo gets a public board, so readers can follow the work.
+if (repo.visibility === "PUBLIC") gh("project", "edit", String(project.number), "--owner", owner, "--visibility", "PUBLIC");
 
 // Replace the default Status options (Todo, In Progress, Done) with the playbook's columns.
 const fields = JSON.parse(gh("project", "field-list", String(project.number), "--owner", owner, "--format", "json")).fields;
@@ -63,4 +66,4 @@ gh("project", "field-create", String(project.number), "--owner", owner, "--name"
 
 console.log(`Board ready: ${project.url}
 Columns: ${STATUSES.map((s) => s[0]).join(" · ")} · fields Role, Module, Level, Priority.
-Open it once and choose View → Layout → Board (GitHub's API cannot set the layout).`);
+Open it once, choose View → Layout → Board and click Save (GitHub's API cannot set the layout).`);

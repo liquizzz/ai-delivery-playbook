@@ -11,7 +11,9 @@
 **What it does:** turns a finished milestone into an approved version with an updated changelog and SRS, once you have tried it yourself. AI tests check what the SRS says; only you can confirm it is what the business needs.
 
 **Ask the Lead:**
-> Milestone `v1.4.0` is done. Prepare the release and my acceptance test.
+> /release v1.4.0
+
+For a client demo without publishing, ask for `/release demo`: the same checks and your acceptance scenarios, then it stops before `main` and the tag.
 
 **Claude asks you:** only if something is still open: unfinished issues (move them or wait?) or open medium defects (accept or fix first?).
 

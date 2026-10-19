@@ -20,6 +20,7 @@ const LABELS = [
   ["role:uiux", "5319e7", "UI/UX task"],
   ["role:devops", "5319e7", "DevOps task"],
   ["defect", "e11d21", "Defect"],
+  ["decision", "d4c5f9", "A choice the owner left for later; see Open decisions in CLAUDE.md"],
   ["sev:high", "b60205", "Blocks a release; hotfix in production"],
   ["sev:medium", "f9a03f", "Blocks a release unless the owner accepts it"],
   ["sev:low", "fef2c0", "Does not block a release"],

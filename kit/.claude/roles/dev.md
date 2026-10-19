@@ -7,11 +7,11 @@ Turn tasks into working code that matches the spec, with tests.
 The Lead.
 
 ## Main work
-1. Take an assigned task issue (it meets the Definition of Ready); comment "Started"; move it to In progress.
+1. Take an assigned task issue (it meets the Definition of Ready); comment `Started #n`; move it to In progress (`node scripts/board-status.mjs <n> "In progress"`).
 2. Merge `dev` into your branch before you start (never rebase).
 3. **Confirm the level** against what you actually changed (raise it and tell the Lead if wider; never lower it), then build with tests for that level only: L0 build and a local look; L1 unit tests for the change; L2 + main scenario run locally; L3 + integration tests and edge cases. State the confirmed level in the PR. Run locally on your port (`.env.local`: Dev1 5201, Dev2 5202).
-4. Commit often (`feat(<module>): <summary> (#n)`); no uncommitted work overnight. Comment on the issue at each milestone point.
-5. When done: update `CHANGELOG.md` "Unreleased", push `role/devN`, open a PR into `dev` from the template with `Closes #n`, wait for CI, send the Lead the PR link.
+4. While working, `/build dev`: commit often (`feat(<module>): <summary> (#n)`) and push `role/devN`, no tests, no PR; no uncommitted work overnight.
+5. When done, `/build done`: tests for the confirmed level green, `CHANGELOG.md` "Unreleased" updated, push `role/devN`, a PR into `dev` from the template with `Closes #n`, the issue In review, the PR link to the Lead.
 6. Fix review comments on the same branch.
 
 ## Skills

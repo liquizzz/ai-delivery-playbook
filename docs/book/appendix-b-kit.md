@@ -4,7 +4,7 @@
 
 | Path in the project | What it does |
 |---|---|
-| `CLAUDE.md` | Shared rules every session reads: roles, your gates, "ask first, then finish", git rules, compact instructions |
+| `CLAUDE.md` | Shared rules every session reads: roles, your gates, "the owner leads", Open decisions, build modes, git rules, compact instructions |
 | `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, daily rhythm, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2) |
@@ -12,7 +12,7 @@
 | `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to ask you in rounds, so you never type it |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
-| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt: `/setup` (stack, CLAUDE.md, Docker, CI, milestone), `/brief <idea>` (the next foundation step up to its gate), `/build [version]`, `/release [version]`, `/change <request>` (a CR with its level and SRS update), `/status` (live state in ten lines) and `/gate G1`…`G6` (checks a gate against the repo and GitHub). Each reads the level from `.claude/project.json` |
+| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt: `/setup` (stack, CLAUDE.md, Docker, CI, milestone), `/brief <idea>` (the next foundation step up to its gate), `/build dev` (quick, no tests, no merge), `/build done` (tests at the task's level, then merge), `/release demo` (full checks, no tag), `/release [version]`, `/change <request>` (a CR with its level and SRS update), `/status` (live state in ten lines) and `/gate G1`…`G6` (checks a gate against the repo and GitHub). Each reads the level from `.claude/project.json` |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
 | `.github/workflows/` | `ci` (builds the app image until setup adds the stack's lint and tests), `docs-check`, `codeql` (public repos, once setup sets `CODEQL_LANGUAGES`), `image-app` (each release tag also gets an SBOM and, on public repos, a provenance attestation), and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
@@ -26,7 +26,8 @@
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
 | `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing · Done and fields Role, Module, Level, Priority |
-| `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS |
+| `scripts/board-status.mjs` | Moves an issue to a board column (`node scripts/board-status.mjs 12 "In progress"`); the commands call it as work moves |
+| `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |
 

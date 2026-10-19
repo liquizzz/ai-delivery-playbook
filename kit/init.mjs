@@ -123,7 +123,7 @@ design = /^y/i.test(design);
 
 let humanize = flag("humanize");
 if (!humanize) {
-  topic("6. Documents for readers outside the team", "yes: every document gets a humanizer pass so it reads like a person wrote it (more tokens; for client reports). no: plain, short documents. Turn it on later by telling the Lead.");
+  topic("6. Polished documents", "yes: a humanizer pass on every document, for client reports (more tokens). no: plain documents. Change it later via the Lead.");
   humanize = await ask("   Polish documents? yes or no", "no", (v) => (/^(y|yes|n|no)$/i.test(v) ? v.toLowerCase()[0] : null));
 }
 humanize = /^y/i.test(humanize);
@@ -278,6 +278,11 @@ if (!fs.existsSync(log)) {
   fs.writeFileSync(log, "# AI Delivery Log\n\nOne line per task: what AI did, where the human stepped in, how much rework.\n\n| Date | Phase | Task | AI did | Human did | Rework loops | Time |\n|---|---|---|---|---|---|---|\n");
   created.push("docs/ai-log.md");
 }
+const readme = path.join(dest, "README.md");
+if (!fs.existsSync(readme)) {
+  fs.writeFileSync(readme, `# ${name}\n\n${description ? `${description}\n\n` : ""}Built with the [AI Delivery Playbook](https://github.com/liquizzz/ai-delivery-playbook). The owner's steps are in \`START-HERE.md\`; releases are listed in \`CHANGELOG.md\`.\n`);
+  created.push("README.md");
+}
 const envExample = path.join(dest, ".env.example");
 if (!fs.existsSync(envExample)) {
   fs.writeFileSync(envExample, "# Copy to .env.local (done by new-role-worktree). Real values are filled in by the owner.\nPORT=3000\n");
@@ -321,7 +326,7 @@ const warnings = [];
 if (repo) {
   try {
     if (!ok("git remote get-url origin")) {
-      run("gh", ["repo", "create", repo, `--${github}`, "--source", ".", "--remote", "origin"]);
+      run("gh", ["repo", "create", repo, `--${github}`, "--source", ".", "--remote", "origin", ...(description ? ["--description", description] : [])]);
       created.push(`(GitHub repo ${repo}, ${github})`);
     }
     run("git", ["push", "-u", "origin", "main", ...LEVELS[level].branches]);
@@ -374,4 +379,4 @@ if (kept.length) console.log(`\nKept existing (${kept.length}, use --force to ov
 if (warnings.length) console.log(`\nPlease check:\n  ${warnings.join("\n  ")}`);
 console.log(`
 Next: open ${path.join(dest, "START-HERE.md")} and follow it step by step.
-Step 1 is: open Claude Code desktop in ${lead} and paste the prompt shown there.`);
+Step 1 is: open Claude Code desktop in ${lead} and type /setup.`);

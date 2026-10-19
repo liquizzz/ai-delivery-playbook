@@ -12,7 +12,7 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 node ai-delivery-playbook/kit/init.mjs
 ```
 
-The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/brief <your idea>`, `/build` or `/release`.
+The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/brief <your idea>`, `/build dev`, `/build done` or `/release`.
 
 ## What the kit sets up for you
 
@@ -21,7 +21,7 @@ The first time, install the tools listed in How to run (once per machine). Then 
 | A ready project in one command | `init.mjs` creates the folder, git branches, a worktree per role, the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md` |
 | A small team that knows its job | Most projects run with three sessions: PO (your requests), Lead (plan, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
 | The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents for a client can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
-| Questions you can answer quickly | One topic per round, two to four options with a recommendation first; say "you decide" to let Claude settle the rest |
+| You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it |
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, and Starter mode: one session and a one-page brief for a first demo |
 | Quality you can check | Gates you approve, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
 | Room to grow | `node scripts/set-level.mjs` moves a project from Starter (one session) to Lite (three) to Full, or back, without redoing anything |

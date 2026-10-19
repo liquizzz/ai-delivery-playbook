@@ -18,7 +18,7 @@ const check = (name, cond) => {
   console.log(`${cond ? "PASS" : "FAIL"}  ${name}`);
 };
 
-function scenario(name, { lastTag, issues, srs = true }) {
+function scenario(name, { lastTag, issues, srs = true, crlf = false }) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "release-test-"));
   const git = (...a) => execFileSync("git", a, { cwd: dir, stdio: "ignore" });
   git("init", "-q", "-b", "main");
@@ -29,6 +29,13 @@ function scenario(name, { lastTag, issues, srs = true }) {
     fs.mkdirSync(path.join(dir, "docs", "tech"), { recursive: true });
     fs.writeFileSync(path.join(dir, "docs", "tech", "srs.md"),
       "# SRS\n\n**Version:** 0.0.0 · **Status:** Baseline · **Last updated:** 2026-01-01\n\n<!-- revision-history -->\n| SRS version | Release | Date | CRs | Sections changed | Summary |\n|---|---|---|---|---|---|\n| Unreleased | — | — | CR-12 | §3.1 | Login |\n| 0.0.0 | — | 2026-01-01 | — | All | Baseline |\n");
+  }
+  if (crlf) {
+    // A Windows working copy with core.autocrlf=true has CRLF line endings.
+    for (const f of ["CHANGELOG.md", ...(srs ? [path.join("docs", "tech", "srs.md")] : [])]) {
+      const p = path.join(dir, f);
+      fs.writeFileSync(p, fs.readFileSync(p, "utf8").replace(/\n/g, "\r\n"));
+    }
   }
   git("add", "-A");
   git("commit", "-q", "-m", "init");
@@ -65,6 +72,11 @@ check("breaking ignored before 1.0: v0.3.1 → v0.4.0", r.out.includes("v0.3.1 �
 
 r = scenario("no SRS", { lastTag: "v0.1.0", issues: [{ number: 30, title: "Search", labels: L("cr", "type:feature") }], srs: false });
 check("missing SRS is reported, not fatal", r.out.includes("not found; SRS not updated"));
+
+r = scenario("CRLF files", { lastTag: "v0.1.0", issues: [{ number: 31, title: "Export", labels: L("cr", "type:feature") }], crlf: true });
+check("CRLF: changelog version block written", /## \[Unreleased\]\r\n\r\n## \[0\.2\.0\] - \d{4}-\d{2}-\d{2}\r\n### Added\r\n- Login page/.test(r.changelog));
+check("CRLF: line endings kept", !/[^\r]\n/.test(r.changelog) && !/[^\r]\n/.test(r.srs));
+check("CRLF: SRS revision row and status", r.srs.includes("| 0.2.0 | v0.2.0 |") && r.srs.includes("**Status:** Released v0.2.0"));
 
 console.log(failed ? `\n${failed} failed` : "\nAll passed");
 process.exit(failed ? 1 : 0);

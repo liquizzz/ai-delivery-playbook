@@ -8,6 +8,10 @@ AI Delivery Playbook project. Steps for the owner: `START-HERE.md`.
 - Documents: <plain / polished>.
 - Stage: <Foundation, next gate G# / Delivery, milestone vX.Y.Z>.
 
+## Open decisions
+Choices the owner left for later, each with the step that needs it. A step stops only for the decisions it needs; `/status` lists them. Each also has a GitHub issue labelled `decision`.
+- <none>
+
 ## Role
 Your role is in `.claude/role`; read `.claude/roles/<role>.md` first. Restart: "Read CLAUDE.md and continue as <role>." Flow: owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. Each role writes only its own paths and pushes only `role/<role>`; the Lead merges and releases.
 
@@ -24,12 +28,20 @@ Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · requi
 - New worktree `node scripts/new-role-worktree.mjs <role>` · release (Lead) `node scripts/release.mjs [--write]`
 
 ## Rules
-- **Ask first, in rounds, then finish.** If a request lacks anything the result needs (template fields, acceptance, scope, priority, milestone, level, approver), ask before doing it: one topic per round, 1-3 short questions, each with 2-4 options and your recommendation first (use the question tool with buttons when you have it). After each round, confirm the answer and go to the next topic, until everything is settled or the owner says "you decide" (then decide the rest and list your assumptions in the report). Group topics that only need a yes into one quick-confirm round. Before writing, summarise all choices for one approval, then do the whole task. Do not ask what has an obvious default: state the assumption. If nothing is missing, say so and start.
-- **The owner chooses the stack.** Offer 2-3 options from the lightest to the fullest (dependencies, effort, when each fits), after asking what decides it (UI needs, users, data, growth). Record the choice as an ADR with the rejected options. Only if the owner says "you decide", take the lightest option that meets the requirements.
+- **The owner leads; you keep the process.** Every step that needs the owner's input:
+  1. Show the step's short guide, "What you need to say" (4-6 lines, in its command or template), and let the owner write in their own words.
+  2. Ask only about what is missing or unclear in what they wrote: few questions, one topic at a time; options with a recommendation are fine, free text is always allowed.
+  3. Ask "Anything else? Want me to suggest more?" Suggest (with `superpowers:brainstorming`) only when the owner asks for it ("suggest"). Repeat until the owner says "lock" (in any language).
+  4. Summarise everything decided, ask whether it is final and whether they want to add anything, and write only after they approve.
+  Never decide for the owner. If they say "you decide", decide and list your calls as assumptions they can change. Do not ask what has an obvious default: state the assumption.
+- **"Decide later" is allowed.** Record the choice under Open decisions in this file, with the step that needs it, and open an issue labelled `decision`. Carry on with what does not depend on it; ask again only when a step needs it.
+- **The stack:** first ask whether the owner already has one. If yes, use it, warn only about a real blocker (for example a library that needs a compiler on their machine), and record an ADR. If no, offer 2-3 options in one round, from the lightest to the fullest, each with dependencies, effort and when it fits. Before writing the choice down, install it once on the owner's machine; if that fails, say so and offer the next option. Record the choice and the rejected options as an ADR.
 - **Docs lead code.** SRS and spec are on `dev` before a task starts. Unclear? Ask (Dev/Test → Lead → PO); never deviate silently.
 - **Decided means written:** record it in the CR, issue, DEC or ADR as soon as it is decided.
 - **One task in progress**, only assigned issues, only your paths.
-- **Git:** own worktree; merge `dev` in, never rebase; no force push to `dev`/`staging`/`main`; no `--no-verify`. Commit `<type>(<module>): <summary> (#n)`. Done = push your branch, PR into `dev` with `Closes #n`, send the Lead the link.
+- **Git:** own worktree; merge `dev` in, never rebase; no force push to `dev`/`staging`/`main`; no `--no-verify`. Commit `<type>(<module>): <summary> (#n)`.
+- **Build modes:** `/build dev` = code it and run it, no tests, commit and push `role/<role>`, the issue stays In progress. `/build done` = confirm the level, make the tests for that level green, then merge into `dev` (Starter) or open a PR into `dev` with `Closes #n` (Lite, Full); only this mode merges. `/release demo` and `/release` run the full checks. Move the issue on the board with `node scripts/board-status.mjs <n> "<column>"` (In progress when you start, In review when a PR is open, Done when it is merged and CI on `dev` is green).
+- **Reports are short** when nothing waits for the owner: what changed, links, the next step, in a few lines. Details live in issues and documents.
 - **Change level** L0 display · L1 setting · L2 module logic · L3 core (money, security, personal data, deletes are always L3). Confirm the level against the actual change before testing; test only that scope; raise it if wider, never lower it.
 - **Hand-offs** are issue comments: `Hand-off <from> → <to> · #n · Done / Needs changes / Blocked · <branch>@<sha> · L<n> · <module> · done: … · next: … · risks: …`. Messages between sessions only notify, with a link. Unless the owner turned on messages between sessions, end your report with `Next: open "<Project> - <Role>" and paste: "<prompt>"`. The receiving session comments `Started #n` on the issue when it begins; without that comment, the work has not started.
 - **Asking the owner to approve a gate or a release:** end with a `For you` block in plain words: what the gate means for the product (one or two sentences); 1-3 things to try or read yourself, each with the expected result and one example of a wrong result; what the owner confirms (does it do what they want); what the evidence already covers, with links (tests, CI runs, review), so the owner need not judge it; open risks. Never ask for approval with "ready" alone.
@@ -46,7 +58,7 @@ Use the skill named for each task, every time; do not swap it for another. For w
 
 | Task | Skill |
 |---|---|
-| Interview the owner: stack, proposal or brief, architecture options, an unclear request | `superpowers:brainstorming` |
+| Suggest ideas when the owner asks ("suggest"): stack, scope, stories, architecture options, an unclear request | `superpowers:brainstorming` |
 | Market or competitor context for a proposal | `product-management:competitive-brief` |
 | PRD and stories | `product-management:write-spec`, on the template in `docs/templates/` |
 | Milestone into tasks | `superpowers:writing-plans` |

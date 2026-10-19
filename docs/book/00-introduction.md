@@ -31,10 +31,10 @@ Starter mode ([chapter 8](08-lite-mode.md)) is the fastest path: one session pla
 |---|---|---|
 | 1 | Run `node <path>/kit/init.mjs` and choose `starter`, then open a session in the `lead` worktree and type `/setup` | Repo, kit, branches, Docker files and CI for the stack you chose ([ch. 1](01-setup.md), [ch. 8](08-lite-mode.md)) |
 | 2 | `/brief <idea>` | Brief, SRS and the v0.1.0 tasks; your approval passes G1-G3 ([ch. 8](08-lite-mode.md)) |
-| 3 | `/build` | Code, tests by level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
+| 3 | `/build dev` while you look, `/build done` per finished task | Code you can try at once; then tests at each task's level, merged into `dev` ([ch. 4](04-delivery-loop.md)) |
 | 4 | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
 | 5 | Run the commands in step 5 of `START-HERE.md`. | v0.1.0 running in Docker on your machine |
-| 6 | Prove the loop: close the session, open a new one, type `/change <one fix>`, then `/build` and `/release` | The fix as CR → task → v0.1.1, picked up from the record alone |
+| 6 | Prove the loop: close the session, open a new one, type `/change <one fix>`, then `/build done` and `/release` | The fix as CR → task → v0.1.1, picked up from the record alone |
 
 If the new session in step 6 picks up the fix without you explaining anything, keep building. Move to Lite when other people start using it, and to Full when a client, money, security or personal data comes in.
 
@@ -109,7 +109,7 @@ One Dev session is the default at every level. Add a second (`dev2`) only if you
 >
 > **Claude asks before:** actions that open an approval prompt for you.
 
-Every session follows "ask first, in rounds, then finish" from the kit's `CLAUDE.md`: if a request lacks something, it asks one topic at a time (1-3 short questions, each with options and its recommendation first), confirms your answer, and moves to the next topic. Big decisions such as the stack get their own round, and you make them. When all topics are settled it sums up your choices for one approval, then completes the whole task. Say "you decide" at any point to let it settle the rest; it lists what it assumed.
+Every session follows "the owner leads; Claude keeps the process" from the kit's `CLAUDE.md`. Each step shows a short guide of what it needs from you, and you answer in your own words. Claude asks only about what is missing, suggests ideas only when you say "suggest", and keeps going until you say "lock"; then it sums up and writes only after you approve. Say "later" for anything you have not decided: it is listed under Open decisions and asked again only when a step needs it. Say "you decide" and Claude settles the rest, listing its calls so you can change them.
 
 > **Token tip** boxes in each chapter show where cost adds up and how to avoid it.
 

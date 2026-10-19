@@ -1,11 +1,25 @@
 ---
-description: Build a milestone. Starter builds it here; Lite and Full assign the tasks to Dev
-argument-hint: [milestone, e.g. v0.1.0]
+description: Build work. "/build dev" = quick, no tests, no merge. "/build done" = tests at the task's level, then merge. No argument = plan the milestone's tasks.
+argument-hint: dev [#n] | done [#n] | [milestone]
 ---
 
-Build milestone **$ARGUMENTS** (none given: the open milestone with the lowest version). You are the Lead.
+Build: **$ARGUMENTS**
 
-1. Read `.claude/project.json` (level) and the milestone's issues (`gh issue list --milestone <v> --state open`). If the foundation is not approved yet, say so and stop.
-2. **Starter:** take the tasks one at a time. For each: comment `Started #n`, confirm its change level against the actual change, code it on `role/lead` with tests for that level (L2-L3: `superpowers:test-driven-development`), run the tests locally, commit `<type>(<module>): <summary> (#n)`, merge into `dev`, push, check `gh run list --branch dev --limit 1`, and close the issue only when that run is green. A red `dev` is fixed before the next task (`superpowers:systematic-debugging`).
-3. **Lite, Full:** split anything still too big with `superpowers:writing-plans`, set each task's level, role and estimate, assign them to `dev1` (Full: also Test and UI/UX where needed), move them to Ready, then end with `Next: open "<Project> - Dev1" and paste: "Read CLAUDE.md and continue as dev1. Work on #<n>."` Review each PR when it comes (`code-review`, plus `security-review` for L3) and merge into `dev`.
-4. Before reporting, run `superpowers:verification-before-completion`. Report: built, level of each change, tests and CI runs (live state), what is left. When the milestone is done, the next step is `/release`.
+Read `.claude/project.json` (level), `.claude/role` and the Open decisions in `CLAUDE.md`. If a decision the work needs is still open (for example the stack), ask for it now and record it; ask nothing else. If the foundation is not approved yet, say so and stop.
+
+**`/build dev [#n]`: quick build.** For when the owner wants to see something fast.
+- Take the given issue, or the next Ready one assigned to you. Comment `Started #n` the first time and run `node scripts/board-status.mjs <n> "In progress"`.
+- Write the code, run it, show the owner how to see it (the command or the URL). No tests, no merge.
+- Commit `<type>(<module>): <summary> (#n)` and push `role/<role>`. The issue stays In progress.
+- Report in two or three lines.
+
+**`/build done [#n]`: build that merges.** For a task that is finished.
+- Confirm the task's change level against the actual change (raise it if the change is wider, never lower it).
+- Make the tests for that level green, and only that level: L0 build and look; L1 a unit test for the change; L2 module tests (`superpowers:test-driven-development`); L3 also integration and edge cases, and `security-review`.
+- Run `superpowers:verification-before-completion`.
+- Starter: merge into `dev`, push, check `gh run list --branch dev --limit 1`, and when CI is green close the issue and run `node scripts/board-status.mjs <n> Done`. A red `dev` is fixed first (`superpowers:systematic-debugging`).
+- Lite, Full: push `role/<role>`, open a PR into `dev` with `Closes #n` and the level, run `node scripts/board-status.mjs <n> "In review"`, and end with `Next: open "<Project> - Lead" and paste: "Review the PR for #<n>."` The Lead reviews (`code-review`, plus `security-review` for L3), merges, and moves the issue to Done when CI on `dev` is green.
+
+**`/build [milestone]` (Lead, Lite and Full): plan the milestone.** Split what is still too big with `superpowers:writing-plans`, set each task's level, role and estimate, assign it, put it in Ready on the board, and end with `Next: open "<Project> - Dev1" and paste: "/build dev #<n>"`.
+
+When every issue of the milestone is closed, the next step is `/release demo` or `/release`.

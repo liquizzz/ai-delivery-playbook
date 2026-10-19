@@ -30,10 +30,9 @@
 
 ### 2. Brief
 
-**Ask:** `/brief <your idea in two or three sentences>`. It runs the same as saying:
-> Start the Starter brief for `<your idea>`. Interview me one topic at a time, then write the brief, a one-page SRS and the v0.1.0 plan.
+**Ask:** `/brief <your idea, in your own words>`.
 
-**Claude asks you,** one topic per round: who it is for and the problem, the success metric, the stories for v0.1.0, what is out of scope, data and deletes, then the look and feel: Claude searches styles, colours and fonts that suit the product and shows 2-3 directions in `docs/design/look-and-feel.html` for you to pick from.
+**You say,** following the short guide Claude shows: who it is for, what v0.1.0 must do, what is out, how you will know it works, what data it keeps. Claude asks only about what is missing, suggests only when you say "suggest", and sums up for your approval when you say "lock". For a product with screens it asks whether you have a look in mind, then shows 2-3 directions in `docs/design/look-and-feel.html`.
 
 **Claude does:** writes `docs/product/brief.md` from `docs/templates/brief.md`, a one-page `docs/tech/srs.md`, and milestone v0.1.0 with its tasks.
 
@@ -41,13 +40,13 @@
 
 ### 3. Build
 
-**Ask:** `/build` (the same as "Build milestone v0.1.0.")
+**Ask:** `/build dev` to see a task working quickly (no tests, no merge, pushed to `role/lead`), as often as you like; then `/build done` when the task is finished.
 
-**Claude does:** opens the CR and its tasks, builds each task on `role/lead` with tests for its change level, commits with the issue number, runs the tests locally, merges into `dev`, and closes the issue when CI on `dev` is green. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
+**Claude does,** on `/build done`: confirms the change level, makes the tests for that level green, merges into `dev`, and closes the issue when CI on `dev` is green. Later changes start with "I want …" ([chapter 4](04-delivery-loop.md)).
 
 ### 4. Release
 
-**Ask:** `/release` (the same as "The milestone is done. Prepare the release and my acceptance test.")
+**Ask:** `/release demo` to show the milestone to someone without publishing, or `/release` to publish it.
 
 **Claude does:** checks the main journey; writes 3-5 acceptance scenarios and the commands to start `dev` in Docker; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 

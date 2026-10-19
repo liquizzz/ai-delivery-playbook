@@ -59,6 +59,6 @@ Read the "Please check" lines at the end of its report. On a new repo, open its 
 
 Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree next to the project, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Each later step names the session, the command, what Claude asks you, and what you get.
 
-In Starter mode it goes: `/setup`, `/brief <your idea>` (your one approval before code), `/build`, `/release` (v0.1.0, after you try it yourself), then run it in Docker. `/status` tells you where the project stands at any time.
+In Starter mode it goes: `/setup`, `/brief <your idea>` (your one approval before code), `/build dev` and `/build done`, `/release` (v0.1.0, after you try it yourself), then run it in Docker. `/status` tells you where the project stands at any time.
 
 When you want to know why a step works the way it does, the [book](README.md#the-book) has a chapter for it.

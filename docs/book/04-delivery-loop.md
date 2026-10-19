@@ -97,6 +97,19 @@ A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's 
 
 Full regression runs on `staging` before every release, whatever the levels.
 
+## 8. Build modes
+
+**What it does:** keeps day-to-day work fast and every merge controlled.
+
+| Type | When | Tests | Merge |
+|---|---|---|---|
+| `/build dev [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
+| `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 7) | Starter: into `dev`, issue closed when CI is green. Lite, Full: a PR the Lead merges |
+| `/release demo` | You need to show the milestone to a client | Full: regression, Docker, your acceptance scenarios | No tag; the client sees the `:dev` image |
+| `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
+
+Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review, Done.
+
 > **Token tip:** most tasks are L0-L1. Keeping them at "build + changed spot" is where most testing tokens are saved; do not ask for a full regression after each merge.
 
 Next: [Chapter 5: Releases](05-releases.md).

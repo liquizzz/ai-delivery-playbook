@@ -43,7 +43,7 @@ function reminder(cwd) {
     `AI Delivery Playbook: you are the ${role} session. Read CLAUDE.md and ${roleDoc} before any work.`,
     "Use the skill the Skills table in CLAUDE.md names for each task, every time, without waiting for the owner to ask.",
     skills ? `Your role's skills: ${skills}` : "",
-    "Ask the owner in rounds (one topic per round, options with your recommendation first, confirm each round), in the language CLAUDE.md sets.",
+    "The owner leads: show the step's short guide, let them answer in their own words, ask only about gaps, suggest only when asked, write after they lock and approve; talk in the language CLAUDE.md sets.",
   ].filter(Boolean).join(" ");
 }
 

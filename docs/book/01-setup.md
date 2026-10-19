@@ -26,7 +26,7 @@ Then run `/reload-plugins`. Plugins for specific projects (Figma, Codex reviewâ€
 
 ## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build`, `/release`).
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the role worktrees your level needs, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build dev`, `/build done`, `/release`).
 
 **You run,** in a terminal (the Claude Code Terminal panel opens in your home folder, so `cd` first), from the folder where your projects live:
 ```
@@ -54,10 +54,10 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level starter --git
 **What it does:** fits `CLAUDE.md`, the guard paths and the Docker files to your stack, and creates the board and first milestones on GitHub.
 
 **Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and say:
-> Read CLAUDE.md and continue as lead. Finish the setup: ask me one topic at a time; I choose the stack from your options. Then fill in CLAUDE.md, the Docker files and CI, and create the board and the first milestones on GitHub.
+> /setup
 
-**Claude asks you,** one topic per round, confirming each before the next:
-1. What decides the stack (screens, users, data, growth), then 2-3 stack options from the lightest to the fullest. You choose; it records the choice as ADR-001.
+**You say,** following the short guide Claude shows (anything can be "later"; it goes under Open decisions in `CLAUDE.md` and is asked again only when a step needs it):
+1. Whether you already have a stack. If not, and you say "suggest", Claude offers 2-3 options from the lightest to the fullest and installs your pick once to check it works. It records the choice as ADR-001.
 2. Folder layout if not `app/`, `tests/`, `design/` (sets the paths each role may edit).
 3. Project hard rules (client data, read-only sources, compliance).
 4. Install, run, test and lint commands, if they exist yet.
