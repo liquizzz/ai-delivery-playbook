@@ -41,7 +41,7 @@ Type `/brief` in the Lead. It works in this order:
 
 ## 5. Build: gates G4-G5 ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Sessions: Dev1, then Lead
 
-Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. To skip the switches, ask the Lead to turn on messages between sessions: it adds the line `- Messages between sessions: on` to `CLAUDE.md` and then messages the other sessions itself ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
+Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. To skip a switch, type `/pass` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/msg on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/msg off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## 6. Release v0.1.0: gate G6 ([ch. 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/05-releases.md)). Session: Lead
 
@@ -82,6 +82,8 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 |---|---|
 | Where the project stands, and what is still open | `/progress` (any session) · PO: "Morning brief." |
 | A change | PO: `/change <what, in business terms>` |
+| Send a hand-off prompt without switching | `/pass` in the session that gave it |
+| Sessions pass prompts by themselves | `/msg on` (any session) · `/msg off` to stop |
 | Is a gate ready? | `/gate <G1-G6>` |
 | A secret (an API key, a password) | `node scripts/set-secret.mjs <NAME>` in `{{main}}`: paste the value when asked; it is not shown and never goes in the chat |
 | Restart after closing a session | Open a new session in the same folder; it knows its role and finds where it stopped |

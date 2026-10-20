@@ -37,11 +37,11 @@ Type `/brief` in the Lead. It works in this order:
 
 ## 5. The team and the build: gate G4 ([ch. 2](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md), [ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Session: Lead
 
-When G3 is approved, the Lead proposes the sessions the milestone needs (usually Dev1 and Test), creates their folders when you agree, and gives one prompt per session. One Dev is enough for most milestones; add `dev2` only if you already split work across developers. Then `/build` in the Lead assigns the tasks. Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. The receiving session comments `Started #n` on the issue. When every task of the milestone is merged with green CI, the milestone is built (G4). To skip the switches, ask the Lead to turn on messages between sessions: it adds the line `- Messages between sessions: on` to `CLAUDE.md` and then messages the other sessions itself ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
+When G3 is approved, the Lead proposes the sessions the milestone needs (usually Dev1 and Test), creates their folders when you agree, and gives one prompt per session. One Dev is enough for most milestones; add `dev2` only if you already split work across developers. Then `/build` in the Lead assigns the tasks. Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. The receiving session comments `Started #n` on the issue. When every task of the milestone is merged with green CI, the milestone is built (G4). To skip a switch, type `/pass` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/msg on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/msg off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## 6. Every day ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Session: PO
 
-"Morning brief." before 10:00 · `/change <what>` for changes · `/progress` any time · "End-of-day report."
+"Morning brief." at the start of your day · `/change <what>` for changes · `/progress` any time · "End-of-day report."
 
 ## 7. Release: gates G5-G6 ([ch. 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/05-releases.md)). Session: Lead
 
@@ -81,6 +81,8 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 | Need | Type or run |
 |---|---|
 | Where the project stands | `/progress` (any session) |
+| Send a hand-off prompt without switching | `/pass` in the session that gave it |
+| Sessions pass prompts by themselves | `/msg on` (any session) · `/msg off` to stop |
 | Is a gate ready? | `/gate <G1-G6>` |
 | A secret (an API key, a password) | `node scripts/set-secret.mjs <NAME>` in `{{main}}`: paste the value when asked; it is not shown and never goes in the chat |
 | Restart after closing a session | Open a new session in the same folder; it knows its role and finds where it stopped |

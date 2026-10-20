@@ -27,6 +27,7 @@
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
 | `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing · Done and fields Role, Module, Level, Priority |
+| `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages on or off, and the hand-off tips, shown three times at most |
 | `scripts/board-status.mjs` | Moves an issue to a board column (`node scripts/board-status.mjs 12 "In progress"`); the commands call it as work moves |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
@@ -45,6 +46,8 @@
 | `/change <request>` | A CR with its level and SRS update |
 | `/progress` | Live state in ten lines |
 | `/gate G1`…`G6` | Checks a gate against the repo and GitHub |
+| `/pass` | Sends the prompt of the last hand-off block to the session it names |
+| `/msg on` / `/msg off` | Sessions pass prompts to each other by themselves, or stop; shared by every session |
 
 ## Plugins
 
