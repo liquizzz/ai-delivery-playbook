@@ -20,7 +20,7 @@
 | [CR](../../templates/cr.md) | PO | `docs/product/cr/CR-n-*.md` | Ch. 4, every change |
 | [Spec](../../templates/spec.md) | Lead | `docs/tech/spec/CR-n-*.md` | Ch. 4, every CR |
 | [Milestone](../../templates/milestone.md) | PO + Lead | `docs/product/milestones/vX.Y.Z.md` | Ch. 4 |
-| [Daily report](../../templates/daily-report.md) | PO | `docs/reports/YYYY-MM-DD.md` | Ch. 4, every day |
+| [Report](../../templates/daily-report.md) | PO or Lead | `docs/reports/YYYY-MM-DD.md` | Ch. 4, on `/progress report` only |
 | [Test cases](../../templates/test-cases.md) | Test | `docs/tech/test-cases/<module>.md` | Ch. 4 |
 | [Test report](../../templates/test-report.md) | Test | `docs/tech/test-reports/vX.Y.Z.md` | Ch. 5, every release |
 | [Release](../../templates/release-checklist.md) | Lead | `docs/releases/vX.Y.Z.md` | Ch. 5, every release |

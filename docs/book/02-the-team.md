@@ -48,7 +48,7 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 - Full: an L1-L3 task moves to Testing, where the Test session checks it on `dev` against its acceptance criteria. At Lite the Testing column stays empty.
 - The issue closes and the card moves to Done. A docs PR with no task issue of its own has its own card: In review while it waits for you, Done when merged.
 
-**You check:** "PRs waiting" in the end-of-day report.
+**You check:** "Waiting for the owner" in `/progress`.
 
 ## 3. Ask for an independent review
 
@@ -79,7 +79,7 @@ A blocked session sees the reason and changes course. An approval request appear
 
 | Automation | What happens on its own | What you still do |
 |---|---|---|
-| 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
+| 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the decisions sessions ask for; approve releases |
 | 2 Sessions message each other (`/relay on`) | Each session sends the next one its prompt when a step ends (Claude Code desktop can send messages between local sessions) | Keep the sessions open; approve. Costs more tokens: every message is a turn in the receiving session |
 | 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
 | 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |

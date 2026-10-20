@@ -43,7 +43,7 @@ When G3 is approved, the Lead proposes the sessions the milestone needs (usually
 
 ## 6. Every day ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Session: PO
 
-"Morning brief." at the start of your day · `/change <what>` for changes · `/progress` any time · "End-of-day report."
+`/change <what>` for changes · `/progress` any time to see where things stand; `/progress report` in the PO or the Lead also saves it in `docs/reports/`.
 
 ## 7. Release: gates G5-G6 ([ch. 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/05-releases.md)). Session: Lead
 

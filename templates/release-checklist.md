@@ -42,7 +42,7 @@ Save as `docs/releases/vX.Y.Z.md`. Prepared by the Lead; the summary at the top 
 ## Rollback (only if needed, owner approves)
 - [ ] Owner ran the previous image <vA.B.C> (e.g. `IMAGE_TAG=vA.B.C docker compose up -d`); data changes checked against the rollback plan
 - [ ] Defect `sev:high` opened; fix planned as hotfix <vX.Y.(Z+1)>
-- [ ] Recorded in the daily report and `CHANGELOG.md`
+- [ ] Recorded in `CHANGELOG.md`
 
 ## After
 - [ ] Milestone closed on GitHub; next milestone set as running

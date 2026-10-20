@@ -23,9 +23,9 @@ The rules:
 4. Priority, and this milestone or the next?
 5. Anything explicitly out of scope?
 
-**Claude does:** opens a CR issue with labels and milestone; estimates the level with the Lead; if L0-L1 and within the buffer, approves it; if L2-L3 or a scope change, labels it `needs-owner` and puts it in tomorrow's brief; once approved, exports it to `docs/product/cr/` and hands it to the Lead.
+**Claude does:** opens a CR issue with labels and milestone; estimates the level with the Lead; if L0-L1 and within the buffer, approves it; if L2-L3 or a scope change, labels it `needs-owner` and asks you; once approved, exports it to `docs/product/cr/` and hands it to the Lead.
 
-**You check:** approve L2-L3 CRs in the morning brief.
+**You check:** approve L2-L3 CRs when the PO asks.
 
 ## 2. CR to tasks (nothing to ask)
 
@@ -38,27 +38,20 @@ A task is Ready when its CR is approved, the SRS and spec are on `dev`, it has a
 
 A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's review, tests pass for its level, the SRS and `CHANGELOG.md` are updated, and it is merged into `dev`.
 
-## 3. Morning plan
+## 3. Where things stand
 
-**What it does:** sets today's work and collects every decision you need to make, once a day.
+**What it does:** shows the live state of the project: stage, what is done, in progress, waiting for you or blocked, CI, and the next step.
 
-**Ask the PO** at the start of your working day:
-> Morning brief.
+**Ask any session**, whenever you want:
+> /progress
 
-**Claude does:** writes `docs/reports/<date>.md` ([template](../../templates/daily-report.md)): yesterday, milestone status and buffer, new items with a proposal for each, today's plan, decisions needed as a checklist; pushes it and sends you the link.
+**Claude does:** checks GitHub and git live and replies in at most 10 lines with links. It writes nothing.
 
-**You check:** answer the decisions in one reply, e.g. "1 yes, 2 next milestone, 3 yes". The PO records your answers and passes the plan to the Lead.
+**You check:** "waiting for the owner" and "blocked". Answer the decisions in one reply, e.g. "1 yes, 2 next milestone".
 
-## 4. End of day
+When you want it kept, for yourself or a client, type `/progress report` in the PO or the Lead: it saves the same state in `docs/reports/<date>.md` ([template](../../templates/daily-report.md)) and sends you the link.
 
-**Ask the PO** (or let it run on its own):
-> End-of-day report.
-
-**Claude does:** collects the Lead's report into the same file: done, in progress, blocked, items taken in, buffer left, PRs waiting, risks.
-
-**You check:** read it; no reply needed unless something is blocked on you.
-
-## 5. Something urgent comes up
+## 4. Something urgent comes up
 
 **Ask the PO:**
 > `<the new item>`. Can we fit it in this milestone?
@@ -69,13 +62,13 @@ A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's 
 
 **You check:** accept, defer, or move the date.
 
-## 6. The date is at risk
+## 5. The date is at risk
 
 **Claude does:** the PO proposes these steps on its own, in order: (1) use the buffer, (2) move the lowest-priority CR to the next milestone, (3) move the date.
 
 **You check:** choose. Only you can move the date.
 
-## 7. Test by change level
+## 6. Test by change level
 
 **What it does:** tests exactly what the change level requires, so small changes cost little and risky ones are covered. The level is confirmed before any test starts.
 
@@ -98,14 +91,14 @@ A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's 
 
 Full regression runs on `staging` before every release, whatever the levels.
 
-## 8. Build modes
+## 7. Build modes
 
 **What it does:** keeps day-to-day work fast and every merge controlled.
 
 | Type | When | Tests | Merge |
 |---|---|---|---|
 | `/build try [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
-| `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 7) | A PR the Lead merges; the Lead closes the issue when CI on `dev` is green |
+| `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 6) | A PR the Lead merges; the Lead closes the issue when CI on `dev` is green |
 | `/release demo` | You want to show the milestone to someone | Full: regression, Docker, your acceptance scenarios | No tag; the demo runs the `:dev` image |
 | `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
 

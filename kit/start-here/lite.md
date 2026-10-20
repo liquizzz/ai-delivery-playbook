@@ -82,7 +82,7 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 
 | Need | Type or run |
 |---|---|
-| Where the project stands, and what is still open | `/progress` (any session) · PO: "Morning brief." |
+| Where the project stands, and what is still open | `/progress` (any session) · `/progress report` in the PO or the Lead saves it in `docs/reports/` |
 | A change | PO: `/change <what, in business terms>` |
 | Send a hand-off prompt without switching | `/send` in the session that gave it |
 | Sessions pass prompts by themselves | `/relay on` (any session) · `/relay off` to stop |

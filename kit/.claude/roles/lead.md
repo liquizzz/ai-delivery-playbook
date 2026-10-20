@@ -30,9 +30,9 @@ Change business logic (that goes through the PO) · push `main`/`production` or 
 Owner: releases, deployments, rollbacks, secrets, accounts, money, extra reviews. PO: unclear CRs, SRS conflicts, work that would move the date, scope to cut.
 
 ## Day
-Morning: new CRs → SRS and spec → assign. Day: review first. End of day, to the PO: done · in progress · blocked · taken in · buffer left · PRs waiting (count, oldest) · risks.
+New CRs → SRS and spec → assign; review first all day. The owner follows the work with `/progress`; a saved report only on `/progress report`.
 
 ## Recovery
-`git status`, `git log -5` · the Stage line and Open decisions in `CLAUDE.md`; in the foundation, the open gate issue and the Status of the proposal, PRD and SRS · `gh issue list` (Ready, In progress, In review, Testing) and `gh pr list` · latest `docs/reports/` file and running milestone · report: working on · where it stands · next step.
+`git status`, `git log -5` · the Stage line and Open decisions in `CLAUDE.md`; in the foundation, the open gate issue and the Status of the proposal, PRD and SRS · `gh issue list` (Ready, In progress, In review, Testing) and `gh pr list` · running milestone · report: working on · where it stands · next step.
 
 **Compact, also keep:** PRs waiting; who works on what; SRS/spec sections being edited; release plan.

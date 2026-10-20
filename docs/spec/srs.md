@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.13 · **Status:** First draft; describes `main` after the board flow fix (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.14 · **Status:** First draft; describes `main` after the daily reports were dropped (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.13 | (this commit) | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Same seven board columns at every level; the Testing column stays empty at Lite (FR-072, FR-044) |
+| 0.14 | (this commit) | 2026-10-20 | DEC-060 | §3, §7, §8 | Morning brief and end-of-day report removed; `/progress report` saves a report on request (FR-052) |
+| 0.13 | 40e5f58 | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Same seven board columns at every level; the Testing column stays empty at Lite (FR-072, FR-044) |
 | 0.12 | 432fb38 | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Board: review loop back to In review, docs PRs on the board, Testing column at Full (FR-072, FR-044) |
 | 0.11 | 7793518 | 2026-10-20 | DEC-058 | All | Commands renamed: `/brief` to `/next`, `/build dev` to `/build try`, `/pass` to `/send`, `/msg` to `/relay` |
 | 0.10 | da6fce3 | 2026-10-20 | DEC-057 | §3.4, §8 | `/pass` and `/msg on|off` (now `/send` and `/relay`), hand-off tips shown three times (FR-071) |
@@ -175,7 +176,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 |---|---|---|---|
 | FR-050 | Work changing hands shall get a hand-off comment on the issue in the fixed format, and the receiving session shall comment `Started #n` | DEC-035 | Issue comments |
 | FR-051 | A report that hands work over shall end with the session to open, its folder, and a short prompt alone in a code block, nothing after it | DEC-036 | Kit commands use the block |
-| FR-052 | `/progress` shall report, read-only and from live state, the stage, open decisions, work done since the last tag, work in progress, what waits for the owner, CI, and the next step; before setup it shall say setup is not done | DEC-037 | `progress.md` |
+| FR-052 | `/progress` shall report, read-only and from live state, the stage, open decisions, work done since the last tag, work in progress, what waits for the owner, CI, and the next step; before setup it shall say setup is not done; with `report`, in the PO or the Lead, it shall also save the reply as `docs/reports/<date>.md` | DEC-037, DEC-060 | `progress.md` |
 | FR-053 | Every file, issue, PR, run and board mentioned to the owner shall be a clickable link; a page outside GitHub needs the owner's OK | DEC-023 | `CLAUDE.md` rule |
 | FR-054 | Sessions shall check live state before reporting it, never run commands that wait for input, and show a page only after checking it themselves | DEC-024, DEC-039 | `CLAUDE.md` rules |
 
@@ -236,6 +237,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 |---|---|---|---|
 | Starter level (one session, one brief for G1-G3, no PRs) | d280151 | DEC-012 | Slower than three sessions and hides the hand-offs |
 | `/status` command | d280151 | DEC-037 | Clashed with Claude Code's `/status`; now `/progress` |
+| Morning brief and end-of-day report (PO, `docs/reports/` every day) | (this commit) | DEC-060 | Never written in round 3; `/progress` covers it, `/progress report` saves one |
 | Stack question at setup | d280151 | DEC-027 | The stack is chosen at G3, after the design |
 | `docker compose up` at G1 | d280151 | DEC-027 | No app exists before the stack |
 | `docs/design/look-and-feel.html` path | d280151 | DEC-027 | UI/UX may only write `design/` |

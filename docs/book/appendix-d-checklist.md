@@ -25,18 +25,16 @@
 
 | # | Step | Session | Output | Check |
 |---|---|---|---|---|
-| 10 | Morning brief and decisions | PO | `docs/reports/<date>.md` | Your answers recorded |
-| 11 | CR for each request | PO | CR issue → `docs/product/cr/` | Approved (PO, or you for L2-L3) |
-| 12 | SRS and spec before code | Lead | `docs/tech/srs.md`, `docs/tech/spec/` | Merged into `dev` |
-| 13 | Tasks | Lead | Sub-issues with level, estimate | Definition of Ready |
-| 14 | Build | Dev | PR with `Closes #n`, confirmed level | CI green, Lead review |
-| 15 | Test by confirmed level | Dev / Test | Result on the issue | Level line on the issue |
-| 16 | Merge | Lead | Squash merge into `dev` | Definition of Done; G4 when all tasks are done |
-| 17 | End-of-day report | PO | Same report file | Buffer left shown |
-| 18 | Regression on staging | Test | `docs/tech/test-reports/vX.Y.Z.md` | G5 |
-| 19 | Owner acceptance | PO writes, you try | Scenarios in `docs/releases/vX.Y.Z.md` | Every scenario confirmed by you |
-| 20 | Release | Lead | `CHANGELOG.md`, SRS revision, `docs/releases/vX.Y.Z.md`, tag | G6, your approval |
-| 21 | Log | Lead | Line in `docs/ai-log.md` | One line per finished task |
+| 10 | CR for each request | PO | CR issue → `docs/product/cr/` | Approved (PO, or you for L2-L3) |
+| 11 | SRS and spec before code | Lead | `docs/tech/srs.md`, `docs/tech/spec/` | Merged into `dev` |
+| 12 | Tasks | Lead | Sub-issues with level, estimate | Definition of Ready |
+| 13 | Build | Dev | PR with `Closes #n`, confirmed level | CI green, Lead review |
+| 14 | Test by confirmed level | Dev / Test | Result on the issue | Level line on the issue |
+| 15 | Merge | Lead | Squash merge into `dev` | Definition of Done; G4 when all tasks are done |
+| 16 | Regression on staging | Test | `docs/tech/test-reports/vX.Y.Z.md` | G5 |
+| 17 | Owner acceptance | PO writes, you try | Scenarios in `docs/releases/vX.Y.Z.md` | Every scenario confirmed by you |
+| 18 | Release | Lead | `CHANGELOG.md`, SRS revision, `docs/releases/vX.Y.Z.md`, tag | G6, your approval |
+| 19 | Log | Lead | Line in `docs/ai-log.md` | One line per finished task |
 
 ## When needed
 
@@ -48,4 +46,4 @@
 | Trace a change | Lead | [6](06-continuity.md) |
 | Move from Lite to Full | Lead | [8](08-lite-mode.md) |
 
-In Lite there is no staging, so step 18 does not apply and step 17 is optional. Step 6 is done by the Lead, and step 19 (your acceptance) is never skipped.
+In Lite there is no staging, so step 16 does not apply. Step 6 is done by the Lead, and step 17 (your acceptance) is never skipped.

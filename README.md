@@ -46,7 +46,7 @@ The book gives each step as prompts (what to say, what Claude asks back, what it
 | 1 | [Setup](docs/book/01-setup.md) | Start a project, connect GitHub, open the first sessions |
 | 2 | [The team](docs/book/02-the-team.md) | Know who does what, how code moves, what the guardrails block |
 | 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1-G3) |
-| 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, run the morning plan, keep the milestone on date |
+| 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, follow progress, keep the milestone on date |
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
 | 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds (to you or a client) while the product is built |
