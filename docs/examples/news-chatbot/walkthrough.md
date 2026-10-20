@@ -1,6 +1,6 @@
 # Walkthrough: news chatbot (Full level)
 
-A real, small project run with the kit, recorded step by step as it happens. The client is a regional newspaper; names, domains and internal numbers are left out. Each step has two views: what the owner did and what the AI did, and what an observer noticed (findings for the kit are tagged R3-n).
+A real, small project run with the kit, recorded step by step from init to the demo release. The client is a regional newspaper; names, domains and internal numbers are left out. Each step has two views: what the owner did and what the AI did, and what an observer noticed (findings for the kit are tagged R3-n).
 
 **Product:** an AI chatbot widget embedded in the newspaper's website. It answers readers in Vietnamese from the paper's own articles, with sources, and refuses or redirects sensitive questions.
 **Level:** Full (PO, Lead, then Dev, Test, UI/UX). **Owner:** one person with an IT background, working in Vietnamese. **Repo:** private.
@@ -18,6 +18,13 @@ A real, small project run with the kit, recorded step by step as it happens. The
 | 8. Estimate in AI time | Lead | about 3 min | v0.1.0 from 12 developer days to 11 h of AI time (15.5 h with buffer) |
 | 9. First tasks (#12, #13, #21) | Dev1, Test, Lead | about 70 min | Backend scaffold and AI provider layer merged after review; eval sets and harness in progress |
 | 10. Free AI key limits | Dev1, Lead | about 10 min | Model switched; a paid key left as a decision for v1.0.0 |
+| 11. Sync and search (#14, #38, #15) | Dev1, Lead | about 70 min | Article sync and keyword search merged; free embedding quota found too small |
+| 12. Three changes in one talk (CR-44, CR-48, CR-49) | Lead, PO | about 35 min | Self-hosted embedding model, FAQ-first answers, an anonymous question log |
+| 13. Answers, embedding, FAQ (#16, #46, #50, #63) | Dev1, Lead | about 4.5 h, 1 h 46 min of it a first load | Verified streaming answers, self-hosted search, the client's FAQ imported |
+| 14. Log, safety, history (#51, #17, #18) | Dev1, Lead | about 2 h | Three L3 tasks, each with code review and security review |
+| 15. Demo page and widget (#20, #19) | Dev1, Lead | about 2 h | A mock of the paper's page with the widget embedded |
+| 16. Eval and clean-up (#81, #21) | Test, Dev1, Lead | about 70 min | Eval sets and harness merged; every v0.1.0 task closed |
+| 17. Demo release | Lead, Test | about 35 min, the owner's try that night | G4 approved; regression 81 of 116 passed, AI cases blocked; demo shown, v0.1.0 not tagged |
 
 ## 0. init
 
@@ -139,6 +146,95 @@ A real, small project run with the kit, recorded step by step as it happens. The
 **AI:** Dev1's live check found that the default model hung or returned errors while streaming, and that the web-search tool is not available on the free key. It compared streaming across pinned models and proposed one that works. The Lead accepted the model as a technical call and offered three options for official sources: a paid key, a programmable search service, or the free key for the demo. The owner kept the free key, and the paid key became a decision issue for v1.0.0.
 **Observer:** the free-tier risk was listed at G3, but only a live call showed which features it blocks. A short live check of each outside service belongs in G3 (R3-39).
 
-## Where it stands
+## 11. Sync and search (Dev1, Lead)
 
-Two of the ten v0.1.0 tasks are merged (#12, #13). The sync task (#14) and the eval work (#21) are in progress, and `/release demo` has not run yet. The walkthrough continues with the rest of the build, the demo release and the client's acceptance.
+**Owner:** approved each merge in the Lead. In Dev1, asked for real vectors for every article with the free key, then for the sync bug to be fixed before search. When the free quota ran out, decided: "Don't wait for vectors. Do #15 now with keyword search for the rest."
+**AI:**
+- **Dev1, #14 (sync, L2):** loaded the restored article set, resumed after a kill, skipped a second run started at the same time, and read the first incremental batch. It also found and fixed an image bug from #12: a system library the database driver needs had been removed. CI now checks it. The Lead's review found two required fixes, one of them that PostgreSQL splits Vietnamese compound words on `_`. Dev1 fixed them in five minutes.
+- **Dev1, the quota:** measured the free embedding limits: 100 texts a minute and 1,000 a day. The first load would take about eight days. It also found a defect in its own merged code: a group of articles was saved only when every text was embedded, so the second request always hit the limit and the whole group rolled back. The Lead opened #38 (defect, L2) and suggested committing per request; Dev1 fixed it in 25 minutes.
+- **Dev1, #15 (search, L2):** keyword search that matches every word first and then any word, so common words no longer bury exact matches. The Lead asked for a switch that turns vectors off while the provider is open. Merged in 20 minutes.
+**Observer:**
+- Dev1 and the Lead passed every review, fix and "merged, next #n" to each other through the desktop app's messages. The owner's part was one line in the Lead per PR: "Agreed, merge PR 37 into dev." From here to the demo the owner typed about 30 such lines for 33 PRs (R3-40).
+- The free tier's limits showed only under real load, as in step 10 (R3-39).
+
+## 12. Three changes in one talk (Lead, PO)
+
+**Owner:** after the free embedding quota failed, asked the Lead for options and approved a self-hosted Vietnamese embedding model (BGE-M3 based): "Create the CRs for Dev." Then narrowed the demo: no outside sources, answers only from the paper's content, a high score threshold lowered later with real data, and no answer for questions outside the paper. Asked whether the FAQ part needs AI, since readers ask the same thing in many ways (lost ID card, lost citizen card, lost old ID), and agreed it does. Added later needs: questions must be logged; each FAQ entry needs a field for equivalent phrases the editors can extend; the editors can add questions and answers. Closed with "lock, write it down and hand it to PO, Dev and Test".
+**AI:**
+- The Lead compared the providers, explained that a CPU server is enough for the model and that classifying, grading and writing the answer still need Gemini.
+- It asked the PO for the CR and the DEC with the owner's words quoted. The PO opened CR-44 (#44) with DEC-009 in PR #45; the Lead caught one claim of its own that the PO had copied (only the embedding step stays on the server, the questions still go to Gemini) and had it reworded. The Lead wrote ADR-0006, the SRS rows and the spec in PR #47 and put task #46 in Ready.
+- For the answer flow the PO opened CR-48 (FAQ first, a 0 to 100 score, Google dropped) and CR-49 (an anonymous question log kept 12 months, L3) with DEC-010. The Lead wrote ADR-0007 and the spec, created #50 and #51, told Dev1 which part applies to #16 now, and told Test to change the expected values in the eval sets.
+**Outcome:** about 35 minutes from the first question to six merged documents and three new tasks.
+**Observer:**
+- Each change went through a decision issue, a CR, a DEC, an ADR, the spec and the tasks, each quoting the owner.
+- Every CR made two docs PRs, one from the PO and one from the Lead (#45 and #47, #53 and #52, #55 and #56), and the owner approved each one. None of the docs PRs had a card on the board (R3-41).
+- After G2 the PO only turned the Lead's notes into CR files. The owner held every technical talk with the Lead and asked: "Does the PO have any role here?" (R3-42).
+
+## 13. Answers, embedding, FAQ (Dev1, Lead)
+
+**Owner:** kept the free key and accepted slow answers for the demo. Sent the client's approved FAQ spreadsheet, reviewed the FAQ table and the article table, and asked for a generated `uuid` on each article, so that a new CMS later only needs a new sync while the old id keeps the URLs.
+**AI:**
+- **#16 (answer pipeline, L3):** Dev1 measured the first sentence at 12 seconds on the default model, which also returned "high demand" on about half the calls, and proposed a lighter model: about 4.7 seconds. The Lead's review asked for three fixes, among them a rule that a wrong place, person or period scores 40 at most. After the fixes a question about a different city returned "not found" instead of a wrong answer. Merged in 47 minutes.
+- **#46 (self-hosted embedding, L2):** the model server allows batches of 8 only. Dev1 tried two memory settings, chose the one that stays near 4 GB, set a memory limit, and ran the first load: 1 hour 46 minutes. While the load ran, a reader's question waited behind it (6 seconds). Dev1 sent one text per request instead, and the Lead accepted 0.85 seconds under load.
+- **#50 (FAQ first, L2):** migrations, the import from the client's spreadsheet, one grading call, and the FAQ answer shown word for word with its label. The review asked for five fixes, including skipping draft answers and keeping vectors when the model version changes. Merged in 70 minutes, with the import and the table design added on the way.
+- **#63 (article uuid, L1):** 12 minutes.
+**Observer:**
+- The Lead returned #46 with six fixes. The card stayed in In progress after the fixes were pushed and went straight to Done when the issue closed; the board never showed the second review (R3-43).
+- The Lead refused a merge approval that Dev1 passed on from the owner: "the owner has to confirm in my session". The owner then typed it in the Lead (R3-44).
+- Dev1 ran the one-hour load in the background and kept working; the owner asked twice "is it done yet?" (R3-45).
+
+## 14. Log, safety, history (Dev1, Lead)
+
+**Owner:** typed "do #51", "do #17", "do #18" in Dev1 when each hand-off arrived. Approved masking of ID card and bank account numbers in the log, the over-limit message, and separate per-IP limits (30 questions in 10 minutes, 200 a day, 0 turns a window off, off for the demo).
+**AI:**
+- **#51 (question log, L3):** the Lead ran code review and security review. Phone numbers next to punctuation were not masked; Dev1 fixed that and three more items. 35 minutes.
+- **#17 (sensitive content, L3):** Dev1 ran the sensitive set on real Gemini three times: no leaks, no false blocks. The review found one must-fix: the emergency line was missing when a question was both blocked and an emergency. 60 minutes.
+- **#18 (history and limits, L3):** history, delete, feedback, a 60-day purge, a lookup command and limits. 85 minutes.
+**Observer:**
+- After each merge Dev1 asked the owner before starting the next task, so a one-word reply started every task (R3-40).
+- Dev1 asked about "#17" with the number alone; the owner did not remember which task it was (R3-46).
+
+## 15. Demo page and widget (Dev1, Lead)
+
+**Owner:** typed "do #20", then "do #19".
+**AI:**
+- **#20 (demo page, L1):** a page that looks like the paper's site, served by nginx, with the embed tag ready. 30 minutes.
+- **#19 (widget, L2):** Dev1 loaded `frontend-design` and built the widget in a Shadow DOM from `design-v1`: 9.7 KB gzipped, checked on the demo page on desktop and at 375 px, with live Gemini, and with the app stopped and started again. 120 minutes against an estimate of one hour, the only task that overran.
+**Observer:** #12 to #16 took 2 hours 15 minutes against 5.5 hours estimated. The milestone's buffer went negative on paper while the work stayed ahead of plan (R3-34).
+
+## 16. Eval and clean-up (Test, Dev1, Lead)
+
+**Owner:** told the Lead "have Dev finish everything". In Dev1, chose the widget clean-up (#81) first. Then started #21 in the Test session as well, and stopped Dev1 when it began the same task: "Don't redo #21."
+**AI:** the Lead opened `eval/` and the test-case folder to Dev (PR #80) and handed #21 to Dev1. Test built sets A, B and C (article questions, adversarial, sensitive), the harness with FAQ metrics and the test cases per module (PR #83). After #81 changed how the legal note is sent, the Lead's review asked Test to read it from the new field. The Lead filled the SRS test-case column and added the eval tests to CI.
+**Outcome:** every v0.1.0 task closed.
+**Observer:** the same task was handed to two sessions; one was stopped only because the owner noticed (R3-47).
+
+## 17. Demo release (Lead, Test)
+
+**Owner:** typed `/release demo` in the Lead and approved G4. When Test reported the AI blocked, kept the free key and asked for one probe call before each eval run. When the probe took 21 seconds: "Skip the test, build a trial release." That night chose "stop at the demo, do not release v0.1.0", tried a question and sent two notes.
+**AI:**
+- The Lead checked G4, added one missing CHANGELOG line (PR #85), merged `dev` into `staging` and asked Test for the regression.
+- Test ran it on its own stack built from `staging`: 116 cases, 81 passed, 1 failed (#86, low: the log loses an error row when the reader disconnects right after the error), 28 blocked, 6 not run. A single Gemini call took 25 to 29 seconds against a 30-second timeout, so most AI cases ended in "Chatbot is busy". Test stopped the eval to save quota. Asked to build the release, it refused because release is the Lead's work, and wrote the owner's decision and the risks into the report.
+- The Lead merged the report (PR #87), tagged the CI images as `demo-0.1.0` and gave the demo link. No git tag, nothing on `main`.
+- On the owner's notes: an FAQ answer linked to the home page, and the progress texts should say "content" without a count. The Lead opened #88 for the texts and left the FAQ links until the owner checks the spreadsheet.
+**Observer:**
+- The demo ran on Dev1's stack on port 8091, because the articles and vectors were in Dev1's database. The kit had no command to run a version with its data on the standard port (R3-48).
+- G5 was not met. The skipped eval is recorded in the test report and on #10, and nothing was tagged, so the waiver could not reach a release (R3-49).
+- The board's Testing column stayed empty all milestone: Test only ran the regression at the end (R3-50).
+- `docs/reports/` stayed empty. No session wrote a daily report, and the owner never asked for one.
+
+## How it ended
+
+The build of v0.1.0 took one day: 20 tasks and about 40 PRs between the first task in the morning and the demo at night, one Dev, with three CRs taken in along the way. The demo answers from the paper's articles and FAQ, refuses sensitive questions and works on a phone. The eval and the v0.1.0 tag wait for a paid AI key (decision #35); the free key's quota ran out before the AI cases could run. Still open: #86, #88, the FAQ links, the production server (#22).
+
+## What changed in the kit
+
+| Finding | Kit change |
+|---|---|
+| R3-40: the owner approved every merge and started every task by hand | `/auto`: the Lead merges L0 to L2 after its review and green CI, and sessions pass prompts to each other (DEC-061) |
+| R3-41, R3-43, R3-50: docs PRs with no card, a second review not shown, an empty Testing column | Same seven columns at every level, Needs changes moves the card back, PRs without a task go on the board, Test checks each merged task at Full (DEC-059) |
+| R3-46: a bare issue number | Every issue or PR number is a link with its short title and CR (DEC-064) |
+| R3-48: the demo needed Dev1's stack and port | `node scripts/run.mjs <version>` and healthchecks in Docker (DEC-062) |
+| Empty reports folder | No daily reports; `/progress report` writes one when the owner wants it (DEC-060) |
+| Opening each session by hand | The Lead opens the next session in its worktree on the owner's yes (DEC-065) |
+| R3-42: the PO after G2 | Open: the owner is still deciding whether the PO stays after G2 |
