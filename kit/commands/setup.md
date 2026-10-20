@@ -25,7 +25,7 @@ Finish the setup of this Crewbook project. You are the Lead (check `.claude/role
    - commit, merge into `dev`, push.
 4. From your own worktree, create the team's folders: `node scripts/new-role-worktree.mjs po` (Lite: also `dev1`). Full: UI/UX joins at G3 for the screens, Dev and Test when G3 is approved.
 5. Check live state: `gh run list --limit 3`. If no run exists, tell the owner to open the repo's Actions tab and click "Enable Actions on this repository", then check again.
-6. Report in a few lines what was set up and what is still open, with links; if you enabled plugins, "Run `/reload-plugins`". End with the hand-off block for the PO (format in `CLAUDE.md`), for example:
+6. Report in a few lines what was set up and what is still open, with links; if you enabled plugins, "Run `/reload-plugins`". Then open the PO's session for the owner (rule "Opening sessions" in `CLAUDE.md`, first message `/next`, which shows the PO's guide and waits for the idea); if the owner opens it themselves, end with the hand-off block for the PO (format in `CLAUDE.md`), for example:
 
    **Next:** open "<Project> - PO" (folder `<po worktree>`) and paste:
    ```

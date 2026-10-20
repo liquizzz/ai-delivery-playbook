@@ -37,7 +37,7 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 
 **Claude does:** creates the worktree `<project>-wt/dev1` on `role/dev1` with its local port and the secrets you set; assigns the first Ready issues to it; ends with the folder and the prompt in a box.
 
-**You do:** open a session in that folder titled `<Project> - Dev1` and paste the prompt. The session knows its role when it starts.
+**You do:** say yes when the Lead offers to open the session: in Claude Code desktop it opens `<Project> - Dev1` in that folder, already given its prompt, as a session of its own. In the CLI, or if you prefer, open it yourself and paste the prompt. The session knows its role when it starts.
 
 **You check:** the session lists its assigned issues and starts the first one.
 
@@ -80,19 +80,15 @@ A blocked session sees the reason and changes course. An approval request appear
 | Automation | What happens on its own | What you still do |
 |---|---|---|
 | 1 By hand (`/auto relay off`, `/auto merge off`) | Each open session takes its assigned issues, works, hands off on the issue and ends with a prompt for the next session | Paste each prompt (or `/send` it); approve every merge, gate and release |
-| 2 Default | Each session sends the next one its one-line prompt when a step ends (Claude Code desktop can send messages between local sessions); the Lead merges L0-L2 PRs after its review and green CI | Keep the sessions open; answer the questions sessions ask; approve gates, L3 PRs and releases |
-| 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
-| 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
+| 2 Default | Each session sends the next one its one-line prompt when a step ends (Claude Code desktop can send messages between local sessions); the Lead merges L0-L2 PRs after its review and green CI; a session that is needed and not running is opened for you, in its folder and with its name, as a session of its own | Say yes once to each session the Lead opens; answer the questions sessions ask; approve gates, L3 PRs and releases |
+| 3 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
 At automation 2 every session names in its recap what it sent and what it merged ("Sent to Lead: Review the PR for #46.", "Merged PR #58 (L2), CI green."), so you can read what happened. A message costs little: the prompt is one line and the receiving session reads the issue and the documents, as it would if you pasted it. At automation 1 you carry the work yourself: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there, or send with `/send` from the same session. The first few blocks show a one-line tip about `/send` and `/auto relay on`; it stops once you have used either. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
 
-**Type** `/auto relay off` and `/auto merge off` in any session to go back to automation 1, and `on` to return. **Ask the Lead** for automation 3 (the recommended maximum):
-> From now on, open the receiving session yourself if it is not running.
-
-**Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
+**Type** `/auto relay off` and `/auto merge off` in any session to go back to automation 1, and `on` to return. A session the Lead opens is detached at once, so it runs on its own like one you opened yourself; the app asks for your yes before each new session, and the first time a folder opens it may ask whether you trust it.
 
 Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; gates, L3 PRs and releases always wait for you; every running session uses tokens.
 
-> **Token tip:** automation 2 and 3 add almost no cost: a message only wakes a session when there is real work. Avoid automation 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
+> **Token tip:** automation 2 adds almost no cost: a message only wakes a session when there is real work. Avoid automation 3; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
 
 Next: [Chapter 3: Foundation](03-foundation.md).

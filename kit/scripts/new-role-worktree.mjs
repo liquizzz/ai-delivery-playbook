@@ -92,4 +92,4 @@ const title = { po: "PO", uiux: "UI/UX", devops: "DevOps" }[role] || role[0].toU
 console.log(`
 Worktree ready: ${wtDir}
 Branch: ${branch}${PORTS[role] ? ` · local port ${PORTS[role]}` : ""}
-Next: open a Claude Code session in that folder and name it "${name} - ${title}". It knows its role when it starts.`);
+Next: the Lead can open the session for you; otherwise open a Claude Code session in that folder and name it "${name} - ${title}". It knows its role when it starts.`);
