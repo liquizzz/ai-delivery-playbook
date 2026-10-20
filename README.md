@@ -32,6 +32,26 @@ The first time, install the tools listed in How to run (once per machine). Then 
 | Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check, a full test run of each release before it goes out), or back, without redoing anything |
 | Releases you can run anywhere | Each version tag builds a Docker image; `node scripts/run.mjs v0.1.0` runs it, or rolls back to an older tag |
 
+## The best tool for each stage
+
+No single plugin is best at everything. Crewbook picks one for each stage and tells each session when to use it, so you never choose a skill yourself.
+
+| Stage | Tool | Why this one |
+|---|---|---|
+| Ideas and interviews | superpowers `brainstorming` | One question at a time, options explored before anything is written |
+| Look and feel | ui-ux-pro-max | Searches real styles, palettes and fonts for 2-3 directions |
+| Screens | frontend-design | Screens that look designed, in the direction you picked |
+| Library facts | context7 | Current documentation in place of guesses |
+| Planning | superpowers `writing-plans` | A milestone split into small tasks (the kit caps each at 2 hours of AI time) |
+| Code | superpowers `test-driven-development` | Tests first, sized to the change level |
+| Failures | superpowers `systematic-debugging` | The cause is found before code changes |
+| Review | `code-review`, `security-review` for L3, Codex on request | A second look at every PR |
+| "Done" | superpowers `verification-before-completion` | Evidence before anything is called done |
+| Memory | claude-mem | A restarted session finds its context |
+| Documents | humanizer | Documents that read like a person wrote them |
+
+Some skills are left out on purpose: the superpowers skills for worktrees, branch finishing and subagents, because the kit's own worktrees, roles and merge rules do that job.
+
 ## What you still decide
 
 You do not need to program: the sessions write the code. You still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). You need the tools listed in [How to run](HOW-TO-RUN.md): Claude Code, Git, Node.js, Docker and the GitHub CLI, plus a GitHub account (the free plan is enough). Where the Docker images run in production is up to you ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
@@ -74,7 +94,7 @@ Vibe coding ships whatever the last prompt produced. In Crewbook every change ha
 Each role (PO, Lead, Dev, and Test, UI/UX or DevOps when needed) runs in its own session and git worktree, and a guard hook keeps it inside its role. The process covers the whole delivery: proposal, requirements (SRS), design, build, release, change requests and rollback, with six gates (G1 to G6).
 
 **How is Crewbook different from BMAD-METHOD or spec-kit?**
-All three start from a spec. Crewbook leads you one step at a time: one command per stage, a START-HERE file that lists every step, and at the end of each step the session tells you, or sends the next session, what comes next. You can approve without reading code: each gate shows what to try yourself, what a wrong result looks like and what the tests already prove, and routine changes merge on their own while anything touching money, security or personal data waits for you. The result is a real project, with a branch per role, reviewed pull requests, a kanban board, CI, tagged releases and a Docker image you run with one command. For a quick prototype spec-kit is faster; Crewbook is for software you will hand over, maintain or show a client.
+All three start from a spec. Crewbook uses the plugin that does each stage best (superpowers for brainstorming and test-first code, ui-ux-pro-max and frontend-design for the look and the screens, context7 for library facts) in place of one framework for everything. It leads you one step at a time: one command per stage, a START-HERE file that lists every step, and at the end of each step the session tells you, or sends the next session, what comes next. You can approve without reading code: each gate shows what to try yourself, what a wrong result looks like and what the tests already prove, and routine changes merge on their own while anything touching money, security or personal data waits for you. The result is a real project, with a branch per role, reviewed pull requests, a kanban board, CI, tagged releases and a Docker image you run with one command. For a quick prototype spec-kit is faster; Crewbook is for software you will hand over, maintain or show a client.
 
 **What stack does it use?**
 Any. The Lead proposes a stack after you approve the design, and you choose.
