@@ -28,7 +28,7 @@ function scenario(name, { lastTag, issues, srs = true, crlf = false }) {
   if (srs) {
     fs.mkdirSync(path.join(dir, "docs", "tech"), { recursive: true });
     fs.writeFileSync(path.join(dir, "docs", "tech", "srs.md"),
-      "# SRS\n\n**Version:** 0.0.0 · **Status:** Baseline · **Last updated:** 2026-01-01\n\n<!-- revision-history -->\n| SRS version | Release | Date | CRs | Sections changed | Summary |\n|---|---|---|---|---|---|\n| Unreleased | — | — | CR-12 | §3.1 | Login |\n| 0.0.0 | — | 2026-01-01 | — | All | Baseline |\n");
+      "# SRS\n\n**Version:** 0.0.0 · **Status:** Baseline · **Last updated:** 2026-01-01\n\n<!-- revision-history -->\n| SRS version | Release | Date | CRs | Sections changed | Summary |\n|---|---|---|---|---|---|\n| Unreleased | n/a | n/a | CR-12 | §3.1 | Login |\n| 0.0.0 | n/a | 2026-01-01 | n/a | All | Baseline |\n");
   }
   if (crlf) {
     // A Windows working copy with core.autocrlf=true has CRLF line endings.
@@ -59,7 +59,7 @@ let r = scenario("first release, feature", { lastTag: null, issues: [{ number: 1
 check("feature from v0.0.0 → v0.1.0", r.out.includes("v0.0.0 → v0.1.0 (MINOR)"));
 check("changelog: Unreleased kept and version section added", /## \[Unreleased\]\n\n## \[0\.1\.0\] - \d{4}-\d{2}-\d{2}\n### Added\n- Login page/.test(r.changelog));
 check("SRS version updated", r.srs.includes("**Version:** 0.1.0"));
-check("SRS Unreleased row turned into 0.1.0 and a fresh Unreleased row added", /\| Unreleased \| — \| — \| \| \| \|\n\| 0\.1\.0 \| v0\.1\.0 \| \d{4}-\d{2}-\d{2} \| CR-12 \| §3\.1 \| Login \|/.test(r.srs));
+check("SRS Unreleased row turned into 0.1.0 and a fresh Unreleased row added", /\| Unreleased \| n\/a \| n\/a \| \| \| \|\n\| 0\.1\.0 \| v0\.1\.0 \| \d{4}-\d{2}-\d{2} \| CR-12 \| §3\.1 \| Login \|/.test(r.srs));
 
 r = scenario("fix only", { lastTag: "v1.3.2", issues: [{ number: 88, title: "Crash", labels: L("defect", "type:fix") }] });
 check("fix only from v1.3.2 → v1.3.3", r.out.includes("v1.3.2 → v1.3.3 (PATCH)"));

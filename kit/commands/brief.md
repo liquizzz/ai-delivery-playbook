@@ -25,12 +25,24 @@ Run the next foundation step of this Crewbook project. The owner's idea, if give
    > 6. Constraints: systems it must work with, budget, traffic, deadline, a product you want to copy or beat.
    > Say "suggest" for ideas, "later" for anything you have not decided.
 
-   > **PRD: what you need to say**: the must-haves, the non-goals, and for each must-have what "done" looks like.
-   > **G3 (Lead): what you need to say**: whether you have a look in mind (a site you like, colours, light or dark), and anything the system must respect (limits, speed, devices, data rules). The Lead drafts the rest from the PRD.
+   > **PRD: what you need to say**
+   > 1. The must-haves: what the first version cannot ship without.
+   > 2. For each must-have, what "done" looks like (something you can try and see).
+   > 3. The non-goals: what you will not build now, and why.
+   > 4. How you will measure success (a number or a check, with a target).
+   > 5. Where the data comes from: typed in, imported, or an existing system.
+   > Say "suggest" for ideas, "later" for anything you have not decided.
+
+   > **G3 (Lead): what you need to say**
+   > 1. Do you have a look in mind? A site you like, colours, light or dark.
+   > 2. Which devices it must work on (phone, desktop, both).
+   > 3. Limits the system must respect: speed, number of users, data rules, systems it must work with.
+   > 4. Anything the stack must or must not use (if you or your client require it).
+   > The Lead drafts the rest from the PRD. Say "suggest" for ideas, "later" for anything you have not decided.
 
    When the owner names a product to copy or beat, try it first (Skills table in `CLAUDE.md`). Check facts the owner gives when it is cheap. Ask only what is missing or unclear, then "Anything else? Want me to suggest more?"; before inviting "lock", show the gate checklist with ✅ and ⚠️. Use `superpowers:brainstorming` only when they ask for suggestions. Technical ideas from the PO are marked "for the Lead to confirm at G3" and posted on the G3 issue.
 3. **G3 runs in three parts, in this order** (rule "Design first, stack after" in `CLAUDE.md`):
-   a. **Design the client can see.** For a product with screens, the look and feel (2-3 named directions in `design/look-and-feel.html`, the owner picks) and every main screen and state. Full: propose the UI/UX session for this; on the owner's OK create its worktree from your own (`node scripts/new-role-worktree.mjs uiux`) open a design issue (`role:uiux`) under G3 and hand it over with the hand-off block. Lite: do it yourself. Meanwhile the Lead writes the flows, the data and the integrations. The owner approves the design (with a prototype: tag `design-v1`). Without screens, the design is the flows, data and interfaces.
+   a. **Design the client can see.** For a product with screens, the look and feel (2-3 named directions in `design/look-and-feel.html`, the owner picks) and every main screen and state. Full: propose the UI/UX session for this; on the owner's OK create its worktree from your own (`node scripts/new-role-worktree.mjs uiux`), open a design issue (`role:uiux`) under G3 and hand it over with the hand-off block. Lite: do it yourself. Meanwhile the Lead writes the flows, the data and the integrations. The owner approves the design (with a prototype: tag `design-v1`). Without screens, the design is the flows, data and interfaces.
    b. **Stack:** 2-3 options that fit the design and the NFRs; install the chosen one once on the owner's machine; ADR with the rejected options; fit Docker, CI, Dependabot (and CodeQL on a public repo) to it, so `docker compose up --build` starts the project.
    c. **SRS and plan:** the SRS baseline (Full: also C4, test strategy, eval plan), milestone v0.1.0 as the thinnest end-to-end slice, estimated in AI time (rule "Estimates" in `CLAUDE.md`), the task issues in Ready (`node scripts/board-status.mjs <n> Ready`).
 4. After "lock", ask the one question from "The owner leads" (final, or review first), then write the documents from the templates and check the step's gate with `.claude/commands/gate.md`. An item that waits for someone else (for example a table description from the client) may be approved later: give it an issue, a due date and the step that needs it.

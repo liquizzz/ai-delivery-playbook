@@ -3,8 +3,8 @@
 **Purpose:** ship the product in small releases (milestones), turning each request into tested code without losing control of scope or date.
 
 The rules:
-- A milestone holds a few CRs and ships within days. Only one runs at a time; one more is "next".
-- The plan is set every morning before 10:00; you decide.
+- A milestone holds a few CRs and ships in a day or so. Only one runs at a time; one more is "next".
+- The plan is set at the start of your working day; you decide.
 - Each task has a change level that sets its testing: L0 display · L1 setting · L2 logic in one module · L3 core, money, security, user data, deletes.
 - Estimates are in AI time: what the sessions take to build and test, plus your time for reviews and approvals, plus waits for things only others can give. Until the project has its own numbers, a task takes about 15 min (L0), 30 min (L1), 1 h (L2) or 2 h (L3) of AI time; a milestone that is ready after G3 usually fits in a day. Each closed task records its actual AI time, and the Lead updates the numbers every milestone.
 - The committed date includes a risk buffer (+15% / +25% / +40%). New work in the day is paid from it; when it is used up, work moves to the next milestone or you move the date.
@@ -42,7 +42,7 @@ A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's 
 
 **What it does:** sets today's work and collects every decision you need to make, once a day.
 
-**Ask the PO** before 10:00:
+**Ask the PO** at the start of your working day:
 > Morning brief.
 
 **Claude does:** writes `docs/reports/<date>.md` ([template](../../templates/daily-report.md)): yesterday, milestone status and buffer, new items with a proposal for each, today's plan, decisions needed as a checklist; pushes it and sends you the link.
@@ -106,7 +106,7 @@ Full regression runs on `staging` before every release, whatever the levels.
 |---|---|---|---|
 | `/build dev [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
 | `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 7) | A PR the Lead merges; the Lead closes the issue when CI on `dev` is green |
-| `/release demo` | You need to show the milestone to a client | Full: regression, Docker, your acceptance scenarios | No tag; the client sees the `:dev` image |
+| `/release demo` | You want to show the milestone to someone | Full: regression, Docker, your acceptance scenarios | No tag; the demo runs the `:dev` image |
 | `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
 
 Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review, Done.

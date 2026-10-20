@@ -79,12 +79,12 @@ changelog = unreleased
 const srsPath = "docs/tech/srs.md";
 const srsFile = fs.existsSync(srsPath) ? read(srsPath) : null;
 let srs = srsFile ? srsFile.text : null;
-const crs = issues.filter((i) => has(i, "cr")).map((i) => `CR-${i.number}`).join(", ") || "—";
+const crs = issues.filter((i) => has(i, "cr")).map((i) => `CR-${i.number}`).join(", ") || "n/a";
 if (srs) {
   srs = srs.replace(/\*\*Version:\*\* [^ ·\n]+/, `**Version:** ${version}`).replace(/\*\*Last updated:\*\* [^ ·\n]+/, `**Last updated:** ${today}`);
   srs = srs.replace(/\*\*Status:\*\* [^·\n]*?(?= ·|\n|$)/, `**Status:** Released v${version}`);
   if (/^\| Unreleased \|.*$/m.test(srs)) {
-    srs = srs.replace(/^\| Unreleased \| [^|]* \| [^|]* \|(.*)$/m, `| Unreleased | — | — | | | |\n| ${version} | v${version} | ${today} |$1`);
+    srs = srs.replace(/^\| Unreleased \| [^|]* \| [^|]* \|(.*)$/m, `| Unreleased | n/a | n/a | | | |\n| ${version} | v${version} | ${today} |$1`);
   } else {
     srs = srs.replace(/(<!-- revision-history -->\n\|[^\n]*\n\|[-| ]*\n)/, `$1| ${version} | v${version} | ${today} | ${crs} | <sections> | <summary> |\n`);
   }

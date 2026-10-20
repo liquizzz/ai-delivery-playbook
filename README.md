@@ -22,21 +22,21 @@ The first time, install the tools listed in How to run (once per machine). Then 
 
 | You get | How |
 |---|---|
-| A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree, the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
-| A small team that knows its job | Every project starts with three sessions: PO (your requests), Lead (design, stack, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook blocks risky commands and edits outside the role |
-| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents for a client can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
+| A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree (its own folder of the project, one per session), the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
+| A small team that knows its job | Every project starts with three sessions: PO (your requests), Lead (design, stack, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook (a script that checks every command and edit) blocks risky commands and edits outside the role |
+| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
 | You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, in any order, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it. A product you name is tried in the browser, and facts you give are checked |
-| Design before stack | The client sees the look and feel and the main screens at G3; the stack is chosen after, to fit the approved design |
+| Design before stack | You see the look and feel and the main screens at G3; the stack is chosen after, to fit the approved design |
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, short hand-off prompts, and roles opened only when there is work for them |
-| Quality you can check | Gates you approve, each with a For you block of things to try and links to the evidence, a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
-| Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check), or back, without redoing anything |
+| Quality you can check | Gates you approve, each with a For you block (a few things to try yourself, with links to the evidence), a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
+| Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check, a full test run of each release before it goes out), or back, without redoing anything |
 | Releases you can run anywhere | Each version tag builds a Docker image; you run it, or roll back, by tag |
 
 ## What you still decide
 
-The kit does not teach programming, and it does not replace your judgement: you still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). It needs Claude Code desktop, GitHub (the free plan is enough), Node.js and Docker. Where the Docker images run in production is up to you ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
+You do not need to program: the sessions write the code. You still decide what is right for the business ([chapter 0](docs/book/00-introduction.md#what-this-book-does-not-do)). You need the tools listed in [How to run](HOW-TO-RUN.md): Claude Code, Git, Node.js, Docker and the GitHub CLI, plus a GitHub account (the free plan is enough). Where the Docker images run in production is up to you ([chapter 1](docs/book/01-setup.md#4-run-it-with-docker)). The team does not run by itself: you open the sessions ([chapter 2](docs/book/02-the-team.md#5-how-automatic-it-is)).
 
-The book explains why each step works the way it does, as prompts: what to say to which session, what it asks you back, and what it does. Read it when you want the reasons: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) covers cost.
+The book gives each step as prompts (what to say, what Claude asks back, what it does) and explains why. Read it when you want the reasons: [Chapter 0](docs/book/00-introduction.md) takes 5 minutes, [Appendix D](docs/book/appendix-d-checklist.md) checks that no step was skipped, and [Chapter 9](docs/book/09-token-budget.md) covers cost.
 
 ## The book
 
@@ -49,7 +49,7 @@ The book explains why each step works the way it does, as prompts: what to say t
 | 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, run the morning plan, keep the milestone on date |
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
-| 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds to the client while the product is built |
+| 7 | [Front-end projects](docs/book/07-frontend-projects.md) | Show design rounds (to you or a client) while the product is built |
 | 8 | [Lite mode](docs/book/08-lite-mode.md) | Run with three sessions; move to Full and back |
 | 9 | [Token budget](docs/book/09-token-budget.md) | Keep cost under control; avoid `/goal` and `/loop` |
 | A | [Templates](docs/book/appendix-a-templates.md) | See every document the sessions fill in |

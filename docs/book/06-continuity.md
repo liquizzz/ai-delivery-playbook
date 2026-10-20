@@ -2,13 +2,13 @@
 
 **Purpose:** close, compact or move any session and have it continue within a minute, without retelling anything.
 
-**Why it works:** work lives in GitHub issues (tasks, hand-offs, small decisions), repo documents (SRS, specs, CRs, DECs, ADRs, reports) and git (code). Messages between sessions only notify, with a link. Every decision is written down the moment it is made.
+**Why it works:** work lives in GitHub issues (tasks, hand-offs, small decisions), repo documents (SRS, specs, CRs or change requests, DECs and ADRs, which record business and technical decisions, and reports) and git (code). Messages between sessions only notify, with a link. Every decision is written down the moment it is made.
 
 ## 1. Restart a session
 
 **What it does:** brings a closed or confused session back to its work.
 
-**Ask:** open a new session in the role's worktree. It knows its role and recovers by itself; to be sure, say:
+**You do:** open a new session in the role's folder (its worktree). It knows its role and recovers by itself; to be sure, say:
 > Read CLAUDE.md and continue as `<role>`.
 
 **Claude does:** reads `CLAUDE.md` and its role file; checks `git status` and recent commits; lists its issues and reads the last comment on each (PO and Lead also read the latest report and milestone file); reports in three lines: working on · where it stands · next step.
@@ -25,6 +25,8 @@
 - Done: … · Next for the receiver: … · Notes / risks: …
 ```
 Team members also comment when they start, finish a major part, get blocked or finish.
+
+A session never does another role's work. If you ask one for it, you get a hand-off block instead: the session to open and a prompt in its own code block, which you paste into that role's session.
 
 ## 3. Trace a change
 
@@ -48,7 +50,7 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 **Claude does:** writes any unwritten decision or progress to the issue or document, commits and pushes its branch, confirms.
 
-**You do:** type `/compact`. The compact instructions in `CLAUDE.md` keep role, current issue, branch and last commit, decisions, items waiting for you and open risks. To drop only a side discussion, use rewind → "Summarize from here".
+**You do:** type `/compact`. The compact instructions in `CLAUDE.md` keep role, current issue, branch and last commit, decisions, items waiting for you and open risks. To drop only a side discussion, press Esc twice (rewind) and pick "Summarize from here".
 
 ## 5. Work from a second machine
 
@@ -63,7 +65,7 @@ Team members also comment when they start, finish a major part, get blocked or f
 
 **Claude does:** asks each running session to commit and push its branch; lists the worktrees to recreate.
 
-**You do:** on the new machine clone the repo, open one session in the main checkout and ask:
+**You do:** on the new machine clone the repo and run `node scripts/new-role-worktree.mjs lead` in it. Open the Lead's session in the folder it creates and ask:
 > Recreate the worktrees for `<roles>`.
 
 Then open each role's session with the restart sentence. Fill in each `.env.local` yourself.

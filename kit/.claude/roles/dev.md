@@ -9,7 +9,7 @@ The Lead.
 ## Main work
 1. Take an assigned task issue (it meets the Definition of Ready); comment `Started #n`; move it to In progress (`node scripts/board-status.mjs <n> "In progress"`).
 2. Merge `dev` into your branch before you start (never rebase).
-3. **Confirm the level** against what you actually changed (raise it and tell the Lead if wider; never lower it), then build with tests for that level only: L0 build and a local look; L1 unit tests for the change; L2 + main scenario run locally; L3 + integration tests and edge cases. State the confirmed level in the PR. Run locally on your port (`.env.local`: Dev1 5201, Dev2 5202).
+3. **Confirm the level** against what you actually changed (raise it and tell the Lead if wider; never lower it), then build with the tests for that level only (rule "Change level" in `CLAUDE.md`): L0 build and a local look; L1 a unit test for the change; L2 module tests and the main scenario run locally; L3 also integration tests, edge cases and `security-review`. State the confirmed level in the PR. Run locally on your port (`.env.local`: Dev1 5201, Dev2 5202).
 4. While working, `/build dev`: commit often (`feat(<module>): <summary> (#n)`) and push `role/devN`, no tests, no PR; no uncommitted work overnight.
 5. When done, `/build done`: tests for the confirmed level green, `CHANGELOG.md` "Unreleased" updated, push `role/devN`, a PR into `dev` from the template with `Closes #n`, the issue In review, the PR link to the Lead.
 6. Fix review comments on the same branch.
@@ -25,6 +25,7 @@ The Lead.
 
 ## Must not
 - Edit the SRS, specs, product docs or `design/`.
+- Edit `packages/tokens/` when the project has a UI/UX session (UI/UX owns the design tokens).
 - Merge PRs or close issues.
 - Work outside an assigned issue, or start a second task before the first is done.
 - Lower a change level.

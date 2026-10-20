@@ -7,17 +7,17 @@
 | `CLAUDE.md` | Shared rules every session reads: roles, your gates, "the owner leads", Open decisions, build modes, git rules, compact instructions |
 | `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, daily rhythm, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
-| `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2) |
+| `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2). It also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell |
 | `.claude/hooks/role-guard.test.cjs` | 80 test cases for the hook, including wrapped and nested commands |
 | `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to ask you in rounds, so you never type it |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
-| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt: `/setup` (first: constraints, CLAUDE.md, gate issues, milestone, the team's worktrees), `/brief <idea>` (the next foundation step up to its gate; G3 is design, then stack, then SRS), `/build dev` (quick, no tests, no merge), `/build done` (tests at the task's level, then merge), `/release demo` (full checks, no tag), `/release [version]`, `/change <request>` (a CR with its level and SRS update), `/progress` (live state in ten lines; named so it does not clash with Claude Code's own `/status`) and `/gate G1`…`G6` (checks a gate against the repo and GitHub). Each reads the level from `.claude/project.json` |
+| `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt ([Commands](#commands)). Each reads the level from `.claude/project.json` |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
 | `.github/workflows/` | `ci` (builds the app image until setup adds the stack's lint and tests), `docs-check`, `codeql` (public repos, once setup sets `CODEQL_LANGUAGES`), `image-app` (each release tag also gets an SBOM and, on public repos, a provenance attestation), and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
 | `.github/dependabot.yml` | Security fixes only, one grouped PR per ecosystem, no version-bump PRs; setup adds the stack's ecosystem. Standards behind these checks: [Appendix E](appendix-e-standards.md) |
-| `docs/templates/` | The document templates (brief, proposal, PRD, SRS, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
+| `docs/templates/` | The document templates (proposal, PRD, SRS, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
 | `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
 | `START-HERE.md` | The owner's steps for the project's level, as commands to type; rewritten by `set-level.mjs` |
 | `.claude/project.json`, `.claude/start-here/` | The project's name, level and repo; the `START-HERE.md` template for each level |
@@ -31,6 +31,20 @@
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `/setup` | First step: constraints, `CLAUDE.md`, gate issues, milestone, the team's worktrees |
+| `/brief <idea>` | The next foundation step up to its gate; G3 is design, then stack, then SRS |
+| `/build dev` | Quick: no tests, no merge |
+| `/build done` | Tests at the task's level, then a PR the Lead merges |
+| `/release demo` | Full checks, no tag |
+| `/release [version]` | A tagged version and its image |
+| `/change <request>` | A CR with its level and SRS update |
+| `/progress` | Live state in ten lines |
+| `/gate G1`…`G6` | Checks a gate against the repo and GitHub |
 
 ## Plugins
 
@@ -60,7 +74,7 @@ Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plug
 **Ask the Lead:**
 > `<what you want to change>`, e.g. "Dev also owns the `db/` folder" or "Allow the Test role to run the e2e workflow".
 
-**Claude asks you:** which roles it affects and whether the change should go back to the playbook too.
+**Claude asks you:** which roles it affects and whether the change should go back to Crewbook: Build too.
 
 **Claude does:** edits `.claude/ownership.json`, the role file or the hook; runs the hook tests and adds a case for the change; commits.
 
@@ -86,9 +100,9 @@ Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plug
 ## Update a project to a newer kit
 
 **Ask the Lead:**
-> Update this project to the latest kit from `<path to playbook>`. Show me what changes first.
+> Update this project to the latest kit from `<path to crewbook-build>`. Show me what changes first.
 
-**Claude does:** compares the project's kit files with the playbook, lists differences, keeps project-specific edits, applies the update after you agree, runs the tests.
+**Claude does:** compares the project's kit files with Crewbook: Build, lists differences, keeps project-specific edits, applies the update after you agree, runs the tests.
 
 ## Licenses
 

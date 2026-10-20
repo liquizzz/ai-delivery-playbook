@@ -8,7 +8,7 @@
 |---|---|---|---|
 | PO | Ask for something, change priorities, see progress | You | Always |
 | Lead | Ask about design, quality or a release | PO | Always |
-| Dev (1-2) | Rarely; the Lead assigns its work | Lead | When tasks are ready |
+| Dev (1-2) | Run `/build dev` and `/build done` on the tasks the Lead assigns | Lead | When tasks are ready |
 | Test | Rarely; the Lead assigns its work | Lead | When there is testing |
 | UI/UX | Review a design round | PO | Front-end products |
 | DevOps | Rarely; hosting and pipelines | Lead | Larger infrastructure work |
@@ -24,7 +24,7 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 | UI/UX | `design/`, `packages/tokens/` | `role/uiux` |
 | DevOps | `.github/workflows/`, `infra/`, `scripts/`, `docs/tech/ops/` | `role/devops` |
 
-**Branches:** `role/<role>` → `dev` (daily integration) → `staging` (release candidate, regression, client demo) → `main` (released, tagged) → `production` (live, from go-live). One worktree per role; nobody rebases or force-pushes `dev`, `staging` or `main`.
+**Branches:** `role/<role>` → `dev` (daily integration) → `staging` (release candidate, regression, demo) → `main` (released, tagged) → `production` (live, from go-live). One worktree per role; nobody rebases or force-pushes `dev`, `staging` or `main`.
 
 ## 1. Add a team member
 
@@ -44,7 +44,7 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 ## 2. How a task moves (nothing to ask)
 
 - The Dev commits on its branch, pushes, opens a PR into `dev` with `Closes #n` and sends the Lead the link.
-- The Lead reviews first, before any other work (no PR waits more than half a day), and squash-merges.
+- The Lead reviews a PR before any other work, and squash-merges.
 - The issue closes and the board moves the card to Done.
 
 **You check:** "PRs waiting" in the end-of-day report.
@@ -70,28 +70,28 @@ The `role-guard` hook ([kit](../../kit/.claude/hooks/role-guard.cjs)) checks eve
 |---|---|---|
 | Force push to `dev`, `staging`, `main`; `--no-verify`; `gh secret`; editing real `.env` files | Pushing any branch but their own; merging PRs; releases; running workflows; editing paths they do not own | Pushing `main` or `production`; pushing tags; GitHub releases; running a workflow by hand |
 
-A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. The hook also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell. These rules catch mistakes, but a determined person could get around them. On GitHub Free, private repos cannot use branch protection; on a paid plan, also protect `main` and `production` on GitHub.
+A blocked session sees the reason and changes course. An approval request appears as a prompt in the Lead session. The hook also checks wrapped and nested commands ([Appendix B](appendix-b-kit.md)). It catches mistakes, but a determined person could get around it. On GitHub Free, private repos cannot use branch protection; on a paid plan, also protect `main` and `production` on GitHub.
 
 ## 5. How automatic it is
 
-**What it does:** the team is semi-automatic on purpose: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise the level only as far as you are comfortable.
+**What it does:** the team is semi-automatic on purpose: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise automation only as far as you are comfortable.
 
-| Level | What happens on its own | What you still do |
+| Automation | What happens on its own | What you still do |
 |---|---|---|
 | 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
 | 2 Sessions message each other | The Lead notifies a session when it assigns work; the PO notifies the Lead when a CR is approved (Claude Code desktop can send messages between local sessions) | Open sessions; approve |
 | 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
 | 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
-At level 1 you carry the work between sessions, and every hand-off tells you how: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
+At automation 1 you carry the work between sessions, and every hand-off tells you how: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
 
-**Ask the Lead,** to move to level 2 or 3 (the recommended maximum):
+**Ask the Lead,** to move to automation 2 or 3 (the recommended maximum):
 > From now on, message the receiving session when you assign work, and open the session yourself if it is not running.
 
 **Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
 
 Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; approvals always wait for you; every running session uses tokens.
 
-> **Token tip:** levels 2-3 add almost no cost: a message only wakes a session when there is real work. Avoid level 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
+> **Token tip:** automation 2 and 3 add almost no cost: a message only wakes a session when there is real work. Avoid automation 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
 
 Next: [Chapter 3: Foundation](03-foundation.md).

@@ -3,7 +3,7 @@
 Save as `docs/releases/vX.Y.Z.md`. Prepared by the Lead; the summary at the top is what the owner reads to approve.
 
 ## Release summary
-> **v<X.Y.Z>** (from v<A.B.C>) · <MAJOR / MINOR / PATCH> · CRs: <CR-12, CR-15> · Defects fixed: <#88, #91> · SRS: <§3.2, §5.1> changed · Tests: <regression passed> · Owner acceptance: <passed n/n> · Extra review: <none / Codex: n findings, x fixed, y rejected> · Risks: <...> · Buffer used: <½ day>
+> **v<X.Y.Z>** (from v<A.B.C>) · <MAJOR / MINOR / PATCH> · CRs: <CR-12, CR-15> · Defects fixed: <#88, #91> · SRS: <§3.2, §5.1> changed · Tests: <regression passed> · Owner acceptance: <passed n/n> · Extra review: <none / Codex: n findings, x fixed, y rejected> · Risks: <...> · Buffer used: <1 h of AI time>
 >
 > **Approve / Approve and deploy / Reject**
 

@@ -1,12 +1,12 @@
 # Chapter 7: Front-end projects
 
-**Purpose:** show the client each design round the same day, without exposing unfinished product code.
+**Purpose:** show each design round (to you or a client) the same day, without exposing unfinished product code.
 
-**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile; the product still gets its design at the start of G3, before the stack: 2-3 named directions in `design/look-and-feel.html`, you pick one, then the main screens; the choice is recorded in SRS section 2.3.
+**Setup:** answer yes to init's question 5 (separate design prototype). Without it, the kit leaves out the design image, its workflow and its Dockerfile. The product still gets its design at the start of G3, before the stack: 2-3 named directions in `design/look-and-feel.html`, you pick one, then the main screens. The choice is recorded in SRS section 2.3.
 
-**Layout:** one repo with a pnpm workspace: `design/` (UI/UX prototype), `packages/tokens/` (shared design tokens), `app/` (product code). Use a second repo only if an outside partner makes the design or the client must see the design repo.
+**Layout:** one repo with a pnpm workspace (several packages in one repo, sharing one install): `design/` (UI/UX prototype), `packages/tokens/` (shared design tokens: colours, fonts and spacing as named values), `app/` (product code). Use a second repo only if an outside partner makes the design or the client must see the design repo.
 
-**Images.** Everything runs in Docker with one image per part, and each image is rebuilt only when its own folders change:
+**Images:** everything runs in Docker with one image per part, and each image is rebuilt only when its own folders change:
 
 | Workflow | Builds when | Image tags |
 |---|---|---|

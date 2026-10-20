@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.5 · **Status:** First draft; describes `main` after the rename to Crewbook: Build (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.6 · **Status:** First draft; describes `main` after the wording review (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.5 | (this commit) | 2026-10-20 | DEC-052 | Title, §1 | Renamed to Crewbook: Build; repo `crewbook-build` |
+| 0.6 | (this commit) | 2026-10-20 | DEC-053, DEC-011 superseded | §3, §8 | Wording review of book, kit and templates: START-HERE in the owner's language, conditional data notes and eval plan, role write paths, ai-log owner, messages line, one test scope per level (FR-065 to FR-067) |
+| 0.5 | 884ee77 | 2026-10-20 | DEC-052 | Title, §1 | Renamed to Crewbook: Build; repo `crewbook-build` |
 | 0.4 | 0cd449d | 2026-10-20 | DEC-051 | §3.8, §8 | Estimates in AI time (FR-064) |
 | 0.3 | 8532327 | 2026-10-20 | DEC-050 | §3.4, §8 | The owner's language covers recaps, questions and buttons (FR-063) |
 | 0.2 | c123e80 | 2026-10-20 | DEC-049 | §3.4, §8 | No side sessions for another role's work (FR-062) |
@@ -120,8 +121,8 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 |---|---|---|---|
 | FR-028 | `/brief` shall find the next foundation step from the documents' Status fields and send the owner to the right session if this is the wrong one | DEC-001 | `brief.md` table |
 | FR-029 | G1: the PO shall write `docs/product/proposal.md` (Lite: one page) | DEC-001 | Gate G1 |
-| FR-030 | G2: the PO shall write the PRD, one story per must-have with testable acceptance and, at Full, the data notes mapped to real fields | DEC-001 | Gate G2 |
-| FR-031 | G3 shall run design, then stack, then SRS: the look and feel (2-3 named directions in `design/look-and-feel.html`) and the main screens approved first (Full: by a UI/UX session the Lead proposes; Lite: by the Lead); then 2-3 stack options that fit, the chosen one installed once and recorded as an ADR, Docker and CI fitted; then the SRS baseline (Full: C4, test strategy, eval plan) and milestone v0.1.0 with its tasks in Ready | DEC-027, DEC-028 | Gate G3 |
+| FR-030 | G2: the PO shall write the PRD, one story per must-have with testable acceptance and, at Full when data comes from an existing system, the data notes mapped to real fields | DEC-001 | Gate G2 |
+| FR-031 | G3 shall run design, then stack, then SRS: the look and feel (2-3 named directions in `design/look-and-feel.html`) and the main screens approved first (Full: by a UI/UX session the Lead proposes; Lite: by the Lead); then 2-3 stack options that fit, the chosen one installed once and recorded as an ADR, Docker and CI fitted; then the SRS baseline (Full: C4, test strategy, and an eval plan when the product has AI features) and milestone v0.1.0 with its tasks in Ready | DEC-027, DEC-028 | Gate G3 |
 | FR-032 | After G3 the Lead shall propose the sessions the milestone needs and create their worktrees on the owner's OK | DEC-008 | Hand-off blocks for the new sessions |
 | FR-033 | Foundation work shall happen under the gate's issue, and commits shall name it | DEC-029 | Commit messages |
 
@@ -144,6 +145,9 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-043 | `/change <request>` shall turn a request into a CR with testable acceptance and a proposed level; L2-L3 CRs need the owner's approval; the Lead updates the SRS and spec before tasks are assigned | DEC-003, DEC-004 | `change.md` |
 | FR-044 | `scripts/board-status.mjs <n> "<column>"` shall move an issue on the project board | DEC-034 | Card moves |
 | FR-045 | An alignment edit to an approved document shall be L0 with a note in the PR; any other change goes through a CR | DEC-032 | `CLAUDE.md` rule |
+| FR-065 | When the project's language is not English, `/setup` shall rewrite START-HERE in that language, keeping commands, paths, code blocks and links | DEC-053 | `commands/setup.md` |
+| FR-066 | Role boundaries: the Lead may write `.github/`, `docker/` and `design/` (preferring UI/UX or DevOps when they exist); Dev shall not edit `packages/tokens/` when UI/UX exists; UI/UX takes work from the Lead; only the Lead writes `docs/ai-log.md`; messages between sessions are on only with the CLAUDE.md line `- Messages between sessions: on` | DEC-053 | Role files, `CLAUDE.md` |
+| FR-067 | The tests each change level needs shall be defined once, in the project `CLAUDE.md`; `/build`, the Dev role and the PR template refer to it | DEC-053 | `CLAUDE.md` Change level rule |
 | FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
 ### 3.9 Release (`/release`, `scripts/release.mjs`)
@@ -237,6 +241,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
+| FR-065 to FR-067 | DEC-053 | `commands/setup.md`, role files, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `kit/init.test.mjs` (suite passes) | Delivered |
 | FR-064 | DEC-051 | `kit/CLAUDE.md`, `.github/ISSUE_TEMPLATE/task.yml`, `templates/milestone.md`, `commands/build.md` | `kit/init.test.mjs` (estimates) | Delivered |
 | FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |
 | FR-024 to FR-027 | DEC-026, DEC-027, DEC-029 | `commands/setup.md`, `scripts/new-role-worktree.mjs`, `scripts/setup-labels.mjs` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |

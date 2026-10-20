@@ -10,38 +10,38 @@
 Save as `docs/product/proposal.md`.
 
 ## 1. Problem and users
-- **Problem:** <who cannot do what, and what it costs them today>
-- **Users:** <primary users; other stakeholders and what they care about>
-- **Success metric:** <one measurable outcome, with a target>
+- Problem: <who cannot do what, and what it costs them today>
+- Users: <primary users; other stakeholders and what they care about>
+- Success metric: <one measurable outcome, with a target>
 
 ## 2. Context and constraints
-- **Current situation:** <existing systems, process, what has been tried>
-- **Data:** <where it lives, who owns it, may it leave the client's environment?>
-- **Technology and hosting:** <stack, infrastructure, integrations>
-- **Compliance and security:** <laws, security unit requirements>
+- Current situation: <existing systems, process, what has been tried>
+- Data: <where it lives, who owns it, may it leave the client's environment?>
+- Technology and hosting: <platforms or systems the client requires, if any; the stack is chosen at G3, after the design>
+- Compliance and security: <laws, security unit requirements>
 
 ## 3. Options
 | Option | What it is | Effort | Cost to run | Risks |
 |---|---|---|---|---|
-| A | <...> | <hours / weeks> | <per month> | <...> |
+| A | <...> | <AI time · owner's time · outside waits> | <per month> | <...> |
 | B | <...> | <...> | <...> | <...> |
 
-**Recommended and chosen:** <option>, because <reason tied to the constraints>.
+Recommended and chosen: <option>, because <reason tied to the constraints>.
 
 ## 4. Scope
-- **In scope:** <deliverables of this project>
-- **Out of scope:** <what is deliberately not included>
-- **Later phases:** <what may follow, quoted separately>
+- In scope: <deliverables of this project>
+- Out of scope: <what is deliberately not included>
+- Later phases: <what may follow, quoted separately>
 
 ## 5. Approach
-<Delivery with Crewbook: a Foundation stage (planning, requirements, design) followed by small, frequent releases (milestones). What the client reviews and when.>
+<Delivery with Crewbook: a Foundation stage (proposal, requirements, design, stack and SRS) followed by small, frequent releases (milestones). What the client reviews and when.>
 
 ## 6. Timeline
 | Phase | Dates | Client involvement |
 |---|---|---|
-| Planning and Discovery | <...> | Approve this proposal |
-| Requirements and Analysis | <...> | Confirm business rules, provide data access |
-| Design | <...> | Approve UI and architecture |
+| Planning | <...> | Approve this proposal |
+| Requirements | <...> | Confirm business rules, provide data access |
+| Design, stack and SRS | <...> | Approve the design, then the stack |
 | Delivery milestones | <...> | Review each staging demo; approve releases |
 | Go-live (1.0.0) | <...> | Approve go-live |
 

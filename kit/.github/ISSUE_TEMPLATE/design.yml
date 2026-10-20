@@ -1,6 +1,6 @@
 name: Design (fast lane)
 description: A change only in design/. No CR needed.
-title: "Design: <screen> — <change>"
+title: "Design: <screen> (<change>)"
 labels: ["role:uiux", "L0"]
 body:
   - type: input

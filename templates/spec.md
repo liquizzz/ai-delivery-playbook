@@ -8,12 +8,12 @@ Save as `docs/tech/spec/CR-<n>-<slug>.md`. Written by the Lead from an approved 
 | Milestone | <vX.Y.Z> |
 | SRS sections changed | <§3.2, §5.1> |
 | Requirements | <FR-021 (new), FR-008 (changed), NFR-004> |
-| Change level | <L0–L3, highest of its tasks> |
+| Change level | <L0-L3, highest of its tasks> |
 | Breaking | <No / Yes (from 1.0.0): see section 7> |
 | Status | Draft / Merged into dev |
 
 ## 1. Summary
-<What changes and why, in 3–5 sentences, in technical terms.>
+<What changes and why, in 3-5 sentences, in technical terms.>
 
 ## 2. Behaviour
 <Per screen or flow: inputs, states, outputs, messages. Link `design/` screens.>
@@ -36,10 +36,10 @@ Save as `docs/tech/spec/CR-<n>-<slug>.md`. Written by the Lead from an approved 
 <Rules, jobs or algorithms, step by step. Reference FR IDs.>
 
 ## 5. Tasks
-| Issue | Role | Module | Level | Estimate | Confidence |
+| Issue | Role | Module | Level | Estimate (AI time) | Confidence |
 |---|---|---|---|---|---|
-| #<n> | Dev1 | <auth> | L2 | 1 day | High |
-| #<n> | Test | <auth> | — | ½ day | High |
+| #<n> | Dev1 | <auth> | L2 | 1 h | High |
+| #<n> | Test | <auth> | n/a | 30 min | High |
 
 ## 6. Test notes
 <Scenarios Test must cover (by FR ID), edge cases, data needed.>

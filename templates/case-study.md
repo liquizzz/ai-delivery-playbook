@@ -4,14 +4,14 @@
 
 | Field | Value |
 |---|---|
-| Client | <anonymised, e.g. "a national news publisher"> |
-| Duration | <e.g. 1 week, ~40h> |
+| Client | <anonymised: the client> |
+| Duration | <AI time · owner's time · outside waits> |
 | Team | <1 owner + AI role sessions: PO, Lead, Dev, Test, UI/UX, DevOps> |
 | Releases | <number of milestones, first and last version> |
 | Stack | <...> |
 
 ## 1. Problem
-<What the client could not do, and what it cost them. 3–4 sentences.>
+<What the client could not do, and what it cost them. 3-4 sentences.>
 
 ## 2. Constraints
 - <e.g. data stays in-country; no external AI APIs on client content; read-only access to the production database; budget>
@@ -22,12 +22,13 @@
 ## 4. How it was delivered
 | Phase | What AI did | What the human decided | Time |
 |---|---|---|---|
-| 1 Planning and Discovery | <...> | <...> | <...> |
-| 2 Requirements and Analysis | <...> | <...> | <...> |
-| 3 Design | <...> | <...> | <...> |
-| 4 Implementation | <...> | <...> | <...> |
-| 5 Testing | <...> | <...> | <...> |
-| 6 Deployment | <...> | <...> | <...> |
+| 1 Planning (G1 proposal) | <...> | <...> | <...> |
+| 2 Requirements (G2) | <...> | <...> | <...> |
+| 3 Design, stack and SRS (G3) | <...> | <...> | <...> |
+| 4 Build (G4) | <...> | <...> | <...> |
+| 5 Test and acceptance (G5) | <...> | <...> | <...> |
+| 6 Release (G6) | <...> | <...> | <...> |
+| 7 Maintenance | <...> | <...> | <...> |
 
 ## 5. Results
 | Metric | Target | Result |

@@ -5,14 +5,17 @@ Closes #
 <!-- What changed, in a few lines -->
 
 ## Change level (confirmed against the files changed)
-- [ ] L0 display  - [ ] L1 setting  - [ ] L2 module logic  - [ ] L3 core
+- [ ] L0 display
+- [ ] L1 setting
+- [ ] L2 module logic
+- [ ] L3 core
 - Same as the task's label? If wider, say why and tell the Lead:
 
-## Checked
+## Checked (tests per level: rule "Change level" in `CLAUDE.md`)
 - [ ] Build and lint pass
-- [ ] Unit tests (L1+)
-- [ ] Main scenario run locally (L2+)
-- [ ] Integration tests and edge cases (L3)
+- [ ] A unit test for the change (L1+)
+- [ ] Module tests and the main scenario run locally (L2+)
+- [ ] Integration tests, edge cases and `security-review` (L3)
 
 ## Documents
 - [ ] The SRS matches the behaviour (or no requirement changed)

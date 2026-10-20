@@ -11,7 +11,7 @@
 6. Keep the proposal, PRD, data notes and stories current. Be UI/UX's contact for client feedback. Technical ideas you raise (search, architecture, tools) are marked "for the Lead to confirm at G3" and posted on the G3 issue.
 7. Before each release, write 3-5 owner acceptance scenarios (plain steps from the acceptance criteria) for the owner to try on `staging` (Full) or `dev` (Lite).
 8. Morning brief before 10:00 and end-of-day report in `docs/reports/YYYY-MM-DD.md`; push; send the link. Batch all decisions for the owner into the brief.
-9. On "Where are we?": check the project against the playbook's process checklist (Appendix D) and list skipped steps.
+9. On "Where are we?": check the project against the process checklist (https://github.com/liquizzz/crewbook-build/blob/main/docs/book/appendix-d-checklist.md) and list skipped steps.
 
 **Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` when the owner asks for suggestions (interviews follow "The owner leads" in `CLAUDE.md`); a hands-on test in the browser when the owner names a product to copy or beat, web search for wider market context; the templates in `docs/templates/` for the PRD and stories (with the optional product-management plugin installed, also `product-management:write-spec`, `competitive-brief` and `stakeholder-update`); `humanizer` on every document before you push when documents are polished.
 

@@ -6,11 +6,11 @@
 
 These involve your machine, accounts or secrets:
 - Install the Claude Code desktop app, Git, Node.js 20+, the GitHub CLI (`gh`), Docker and, for front-end products, pnpm. Docker is required: `kit/init.mjs` stops if `docker` or `docker compose` is missing, and warns if Docker is installed but not running. Check with `docker compose version`.
-- Clone the playbook: `git clone https://github.com/liquizzz/crewbook-build.git`.
+- Clone Crewbook: Build: `git clone https://github.com/liquizzz/crewbook-build.git`.
 - Sign in to GitHub in a terminal: `gh auth login`, then `gh auth refresh -s project`.
 - Install the Claude Code plugins the kit uses, once per machine, by typing these in any Claude Code session:
 
-| Plugin | Why the playbook needs it | Install |
+| Plugin | Why the kit needs it | Install |
 |---|---|---|
 | superpowers | Planning, test-first work, debugging and checking before saying "done" | `/plugin install superpowers@claude-plugins-official` |
 | code-review | The Lead's PR reviews, and the fallback when Codex is unavailable | `/plugin install code-review@claude-plugins-official` |
@@ -26,18 +26,20 @@ Then run `/reload-plugins`. Optional plugins (Figma, Codex review, product-manag
 
 **What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the Lead's worktree, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build dev`, `/build done`, `/release`).
 
-**You run,** in a terminal (the Claude Code Terminal panel opens in your home folder, so `cd` first), from the folder where your projects live:
+**You run,** in a terminal:
+1. Go to your projects folder, the one that holds `crewbook-build`, with `cd <your projects folder>`. The Claude Code Terminal panel opens in your home folder, so this step applies there too.
+2. Run init:
 ```
-node <path to playbook>/kit/init.mjs
+node crewbook-build/kit/init.mjs
 ```
 
 **It asks you,** each question with a one-line hint (Enter takes the suggestion):
 1. Project name.
 2. Where to create the project (a new folder, suggested from the name).
-3. Level: `lite` or `full` ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
+3. Level: `1` (Lite) or `2` (Full) ([chapter 0](00-introduction.md#choose-the-level-of-process)). You can change it later.
 4. Your working language, and the language for documents if it is not English.
-5. A separate design prototype the client reviews ([chapter 7](07-frontend-projects.md))? Suggested: no.
-6. Polished documents? Suggested: no. Yes gives every document a humanizer pass: it reads better and costs more tokens, so it pays off when documents go to a client. Tell the Lead "Polish documents from now on" to turn it on later.
+5. A separate design prototype that someone reviews before the app is built ([chapter 7](07-frontend-projects.md))? Suggested: no.
+6. Polished documents? Suggested: no. Yes gives every document a humanizer pass: it reads better and costs more tokens, so it pays off when other people read the documents. Tell the Lead "Polish documents from now on" to turn it on later.
 7. One-line description (optional).
 8. Create the GitHub repo now: `private` (suggested, as `<you>/<name>`), `public` or `none`.
 
@@ -45,7 +47,7 @@ node <path to playbook>/kit/init.mjs
 
 **You check:** the report, then open `START-HERE.md` in the project. If init created a repo, open its Actions tab on GitHub: a new repo may show **Enable Actions on this repository**, and nothing runs until you click it.
 
-For scripts or CI: `node init.mjs <folder> --name "<name>" --level lite --github none --yes` asks nothing.
+For scripts or CI: `node crewbook-build/kit/init.mjs <folder> --name "<name>" --level lite --github none --yes` asks nothing.
 
 ## 2. Finish the setup
 
@@ -55,13 +57,13 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level lite --github
 > /setup
 
 **You say,** following the short guide Claude shows (anything can be "later"; it goes under Open decisions in `CLAUDE.md` and is asked again only when a step needs it):
-1. Whether the client requires a platform, language or database. You do not choose a stack here: it comes at G3, after you approve the design ([chapter 3](03-foundation.md#4-design-stack-and-srs-phase-3)).
+1. Whether a platform, language or database is required (by you, a client or a system it must work with). You do not choose a stack here: it comes at G3, after you approve the design ([chapter 3](03-foundation.md#4-design-stack-and-srs-phase-3)).
 2. Whether the product has screens, who uses it and where.
 3. What data it keeps, and whether it must survive a restart.
-4. Hard rules: client data, systems it must work with, a deadline.
+4. Hard rules: data you must protect, systems it must work with, a deadline.
 
 **Claude does:**
-- fills in `CLAUDE.md`; fits Docker and CI only if the client requires a stack; enables the design plugins for a product with screens;
+- fills in `CLAUDE.md`; fits Docker and CI only if a stack is required; enables the design plugins for a product with screens;
 - creates the repo, labels and board if init did not, milestone v0.1.0, and one issue per foundation gate (G1, G2, G3);
 - marks the setup done, merges into `dev`, checks that CI ran on GitHub;
 - creates the PO's worktree (Lite: also Dev1's) and ends with the PO's prompt in a box to copy.
@@ -100,7 +102,7 @@ For scripts or CI: `node init.mjs <folder> --name "<name>" --level lite --github
 
 **You check:** `docker compose up` starts the product on your machine.
 
-Deploying the images to servers is not covered by this book. You need your own plan for where they run; the release chapter gives you a versioned image for each release and the commands to run or roll back a version ([chapter 5](05-releases.md)).
+Until go-live everything runs on your machine. Before go-live the Lead suggests where to run the images and writes the deployment notes; each release is a versioned image you can run or roll back by tag ([chapter 5](05-releases.md#2-go-live-first-production-release)).
 
 ## Optional: a second-opinion reviewer
 
@@ -113,6 +115,6 @@ Deploying the images to servers is not covered by this book. You need your own p
 ```
 It uses your ChatGPT login and Codex limits; Claude's `/code-review` is the fallback. Usage: chapter 2.
 
-> **Token tip:** compact the Lead after setup; open other roles only when the Lead proposes them for Ready work.
+> **Token tip:** compact the Lead after setup; open other roles only when the Lead proposes them for work that is ready to start.
 
 Next: [Chapter 2: The team](02-the-team.md).

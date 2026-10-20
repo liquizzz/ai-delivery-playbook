@@ -15,17 +15,17 @@ I want **<capability>**,
 so that **<outcome / value>**.
 
 ## Acceptance criteria
-**AC1 — <happy path>**
+**AC1: <happy path>**
 - Given <context>
 - When <action>
 - Then <observable result>
 
-**AC2 — <validation / edge case>**
+**AC2: <validation / edge case>**
 - Given <context>
 - When <action>
 - Then <observable result>
 
-**AC3 — <error / permission case>**
+**AC3: <error / permission case>**
 - Given <context>
 - When <action>
 - Then <observable result>

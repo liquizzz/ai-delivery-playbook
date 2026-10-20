@@ -1,6 +1,6 @@
 # Software Requirements Specification: <Project name>
 
-Save as `docs/tech/srs.md`. Structure follows ISO/IEC/IEEE 29148 (software requirements), cut down to what one owner needs. Owned by the Lead; the PO approves business sections. **Mandatory for every project.** It always describes the system as it is now; every CR updates it before its tasks are assigned; its version equals the release version.
+Save as `docs/tech/srs.md`. Structure follows ISO/IEC/IEEE 29148 (software requirements), cut down to what one owner needs. Owned by the Lead; the PO approves business sections. Mandatory for every project. It always describes the system as it is now; every CR updates it before its tasks are assigned; its version equals the release version.
 
 **Version:** 0.0.0 · **Status:** Baseline draft (G3) · **Last updated:** YYYY-MM-DD
 
@@ -10,8 +10,8 @@ Newest first. The `release` script adds the row for each release; the Lead adds 
 <!-- revision-history -->
 | SRS version | Release | Date | CRs | Sections changed | Summary |
 |---|---|---|---|---|---|
-| Unreleased | — | — | <CR-12> | <§3.2> | <...> |
-| 0.0.0 | — | YYYY-MM-DD | — | All | Baseline approved at G3 |
+| Unreleased | n/a | n/a | <CR-12> | <§3.2> | <...> |
+| 0.0.0 | n/a | YYYY-MM-DD | n/a | All | Baseline approved at G3 |
 
 ## 1. Introduction
 ### 1.1 Purpose and scope

@@ -9,7 +9,7 @@ Save as `docs/product/cr/CR-<n>-<slug>.md`. The CR is drafted and approved as Gi
 | Breaking | No / Yes (from 1.0.0 only, compared with production) |
 | Priority | High / Medium / Low |
 | Milestone | <vX.Y.Z> |
-| Approved by | <PO / owner (L2–L3)>, YYYY-MM-DD |
+| Approved by | <PO / owner (L2-L3)>, YYYY-MM-DD |
 | Spec | `docs/tech/spec/CR-<n>-<slug>.md` (Lead) |
 
 ## Context

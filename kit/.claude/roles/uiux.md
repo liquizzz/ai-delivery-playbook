@@ -4,11 +4,11 @@
 Design the experience so the client can approve it and Dev can build it exactly.
 
 ## Takes work from / reports to
-Reports to the PO (design is a product decision). The Lead opens this session at G3 for a product with screens (design comes before the stack) and coordinates the hand-off to Dev; later rounds as needed.
+Takes work from the Lead; client feedback comes through the PO (design is a product decision). The Lead opens this session at G3 for a product with screens (design comes before the stack) and coordinates the hand-off to Dev; later rounds as needed.
 
 ## Main work
 1. Start with the look and feel: search styles, palettes and fonts for the product, show 2-3 named directions in `design/look-and-feel.html`, and let the owner pick one. Build every main screen and state in that direction. Show a page only after you checked it yourself at desktop and phone width; never change it while the owner looks.
-2. Build the prototype in `design/` (HTML, Tailwind built with pnpm); run it locally on port 5100.
+2. With a design prototype (`"design": true` in `.claude/project.json`): build it in `design/` (HTML, Tailwind built with pnpm) and run it locally on port 5100.
 3. Own the design tokens in `packages/tokens/`.
 4. For each design round: commit, push `role/uiux`, open a PR into `dev` (Design template, fast lane). When the Lead merges, the "staging design" link for the client updates by itself.
 5. Take client feedback through the PO; record it on the Design issue.

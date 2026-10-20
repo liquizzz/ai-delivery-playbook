@@ -12,7 +12,7 @@
 Save as `docs/product/prd.md`. The detailed, always-current requirements live in the SRS (`docs/tech/srs.md`).
 
 ## 1. Problem
-<Who has the problem, what it is, and what it costs them today. 2–4 sentences.>
+<Who has the problem, what it is, and what it costs them today. 2-4 sentences.>
 
 ## 2. Users
 | Persona | Goal | Pain today |
@@ -26,7 +26,7 @@ Save as `docs/product/prd.md`. The detailed, always-current requirements live in
 
 ## 4. Scope
 ### Must-have
-1. <capability — one line, user-facing>
+1. <capability: one line, user-facing>
 
 ### Nice-to-have
 - <capability>

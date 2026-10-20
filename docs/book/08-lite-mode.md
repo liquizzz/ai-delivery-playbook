@@ -4,7 +4,7 @@
 
 | Area | Full process | Lite mode |
 |---|---|---|
-| Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (a second Dev only for owners who already manage several developers) | PO, Lead, one Dev |
+| Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (a second Dev when two tasks can run in parallel) | PO, Lead, one Dev |
 | Branches | `role/*` → `dev` → `staging` → `main` → `production` | `role/*` → `dev` → `main` |
 | Review | Lead reviews every PR | Lead reviews every PR |
 | Foundation | Proposal, PRD, data notes, stories, then design, stack, SRS, ADRs, C4, test strategy, eval plan | One-page proposal, short PRD with stories, then design, stack, SRS, ADRs only for real choices |
@@ -15,11 +15,11 @@
 | Release check | Regression and your acceptance | Your acceptance |
 | Always kept | | Setup first, gate issues, CR issues, labels, SRS and its revisions, level confirmation, SemVer tags, `role-guard`, hand-off prompts |
 
-There is no single-session level. One session playing every role feels simpler but runs slower, because nothing happens in parallel, and it hides the hand-offs that show you where work stands. Three sessions let you work the way a project manager directs staff: you hand work over, you see it come back, you approve at the gates.
+There is no single-session level. One session playing every role feels simpler but runs slower, because nothing happens in parallel, and it hides the hand-offs that show you where work stands. With three sessions you direct them like a small team: you hand work over, you see it come back, you approve at the gates.
 
 ## 1. Start
 
-**You run:** `node <path to playbook>/kit/init.mjs` and choose level `lite` ([chapter 1](01-setup.md#1-create-the-project)).
+**You run:** `node crewbook-build/kit/init.mjs` and choose level `1` (Lite) ([chapter 1](01-setup.md#1-create-the-project)).
 
 **It does:** sets up the kit without `staging`, writes the Lite level in `CLAUDE.md`, creates the Lead's worktree and writes `START-HERE.md` with the Lite steps. The Lead's `/setup` creates the PO's and Dev1's worktrees.
 
@@ -29,7 +29,7 @@ The PO runs G1 and G2 with `/brief`; the Lead runs G3 with `/brief`: design firs
 
 ## 3. Build and release
 
-**Ask:** `/build` in the Lead plans the milestone and gives you Dev1's prompt. In Dev1, `/build dev #<n>` while you look, `/build done #<n>` when the task is finished; the Lead reviews and merges. Then `/release demo` or `/release` in the Lead.
+**Ask:** `/build` in the Lead plans the milestone and gives you Dev1's prompt. In Dev1, `/build dev #<n>` to see it running before tests, `/build done #<n>` when the task is finished; the Lead reviews and merges. Then `/release demo` or `/release` in the Lead.
 
 **Claude does:** checks the main journey; sends you the acceptance scenarios; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 
@@ -39,15 +39,19 @@ The PO runs G1 and G2 with `/brief`; the Lead runs G3 with `/brief`: design firs
 
 | From → to | When |
 |---|---|
-| Lite → Full | Money, security or personal data comes in, a client signs off each release, or releases need a staging check |
-| Full → Lite | The stakes dropped: the client left or the product is parked |
+| Lite → Full | Money, security or personal data comes in, someone signs off each release, or releases need a staging check |
+| Full → Lite | The stakes dropped: nobody signs off each release any more, or the product is parked |
 
 **Ask the Lead:**
 > Move this project to `<lite or full>`.
 
 **Claude asks you:** going up, which roles to add now and which missing Foundation documents matter for this product.
 
-**Claude does:** runs `node scripts/set-level.mjs <level>` from its own worktree. Up: it creates the new branches (`staging` for Full) and worktrees and drafts the missing documents. Down: nothing is deleted; documents, branches, worktrees and history stay; it lists the sessions you can close and releases go from `dev` to `main`. Either way `CLAUDE.md`, `.claude/project.json` and `START-HERE.md` are updated and committed. A project made with the old Starter level moves to Lite the same way.
+**Claude does:** runs `node scripts/set-level.mjs <level>` from its own worktree, then:
+- Up: creates the new branches (`staging` for Full) and worktrees and drafts the missing documents.
+- Down: deletes nothing; documents, branches, worktrees and history stay. It lists the sessions you can close, and releases go from `dev` to `main`.
+
+Either way `CLAUDE.md`, `.claude/project.json` and `START-HERE.md` are updated and committed.
 
 **Claude asks before:** pushing a new `staging` branch.
 

@@ -17,7 +17,7 @@
 | Strong model everywhere | Use the strongest model for the Lead (design, review); a cheaper, faster model is often enough for Dev and Test on routine tasks. Change it in the session's model setting |
 | Skills | A skill loads its instructions only when a session uses it. The kit names one skill per task and leaves out the subagent skills, which multiply the cost; do not add others to a role file without a reason |
 | Plugins you do not use | Each plugin adds a fixed cost to every session. Check it with `claude plugin details <plugin>` ("Projected token cost") and disable what the project does not need with `claude plugin disable <plugin>` |
-| Verbose command output | Ask sessions for short output (`--quiet`, `git log --oneline`); a tool that condenses command output helps further |
+| Verbose command output | Ask sessions for short output (`--quiet`, `git log --oneline`); an output-filtering CLI proxy, which shortens command output before the session reads it, helps further |
 
 ## Habits that keep cost low
 
@@ -25,7 +25,7 @@
 2. Close sessions that are idle. Their work is in issues, documents and git, so nothing is lost.
 3. Compact at natural breaks, never in the middle of a fix.
 4. Keep `CLAUDE.md` and the role files short, because every session reads them each time it starts.
-5. Start at Lite and move to Full only when the stakes call for it ([chapter 8](08-lite-mode.md)). Open a role only when the Lead proposes it for Ready work: fewer open sessions means less context to pay for.
+5. Start at Lite and move to Full only when the stakes call for it ([chapter 8](08-lite-mode.md)). Open a role only when the Lead proposes it for work that is ready to start: fewer open sessions means less context to pay for.
 6. Plan before you build. A clear CR and spec prevent rework, and rework is where tokens are wasted most.
 
 ## Check what you spend

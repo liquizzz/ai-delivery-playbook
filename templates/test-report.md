@@ -17,7 +17,7 @@ Save as `docs/tech/test-reports/vX.Y.Z.md`. Written by Test for the regression o
 ## By requirement
 | Requirement | Test cases | Result | Defect |
 |---|---|---|---|
-| FR-001 | TC-001, TC-002 | Pass | — |
+| FR-001 | TC-001, TC-002 | Pass | n/a |
 | FR-021 | TC-031 | Fail | #<n> (sev:medium) |
 
 ## Eval (AI features)

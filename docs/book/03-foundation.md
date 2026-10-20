@@ -6,7 +6,7 @@
 |---|---|---|
 | 1 Planning | `docs/product/proposal.md` | G1 problem, users, option, scope, metric, timeline, budget agreed |
 | 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
-| 3 Design | `design/` (look and feel, screens), the stack ADR, `docs/tech/srs.md` baseline, ADRs, C4, test strategy, eval plan, first milestone | G3 design approved before the stack; stack ADR; SRS with FR/NFR IDs; test pass marks; board ready |
+| 3 Design | `design/` (look and feel, screens), the stack ADR (architecture decision record), `docs/tech/srs.md` baseline, ADRs, C4 (architecture diagrams), test strategy, eval plan (how AI features are measured), first milestone | G3 design approved before the stack; stack ADR; SRS with FR/NFR IDs; test pass marks; board ready |
 
 Rules: proposal before PRD · real data during requirements · design before stack · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice. Each gate has its issue (label `gate`), and the gate's commits name it.
 
@@ -26,7 +26,7 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 4. Constraints: data location, existing systems, compliance, hosting.
 5. Budget and deadline.
 6. What is clearly out of scope?
-7. Client material to read (paths or links)?
+7. Material to read, yours or a client's (paths or links)?
 
 **Claude does:** drafts `docs/product/proposal.md` ([template](../../templates/proposal.md)) with two or three options (effort, cost, risk) and a recommendation; asks the Lead to check the effort of each option; sends you the options side by side.
 
@@ -55,7 +55,7 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 2. Where the real data is and how the team may read it (read-only copy, export, sample).
 3. Which nice-to-haves can wait.
 4. Non-functional needs: speed, availability, security, monthly cost.
-5. Who confirms business rules on the client side?
+5. Who confirms the business rules?
 
 **Claude does:** drafts `docs/product/prd.md`; with the Lead, analyses the real data into `docs/product/data-notes.md` (counts and structure only, never real records); writes one story per must-have with Given/When/Then criteria; records each business decision as a DEC.
 
@@ -63,14 +63,14 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 
 ## 4. Design, stack and SRS (phase 3)
 
-**What it does:** shows the client what they will get, then decides how to build it and writes the SRS everyone will work from. Design comes before the stack, because a client can judge screens and seldom a stack.
+**What it does:** shows you what you will get, then decides how to build it and writes the SRS everyone will work from. Design comes before the stack, because anyone can judge screens and few people can judge a stack.
 
 **Ask the Lead:**
 > /brief
 
 **Claude asks you:**
 1. Whether you have a look in mind: a site you like, colours, light or dark.
-2. Any technology the client requires or forbids.
+2. Any technology that is required or ruled out.
 3. Pass marks for AI features (if any), such as accuracy or latency.
 4. Scope of the first milestone (proposed: the thinnest end-to-end slice of must-have 1).
 

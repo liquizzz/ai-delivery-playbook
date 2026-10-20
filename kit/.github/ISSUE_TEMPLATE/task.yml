@@ -69,6 +69,6 @@ body:
     attributes:
       label: Definition of Ready
       options:
-        - label: CR approved (PO, plus the owner for L2–L3)
+        - label: CR approved (PO, plus the owner for L2-L3)
         - label: SRS and spec merged into dev
         - label: Nothing blocks it (dependencies, accounts, data, secrets)
