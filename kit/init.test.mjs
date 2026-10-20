@@ -66,6 +66,7 @@ try {
   check("session-start: PO works after setup", hook(wt(a, "po")).includes("you are the po session"));
   check("gate: level-aware with owner block", read(a, ".claude", "commands", "gate.md").includes("**Lite level:**") && read(a, ".claude", "commands", "gate.md").includes("For you") && !read(a, ".claude", "commands", "gate.md").includes("Starter"));
   check("estimates in AI time", read(a, "CLAUDE.md").includes("Estimates are in AI time") && read(a, ".github", "ISSUE_TEMPLATE", "task.yml").includes("AI working time") && read(a, "docs", "templates", "milestone.md").includes("never in human developer days"));
+  check("G3 sets ownership and checks outside services live", read(a, ".claude", "commands", "brief.md").includes(".claude/ownership.json") && read(a, ".claude", "commands", "brief.md").includes("one live call") && read(a, ".claude", "commands", "gate.md").includes("live check of each outside service"));
   check("no side sessions for another role's work", read(a, "CLAUDE.md").includes("Never start a side session") && hook(wt(a, "lead")).includes("never start a side session"));
   check("CLAUDE.md: hand-off block, For you, links rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block") && read(a, "CLAUDE.md").includes("prompt stands alone in a code block") && read(a, "CLAUDE.md").includes("**Links:**"));
   check("lite: step commands installed, /progress instead of /status", ["setup", "brief", "build", "release", "change", "progress", "gate"].every((c) => fs.existsSync(path.join(a, ".claude", "commands", `${c}.md`))) && !fs.existsSync(path.join(a, ".claude", "commands", "status.md")));
@@ -78,8 +79,10 @@ try {
   check("set-secret: value never printed", !secretOut.includes("s3cret-value") && secretOut.includes("DEMO_API_KEY set"));
   check("set-secret: written to main checkout and worktrees", [a, wt(a, "lead"), wt(a, "po")].every((d) => read(d, ".env.local").includes("DEMO_API_KEY=s3cret-value")));
   check("set-secret: git-ignored", git(a, "status", "--porcelain") === "" && git(wt(a, "lead"), "status", "--porcelain") === "");
+  fs.writeFileSync(path.join(a, ".env"), "STACK_KEY=from-dot-env\n");
   node([path.join("scripts", "new-role-worktree.mjs"), "dev1"], { cwd: wt(a, "lead") });
   check("new worktree: secrets copied, own port", read(wt(a, "dev1"), ".env.local").includes("DEMO_API_KEY=s3cret-value") && read(wt(a, "dev1"), ".env.local").includes("PORT=5201"));
+  check("new worktree: a git-ignored .env is carried too", read(wt(a, "dev1"), ".env.local").includes("STACK_KEY=from-dot-env") && git(a, "status", "--porcelain") === "");
   let badName = false;
   try {
     node([path.join("scripts", "set-secret.mjs"), "lower-case"], { cwd: wt(a, "lead"), input: "x\n" });

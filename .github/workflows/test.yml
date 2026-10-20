@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 # Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
-# test: runs the kit's three test suites on every push and pull request.
+# test: runs the kit's four test suites on every push and pull request.
 # The workflows in kit/.github/ are templates that init copies into projects; this one tests the playbook itself.
 name: test
 
@@ -24,6 +24,8 @@ jobs:
           git config --global init.defaultBranch main
       - name: role-guard hook
         run: node kit/.claude/hooks/role-guard.test.cjs
+      - name: secret check
+        run: node kit/hooks/pre-commit.test.mjs
       - name: release script
         run: node kit/scripts/release.test.mjs
       - name: init, set-level and session-start hook

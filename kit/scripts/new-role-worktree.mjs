@@ -3,7 +3,8 @@
 // Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Create the worktree for one role: <parent>/<repo>-wt/<role> on branch role/<role>.
 // Run it from your own worktree (the Lead's has dev's version of this script):  node scripts/new-role-worktree.mjs <role>
-// The new worktree gets .env.local with its port and the secrets already set in the main checkout's .env.local.
+// The new worktree gets .env.local with its port and the secrets already set in the main checkout's .env.local
+// (and in a git-ignored .env there, if the stack uses one).
 // Roles: po, lead, dev1, dev2, test, uiux, devops
 import { execSync } from "node:child_process";
 import fs from "node:fs";
@@ -60,11 +61,12 @@ const example = path.join(wtDir, ".env.example");
 const local = path.join(wtDir, ".env.local");
 if (!fs.existsSync(local)) {
   let env = fs.existsSync(example) ? fs.readFileSync(example, "utf8") : "";
-  // Secrets set with scripts/set-secret.mjs live in the main checkout's .env.local: copy them, never print them.
-  const mainEnv = path.join(root, ".env.local");
-  const carried = fs.existsSync(mainEnv)
-    ? fs.readFileSync(mainEnv, "utf8").split(/\r?\n/).filter((l) => /^[A-Z][A-Z0-9_]*=/.test(l) && !l.startsWith("PORT="))
-    : [];
+  // Secrets set with scripts/set-secret.mjs live in the main checkout's .env.local; a stack may also keep
+  // some in a git-ignored .env there. Copy both (.env.local wins), never print them.
+  const carried = [".env", ".env.local"]
+    .map((f) => path.join(root, f))
+    .filter((f) => fs.existsSync(f))
+    .flatMap((f) => fs.readFileSync(f, "utf8").split(/\r?\n/).filter((l) => /^[A-Z][A-Z0-9_]*=/.test(l) && !l.startsWith("PORT=")));
   for (const line of carried) {
     const key = line.slice(0, line.indexOf("="));
     env = env.split(/\r?\n/).filter((l) => !l.startsWith(`${key}=`)).join("\n");

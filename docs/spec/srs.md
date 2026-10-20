@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.8 · **Status:** First draft; describes `main` after the command-language rule (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.9 · **Status:** First draft; describes `main` after the build-task fixes (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.8 | (this commit) | 2026-10-20 | DEC-055 | §3.4, §8 | Commands stay English, explained in the owner's language (FR-063, FR-065) |
+| 0.9 | (this commit) | 2026-10-20 | DEC-056 | §3, §8 | Ownership and live checks at G3, guard redirections, secret check for code, `.env` carried to worktrees (FR-068 to FR-070) |
+| 0.8 | c704ad1 | 2026-10-20 | DEC-055 | §3.4, §8 | Commands stay English, explained in the owner's language (FR-063, FR-065) |
 | 0.7 | a1d9969 | 2026-10-20 | DEC-054 | §3, §8 | `set-level` asks for the START-HERE rewrite in a non-English project (FR-065) |
 | 0.6 | 15e06be | 2026-10-20 | DEC-053, DEC-011 superseded | §3, §8 | Wording review of book, kit and templates: START-HERE in the owner's language, conditional data notes and eval plan, role write paths, ai-log owner, messages line, one test scope per level (FR-065 to FR-067) |
 | 0.5 | 884ee77 | 2026-10-20 | DEC-052 | Title, §1 | Renamed to Crewbook: Build; repo `crewbook-build` |
@@ -150,6 +151,9 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-065 | When the project's language is not English, `/setup` shall rewrite START-HERE in that language, keeping commands, paths, code blocks and links; after a level change `set-level` shall tell the owner to ask the Lead to rewrite it again | DEC-053, DEC-054 | `commands/setup.md`, `scripts/set-level.mjs`, `init.test.mjs` (language: set-level) |
 | FR-066 | Role boundaries: the Lead may write `.github/`, `docker/` and `design/` (preferring UI/UX or DevOps when they exist); Dev shall not edit `packages/tokens/` when UI/UX exists; UI/UX takes work from the Lead; only the Lead writes `docs/ai-log.md`; messages between sessions are on only with the CLAUDE.md line `- Messages between sessions: on` | DEC-053 | Role files, `CLAUDE.md` |
 | FR-067 | The tests each change level needs shall be defined once, in the project `CLAUDE.md`; `/build`, the Dev role and the PR template refer to it | DEC-053 | `CLAUDE.md` Change level rule |
+| FR-068 | At G3, with the stack, the Lead shall write `.claude/ownership.json` for the stack's folders and make one live call to each outside service with the owner's key, recording what the plan blocks; G3 checks both | DEC-056 | `commands/brief.md`, `commands/gate.md` |
+| FR-069 | The role guard shall ignore shell redirections when it reads a push's refspecs; the secret check shall pass code that hands a value along and block literal credentials | DEC-056 | `role-guard.test.cjs`, `pre-commit.test.mjs` |
+| FR-070 | A new role worktree shall carry the keys from the main checkout's `.env.local` and git-ignored `.env`, without printing them | DEC-056 | `init.test.mjs` (new worktree) |
 | FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
 ### 3.9 Release (`/release`, `scripts/release.mjs`)
@@ -243,6 +247,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
+| FR-068 to FR-070 | DEC-056 | `commands/brief.md`, `commands/gate.md`, `.claude/hooks/role-guard.cjs`, `hooks/pre-commit`, `scripts/new-role-worktree.mjs` | `init.test.mjs`, `role-guard.test.cjs` (88), `pre-commit.test.mjs` (11) | Delivered |
 | FR-065 to FR-067 | DEC-053 | `commands/setup.md`, role files, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `kit/init.test.mjs` (suite passes) | Delivered |
 | FR-064 | DEC-051 | `kit/CLAUDE.md`, `.github/ISSUE_TEMPLATE/task.yml`, `templates/milestone.md`, `commands/build.md` | `kit/init.test.mjs` (estimates) | Delivered |
 | FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |

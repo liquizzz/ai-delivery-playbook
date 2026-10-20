@@ -77,6 +77,7 @@ function splitCommands(line) {
   };
   const pushCommand = () => {
     pushWord();
+    words = dropRedirects(words);
     if (words.length) commands.push(words);
     words = [];
   };
@@ -89,6 +90,7 @@ function splitCommands(line) {
     }
     if (c === '"' || c === "'") quote = c;
     else if (c === " " || c === "\t") pushWord();
+    else if (c === "&" && (word.endsWith(">") || word.endsWith("<") || line[i + 1] === ">")) word += c; // 2>&1, >&2, &> file
     else if (c === ";" || c === "\n" || c === "|" || c === "&") {
       pushCommand();
       if ((c === "&" || c === "|") && line[i + 1] === c) i++;
@@ -96,6 +98,20 @@ function splitCommands(line) {
   }
   pushCommand();
   return commands;
+}
+
+// Remove redirections ("2>&1", "> out.txt", "2>/dev/null", "&> log") so they are not read as arguments.
+function dropRedirects(words) {
+  const out = [];
+  for (let i = 0; i < words.length; i++) {
+    const m = /^(\d*|&)(>>?|<)(.*)$/.exec(words[i]);
+    if (!m) {
+      out.push(words[i]);
+      continue;
+    }
+    if (m[3] === "") i++; // the target is the next word
+  }
+  return out;
 }
 
 const isTool = (word, name) => new RegExp(`(^|[\\\\/])${name}(\\.exe)?$`, "i").test(word || "");
