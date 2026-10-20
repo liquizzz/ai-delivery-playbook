@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.17 · **Status:** First draft; describes `main` after init installs the plugins (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.18 · **Status:** First draft; describes `main` after the issue-link rule (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.17 | (this commit) | 2026-10-20 | DEC-063 | §2, §3.12, §8 | `init` installs the enabled plugins, `/setup` checks them first, no GitHub MCP (FR-076) |
+| 0.18 | (this commit) | 2026-10-20 | DEC-064 | §3, §8 | Issue and PR numbers shown with link, title and CR (FR-077) |
+| 0.17 | 65fb0d5 | 2026-10-20 | DEC-063 | §2, §3.12, §8 | `init` installs the enabled plugins, `/setup` checks them first, no GitHub MCP (FR-076) |
 | 0.16 | 6949afc | 2026-10-20 | DEC-062 | §3, §8 | `scripts/run.mjs`, healthchecks, small images at G3 (FR-075) |
 | 0.15 | b855889 | 2026-10-20 | DEC-061 | §3, §8 | `/auto merge` and `/auto relay`, both on by default; Lead auto-merges L0-L2; Lite G3 approves the design with the rest (FR-071, FR-073, FR-074) |
 | 0.14 | bd087a0 | 2026-10-20 | DEC-060 | §3, §7, §8 | Morning brief and end-of-day report removed; `/progress report` saves a report on request (FR-052) |
@@ -199,6 +200,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-058 | The project `CLAUDE.md` shall name the skill for each task, and ban the superpowers worktree and subagent skills | DEC-041 | Skills table |
 | FR-059 | The kit's settings shall enable superpowers, code-review, claude-mem and context7, and humanizer only for polished documents; setup enables frontend-design and ui-ux-pro-max for products with screens | DEC-042 | `init.test.mjs` plugin checks |
 | FR-076 | `init` shall install the plugins `.claude/settings.json` enables through `scripts/plugins.mjs` (marketplaces first, then `claude plugin install --scope user`) or print the `/plugin install` lines when the `claude` command is missing, and skip this with `--no-plugins`; `/setup` shall check its skill list for the enabled plugins before anything else and stop with the install step when one is missing; the kit shall need no GitHub MCP | DEC-063 | Plugins on a new machine |
+| FR-077 | Every issue or PR number a session shows the owner shall be a link with its short title and its CR when there is one; recaps and buttons, which hold no links, shall add a few words to the number; the hand-off "Next" line shall start with the linked issue | DEC-064 | Owner-facing text |
 
 ### 3.13 This repository
 | ID | Requirement | Origin | Acceptance |
@@ -280,4 +282,5 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-055 to FR-057 | DEC-038 | `scripts/set-secret.mjs`, `scripts/new-role-worktree.mjs`, `hooks/pre-commit` | `kit/init.test.mjs` (set-secret) | Delivered |
 | FR-058, FR-059 | DEC-041, DEC-042 | `kit/CLAUDE.md`, `.claude/settings.json` | `kit/init.test.mjs` (plugins) | Delivered |
 | FR-076 | DEC-063 | `scripts/plugins.mjs`, `init.mjs`, `commands/setup.md` | `kit/init.test.mjs` (plugins dry run, /setup check); init run on a temp folder installed the five plugins | Delivered |
+| FR-077 | DEC-064 | `kit/CLAUDE.md` (Links, hand-offs), `commands/progress.md` | `kit/init.test.mjs` (links) | Delivered; to confirm in transcripts of the habit tracker run |
 | FR-060, FR-061 | DEC-048 | `.github/workflows/test.yml`, `CLAUDE.md` | CI | Delivered |
