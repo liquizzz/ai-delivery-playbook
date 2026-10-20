@@ -15,7 +15,7 @@ Check gate **$ARGUMENTS** of the Crewbook process for this repository.
 
 **Approved later:** an item that waits for someone outside the team (for example a table description from the client) may be approved after the gate when it has an issue, a due date and the step that needs it. List it under the table as "approved later".
 
-**Lite level:** G1 accepts a one-page proposal (timeline and budget in a line each). G2 needs the PRD and stories with testable acceptance (data notes only when data comes from an existing system). G3 needs the approved design, the stack ADR, the SRS baseline, ADRs for real choices, labels, the board and the first milestone; no C4, test strategy or eval plan, and no `staging` branch. G5: no `staging` and no Test session: CI is green on `dev`, each issue reports its level tests, and no `sev:high` or `sev:medium` defect is open. G6 merges `dev` into `main`.
+**Lite level:** G1 accepts a one-page proposal (timeline and budget in a line each). G2 needs the PRD and stories with testable acceptance (data notes only when data comes from an existing system). G3 needs the design (approved with the rest of G3, in one approval), the stack ADR, the SRS baseline, ADRs for real choices, labels, the board and the first milestone; no C4, test strategy or eval plan, and no `staging` branch. G5: no `staging` and no Test session: CI is green on `dev`, each issue reports its level tests, and no `sev:high` or `sev:medium` defect is open. G6 merges `dev` into `main`.
 
 | Gate | Criteria |
 |---|---|

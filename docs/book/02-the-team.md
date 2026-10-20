@@ -75,23 +75,23 @@ A blocked session sees the reason and changes course. An approval request appear
 
 ## 5. How automatic it is
 
-**What it does:** the team is semi-automatic on purpose: sessions do the work and pick it up from issues, but you decide when sessions run and you approve every release. Raise automation only as far as you are comfortable.
+**What it does:** the team runs on its own between your decisions: sessions pass the work to each other and the Lead merges routine changes, while you approve the gates, the L3 changes and every release. `/auto` shows both switches; turn either off when you want to follow each step.
 
 | Automation | What happens on its own | What you still do |
 |---|---|---|
-| 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the decisions sessions ask for; approve releases |
-| 2 Sessions message each other (`/relay on`) | Each session sends the next one its prompt when a step ends (Claude Code desktop can send messages between local sessions) | Keep the sessions open; approve. Costs more tokens: every message is a turn in the receiving session |
+| 1 By hand (`/auto relay off`, `/auto merge off`) | Each open session takes its assigned issues, works, hands off on the issue and ends with a prompt for the next session | Paste each prompt (or `/send` it); approve every merge, gate and release |
+| 2 Default | Each session sends the next one its one-line prompt when a step ends (Claude Code desktop can send messages between local sessions); the Lead merges L0-L2 PRs after its review and green CI | Keep the sessions open; answer the questions sessions ask; approve gates, L3 PRs and releases |
 | 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
 | 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
-At automation 1 you carry the work between sessions, and every hand-off tells you how: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there, or send with `/send` from the same session. The first few blocks show a one-line tip about `/send` and `/relay on`; it stops once you have used either. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
+At automation 2 every session names in its recap what it sent and what it merged ("Sent to Lead: Review the PR for #46.", "Merged PR #58 (L2), CI green."), so you can read what happened. A message costs little: the prompt is one line and the receiving session reads the issue and the documents, as it would if you pasted it. At automation 1 you carry the work yourself: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there, or send with `/send` from the same session. The first few blocks show a one-line tip about `/send` and `/auto relay on`; it stops once you have used either. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
 
-**Type** `/relay on` in any session for automation 2, and `/relay off` to go back. **Ask the Lead** for automation 3 (the recommended maximum):
+**Type** `/auto relay off` and `/auto merge off` in any session to go back to automation 1, and `on` to return. **Ask the Lead** for automation 3 (the recommended maximum):
 > From now on, open the receiving session yourself if it is not running.
 
 **Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).
 
-Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; approvals always wait for you; every running session uses tokens.
+Limits: sessions do not wake up on GitHub events by themselves; a closed session does nothing until opened; gates, L3 PRs and releases always wait for you; every running session uses tokens.
 
 > **Token tip:** automation 2 and 3 add almost no cost: a message only wakes a session when there is real work. Avoid automation 4; if you try it, use a long interval and stop it the same day ([chapter 9](09-token-budget.md)).
 

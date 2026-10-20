@@ -72,11 +72,11 @@ Keep v0.1.0 to the list in "The project". Type "later" for one item (for example
 /next
 ```
 
-Pick one of the 2-3 look-and-feel directions, ask for one change to it, then approve the main screens. Choose the lightest stack it offers. Approve the SRS and milestone v0.1.0.
+Say you have no screens yet, pick one of the 2-3 look-and-feel directions and ask for one change to it. Choose the lightest stack it offers. Approve the design, the SRS and milestone v0.1.0 together, once.
 
 ### 5. Build (Lead, Dev1)
 
-In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", and paste each prompt the Lead gives you. Approve each merge in the Lead. Once, during a `/build try`, open the running app to show a task working before its tests.
+In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", when the Lead asks. The Lead sends Dev1 its prompts and merges L0-L2 PRs by itself; capture one recap line that says what it sent and merged. Once, during a `/build try`, open the running app to show a task working before its tests.
 
 Try one change mid-build, to show the change flow. In the PO:
 

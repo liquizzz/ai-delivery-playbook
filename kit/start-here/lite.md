@@ -35,7 +35,7 @@ Type `/next` again: it goes on to the PRD and stories.
 ## 4. Design, stack and plan: gate G3 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: Lead
 
 Type `/next` in the Lead. It works in this order:
-1. **Design:** for screens, it asks whether you have a look in mind, shows 2-3 named directions in `design/look-and-feel.html`, then the main screens in the one you pick. You approve the design.
+1. **Design:** it asks whether you already have screens (images, Figma, sketches) or the product has none. If you have them, they are the design. If not, it shows 2-3 named directions in `design/look-and-feel.html`; you pick one and it draws the main screens in it. You approve the design together with the rest of G3, once.
 2. **Stack:** 2-3 options that fit the design, installed once on your machine before you choose.
 3. **SRS and plan:** the SRS baseline (the first approved list of requirements, each with an ID) and milestone v0.1.0 as the thinnest end-to-end slice (the smallest version that works from start to finish).
 
@@ -43,7 +43,7 @@ Type `/next` in the Lead. It works in this order:
 
 ## 5. Build: gates G4-G5 ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Sessions: Dev1, then Lead
 
-Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build try #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. To skip a switch, type `/send` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/relay on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/relay off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
+Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Open each session the Lead asks for; the Lead sends it its prompt, so you never type the Dev commands yourself. `/build try #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who reviews and merges it. By default the sessions pass these prompts to each other by themselves and the Lead merges L0-L2 changes after its review and green CI; each recap says what was sent and merged, and L3 changes, gates and releases still wait for you. `/auto` shows both switches; `/auto relay off` and `/auto merge off` hand them back to you (then paste each prompt, or type `/send` in the session that gave it) ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## 6. Release v0.1.0: gate G6 ([ch. 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/05-releases.md)). Session: Lead
 
@@ -85,7 +85,7 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 | Where the project stands, and what is still open | `/progress` (any session) · `/progress report` in the PO or the Lead saves it in `docs/reports/` |
 | A change | PO: `/change <what, in business terms>` |
 | Send a hand-off prompt without switching | `/send` in the session that gave it |
-| Sessions pass prompts by themselves | `/relay on` (any session) · `/relay off` to stop |
+| What runs without you | `/auto` (any session): `/auto relay on|off` (sessions pass prompts), `/auto merge on|off` (the Lead merges L0-L2) |
 | Is a gate ready? | `/gate <G1-G6>` |
 | A secret (an API key, a password) | `node scripts/set-secret.mjs <NAME>` in `{{main}}`: paste the value when asked; it is not shown and never goes in the chat |
 | Restart after closing a session | Open a new session in the same folder; it knows its role and finds where it stopped |

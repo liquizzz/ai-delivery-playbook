@@ -69,13 +69,13 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 > /next
 
 **Claude asks you:**
-1. Whether you have a look in mind: a site you like, colours, light or dark.
+1. Whether you already have screens (images, Figma, sketches), or a look in mind: a site you like, colours, light or dark.
 2. Any technology that is required or ruled out.
 3. Pass marks for AI features (if any), such as accuracy or latency.
 4. Scope of the first milestone (proposed: the thinnest end-to-end slice of must-have 1).
 
 **Claude does,** in this order:
-1. **Design:** for a product with screens, 2-3 named look-and-feel directions in `design/look-and-feel.html`, then every main screen and state in the one you pick (Full: the Lead proposes the UI/UX session for this and gives you its prompt; Lite: the Lead does it). Meanwhile the Lead writes the flows, data and integrations. You approve the design; with a prototype it is tagged `design-v1` ([chapter 7](07-frontend-projects.md)).
+1. **Design:** for a product with screens, 2-3 named look-and-feel directions in `design/look-and-feel.html`, then every main screen and state in the one you pick (Full: the Lead proposes the UI/UX session for this and gives you its prompt; Lite: the Lead does it). Meanwhile the Lead writes the flows, data and integrations. Full: you approve the design before the stack; with a prototype it is tagged `design-v1` ([chapter 7](07-frontend-projects.md)). Lite: your own screens are used as they are, picking a direction is a choice and not an approval, and the design is approved with the rest of G3.
 2. **Stack:** 2-3 options that fit the design and the requirements, from the lightest to the fullest; the one you pick is installed once on your machine before it is written down as an ADR with the rejected options. Docker and CI are fitted to it, so `docker compose up --build` starts the project.
 3. **SRS and plan:** `docs/tech/srs.md` version `0.0.0` ([template](../../templates/srs.md)) with FR/NFR IDs, data, interfaces, Revision History and traceability; the ADRs; at Full also C4 diagrams, the test strategy and the eval plan; milestone `v0.1.0` with its tasks in Ready.
 

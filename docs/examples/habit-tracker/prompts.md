@@ -124,10 +124,10 @@ Approved
 /next
 ```
 
-When it asks whether you have a look in mind:
+When it asks whether you already have screens or a look in mind:
 
 ```
-Calm and friendly, light background, one accent colour, big tap targets. Nothing else in mind: show me options.
+No screens yet. Calm and friendly, light background, one accent colour, big tap targets. Show me options.
 ```
 
 When the 2-3 directions are on the page (use the letter of the one you like):
@@ -136,11 +136,7 @@ When the 2-3 directions are on the page (use the letter of the one you like):
 B, but make the tick button bigger.
 ```
 
-After the main screens:
-
-```
-The screens are approved.
-```
+The main screens follow in the direction you picked; they are approved with the rest of G3 below.
 
 When it shows the stack options:
 
@@ -148,7 +144,7 @@ When it shows the stack options:
 Take the lightest option that meets the design and works offline.
 ```
 
-After the SRS and milestone v0.1.0, and the approval request:
+After the SRS and milestone v0.1.0, and the one approval request for the design, stack and plan:
 
 ```
 Approved
@@ -162,7 +158,7 @@ In the Lead:
 /build
 ```
 
-Open `<project>-wt/dev1` as "Habit Tracker - Dev1" and paste the prompt the Lead gives you. Repeat for each task with the Lead's next prompt. When the Lead asks to merge a PR:
+Open `<project>-wt/dev1` as "Habit Tracker - Dev1" when the Lead asks. The Lead sends Dev1 each prompt and merges each L0-L2 PR after its review and green CI; its recap names what it sent and merged. If it asks you to merge an L3 PR:
 
 ```
 Merge it
@@ -225,5 +221,5 @@ Run the commands in step 7 of `START-HERE.md`, then open http://localhost:3000.
 | You want a status | `/progress` |
 | A session asks something you have not decided | `later` |
 | You want ideas | `suggest` |
-| A session gives a prompt for another session | Paste it there, as given |
+| A session shows a prompt block for another session (that session was closed) | Open it and paste the prompt, as given |
 | A session closed | Open it again in the same folder and type `Continue.` |
