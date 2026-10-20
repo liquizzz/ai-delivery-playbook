@@ -67,6 +67,8 @@ const start = renderStartHere(here, project, root);
 done.push(`updated .claude/project.json${claude ? ", CLAUDE.md" : ""}${start ? ", START-HERE.md" : ""}`);
 
 const up = !LEVELS[from] || LEVEL_ORDER.indexOf(level) > LEVEL_ORDER.indexOf(from);
+// START-HERE.md is rendered in English; in another language the Lead rewrites it (as /setup does).
+const translate = project.language && !/^english$/i.test(project.language) ? ` and rewrite START-HERE.md in ${project.language}` : "";
 console.log(`Level: ${from ? (LEVELS[from] ? LEVELS[from].title : from) : "(not set)"} → ${LEVELS[level].title}\n  ${done.join("\n  ")}`);
 if (!claude) console.warn('Warning: CLAUDE.md has no "- Level:" line; add one by hand.');
 if (unused.length) {
@@ -77,5 +79,5 @@ if (level !== "full" && has(["show-ref", "--verify", "--quiet", "refs/heads/stag
   console.log("The staging branch is kept but no longer used: releases now go from dev to main.");
 }
 console.log(`\nNext: commit these changes on your branch and merge them as usual.${up
-  ? ` Then tell the Lead: "We moved to ${LEVELS[level].title}. Draft what this level still lacks." and open a session in each new worktree.`
-  : " Every document and all history stay as they are."}`);
+  ? ` Then tell the Lead: "We moved to ${LEVELS[level].title}. Draft what this level still lacks${translate}." and open a session in each new worktree.`
+  : ` Every document and all history stay as they are.${translate ? ` Then tell the Lead: "Rewrite START-HERE.md in ${project.language}."` : ""}`}`);

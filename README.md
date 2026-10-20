@@ -87,6 +87,7 @@ A Claude subscription that includes Claude Code, and GitHub (the free plan is en
 | [docs/book/](docs/book/) | The book |
 | [templates/](templates/) | Documents the sessions fill in |
 | [kit/](kit/) | Files installed into a project by `kit/init.mjs` |
+| [docs/assets/](docs/assets/) | The repo's social preview image and the HTML it is rendered from |
 | [docs/spec/](docs/spec/) | The playbook's own SRS and decision log |
 | [docs/ai-log.md](docs/ai-log.md) | Log of how this playbook itself was built with AI |
 

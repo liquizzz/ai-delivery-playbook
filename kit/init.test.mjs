@@ -116,6 +116,8 @@ try {
   check("humanize: plugin and CLAUDE.md line", read(d, ".claude", "settings.json").includes("humanizer@humanizer") && read(d, "CLAUDE.md").includes("- Documents: polished"));
   check("language: written to CLAUDE.md, covering recaps and buttons", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese.") && read(d, "CLAUDE.md").includes("end-of-turn recap"));
   check("language: session-start names it", hook(wt(d, "lead")).includes("Talk to the owner in Vietnamese") && hook(wt(d, "lead")).includes("button labels"));
+  const vnUp = node([path.join("scripts", "set-level.mjs"), "full"], { cwd: wt(d, "lead") });
+  check("language: set-level asks the Lead to rewrite START-HERE", vnUp.includes("rewrite START-HERE.md in Vietnamese"));
   check("design: pipeline kept", read(d, "docker-compose.yml").includes("design:") && fs.existsSync(path.join(d, ".github", "workflows", "image-design.yml")) && fs.existsSync(path.join(d, "docker", "design.Dockerfile")));
 
   // 5. set-level from the Lite lead worktree: up to full, down to lite; "starter" means lite
@@ -127,6 +129,7 @@ try {
   check("up to full: START-HERE.md points at the main checkout's worktrees", read(lead, "START-HERE.md").includes(wt(a, "po")));
   const down = setLevel("lite");
   check("down to lite: staging kept", branches(a).includes("staging") && down.includes("staging branch is kept"));
+  check("english project: no START-HERE rewrite asked", !down.includes("START-HERE.md in"));
   check("same level: nothing to do", setLevel("lite").includes("Already at level Lite"));
   check("starter: refused politely, means lite", setLevel("starter").includes("Already at level Lite"));
   let refused = false;
