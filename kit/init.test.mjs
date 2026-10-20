@@ -114,7 +114,7 @@ try {
   const d = path.join(tmp, "shop-vn");
   node([path.join(kit, "init.mjs"), d, "--language", "Vietnamese", "--docs-language", "Vietnamese", "--design", "yes", "--humanize", "yes", "--yes"]);
   check("humanize: plugin and CLAUDE.md line", read(d, ".claude", "settings.json").includes("humanizer@humanizer") && read(d, "CLAUDE.md").includes("- Documents: polished"));
-  check("language: written to CLAUDE.md, covering recaps and buttons", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese.") && read(d, "CLAUDE.md").includes("end-of-turn recap"));
+  check("language: written to CLAUDE.md, covering recaps and buttons", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese.") && read(d, "CLAUDE.md").includes("end-of-turn recap") && read(d, "CLAUDE.md").includes("on what it does"));
   check("language: session-start names it", hook(wt(d, "lead")).includes("Talk to the owner in Vietnamese") && hook(wt(d, "lead")).includes("button labels"));
   const vnUp = node([path.join("scripts", "set-level.mjs"), "full"], { cwd: wt(d, "lead") });
   check("language: set-level asks the Lead to rewrite START-HERE", vnUp.includes("rewrite START-HERE.md in Vietnamese"));

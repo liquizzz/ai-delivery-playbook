@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.7 · **Status:** First draft; describes `main` after the set-level language fix (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.8 · **Status:** First draft; describes `main` after the command-language rule (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.7 | (this commit) | 2026-10-20 | DEC-054 | §3, §8 | `set-level` asks for the START-HERE rewrite in a non-English project (FR-065) |
+| 0.8 | (this commit) | 2026-10-20 | DEC-055 | §3.4, §8 | Commands stay English, explained in the owner's language (FR-063, FR-065) |
+| 0.7 | a1d9969 | 2026-10-20 | DEC-054 | §3, §8 | `set-level` asks for the START-HERE rewrite in a non-English project (FR-065) |
 | 0.6 | 15e06be | 2026-10-20 | DEC-053, DEC-011 superseded | §3, §8 | Wording review of book, kit and templates: START-HERE in the owner's language, conditional data notes and eval plan, role write paths, ai-log owner, messages line, one test scope per level (FR-065 to FR-067) |
 | 0.5 | 884ee77 | 2026-10-20 | DEC-052 | Title, §1 | Renamed to Crewbook: Build; repo `crewbook-build` |
 | 0.4 | 0cd449d | 2026-10-20 | DEC-051 | §3.8, §8 | Estimates in AI time (FR-064) |
@@ -107,7 +108,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-022 | A session that proposes another role's work shall mark it for that role to confirm and post it on that role's issue | DEC-022 | `CLAUDE.md` rule |
 | FR-062 | A session shall never start a side session for another role's work; the work goes to that role's session through a hand-off block, and the session-start hook repeats this rule | DEC-049 | `init.test.mjs` side-session check |
 | FR-023 | Sessions shall talk to the owner in the language set at init and write commands for the owner's shell | DEC-018, DEC-039 | `CLAUDE.md` Language line |
-| FR-063 | Everything the owner reads (replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box) shall be in the owner's language; the session-start hook shall name it | DEC-050 | `init.test.mjs` language checks |
+| FR-063 | Everything the owner reads (replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box) shall be in the owner's language; commands, paths and code stay English with a few words in the owner's language on what each does; the session-start hook shall name the language | DEC-050, DEC-055 | `init.test.mjs` language checks |
 
 ### 3.5 Setup (`/setup`)
 | ID | Requirement | Origin | Acceptance |
