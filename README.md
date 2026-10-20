@@ -1,15 +1,19 @@
-# AI Delivery Playbook
+# Crewbook: Build
 
-A kit and a book for delivering real projects with Claude Code, written first for freelancers and team leads who build for clients. You direct a small team of Claude sessions (PO, Lead, Dev) the way you would direct staff, and you approve at every gate. One command sets up your project, and from then on every session already knows its role, which skills to use for each task, how to ask you questions and how to keep token use down.
+**You bring the idea. Your AI team ships the software.**
+
+A step-by-step playbook for building high-quality software from zero, whether you have written code for years or never written a line. You lead a crew of Claude Code sessions (PO, Lead, Dev) the way you would lead a real team, and nothing moves forward until you approve it. One command sets up your project. From then on every session knows its role, picks the right skill for each task, asks you only what it needs and keeps token use down.
+
+Crewbook: Build is the first playbook in the Crewbook series.
 
 **[Start a project in 5 minutes: How to run](HOW-TO-RUN.md)** (once Claude Code, Git, Node.js, Docker and the GitHub CLI are installed)
 
 ```bash
-git clone https://github.com/liquizzz/ai-delivery-playbook.git
+git clone https://github.com/liquizzz/crewbook-build.git
 ```
 
 ```bash
-node ai-delivery-playbook/kit/init.mjs
+node crewbook-build/kit/init.mjs
 ```
 
 The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/setup`, `/brief <your idea>`, `/build dev`, `/build done` or `/release`, and each hand-off ends with a prompt you copy with one click.
@@ -78,4 +82,4 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 | Docs and templates (`README.md`, `docs/`, `templates/`) | [Creative Commons Attribution 4.0 International](LICENSE) |
 | Kit (`kit/`: hooks, scripts, workflows, settings, role files) | [MIT](kit/LICENSE) |
 
-You may use, adapt and share both, including commercially. Please give credit: "AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)". Code files carry an `SPDX-License-Identifier: MIT` line; keep it when you copy them.
+You may use, adapt and share both, including commercially. Please give credit: "Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)". Code files carry an `SPDX-License-Identifier: MIT` line; keep it when you copy them.

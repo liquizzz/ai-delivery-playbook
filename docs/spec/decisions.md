@@ -1,4 +1,4 @@
-# Decisions: AI Delivery Playbook
+# Decisions: Crewbook: Build
 
 The decision log for the playbook itself (the book and the kit). Each row records what was decided, why, and what was rejected, so a later change can see what it overturns. The requirements that follow from these decisions are in [srs.md](srs.md).
 
@@ -27,7 +27,8 @@ The decision log for the playbook itself (the book and the kit). Each row record
 | DEC-010 | 2026-10-18 | Three levels: Starter (one session), Lite (PO, Lead, Dev), Full (adds Test, UI/UX, DevOps, staging) | A first demo needed the fewest steps | | Superseded by DEC-012 |
 | DEC-011 | 2026-10-20 | The audience is freelancers and team leads who deliver projects for clients; agencies are out of scope for now | The kit is built for one owner; client delivery uses every part of it (proposal, CR, DEC, For you, demo release) | Agencies with several people and their own tools; solo builders who want speed | Active |
 | DEC-012 | 2026-10-20 | Starter is removed; Lite is the minimum for everyone, students included; `--level starter` maps to Lite | One session doing every role runs slower (nothing in parallel) and hides the hand-offs; three sessions give the real experience of directing a team | Keeping Starter for students or as a one-hour try-out | Active |
-| DEC-013 | 2026-10-20 | Keep the name "AI Delivery Playbook" for now; pick a distinctive brand name, tagline and SEO keywords (Claude Code, client projects, freelance) after the round-3 fixes and one or two more worked examples | The space is crowded ("Claude Code playbook", agent-team kits); a launch with known bugs loses the first users | Renaming now; calling it a boilerplate (it has no app code and chooses no stack) | Open |
+| DEC-052 | 2026-10-20 | The name, tagline and README pitch sell the result and name no audience: with this playbook anyone can build high-quality software from zero, whether or not they can program. Headline: "You bring the idea. Your AI team ships the software." Subline: "A step-by-step playbook for building high-quality software from zero, whether you have written code for years or never written a line." The pitch may be bold (a wide funnel); the Quick start's prerequisites (terminal, GitHub, Docker) filter out readers who cannot do the basic steps. The series is named **Crewbook** (crew + playbook); each playbook is a verb: this one is **Crewbook: Build**, later **Crewbook: Pitch** (proposals) and **Crewbook: Spec** (BA documents); this repo becomes `crewbook-build` | A pitch about who the kit is for narrows it; the promise of quality software from zero is what draws readers; "crew" matches the headline's AI team; on 2026-10-20 npm had no `crewbook` package and GitHub only empty repos of that name | Naming a target group in the name or tagline; "AI Crew Playbooks" (long, generic); "Shipwright" (taken by a large game port and a Kubernetes build framework, and on npm); "Idea to Ship" (sounds like a course); "Claude" in the name (Anthropic's trademark) | Headlines "From a blank page to shipped software", "Anyone can build real software now" (too generic) and "Build like a software studio, starting from nothing but an idea" (close second) | Active; domain and repo rename open |
+| DEC-013 | 2026-10-20 | Keep the name "AI Delivery Playbook" for now; pick a distinctive brand name, tagline and SEO keywords (Claude Code, client projects, freelance) after the round-3 fixes and one or two more worked examples | The space is crowded ("Claude Code playbook", agent-team kits); a launch with known bugs loses the first users | Renaming now; calling it a boilerplate (it has no app code and chooses no stack) | Superseded by DEC-052 |
 
 ## The owner and the sessions
 
@@ -101,7 +102,7 @@ The decision log for the playbook itself (the book and the kit). Each row record
 
 | Topic | What decides it | Needed before |
 |---|---|---|
-| Brand name, tagline, SEO keywords (DEC-013) | Keyword research for freelancers; name collision check | The public launch |
+| Crewbook domain, repo rename and SEO keywords (DEC-052) | A free domain (crewbook.dev or similar); rename this repo to `crewbook-build` (GitHub redirects the old URL); keywords such as Claude Code, build software with AI, no coding required in the tagline and repo description | The public launch |
 | Applying the kit to a repo that already has code | A design for init on an existing repo: commit, worktrees, documents from the code, open issues on the board | Using the kit on the user's existing projects |
 | The github MCP as an optional plugin | Whether any owner needs it next to `gh` | Next plugin review |
 | Running on macOS and on a clean machine | A trial on each | The public launch |

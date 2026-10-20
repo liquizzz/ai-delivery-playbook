@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Create the project's kanban board on GitHub (a GitHub Project linked to this repo), once.
 // Run from the repo:  node scripts/setup-board.mjs
 // Needs the gh CLI with the "project" scope:  gh auth refresh -s project

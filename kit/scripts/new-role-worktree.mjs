@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Create the worktree for one role: <parent>/<repo>-wt/<role> on branch role/<role>.
 // Run it from your own worktree (the Lead's has dev's version of this script):  node scripts/new-role-worktree.mjs <role>
 // The new worktree gets .env.local with its port and the secrets already set in the main checkout's .env.local.

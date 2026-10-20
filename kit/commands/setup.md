@@ -2,7 +2,7 @@
 description: Finish the project setup (constraints, CLAUDE.md, gate issues, milestone, the team's folders); comes first, anything can be left for later
 ---
 
-Finish the setup of this AI Delivery Playbook project. You are the Lead (check `.claude/role`; if not, say which session to open and stop). Setup comes before any other step: until it is done, the other sessions wait.
+Finish the setup of this Crewbook project. You are the Lead (check `.claude/role`; if not, say which session to open and stop). Setup comes before any other step: until it is done, the other sessions wait.
 
 1. Read `.claude/project.json` (level, design, humanize) and `CLAUDE.md`.
 2. Show the owner this guide and let them answer in their own words (rule "The owner leads" in `CLAUDE.md`):

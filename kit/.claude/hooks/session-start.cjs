@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 //
 // SessionStart hook: when a session starts, resumes, is cleared or compacted, it reminds Claude of its role,
 // the skills it must use, how to ask the owner and how to recover its state, so the owner never has to type it.
@@ -42,14 +42,14 @@ function reminder(cwd) {
   if (!root) return "";
   const roleFile = path.join(root, ".claude", "role");
   if (!fs.existsSync(roleFile)) {
-    return "AI Delivery Playbook: this folder has no role (.claude/role). If this is the project's main checkout, tell the owner to open the session in a role worktree as START-HERE.md says, and do not start project work here.";
+    return "Crewbook: this folder has no role (.claude/role). If this is the project's main checkout, tell the owner to open the session in a role worktree as START-HERE.md says, and do not start project work here.";
   }
   const role = fs.readFileSync(roleFile, "utf8").trim().toLowerCase();
   const project = readProject(root);
   const name = project.name || path.basename(path.dirname(root)).replace(/-wt$/, "");
   if (project.setup === false && role !== "lead") {
     return [
-      `AI Delivery Playbook: you are the ${role} session, but the project's setup is not done yet.`,
+      `Crewbook: you are the ${role} session, but the project's setup is not done yet.`,
       `Do no project work and run no command except the read-only /progress. To anything else, answer only, in the owner's language:`,
       `"Setup is not done. Open the session "${name} - Lead" and type /setup; it tells you when to come back here."`,
     ].join(" ");
@@ -58,7 +58,7 @@ function reminder(cwd) {
   const roleDoc = `.claude/roles/${family}.md`;
   const skills = roleSkills(path.join(root, roleDoc));
   return [
-    `AI Delivery Playbook: you are the ${role} session. Read CLAUDE.md and ${roleDoc} before any work, run the Recovery steps in ${roleDoc}, then do what the owner asked.`,
+    `Crewbook: you are the ${role} session. Read CLAUDE.md and ${roleDoc} before any work, run the Recovery steps in ${roleDoc}, then do what the owner asked.`,
     "Use the skill the Skills table in CLAUDE.md names for each task, every time, without waiting for the owner to ask.",
     skills ? `Your role's skills: ${skills}` : "",
     "The owner leads: show the step's short guide, let them answer in their own words, ask only about gaps, suggest only when asked, write after they lock and confirm.",

@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 # image-design: builds the UI/UX prototype image only when design/ or the shared tokens change.
 # A merge into dev that touches only app/ does not rebuild it, so the client's demo stays as it was.
 #   push to dev (design/ or tokens changed)  ->  :dev and :dev-<sha>

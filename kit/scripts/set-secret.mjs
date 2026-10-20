@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Set one secret for every checkout of the project:  node scripts/set-secret.mjs <NAME>
 // The owner runs it and pastes the value when asked; nothing is shown on screen or printed.
 // It writes NAME=value to the git-ignored .env.local of the main checkout and of every role worktree,

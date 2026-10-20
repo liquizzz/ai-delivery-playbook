@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 //
-// Set up a project for the AI Delivery Playbook in one command.
+// Set up a project for Crewbook in one command.
 //   node <playbook>/kit/init.mjs                      asks: name, folder, level, language, design, documents, description, GitHub
 //   node <playbook>/kit/init.mjs <folder> [options]   asks only what the options leave out
 // Options: --name "<name>"  --level lite|full  --language <lang>  --docs-language <lang>  --design yes|no
@@ -83,7 +83,7 @@ async function ask(question, fallback, check = (v) => v) {
   }
 }
 
-if (interactive) console.log("AI Delivery Playbook: new project. Each question has a suggestion in [brackets]: press Enter to take it.");
+if (interactive) console.log("Crewbook: new project. Each question has a suggestion in [brackets]: press Enter to take it.");
 // A question with a one-line hint under its title.
 const topic = (title, hint) => interactive && console.log(`
 ${title}
@@ -282,7 +282,7 @@ if (!fs.existsSync(log)) {
 }
 const readme = path.join(dest, "README.md");
 if (!fs.existsSync(readme)) {
-  fs.writeFileSync(readme, `# ${name}\n\n${description ? `${description}\n\n` : ""}Built with the [AI Delivery Playbook](https://github.com/liquizzz/ai-delivery-playbook). The owner's steps are in \`START-HERE.md\`; releases are listed in \`CHANGELOG.md\`.\n`);
+  fs.writeFileSync(readme, `# ${name}\n\n${description ? `${description}\n\n` : ""}Built with [Crewbook: Build](https://github.com/liquizzz/crewbook-build). The owner's steps are in \`START-HERE.md\`; releases are listed in \`CHANGELOG.md\`.\n`);
   created.push("README.md");
 }
 const envExample = path.join(dest, ".env.example");
@@ -297,7 +297,7 @@ const ignore = fs.existsSync(ignorePath) ? fs.readFileSync(ignorePath, "utf8") :
 const needed = [".env", ".env.*", "!.env.example", ".claude/role", ".claude/settings.local.json", "node_modules/", "dist/"];
 const missing = needed.filter((l) => !ignore.split(/\r?\n/).includes(l));
 if (missing.length) {
-  fs.writeFileSync(ignorePath, `${ignore}${ignore && !ignore.endsWith("\n") ? "\n" : ""}# AI Delivery Playbook\n${missing.join("\n")}\n`);
+  fs.writeFileSync(ignorePath, `${ignore}${ignore && !ignore.endsWith("\n") ? "\n" : ""}# Crewbook\n${missing.join("\n")}\n`);
   created.push(`.gitignore (+${missing.length} lines)`);
 }
 
@@ -313,7 +313,7 @@ if (!fs.existsSync(hookOut) || force) {
 const fresh = !ok("git rev-parse --verify HEAD");
 if (fresh) {
   sh("git add -A");
-  run("git", ["commit", "-m", `Set up AI Delivery Playbook kit (${LEVELS[level].title})`]);
+  run("git", ["commit", "-m", `Set up Crewbook kit (${LEVELS[level].title})`]);
   created.push("(first commit)");
 }
 for (const b of LEVELS[level].branches) {

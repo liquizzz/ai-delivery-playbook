@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 # Secret check (phase 1 setup, checked at gate G1). Blocks a commit when the staged changes
 # contain a .env file or a value that looks like a credential.
 #

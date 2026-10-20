@@ -3,7 +3,7 @@ description: Check a gate (G1-G6) against the repo and GitHub before asking the 
 argument-hint: <gate, e.g. G3 or G5 v1.4.0>
 ---
 
-Check gate **$ARGUMENTS** of the AI Delivery Playbook for this repository.
+Check gate **$ARGUMENTS** of the Crewbook process for this repository.
 
 1. Read the level and whether there is a design prototype in `.claude/project.json` (no file: full process). Find the gate's criteria in the table below and apply the notes for the level. G4-G6 apply to a milestone: use the version given, or the running milestone.
 2. For each criterion, look for evidence in the repo and on GitHub (`gh issue list`, `gh pr list`, `gh run list`). Read the files and run the checks; do not assume.

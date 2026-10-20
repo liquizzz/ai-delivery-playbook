@@ -1,15 +1,16 @@
-# Software Requirements Specification: AI Delivery Playbook
+# Software Requirements Specification: Crewbook: Build
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.4 · **Status:** First draft; describes `main` after estimates in AI time (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.5 · **Status:** First draft; describes `main` after the rename to Crewbook: Build (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.4 | (this commit) | 2026-10-20 | DEC-051 | §3.8, §8 | Estimates in AI time (FR-064) |
+| 0.5 | (this commit) | 2026-10-20 | DEC-052 | Title, §1 | Renamed to Crewbook: Build; repo `crewbook-build` |
+| 0.4 | 0cd449d | 2026-10-20 | DEC-051 | §3.8, §8 | Estimates in AI time (FR-064) |
 | 0.3 | 8532327 | 2026-10-20 | DEC-050 | §3.4, §8 | The owner's language covers recaps, questions and buttons (FR-063) |
 | 0.2 | c123e80 | 2026-10-20 | DEC-049 | §3.4, §8 | No side sessions for another role's work (FR-062) |
 | 0.1 | d280151 | 2026-10-20 | DEC-001 to DEC-048 | All | First written, from the state after the round-3 fixes |
@@ -17,7 +18,7 @@ Newest first. A change to the kit or the book that changes behaviour adds a row 
 ## 1. Introduction
 
 ### 1.1 Purpose and scope
-The AI Delivery Playbook lets one owner deliver a real software project with a team of Claude Code sessions, under a fixed process with gates the owner approves. It has two parts:
+Crewbook: Build lets one owner deliver a real software project with a team of Claude Code sessions, under a fixed process with gates the owner approves. It has two parts:
 - **The kit** (`kit/`, MIT): `init.mjs` and the files it installs into a project (project `CLAUDE.md`, role files, hooks, slash commands, scripts, GitHub workflows and forms, Docker files, document templates, `START-HERE.md`).
 - **The book** (`docs/book/`, CC BY 4.0): why each step works the way it does, as prompts, and the templates in `templates/`.
 

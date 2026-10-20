@@ -34,7 +34,7 @@ Save as `docs/product/proposal.md`.
 - **Later phases:** <what may follow, quoted separately>
 
 ## 5. Approach
-<Delivery with the AI Delivery Playbook: a Foundation stage (planning, requirements, design) followed by small, frequent releases (milestones). What the client reviews and when.>
+<Delivery with Crewbook: a Foundation stage (planning, requirements, design) followed by small, frequent releases (milestones). What the client reviews and when.>
 
 ## 6. Timeline
 | Phase | Dates | Client involvement |

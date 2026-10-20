@@ -3,7 +3,7 @@ description: Run the next foundation step (G1 proposal, G2 requirements, G3 desi
 argument-hint: [your idea in your own words]
 ---
 
-Run the next foundation step of this AI Delivery Playbook project. The owner's idea, if given: **$ARGUMENTS**
+Run the next foundation step of this Crewbook project. The owner's idea, if given: **$ARGUMENTS**
 
 1. Read `.claude/project.json` (level, design, setup) and `.claude/role`. If setup is not done, say "Setup is not done: open "<Project> - Lead" and type /setup" and stop. Find the next step from the documents' Status fields:
 

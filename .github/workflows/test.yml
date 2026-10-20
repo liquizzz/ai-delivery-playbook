@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 # test: runs the kit's three test suites on every push and pull request.
 # The workflows in kit/.github/ are templates that init copies into projects; this one tests the playbook itself.
 name: test

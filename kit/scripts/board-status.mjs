@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Move an issue to a column of the project's kanban board (the "<repo> board" made by setup-board.mjs).
 // Adds the issue to the board first if it is not there yet.
 //   node scripts/board-status.mjs <issue number> "<column>"

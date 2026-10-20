@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 #
 # UI/UX prototype: built from design/ and packages/tokens/ only, served as static files.
 # Keep design/ free of imports from app/, so product changes never change the prototype.

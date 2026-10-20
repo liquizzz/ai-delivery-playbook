@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 //
 // Test for release.mjs without GitHub: builds a throw-away repo with a CHANGELOG and an SRS, fakes the gh CLI,
 // runs release.mjs for several label mixes and checks the version, CHANGELOG and SRS revision.

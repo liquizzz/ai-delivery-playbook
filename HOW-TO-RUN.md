@@ -27,7 +27,7 @@ cd E:\Projects
 ```
 
 ```bash
-git clone https://github.com/liquizzz/ai-delivery-playbook.git
+git clone https://github.com/liquizzz/crewbook-build.git
 ```
 
 ## 2. Create your project
@@ -35,7 +35,7 @@ git clone https://github.com/liquizzz/ai-delivery-playbook.git
 In the same terminal and folder:
 
 ```bash
-node ai-delivery-playbook/kit/init.mjs
+node crewbook-build/kit/init.mjs
 ```
 
 It asks eight questions, each with a one-line hint. Press Enter to take the suggestion in brackets.

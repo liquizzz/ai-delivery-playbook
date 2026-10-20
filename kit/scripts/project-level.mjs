@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Shared by init.mjs and set-level.mjs: what each level needs, the project record in .claude/project.json,
 // the "Level:" line in CLAUDE.md and START-HERE.md rendered from .claude/start-here/<level>.md.
 import { execFileSync } from "node:child_process";

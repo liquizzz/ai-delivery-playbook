@@ -1,6 +1,6 @@
 If the parent workspace has its own `CLAUDE.md` (`../CLAUDE.md`), read it first.
 
-# ai-delivery-playbook
+# crewbook-build
 
 A public book and kit for building real products with Claude Code: one owner and a team of role sessions.
 

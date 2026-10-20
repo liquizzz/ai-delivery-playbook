@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 # image-app: builds the product image only when the app or its Docker file changes, plus every release tag.
 #   push to dev      ->  :dev, :dev-<sha>
 #   push to staging  ->  :staging, :staging-<sha>   (regression and owner acceptance run on this)

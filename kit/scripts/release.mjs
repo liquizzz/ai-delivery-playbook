@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Prepare a release (Lead). Computes the next version from the labels of the milestone's closed issues,
 // then updates CHANGELOG.md and the SRS version and Revision History. It does not tag or push:
 // the Lead does that after the owner approves.

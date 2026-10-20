@@ -6,7 +6,7 @@
 
 These involve your machine, accounts or secrets:
 - Install the Claude Code desktop app, Git, Node.js 20+, the GitHub CLI (`gh`), Docker and, for front-end products, pnpm. Docker is required: `kit/init.mjs` stops if `docker` or `docker compose` is missing, and warns if Docker is installed but not running. Check with `docker compose version`.
-- Clone the playbook: `git clone https://github.com/liquizzz/ai-delivery-playbook.git`.
+- Clone the playbook: `git clone https://github.com/liquizzz/crewbook-build.git`.
 - Sign in to GitHub in a terminal: `gh auth login`, then `gh auth refresh -s project`.
 - Install the Claude Code plugins the kit uses, once per machine, by typing these in any Claude Code session:
 

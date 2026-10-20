@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: MIT
-// AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+// Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Change the project's level of process, up or down:  node scripts/set-level.mjs <lite|full>
 // Run it in the main checkout or a role worktree. Up: creates the branches and worktrees the level needs.
 // Down: deletes nothing; it lists the sessions you no longer need. Both update .claude/project.json,

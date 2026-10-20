@@ -35,4 +35,4 @@ so that **<outcome / value>**.
 - Data: <entities and fields touched>
 - Out of scope: <what this story does not cover>
 
-Stories are delivered through CRs and tasks; the Definition of Ready and Done for tasks is in chapter 4 of the AI Delivery Playbook.
+Stories are delivered through CRs and tasks; the Definition of Ready and Done for tasks is in chapter 4 of Crewbook: Build.

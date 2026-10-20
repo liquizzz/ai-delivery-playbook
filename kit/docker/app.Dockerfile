@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: MIT
-# AI Delivery Playbook by Hai Nguyen (github.com/liquizzz/ai-delivery-playbook)
+# Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 #
 # The product. A placeholder for a plain Node app in app/ that listens on PORT.
 # During setup the Lead rewrites it for the stack the owner chose.
