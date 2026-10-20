@@ -75,6 +75,7 @@ The decision log for the playbook itself (the book and the kit). Each row record
 | DEC-038 | 2026-10-20 | Secrets are set by the owner with `scripts/set-secret.mjs` (hidden input, written to the git-ignored `.env.local` of every checkout); sessions never ask for a secret or a screenshot of one | A key reached a transcript through a screenshot; two sessions named two different places | Pasting keys in the chat; one `.env` per session | Active |
 | DEC-039 | 2026-10-18 | Commands never wait for input; commands for the owner use the owner's shell; live state is checked before it is reported | Sessions hung on prompts and reported stale CI state in round 1 | | Active |
 | DEC-040 | 2026-10-20 | The Lead runs worktree scripts from its own worktree | The main checkout stays on `main` with the scripts from init | Running them from the main checkout | Active |
+| DEC-049 | 2026-10-20 | A session never starts a side session (a fork or a new session from itself) for another role's work; it hands the work to that role's session with a hand-off block | In round 3 the PO forked itself to fix a design review: the fork ran in the PO's folder as PO, committed on the UI/UX branch but could not push it, and stayed idle in the sidebar | Side sessions in the sender's folder; letting the guard allow cross-role pushes | Active |
 
 ## Skills, plugins and tokens
 

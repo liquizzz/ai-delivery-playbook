@@ -63,6 +63,7 @@ function reminder(cwd) {
     skills ? `Your role's skills: ${skills}` : "",
     "The owner leads: show the step's short guide, let them answer in their own words, ask only about gaps, suggest only when asked, write after they lock and confirm; talk in the language CLAUDE.md sets.",
     "Every approval request ends with the For you block, files and issues are clickable links, and a hand-off ends with the prompt alone in a code block (CLAUDE.md).",
+    "Another role's work goes to that role's session through a hand-off; never start a side session for it.",
   ].filter(Boolean).join(" ");
 }
 

@@ -65,6 +65,7 @@ try {
   fs.writeFileSync(path.join(wt(a, "po"), ".claude", "project.json"), JSON.stringify({ ...poProject, setup: true }));
   check("session-start: PO works after setup", hook(wt(a, "po")).includes("you are the po session"));
   check("gate: level-aware with owner block", read(a, ".claude", "commands", "gate.md").includes("**Lite level:**") && read(a, ".claude", "commands", "gate.md").includes("For you") && !read(a, ".claude", "commands", "gate.md").includes("Starter"));
+  check("no side sessions for another role's work", read(a, "CLAUDE.md").includes("Never start a side session") && hook(wt(a, "lead")).includes("never start a side session"));
   check("CLAUDE.md: hand-off block, For you, links rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block") && read(a, "CLAUDE.md").includes("prompt stands alone in a code block") && read(a, "CLAUDE.md").includes("**Links:**"));
   check("lite: step commands installed, /progress instead of /status", ["setup", "brief", "build", "release", "change", "progress", "gate"].every((c) => fs.existsSync(path.join(a, ".claude", "commands", `${c}.md`))) && !fs.existsSync(path.join(a, ".claude", "commands", "status.md")));
   check("lite: START-HERE uses the commands", ["`/setup`", "`/brief <", "`/build dev", "`/build done", "`/release`", "`/progress`", "set-secret.mjs"].every((c) => read(a, "START-HERE.md").includes(c)) && !read(a, "START-HERE.md").includes("/status"));
