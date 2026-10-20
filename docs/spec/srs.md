@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.10 · **Status:** First draft; describes `main` after `/pass` and `/msg` (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.11 · **Status:** First draft; describes `main` after the command renames (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.10 | (this commit) | 2026-10-20 | DEC-057 | §3.4, §8 | `/pass` and `/msg on|off`, hand-off tips shown three times (FR-071) |
+| 0.11 | (this commit) | 2026-10-20 | DEC-058 | All | Commands renamed: `/brief` to `/next`, `/build dev` to `/build try`, `/pass` to `/send`, `/msg` to `/relay` |
+| 0.10 | da6fce3 | 2026-10-20 | DEC-057 | §3.4, §8 | `/pass` and `/msg on|off` (now `/send` and `/relay`), hand-off tips shown three times (FR-071) |
 | 0.9 | 8e018f5 | 2026-10-20 | DEC-056 | §3, §8 | Ownership and live checks at G3, guard redirections, secret check for code, `.env` carried to worktrees (FR-068 to FR-070) |
 | 0.8 | c704ad1 | 2026-10-20 | DEC-055 | §3.4, §8 | Commands stay English, explained in the owner's language (FR-063, FR-065) |
 | 0.7 | a1d9969 | 2026-10-20 | DEC-054 | §3, §8 | `set-level` asks for the START-HERE rewrite in a non-English project (FR-065) |
@@ -102,7 +103,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 ### 3.4 Working with the owner (project `CLAUDE.md`)
 | ID | Requirement | Origin | Acceptance |
 |---|---|---|---|
-| FR-017 | Each step that needs the owner shall show a "what you need to say" guide and let the owner answer in their own words, in any order | DEC-015, DEC-016 | Guides in `/setup` and `/brief` |
+| FR-017 | Each step that needs the owner shall show a "what you need to say" guide and let the owner answer in their own words, in any order | DEC-015, DEC-016 | Guides in `/setup` and `/next` |
 | FR-018 | Sessions shall ask only about what is missing, one topic at a time, offer options with a recommendation and free text, and suggest only when the owner says "suggest" (with `superpowers:brainstorming`) | DEC-015 | Trial transcripts |
 | FR-019 | Before inviting "lock", a session shall show a checklist of what the owner said and what is still its assumption; after "lock" it shall ask once "final, or review first?" and write only on "final" or after the reviewed summary is approved | DEC-016 | Trial transcripts |
 | FR-020 | "Later" shall put a choice under Open decisions in `CLAUDE.md` with the step that needs it and open a `decision` issue; "you decide" shall settle the rest and list the assumptions | DEC-017 | Open decisions section; `decision` label |
@@ -120,10 +121,10 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-026 | After the owner confirms, `/setup` shall fill in `CLAUDE.md`, fit Docker and CI only for a required stack, enable the design plugins for a product with screens, create milestone v0.1.0 (Full: also v0.2.0) and the G1-G3 gate issues, set `"setup": true`, merge into `dev` and push | DEC-026, DEC-029 | Gate issues and milestone on GitHub |
 | FR-027 | `/setup` shall then create the PO's worktree (Lite: also Dev1's) from the Lead's worktree, check that CI ran, and end with the PO's hand-off block | DEC-026, DEC-036 | PO worktree exists after setup |
 
-### 3.6 Foundation (`/brief`)
+### 3.6 Foundation (`/next`)
 | ID | Requirement | Origin | Acceptance |
 |---|---|---|---|
-| FR-028 | `/brief` shall find the next foundation step from the documents' Status fields and send the owner to the right session if this is the wrong one | DEC-001 | `brief.md` table |
+| FR-028 | `/next` shall find the next foundation step from the documents' Status fields and send the owner to the right session if this is the wrong one | DEC-001 | `next.md` table |
 | FR-029 | G1: the PO shall write `docs/product/proposal.md` (Lite: one page) | DEC-001 | Gate G1 |
 | FR-030 | G2: the PO shall write the PRD, one story per must-have with testable acceptance and, at Full when data comes from an existing system, the data notes mapped to real fields | DEC-001 | Gate G2 |
 | FR-031 | G3 shall run design, then stack, then SRS: the look and feel (2-3 named directions in `design/look-and-feel.html`) and the main screens approved first (Full: by a UI/UX session the Lead proposes; Lite: by the Lead); then 2-3 stack options that fit, the chosen one installed once and recorded as an ADR, Docker and CI fitted; then the SRS baseline (Full: C4, test strategy, and an eval plan when the product has AI features) and milestone v0.1.0 with its tasks in Ready | DEC-027, DEC-028 | Gate G3 |
@@ -143,19 +144,19 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | ID | Requirement | Origin | Acceptance |
 |---|---|---|---|
 | FR-039 | `/build` in the Lead shall split the milestone into tasks with level, role and estimate, put them in Ready, create any missing worktree on the owner's OK, and end with one hand-off block per session that starts | DEC-030, DEC-040 | `build.md` |
-| FR-040 | `/build dev [#n]` shall code and run the task with no tests and no merge, commit `<type>(<module>): <summary> (#n)`, push the role branch and keep the issue In progress | DEC-030 | `build.md` |
+| FR-040 | `/build try [#n]` shall code and run the task with no tests and no merge, commit `<type>(<module>): <summary> (#n)`, push the role branch and keep the issue In progress | DEC-030 | `build.md` |
 | FR-041 | `/build done [#n]` shall confirm the change level against the diff (raise, never lower), make the tests for that level green, run verification, open a PR into `dev` with `Closes #n` and the level, and move the issue to In review | DEC-004, DEC-030 | PR template fields |
 | FR-042 | The Lead shall review every PR (`code-review`, plus `security-review` for L3), merge into `dev`, and when CI on `dev` is green close the issue and move it to Done | DEC-031 | Closed issue in Done |
 | FR-043 | `/change <request>` shall turn a request into a CR with testable acceptance and a proposed level; L2-L3 CRs need the owner's approval; the Lead updates the SRS and spec before tasks are assigned | DEC-003, DEC-004 | `change.md` |
 | FR-044 | `scripts/board-status.mjs <n> "<column>"` shall move an issue on the project board | DEC-034 | Card moves |
 | FR-045 | An alignment edit to an approved document shall be L0 with a note in the PR; any other change goes through a CR | DEC-032 | `CLAUDE.md` rule |
 | FR-065 | When the project's language is not English, `/setup` shall rewrite START-HERE in that language, keeping commands, paths, code blocks and links; after a level change `set-level` shall tell the owner to ask the Lead to rewrite it again | DEC-053, DEC-054 | `commands/setup.md`, `scripts/set-level.mjs`, `init.test.mjs` (language: set-level) |
-| FR-066 | Role boundaries: the Lead may write `.github/`, `docker/` and `design/` (preferring UI/UX or DevOps when they exist); Dev shall not edit `packages/tokens/` when UI/UX exists; UI/UX takes work from the Lead; only the Lead writes `docs/ai-log.md`; messages between sessions follow `/msg` (FR-071) | DEC-053, DEC-057 | Role files, `CLAUDE.md` |
+| FR-066 | Role boundaries: the Lead may write `.github/`, `docker/` and `design/` (preferring UI/UX or DevOps when they exist); Dev shall not edit `packages/tokens/` when UI/UX exists; UI/UX takes work from the Lead; only the Lead writes `docs/ai-log.md`; messages between sessions follow `/relay` (FR-071) | DEC-053, DEC-057 | Role files, `CLAUDE.md` |
 | FR-067 | The tests each change level needs shall be defined once, in the project `CLAUDE.md`; `/build`, the Dev role and the PR template refer to it | DEC-053 | `CLAUDE.md` Change level rule |
-| FR-068 | At G3, with the stack, the Lead shall write `.claude/ownership.json` for the stack's folders and make one live call to each outside service with the owner's key, recording what the plan blocks; G3 checks both | DEC-056 | `commands/brief.md`, `commands/gate.md` |
+| FR-068 | At G3, with the stack, the Lead shall write `.claude/ownership.json` for the stack's folders and make one live call to each outside service with the owner's key, recording what the plan blocks; G3 checks both | DEC-056 | `commands/next.md`, `commands/gate.md` |
 | FR-069 | The role guard shall ignore shell redirections when it reads a push's refspecs; the secret check shall pass code that hands a value along and block literal credentials | DEC-056 | `role-guard.test.cjs`, `pre-commit.test.mjs` |
 | FR-070 | A new role worktree shall carry the keys from the main checkout's `.env.local` and git-ignored `.env`, without printing them | DEC-056 | `init.test.mjs` (new worktree) |
-| FR-071 | `/pass` shall send the last hand-off prompt to the session it names; `/msg on|off` shall set messages between sessions for every checkout at once without a commit; before a hand-off each session shall read the setting (`crew-settings.mjs handoff`), send the prompt itself when on, and otherwise show the block with a tip line at most three times, never again once the owner used `/pass` or `/msg` | DEC-057 | `commands/pass.md`, `commands/msg.md`, `scripts/crew-settings.mjs`, `init.test.mjs` (tips, /msg) |
+| FR-071 | `/send` shall send the last hand-off prompt to the session it names; `/relay on|off` shall set messages between sessions for every checkout at once without a commit; before a hand-off each session shall read the setting (`crew-settings.mjs handoff`), send the prompt itself when on, and otherwise show the block with a tip line at most three times, never again once the owner used `/send` or `/relay` | DEC-057 | `commands/send.md`, `commands/relay.md`, `scripts/crew-settings.mjs`, `init.test.mjs` (tips, /relay) |
 | FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
 ### 3.9 Release (`/release`, `scripts/release.mjs`)
@@ -235,7 +236,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | Stack question at setup | d280151 | DEC-027 | The stack is chosen at G3, after the design |
 | `docker compose up` at G1 | d280151 | DEC-027 | No app exists before the stack |
 | `docs/design/look-and-feel.html` path | d280151 | DEC-027 | UI/UX may only write `design/` |
-| `templates/brief.md` | d280151 | DEC-012 | Only Starter used it |
+| `templates/next.md` | d280151 | DEC-012 | Only Starter used it |
 | Habit Tracker worked example | d280151 | DEC-047 | Made with Starter; to be redone at Lite |
 | github MCP and product-management as required plugins | c90aa5d | DEC-042 | Not used; the kit uses `gh` |
 
@@ -249,13 +250,13 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
-| FR-071 | DEC-057 | `commands/pass.md`, `commands/msg.md`, `scripts/crew-settings.mjs`, `kit/CLAUDE.md` | `kit/init.test.mjs` (tips, /msg) | Delivered |
-| FR-068 to FR-070 | DEC-056 | `commands/brief.md`, `commands/gate.md`, `.claude/hooks/role-guard.cjs`, `hooks/pre-commit`, `scripts/new-role-worktree.mjs` | `init.test.mjs`, `role-guard.test.cjs` (88), `pre-commit.test.mjs` (11) | Delivered |
+| FR-071 | DEC-057 | `commands/send.md`, `commands/relay.md`, `scripts/crew-settings.mjs`, `kit/CLAUDE.md` | `kit/init.test.mjs` (tips, /relay) | Delivered |
+| FR-068 to FR-070 | DEC-056 | `commands/next.md`, `commands/gate.md`, `.claude/hooks/role-guard.cjs`, `hooks/pre-commit`, `scripts/new-role-worktree.mjs` | `init.test.mjs`, `role-guard.test.cjs` (88), `pre-commit.test.mjs` (11) | Delivered |
 | FR-065 to FR-067 | DEC-053 | `commands/setup.md`, role files, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `kit/init.test.mjs` (suite passes) | Delivered |
 | FR-064 | DEC-051 | `kit/CLAUDE.md`, `.github/ISSUE_TEMPLATE/task.yml`, `templates/milestone.md`, `commands/build.md` | `kit/init.test.mjs` (estimates) | Delivered |
 | FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |
 | FR-024 to FR-027 | DEC-026, DEC-027, DEC-029 | `commands/setup.md`, `scripts/new-role-worktree.mjs`, `scripts/setup-labels.mjs` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
-| FR-028 to FR-033 | DEC-027 to DEC-029 | `commands/brief.md`, `.claude/roles/lead.md`, `uiux.md` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
+| FR-028 to FR-033 | DEC-027 to DEC-029 | `commands/next.md`, `.claude/roles/lead.md`, `uiux.md` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
 | FR-034 to FR-038 | DEC-019, DEC-020, DEC-033 | `commands/gate.md`, `kit/CLAUDE.md` | `kit/init.test.mjs` (content checks) | Delivered |
 | FR-039 to FR-045 | DEC-004, DEC-030 to DEC-032, DEC-034 | `commands/build.md`, `commands/change.md`, `scripts/board-status.mjs`, `.github/` | Trials | Delivered; board moves not yet verified live |
 | FR-046 to FR-049 | DEC-005, DEC-009, DEC-030 | `commands/release.md`, `scripts/release.mjs`, `.github/workflows/image-app.yml` | `release.test.mjs` | Delivered |

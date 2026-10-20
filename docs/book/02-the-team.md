@@ -8,7 +8,7 @@
 |---|---|---|---|
 | PO | Ask for something, change priorities, see progress | You | Always |
 | Lead | Ask about design, quality or a release | PO | Always |
-| Dev (1-2) | Run `/build dev` and `/build done` on the tasks the Lead assigns | Lead | When tasks are ready |
+| Dev (1-2) | Run `/build try` and `/build done` on the tasks the Lead assigns | Lead | When tasks are ready |
 | Test | Rarely; the Lead assigns its work | Lead | When there is testing |
 | UI/UX | Review a design round | PO | Front-end products |
 | DevOps | Rarely; hosting and pipelines | Lead | Larger infrastructure work |
@@ -79,13 +79,13 @@ A blocked session sees the reason and changes course. An approval request appear
 | Automation | What happens on its own | What you still do |
 |---|---|---|
 | 1 Default | Each open session takes its assigned issues, works, hands off on the issue and reports | Open and close sessions; answer the morning brief; approve releases |
-| 2 Sessions message each other (`/msg on`) | Each session sends the next one its prompt when a step ends (Claude Code desktop can send messages between local sessions) | Keep the sessions open; approve. Costs more tokens: every message is a turn in the receiving session |
+| 2 Sessions message each other (`/relay on`) | Each session sends the next one its prompt when a step ends (Claude Code desktop can send messages between local sessions) | Keep the sessions open; approve. Costs more tokens: every message is a turn in the receiving session |
 | 3 Lead opens sessions | The Lead starts a session for a role when work is Ready (Claude Code desktop can start sessions) | Accept each new session; approve |
 | 4 Timers (`/loop`, `/goal`) | A session re-checks or keeps working on its own | Not recommended: every cycle costs tokens even when there is nothing to do |
 
-At automation 1 you carry the work between sessions, and every hand-off tells you how: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there, or send with `/pass` from the same session. The first few blocks show a one-line tip about `/pass` and `/msg on`; it stops once you have used either. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
+At automation 1 you carry the work between sessions, and every hand-off tells you how: the report ends with the session to open and a short prompt alone in a box, which you copy with one click and paste there, or send with `/send` from the same session. The first few blocks show a one-line tip about `/send` and `/relay on`; it stops once you have used either. The receiving session comments `Started #n` on the issue when it begins, so the board shows whether it really picked the work up. An issue comment alone does not start a closed session.
 
-**Type** `/msg on` in any session for automation 2, and `/msg off` to go back. **Ask the Lead** for automation 3 (the recommended maximum):
+**Type** `/relay on` in any session for automation 2, and `/relay off` to go back. **Ask the Lead** for automation 3 (the recommended maximum):
 > From now on, open the receiving session yourself if it is not running.
 
 **Claude asks you:** which roles it may open on its own; whether to ask you before each new session (proposed: yes).

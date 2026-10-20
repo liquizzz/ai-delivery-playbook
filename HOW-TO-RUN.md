@@ -59,6 +59,6 @@ Read the "Please check" lines at the end of its report. On a new repo, open its 
 
 Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree, which is a second folder of the same project, one per session, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Setup comes first: it creates the other sessions' folders and ends with the next session's prompt in a box you copy. Each later step names the session, the command, what Claude asks you, and what you get.
 
-At Lite it goes: `/setup` (Lead), `/brief <your idea>` and `/brief` again (PO: proposal, then requirements), `/brief` (Lead: design you approve, then the stack and the plan), `/build dev` and `/build done` (Dev1), `/release` (Lead, after you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
+At Lite it goes: `/setup` (Lead), `/next <your idea>` and `/next` again (PO: proposal, then requirements), `/next` (Lead: design you approve, then the stack and the plan), `/build try` and `/build done` (Dev1), `/release` (Lead, after you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
 
 When you want to know why a step works the way it does, the [book](README.md#the-book) has a chapter for it.

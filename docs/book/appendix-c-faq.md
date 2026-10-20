@@ -20,7 +20,7 @@ Open a new session in the same folder: it recovers its state from the issues and
 That should not happen: each role has its own worktree and paths. Ask the Lead: "Check which paths each role touched in the last day and fix the overlap." Review `.claude/ownership.json`.
 
 **I want to talk to Dev directly.**
-That is normal while building: type `/build dev #<n>` or `/build done #<n>` in Dev1 for a task it has. Anything new (a feature, a change, a fix) goes to the PO as a CR, so the plan and the issues stay in step.
+That is normal while building: type `/build try #<n>` or `/build done #<n>` in Dev1 for a task it has. Anything new (a feature, a change, a fix) goes to the PO as a CR, so the plan and the issues stay in step.
 
 ## Guardrails
 

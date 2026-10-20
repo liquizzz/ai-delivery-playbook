@@ -104,7 +104,7 @@ Full regression runs on `staging` before every release, whatever the levels.
 
 | Type | When | Tests | Merge |
 |---|---|---|---|
-| `/build dev [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
+| `/build try [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
 | `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 7) | A PR the Lead merges; the Lead closes the issue when CI on `dev` is green |
 | `/release demo` | You want to show the milestone to someone | Full: regression, Docker, your acceptance scenarios | No tag; the demo runs the `:dev` image |
 | `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |

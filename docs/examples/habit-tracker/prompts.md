@@ -51,7 +51,7 @@ If it turned on the design plugins:
 ## 2. Proposal, G1: session "Habit Tracker - PO"
 
 ```
-/brief A habit tracker for one person. I add a few habits, tick them off each day and see my streak, so I keep going. I mostly use it on my phone. Nothing leaves the browser.
+/next A habit tracker for one person. I add a few habits, tick them off each day and see my streak, so I keep going. I mostly use it on my phone. Nothing leaves the browser.
 ```
 
 When it shows the guide or asks who it is for and why:
@@ -93,7 +93,7 @@ Approved
 ## 3. Requirements, G2: session PO
 
 ```
-/brief
+/next
 ```
 
 When it asks what v0.1.0 holds:
@@ -121,7 +121,7 @@ Approved
 ## 4. Design, stack and plan, G3: session Lead
 
 ```
-/brief
+/next
 ```
 
 When it asks whether you have a look in mind:
@@ -168,7 +168,7 @@ Open `<project>-wt/dev1` as "Habit Tracker - Dev1" and paste the prompt the Lead
 Merge it
 ```
 
-Once, while Dev1 runs `/build dev`, ask it:
+Once, while Dev1 runs `/build try`, ask it:
 
 ```
 Start the app so I can see it.

@@ -38,16 +38,16 @@
 | Command | What it does |
 |---|---|
 | `/setup` | First step: constraints, `CLAUDE.md`, gate issues, milestone, the team's worktrees |
-| `/brief <idea>` | The next foundation step up to its gate; G3 is design, then stack, then SRS |
-| `/build dev` | Quick: no tests, no merge |
+| `/next <idea>` | The next foundation step up to its gate; G3 is design, then stack, then SRS |
+| `/build try` | Quick: no tests, no merge |
 | `/build done` | Tests at the task's level, then a PR the Lead merges |
 | `/release demo` | Full checks, no tag |
 | `/release [version]` | A tagged version and its image |
 | `/change <request>` | A CR with its level and SRS update |
 | `/progress` | Live state in ten lines |
 | `/gate G1`…`G6` | Checks a gate against the repo and GitHub |
-| `/pass` | Sends the prompt of the last hand-off block to the session it names |
-| `/msg on` / `/msg off` | Sessions pass prompts to each other by themselves, or stop; shared by every session |
+| `/send` | Sends the prompt of the last hand-off block to the session it names |
+| `/relay on` / `/relay off` | Sessions pass prompts to each other by themselves, or stop; shared by every session |
 
 ## Plugins
 

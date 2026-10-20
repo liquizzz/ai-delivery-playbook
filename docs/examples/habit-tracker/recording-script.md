@@ -53,7 +53,7 @@ Do the GitHub steps it lists (enable Actions, board layout), then `/reload-plugi
 Open `<project>-wt/po`, name it "Habit Tracker - PO":
 
 ```
-/brief A habit tracker for one person. I add a few habits, tick them off each day and see my streak. I mostly use it on my phone. Nothing leaves the browser.
+/next A habit tracker for one person. I add a few habits, tick them off each day and see my streak. I mostly use it on my phone. Nothing leaves the browser.
 ```
 
 When it asks: say "suggest" once, to show how suggestions work, then pick what you like. Type "lock", choose "Show me the summary", approve.
@@ -61,7 +61,7 @@ When it asks: say "suggest" once, to show how suggestions work, then pick what y
 ### 3. Requirements, G2 (PO)
 
 ```
-/brief
+/next
 ```
 
 Keep v0.1.0 to the list in "The project". Type "later" for one item (for example reminders) to show how an open decision is parked. Lock and approve.
@@ -69,14 +69,14 @@ Keep v0.1.0 to the list in "The project". Type "later" for one item (for example
 ### 4. Design, stack and plan, G3 (Lead)
 
 ```
-/brief
+/next
 ```
 
 Pick one of the 2-3 look-and-feel directions, ask for one change to it, then approve the main screens. Choose the lightest stack it offers. Approve the SRS and milestone v0.1.0.
 
 ### 5. Build (Lead, Dev1)
 
-In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", and paste each prompt the Lead gives you. Approve each merge in the Lead. Once, during a `/build dev`, open the running app to show a task working before its tests.
+In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", and paste each prompt the Lead gives you. Approve each merge in the Lead. Once, during a `/build try`, open the running app to show a task working before its tests.
 
 Try one change mid-build, to show the change flow. In the PO:
 
@@ -113,7 +113,7 @@ Screenshots marked ★ go in the walkthrough; the rest are back-ups. Video clips
 | 03 | 0 | `START-HERE.md` open, top half ★ | screenshot |
 | 04 | 1 | `/setup` guide and your answer | screenshot |
 | 05 | 1 | GitHub board with the gate issues ★ | screenshot |
-| 06 | 2 | `/brief` guide "What you need to say" ★ | screenshot |
+| 06 | 2 | `/next` guide "What you need to say" ★ | screenshot |
 | 07 | 2 | A follow-up question with options | screenshot |
 | 08 | 2 | The checklist before "lock" (✅ / ⚠️) ★ | screenshot |
 | 09 | 2 | Approval request: gate table and For you block ★ | screenshot |
@@ -125,14 +125,14 @@ Screenshots marked ★ go in the walkthrough; the rest are back-ups. Video clips
 | 15 | 4 | Stack options with effort and fit | screenshot |
 | 16 | 4 | Milestone v0.1.0 tasks in AI time ★ | screenshot |
 | 17 | 5 | Board with tasks moving across columns ★ | screenshot |
-| 18 | 5 | The app running during `/build dev` | screenshot |
+| 18 | 5 | The app running during `/build try` | screenshot |
 | 19 | 5 | A PR with the Lead's review and green CI ★ | screenshot |
 | 20 | 5 | `/change` in the PO and the CR it writes | screenshot |
 | 21 | 6 | `/release demo` scenarios to try ★ | screenshot |
 | 22 | 6 | The GitHub release v0.1.0 and the image ★ | screenshot |
 | 23 | 7 | The app on a phone-width window ★ | screenshot |
 | C1 | 0-1 | init and `/setup`, about 1 min | video |
-| C2 | 2 | `/brief` from idea to "lock", sped up, about 1 min | video |
+| C2 | 2 | `/next` from idea to "lock", sped up, about 1 min | video |
 | C3 | 4 | Picking the look and feel, about 1 min | video |
 | C4 | 5 | From `/build` to the merged PR, sped up, about 1 min | video |
 | C5 | 6-7 | Release and the app running, about 1 min | video |

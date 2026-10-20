@@ -15,7 +15,7 @@ Rules: proposal before PRD · real data during requirements · design before sta
 **What it does:** decides what to build, for whom, and whether it is worth it.
 
 **Ask the PO:**
-> /brief `<idea in two or three sentences>`
+> /next `<idea in two or three sentences>`
 
 Start wherever you like. If you name a product to copy or beat, the PO tries it in the browser first and reports how it works, its strengths and its weaknesses. It checks facts it can check, such as the libraries a live site loads.
 
@@ -48,7 +48,7 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 **What it does:** fixes exactly what the product must do, on real data.
 
 **Ask the PO:**
-> /brief
+> /next
 
 **Claude asks you:**
 1. Business rules you already know (statuses, permissions, calculations).
@@ -66,7 +66,7 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 **What it does:** shows you what you will get, then decides how to build it and writes the SRS everyone will work from. Design comes before the stack, because anyone can judge screens and few people can judge a stack.
 
 **Ask the Lead:**
-> /brief
+> /next
 
 **Claude asks you:**
 1. Whether you have a look in mind: a site you like, colours, light or dark.

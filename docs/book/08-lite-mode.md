@@ -25,11 +25,11 @@ There is no single-session level. One session playing every role feels simpler b
 
 ## 2. Foundation
 
-The PO runs G1 and G2 with `/brief`; the Lead runs G3 with `/brief`: design first (the look and feel and the main screens, which you approve), then the stack, then the SRS and milestone v0.1.0 ([chapter 3](03-foundation.md)).
+The PO runs G1 and G2 with `/next`; the Lead runs G3 with `/next`: design first (the look and feel and the main screens, which you approve), then the stack, then the SRS and milestone v0.1.0 ([chapter 3](03-foundation.md)).
 
 ## 3. Build and release
 
-**Ask:** `/build` in the Lead plans the milestone and gives you Dev1's prompt. In Dev1, `/build dev #<n>` to see it running before tests, `/build done #<n>` when the task is finished; the Lead reviews and merges. Then `/release demo` or `/release` in the Lead.
+**Ask:** `/build` in the Lead plans the milestone and gives you Dev1's prompt. In Dev1, `/build try #<n>` to see it running before tests, `/build done #<n>` when the task is finished; the Lead reviews and merges. Then `/release demo` or `/release` in the Lead.
 
 **Claude does:** checks the main journey; sends you the acceptance scenarios; after you confirm them, runs `scripts/release.mjs` and sends the summary; after your approval merges `dev` into `main` and tags it.
 

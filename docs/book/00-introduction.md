@@ -30,9 +30,9 @@ Lite ([chapter 8](08-lite-mode.md)) is the starting level: three sessions, PO, L
 | # | Session | Type | You get |
 |---|---|---|---|
 | 1 | Terminal, then Lead | Run `node crewbook-build/kit/init.mjs`, then open Claude Code in the `lead` folder init created (`<project>-wt/lead`) and type `/setup` | Repo, kit, branches, the gate issues, and the PO's and Dev1's folders ([ch. 1](01-setup.md)) |
-| 2 | PO | `/brief <idea>`, then `/brief` again | The proposal (G1), then the PRD and stories (G2) ([ch. 3](03-foundation.md)) |
-| 3 | Lead | `/brief` | A design you approve, then the stack, the SRS and the v0.1.0 tasks (G3) ([ch. 3](03-foundation.md)) |
-| 4 | Dev1 | `/build dev #<n>` while you look, `/build done #<n>` per finished task | Code you can try at once; then tests at each task's level and a PR the Lead merges ([ch. 4](04-delivery-loop.md)) |
+| 2 | PO | `/next <idea>`, then `/next` again | The proposal (G1), then the PRD and stories (G2) ([ch. 3](03-foundation.md)) |
+| 3 | Lead | `/next` | A design you approve, then the stack, the SRS and the v0.1.0 tasks (G3) ([ch. 3](03-foundation.md)) |
+| 4 | Dev1 | `/build try #<n>` while you look, `/build done #<n>` per finished task | Code you can try at once; then tests at each task's level and a PR the Lead merges ([ch. 4](04-delivery-loop.md)) |
 | 5 | Lead | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
 | 6 | Terminal | The commands in the "Run the release in Docker" step of `START-HERE.md` | v0.1.0 running in Docker on your machine |
 | 7 | PO, then Dev1 | Prove the loop: close the sessions, open new ones, `/change <one fix>` | The fix as CR, task and v0.1.1, picked up from the record alone |

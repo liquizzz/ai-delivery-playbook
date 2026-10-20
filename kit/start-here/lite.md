@@ -20,19 +20,19 @@ Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with la
 
 ## 2. Proposal: gate G1 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: PO
 
-Open a new session in the folder `{{po}}`, name it "{{name}} - PO", and type `/brief <your idea, in your own words>`. Start wherever you like: who it is for, a product you want to copy, your constraints. The PO asks only about what is missing and shows a checklist of what is settled before you lock.
+Open a new session in the folder `{{po}}`, name it "{{name}} - PO", and type `/next <your idea, in your own words>`. Start wherever you like: who it is for, a product you want to copy, your constraints. The PO asks only about what is missing and shows a checklist of what is settled before you lock.
 
 **You check:** the proposal and its options. Approve or say what to change.
 
 ## 3. Requirements: gate G2 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: PO
 
-Type `/brief` again: it goes on to the PRD and stories.
+Type `/next` again: it goes on to the PRD and stories.
 
 **You check:** every story has testable acceptance, and v0.1.0 holds only what you need first. Approve.
 
 ## 4. Design, stack and plan: gate G3 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: Lead
 
-Type `/brief` in the Lead. It works in this order:
+Type `/next` in the Lead. It works in this order:
 1. **Design:** for screens, it asks whether you have a look in mind, shows 2-3 named directions in `design/look-and-feel.html`, then the main screens in the one you pick. You approve the design.
 2. **Stack:** 2-3 options that fit the design, installed once on your machine before you choose.
 3. **SRS and plan:** the SRS baseline (the first approved list of requirements, each with an ID) and milestone v0.1.0 as the thinnest end-to-end slice (the smallest version that works from start to finish).
@@ -41,7 +41,7 @@ Type `/brief` in the Lead. It works in this order:
 
 ## 5. Build: gates G4-G5 ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Sessions: Dev1, then Lead
 
-Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. To skip a switch, type `/pass` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/msg on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/msg off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
+Type `/build` in the Lead: it assigns the v0.1.0 tasks and gives you the prompt for Dev1 (folder `{{dev1}}`, session "{{name}} - Dev1"). Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build try #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. To skip a switch, type `/send` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/relay on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/relay off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## 6. Release v0.1.0: gate G6 ([ch. 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/05-releases.md)). Session: Lead
 
@@ -82,8 +82,8 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 |---|---|
 | Where the project stands, and what is still open | `/progress` (any session) · PO: "Morning brief." |
 | A change | PO: `/change <what, in business terms>` |
-| Send a hand-off prompt without switching | `/pass` in the session that gave it |
-| Sessions pass prompts by themselves | `/msg on` (any session) · `/msg off` to stop |
+| Send a hand-off prompt without switching | `/send` in the session that gave it |
+| Sessions pass prompts by themselves | `/relay on` (any session) · `/relay off` to stop |
 | Is a gate ready? | `/gate <G1-G6>` |
 | A secret (an API key, a password) | `node scripts/set-secret.mjs <NAME>` in `{{main}}`: paste the value when asked; it is not shown and never goes in the chat |
 | Restart after closing a session | Open a new session in the same folder; it knows its role and finds where it stopped |

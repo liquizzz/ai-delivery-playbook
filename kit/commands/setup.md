@@ -29,5 +29,5 @@ Finish the setup of this Crewbook project. You are the Lead (check `.claude/role
 
    **Next:** open "<Project> - PO" (folder `<po worktree>`) and paste:
    ```
-   /brief <your idea, in your own words>
+   /next <your idea, in your own words>
    ```

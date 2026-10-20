@@ -13,7 +13,7 @@ Run the next foundation step of this Crewbook project. The owner's idea, if give
 | G2 requirements | PO | `docs/product/prd.md`, stories (Full: also data notes) |
 | G3 design, stack and SRS | Lead | a) the approved design; b) the stack ADR; c) `docs/tech/srs.md` baseline, ADRs, milestone v0.1.0 and its tasks (Full: also C4, test strategy, eval plan) |
 
-   If this session is not the one the step needs, end with the hand-off block for that session (prompt: `/brief`) and stop. Work under the gate's issue (label `gate`): move it to In progress, and name it in every commit.
+   If this session is not the one the step needs, end with the hand-off block for that session (prompt: `/next`) and stop. Work under the gate's issue (label `gate`): move it to In progress, and name it in every commit.
 2. Show the guide for the step and let the owner write in their own words, in any order (rule "The owner leads" in `CLAUDE.md`). If the idea was given, treat it as their first answer.
 
    > **Proposal: what you need to say**
@@ -47,4 +47,4 @@ Run the next foundation step of this Crewbook project. The owner's idea, if give
    c. **SRS and plan:** the SRS baseline (Full: also C4, test strategy, eval plan), milestone v0.1.0 as the thinnest end-to-end slice, estimated in AI time (rule "Estimates" in `CLAUDE.md`), the task issues in Ready (`node scripts/board-status.mjs <n> Ready`).
 4. After "lock", ask the one question from "The owner leads" (final, or review first), then write the documents from the templates and check the step's gate with `.claude/commands/gate.md`. An item that waits for someone else (for example a table description from the client) may be approved later: give it an issue, a due date and the step that needs it.
 5. Ask for approval in the fixed form (gate table, `For you` block with links, then the question). After "Approved": set the Status field, close the gate's issue, commit, merge into `dev` (Lead) or open the PR for the Lead (PO), push.
-6. End with the next step as a hand-off block. After G2: the Lead (`/brief`). After G3: propose the team the milestone needs (Lite: Dev1 is there; Full: Dev1, and Test); on the owner's OK create the worktrees from your own (`node scripts/new-role-worktree.mjs <role>`) and give one hand-off block per new session, then `/build` in the Lead.
+6. End with the next step as a hand-off block. After G2: the Lead (`/next`). After G3: propose the team the milestone needs (Lite: Dev1 is there; Full: Dev1, and Test); on the owner's OK create the worktrees from your own (`node scripts/new-role-worktree.mjs <role>`) and give one hand-off block per new session, then `/build` in the Lead.

@@ -24,7 +24,7 @@ Then run `/reload-plugins`. Optional plugins (Figma, Codex review, product-manag
 
 ## 1. Create the project
 
-**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the Lead's worktree, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/brief`, `/build dev`, `/build done`, `/release`).
+**What it does:** installs the kit (shared `CLAUDE.md`, role files, guard hook, issue forms, workflows, scripts, Docker files, document templates in `docs/templates/`), creates the docs folders, the branches and the Lead's worktree, optionally creates the GitHub repo, and writes `START-HERE.md`: your next steps as commands to type (`/setup`, `/next`, `/build try`, `/build done`, `/release`).
 
 **You run,** in a terminal:
 1. Go to your projects folder, the one that holds `crewbook-build`, with `cd <your projects folder>`. The Claude Code Terminal panel opens in your home folder, so this step applies there too.

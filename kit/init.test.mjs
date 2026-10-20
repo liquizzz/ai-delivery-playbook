@@ -45,7 +45,7 @@ try {
   check("lite: NFR rows follow ISO 25010", read(a, "docs", "templates", "srs.md").includes("ISO/IEC 25010") && read(a, "docs", "templates", "srs.md").includes("### 2.4 Constraints"));
   check("lite: plain documents by default, no humanizer plugin", read(a, "CLAUDE.md").includes("- Documents: plain") && !read(a, ".claude", "settings.json").includes("humanizer@humanizer") && JSON.parse(read(a, ".claude", "project.json")).humanize === false);
   check("lite: design plugins left to setup", !read(a, ".claude", "settings.json").includes("ui-ux-pro-max@ui-ux-pro-max-skill\": true") && read(a, "CLAUDE.md").includes("setup enables `frontend-design`"));
-  check("design first: look and feel at G3 in design/", read(a, "CLAUDE.md").includes("Design first, stack after") && read(a, "START-HERE.md").includes("design/look-and-feel.html") && read(a, ".claude", "commands", "brief.md").includes("G3 runs in three parts"));
+  check("design first: look and feel at G3 in design/", read(a, "CLAUDE.md").includes("Design first, stack after") && read(a, "START-HERE.md").includes("design/look-and-feel.html") && read(a, ".claude", "commands", "next.md").includes("G3 runs in three parts"));
   check("setup: no stack question, opens gate issues and team folders", !read(a, ".claude", "commands", "setup.md").includes("stack in mind") && read(a, ".claude", "commands", "setup.md").includes("label") && read(a, ".claude", "commands", "setup.md").includes("new-role-worktree.mjs po"));
   check("gate: G1 needs no running app, G3 does", read(a, ".claude", "commands", "gate.md").includes("No app is needed yet") && /G3 Design, stack and SRS approved[^\n]*docker compose up --build/.test(read(a, ".claude", "commands", "gate.md")));
   check("lite: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming") && read(a, "CLAUDE.md").includes("Try it in the browser"));
@@ -66,18 +66,18 @@ try {
   check("session-start: PO works after setup", hook(wt(a, "po")).includes("you are the po session"));
   check("gate: level-aware with owner block", read(a, ".claude", "commands", "gate.md").includes("**Lite level:**") && read(a, ".claude", "commands", "gate.md").includes("For you") && !read(a, ".claude", "commands", "gate.md").includes("Starter"));
   check("estimates in AI time", read(a, "CLAUDE.md").includes("Estimates are in AI time") && read(a, ".github", "ISSUE_TEMPLATE", "task.yml").includes("AI working time") && read(a, "docs", "templates", "milestone.md").includes("never in human developer days"));
-  check("G3 sets ownership and checks outside services live", read(a, ".claude", "commands", "brief.md").includes(".claude/ownership.json") && read(a, ".claude", "commands", "brief.md").includes("one live call") && read(a, ".claude", "commands", "gate.md").includes("live check of each outside service"));
+  check("G3 sets ownership and checks outside services live", read(a, ".claude", "commands", "next.md").includes(".claude/ownership.json") && read(a, ".claude", "commands", "next.md").includes("one live call") && read(a, ".claude", "commands", "gate.md").includes("live check of each outside service"));
   const crew = (...args) => node([path.join("scripts", "crew-settings.mjs"), ...args], { cwd: wt(a, "lead") });
   const tips = [1, 2, 3, 4].map(() => crew("handoff"));
   check("hand-off tips: shown three times, then hidden", tips.slice(0, 3).every((t) => t.includes("tips: show") && t.includes("messages: off")) && tips[3].includes("tips: hide"));
-  crew("msg", "on");
-  check("/msg on: shared by every checkout", node([path.join("scripts", "crew-settings.mjs"), "handoff"], { cwd: a }).includes("messages: on") && git(a, "status", "--porcelain") === "");
-  crew("msg", "off");
+  crew("relay", "on");
+  check("/relay on: shared by every checkout", node([path.join("scripts", "crew-settings.mjs"), "handoff"], { cwd: a }).includes("messages: on") && git(a, "status", "--porcelain") === "");
+  crew("relay", "off");
   check("hand-off rule reads the setting", read(a, "CLAUDE.md").includes("crew-settings.mjs handoff"));
   check("no side sessions for another role's work", read(a, "CLAUDE.md").includes("Never start a side session") && hook(wt(a, "lead")).includes("never start a side session"));
   check("CLAUDE.md: hand-off block, For you, links rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block") && read(a, "CLAUDE.md").includes("prompt stands alone in a code block") && read(a, "CLAUDE.md").includes("**Links:**"));
-  check("lite: step commands installed, /progress instead of /status", ["setup", "brief", "build", "release", "change", "progress", "gate", "pass", "msg"].every((c) => fs.existsSync(path.join(a, ".claude", "commands", `${c}.md`))) && !fs.existsSync(path.join(a, ".claude", "commands", "status.md")));
-  check("lite: START-HERE uses the commands", ["`/setup`", "`/brief <", "`/build dev", "`/build done", "`/release`", "`/progress`", "set-secret.mjs"].every((c) => read(a, "START-HERE.md").includes(c)) && !read(a, "START-HERE.md").includes("/status"));
+  check("lite: step commands installed, /progress instead of /status", ["setup", "next", "build", "release", "change", "progress", "gate", "send", "relay"].every((c) => fs.existsSync(path.join(a, ".claude", "commands", `${c}.md`))) && !fs.existsSync(path.join(a, ".claude", "commands", "status.md")));
+  check("lite: START-HERE uses the commands", ["`/setup`", "`/next <", "`/build try", "`/build done", "`/release`", "`/progress`", "set-secret.mjs"].every((c) => read(a, "START-HERE.md").includes(c)) && !read(a, "START-HERE.md").includes("/status"));
   check("lite: no Starter left in the kit", !fs.existsSync(path.join(a, ".claude", "start-here", "starter.md")) && !fs.existsSync(path.join(a, "docs", "templates", "brief.md")) && !/starter/i.test(read(a, "CLAUDE.md")));
   check("lite: START-HERE links Actions and image", read(a, "START-HERE.md").includes("your repo's Actions tab") && read(a, "START-HERE.md").includes("ghcr.io/<github-user>/<repo>-app"));
 

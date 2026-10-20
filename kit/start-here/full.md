@@ -18,26 +18,26 @@ Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{rep
 
 ## 2. Proposal: gate G1 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: PO
 
-Open a new session in the folder `{{po}}`, name it "{{name}} - PO", and type `/brief <your idea, in your own words>`. Start wherever you like: who it is for, a product you want to copy, your systems, budget and deadline. The PO tries a product you name, checks facts it can check, asks only about what is missing, and shows a checklist of what is settled before you lock.
+Open a new session in the folder `{{po}}`, name it "{{name}} - PO", and type `/next <your idea, in your own words>`. Start wherever you like: who it is for, a product you want to copy, your systems, budget and deadline. The PO tries a product you name, checks facts it can check, asks only about what is missing, and shows a checklist of what is settled before you lock.
 
 **You check:** the proposal and its options. Approve or say what to change.
 
 ## 3. Requirements: gate G2 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: PO
 
-Type `/brief` again: PRD, data notes and stories.
+Type `/next` again: PRD, data notes and stories.
 
 **You check:** every story has testable acceptance, and v0.1.0 holds only what you need first. Approve.
 
 ## 4. Design, stack and SRS: gate G3 ([ch. 3](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/03-foundation.md)). Session: Lead, with UI/UX
 
-Type `/brief` in the Lead. It works in this order:
+Type `/next` in the Lead. It works in this order:
 1. **Design:** for screens, the Lead proposes the UI/UX session and gives you its prompt. UI/UX shows 2-3 named look-and-feel directions, then every main screen and state in the one you pick; the Lead writes the flows, data and integrations. You approve the design (tag `design-v1`): this is what you show the client.
 2. **Stack:** 2-3 options that fit the design and the requirements, installed once on your machine before you choose.
 3. **SRS and plan:** the SRS baseline (the first approved list of requirements, each with an ID), architecture, test strategy and milestone v0.1.0 as the thinnest end-to-end slice (the smallest version that works from start to finish).
 
 ## 5. The team and the build: gate G4 ([ch. 2](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md), [ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Session: Lead
 
-When G3 is approved, the Lead proposes the sessions the milestone needs (usually Dev1 and Test), creates their folders when you agree, and gives one prompt per session. One Dev is enough for most milestones; add `dev2` only if you already split work across developers. Then `/build` in the Lead assigns the tasks. Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build dev #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. The receiving session comments `Started #n` on the issue. When every task of the milestone is merged with green CI, the milestone is built (G4). To skip a switch, type `/pass` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/msg on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/msg off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
+When G3 is approved, the Lead proposes the sessions the milestone needs (usually Dev1 and Test), creates their folders when you agree, and gives one prompt per session. One Dev is enough for most milestones; add `dev2` only if you already split work across developers. Then `/build` in the Lead assigns the tasks. Paste the prompt the Lead gives you into each Dev session; you never type the Dev commands yourself. `/build try #<n>` shows you a task working quickly, and `/build done #<n>` adds its tests and sends it to the Lead, who merges it. The receiving session comments `Started #n` on the issue. When every task of the milestone is merged with green CI, the milestone is built (G4). To skip a switch, type `/send` in the session that gave the prompt: it sends the prompt there for you. To skip them all, type `/relay on` in any session: the sessions then pass their prompts to each other by themselves (more tokens; you still approve merges and releases), and `/relay off` turns it back ([ch. 2, section 5](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/02-the-team.md#5-how-automatic-it-is)).
 
 ## 6. Every day ([ch. 4](https://github.com/liquizzz/crewbook-build/blob/main/docs/book/04-delivery-loop.md)). Session: PO
 
@@ -81,8 +81,8 @@ Open http://localhost:3000. Stop with `docker compose down`, then `git checkout 
 | Need | Type or run |
 |---|---|
 | Where the project stands | `/progress` (any session) |
-| Send a hand-off prompt without switching | `/pass` in the session that gave it |
-| Sessions pass prompts by themselves | `/msg on` (any session) · `/msg off` to stop |
+| Send a hand-off prompt without switching | `/send` in the session that gave it |
+| Sessions pass prompts by themselves | `/relay on` (any session) · `/relay off` to stop |
 | Is a gate ready? | `/gate <G1-G6>` |
 | A secret (an API key, a password) | `node scripts/set-secret.mjs <NAME>` in `{{main}}`: paste the value when asked; it is not shown and never goes in the chat |
 | Restart after closing a session | Open a new session in the same folder; it knows its role and finds where it stopped |

@@ -16,7 +16,7 @@ git clone https://github.com/liquizzz/crewbook-build.git
 node crewbook-build/kit/init.mjs
 ```
 
-The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/setup`, `/brief <your idea>`, `/build dev`, `/build done` or `/release`, and each hand-off ends with a prompt you copy with one click.
+The first time, install the tools listed in How to run (once per machine). Then answer eight short questions (Enter takes each suggestion) and open the `START-HERE.md` it writes into your project. Every next step there is one short command to type, such as `/setup`, `/next <your idea>`, `/build try`, `/build done` or `/release`, and each hand-off ends with a prompt you copy with one click.
 
 ## What you get: a Claude Code agent team in one command
 
@@ -65,7 +65,7 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 ## FAQ
 
 **Can I build an app with Claude Code if I can't code?**
-Yes. You describe what you want, answer the sessions' questions and approve each gate; the sessions write the code, the tests and the documents. You do need to install a few tools once and type short commands such as `/brief` and `/build dev`. [How to run](HOW-TO-RUN.md) walks through each one.
+Yes. You describe what you want, answer the sessions' questions and approve each gate; the sessions write the code, the tests and the documents. You do need to install a few tools once and type short commands such as `/next` and `/build try`. [How to run](HOW-TO-RUN.md) walks through each one.
 
 **How is this different from vibe coding?**
 Vibe coding ships whatever the last prompt produced. In Crewbook every change has a requirement, a review by the Lead, tests sized to the change and a gate you approve, so the tenth feature is as solid as the first.
