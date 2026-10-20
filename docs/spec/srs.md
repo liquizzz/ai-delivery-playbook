@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.19 · **Status:** First draft; describes `main` after sessions open themselves (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.20 · **Status:** First draft; describes `main` after sessions open themselves (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.19 | (this commit) | 2026-10-20 | DEC-065 | §3, §8 | Sessions opened by the hand-off session on the owner's yes, detached at once (FR-078) |
+| 0.20 | (this commit) | 2026-10-20 | DEC-065 | §3 | Detached sessions go back into the project's sidebar group; `/setup` creates the group (FR-078) |
+| 0.19 | b3e1a42 | 2026-10-20 | DEC-065 | §3, §8 | Sessions opened by the hand-off session on the owner's yes, detached at once (FR-078) |
 | 0.18 | 80e22c3 | 2026-10-20 | DEC-064 | §3, §8 | Issue and PR numbers shown with link, title and CR (FR-077) |
 | 0.17 | 65fb0d5 | 2026-10-20 | DEC-063 | §2, §3.12, §8 | `init` installs the enabled plugins, `/setup` checks them first, no GitHub MCP (FR-076) |
 | 0.16 | 6949afc | 2026-10-20 | DEC-062 | §3, §8 | `scripts/run.mjs`, healthchecks, small images at G3 (FR-075) |
@@ -202,7 +203,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-059 | The kit's settings shall enable superpowers, code-review, claude-mem and context7, and humanizer only for polished documents; setup enables frontend-design and ui-ux-pro-max for products with screens | DEC-042 | `init.test.mjs` plugin checks |
 | FR-076 | `init` shall install the plugins `.claude/settings.json` enables through `scripts/plugins.mjs` (marketplaces first, then `claude plugin install --scope user`) or print the `/plugin install` lines when the `claude` command is missing, and skip this with `--no-plugins`; `/setup` shall check its skill list for the enabled plugins before anything else and stop with the install step when one is missing; the kit shall need no GitHub MCP | DEC-063 | Plugins on a new machine |
 | FR-077 | Every issue or PR number a session shows the owner shall be a link with its short title and its CR when there is one; recaps and buttons, which hold no links, shall add a few words to the number; the hand-off "Next" line shall start with the linked issue | DEC-064 | Owner-facing text |
-| FR-078 | When a step needs a session that is not running, the handing-off session shall ask the owner once and, on yes and where the app allows it, start that session in the role's worktree with its title and first prompt and detach it to top level before it works; otherwise it shall show the hand-off block | DEC-065 | Opening sessions |
+| FR-078 | When a step needs a session that is not running, the handing-off session shall ask the owner once and, on yes and where the app allows it, start that session in the role's worktree with its title and first prompt, detach it to top level before it works and file it in the opener's sidebar group; otherwise it shall show the hand-off block | DEC-065 | Opening sessions |
 
 ### 3.13 This repository
 | ID | Requirement | Origin | Acceptance |

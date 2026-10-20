@@ -21,6 +21,7 @@ Finish the setup of this Crewbook project. You are the Lead (check `.claude/role
    - if the product has screens, enable `frontend-design@claude-plugins-official` and `ui-ux-pro-max@ui-ux-pro-max-skill` in `.claude/settings.json` and run `node scripts/plugins.mjs` to install them;
    - create milestone v0.1.0 on GitHub (Full: also v0.2.0) and one issue per foundation gate, labelled `gate`, in Backlog on the board: "G1 Proposal", "G2 Requirements", "G3 Design, stack and SRS". Foundation commits name their gate's issue;
    - if the project's language (the Language line in `CLAUDE.md`, `language` in `.claude/project.json`) is not English, rewrite `START-HERE.md` in that language; keep commands, paths, code blocks, links and session names in English and explain in that language what each command does (`scripts/set-level.mjs` renders it again in English and tells the owner to ask you to rewrite it, so do it again then);
+   - in Claude Code desktop, if your own session is in no sidebar group, create one named after the project and file yourself in it (`create_group`, then `move_sessions` with `self`), so every session opened later joins the same group;
    - set `"setup": true` in `.claude/project.json`;
    - commit, merge into `dev`, push.
 4. From your own worktree, create the team's folders: `node scripts/new-role-worktree.mjs po` (Lite: also `dev1`). Full: UI/UX joins at G3 for the screens, Dev and Test when G3 is approved.
