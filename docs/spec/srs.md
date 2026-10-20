@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.12 · **Status:** First draft; describes `main` after the board flow fix (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.13 · **Status:** First draft; describes `main` after the board flow fix (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.12 | (this commit) | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Board: review loop back to In review, docs PRs on the board, Testing column at Full (FR-072, FR-044) |
+| 0.13 | (this commit) | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Same seven board columns at every level; the Testing column stays empty at Lite (FR-072, FR-044) |
+| 0.12 | 432fb38 | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Board: review loop back to In review, docs PRs on the board, Testing column at Full (FR-072, FR-044) |
 | 0.11 | 7793518 | 2026-10-20 | DEC-058 | All | Commands renamed: `/brief` to `/next`, `/build dev` to `/build try`, `/pass` to `/send`, `/msg` to `/relay` |
 | 0.10 | da6fce3 | 2026-10-20 | DEC-057 | §3.4, §8 | `/pass` and `/msg on|off` (now `/send` and `/relay`), hand-off tips shown three times (FR-071) |
 | 0.9 | 8e018f5 | 2026-10-20 | DEC-056 | §3, §8 | Ownership and live checks at G3, guard redirections, secret check for code, `.env` carried to worktrees (FR-068 to FR-070) |
@@ -149,7 +150,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-041 | `/build done [#n]` shall confirm the change level against the diff (raise, never lower), make the tests for that level green, run verification, open a PR into `dev` with `Closes #n` and the level, and move the issue to In review | DEC-004, DEC-030 | PR template fields |
 | FR-042 | The Lead shall review every PR (`code-review`, plus `security-review` for L3), merge into `dev`, and when CI on `dev` is green close the issue and move it to Done | DEC-031 | Closed issue in Done |
 | FR-043 | `/change <request>` shall turn a request into a CR with testable acceptance and a proposed level; L2-L3 CRs need the owner's approval; the Lead updates the SRS and spec before tasks are assigned | DEC-003, DEC-004 | `change.md` |
-| FR-044 | `scripts/board-status.mjs <n> "<column>"` shall move an issue, or a PR with no task issue, on the project board; asked for Testing on a board without that column it shall print a note and exit 0 | DEC-034, DEC-059 | Card moves |
+| FR-044 | `scripts/board-status.mjs <n> "<column>"` shall move an issue, or a PR with no task issue, on the project board | DEC-034, DEC-059 | Card moves |
 | FR-045 | An alignment edit to an approved document shall be L0 with a note in the PR; any other change goes through a CR | DEC-032 | `CLAUDE.md` rule |
 | FR-065 | When the project's language is not English, `/setup` shall rewrite START-HERE in that language, keeping commands, paths, code blocks and links; after a level change `set-level` shall tell the owner to ask the Lead to rewrite it again | DEC-053, DEC-054 | `commands/setup.md`, `scripts/set-level.mjs`, `init.test.mjs` (language: set-level) |
 | FR-066 | Role boundaries: the Lead may write `.github/`, `docker/` and `design/` (preferring UI/UX or DevOps when they exist); Dev shall not edit `packages/tokens/` when UI/UX exists; UI/UX takes work from the Lead; only the Lead writes `docs/ai-log.md`; messages between sessions follow `/relay` (FR-071) | DEC-053, DEC-057 | Role files, `CLAUDE.md` |
@@ -158,7 +159,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-069 | The role guard shall ignore shell redirections when it reads a push's refspecs; the secret check shall pass code that hands a value along and block literal credentials | DEC-056 | `role-guard.test.cjs`, `pre-commit.test.mjs` |
 | FR-070 | A new role worktree shall carry the keys from the main checkout's `.env.local` and git-ignored `.env`, without printing them | DEC-056 | `init.test.mjs` (new worktree) |
 | FR-071 | `/send` shall send the last hand-off prompt to the session it names; `/relay on|off` shall set messages between sessions for every checkout at once without a commit; before a hand-off each session shall read the setting (`crew-settings.mjs handoff`), send the prompt itself when on, and otherwise show the block with a tip line at most three times, never again once the owner used `/send` or `/relay` | DEC-057 | `commands/send.md`, `commands/relay.md`, `scripts/crew-settings.mjs`, `init.test.mjs` (tips, /relay) |
-| FR-072 | The board shall show every wait: an issue goes back to In progress when the Lead asks for changes and to In review again when the fixes are pushed; a PR with no task issue sits in In review until merged; at Full an L1-L3 task stays in Testing after the merge until the Test session passes it and closes it; a Lite board has no Testing column (`setup-board.mjs`), and `set-level` tells the owner to add or remove it | DEC-059 | Board during a build |
+| FR-072 | The board shall show every wait: an issue goes back to In progress when the Lead asks for changes and to In review again when the fixes are pushed; a PR with no task issue sits in In review until merged; at Full an L1-L3 task stays in Testing after the merge until the Test session passes it and closes it; every level's board has the same seven columns (`setup-board.mjs`) and the Testing column stays empty at Lite | DEC-059 | Board during a build |
 | FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
 ### 3.9 Release (`/release`, `scripts/release.mjs`)
@@ -202,7 +203,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 - `.claude/role`: one word, the role of the worktree.
 - Project `CLAUDE.md` lines read by scripts and sessions: Level, Language, Documents, Stage, Open decisions, Stack.
 - Labels: `cr`, `type:feature`, `type:change`, `type:fix`, `breaking`, `L0`-`L3`, `role:*`, `defect`, `gate`, `decision`, `sev:high`, `sev:medium`, `sev:low`, `blocked`, `needs-owner`, `codex-review`, `claude-review`.
-- Board columns: Backlog, Approved, Ready, In progress, In review, Testing (Full only), Done (`boardColumns()` in `scripts/project-level.mjs`). Cards: issues, and PRs with no task issue.
+- Board columns, the same at every level: Backlog, Approved, Ready, In progress, In review, Testing (used at Full), Done (`scripts/setup-board.mjs`). Cards: issues, and PRs with no task issue.
 - `.env.local` (git-ignored): `PORT` per worktree and the owner's secrets.
 
 ## 5. External interfaces
@@ -252,7 +253,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
-| FR-072 | DEC-059 | `commands/build.md`, roles `lead.md`, `dev.md`, `test.md`, `kit/CLAUDE.md`, `scripts/board-status.mjs`, `scripts/setup-board.mjs`, `scripts/project-level.mjs`, `scripts/set-level.mjs` | `kit/init.test.mjs` (board, set-level notes) | Delivered; card moves to verify live in round 4 |
+| FR-072 | DEC-059 | `commands/build.md`, roles `lead.md`, `dev.md`, `test.md`, `kit/CLAUDE.md`, `scripts/board-status.mjs`, `scripts/setup-board.mjs` | `kit/init.test.mjs` (board) | Delivered; card moves to verify live in round 4 |
 | FR-071 | DEC-057 | `commands/send.md`, `commands/relay.md`, `scripts/crew-settings.mjs`, `kit/CLAUDE.md` | `kit/init.test.mjs` (tips, /relay) | Delivered |
 | FR-068 to FR-070 | DEC-056 | `commands/next.md`, `commands/gate.md`, `.claude/hooks/role-guard.cjs`, `hooks/pre-commit`, `scripts/new-role-worktree.mjs` | `init.test.mjs`, `role-guard.test.cjs` (88), `pre-commit.test.mjs` (11) | Delivered |
 | FR-065 to FR-067 | DEC-053 | `commands/setup.md`, role files, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `kit/init.test.mjs` (suite passes) | Delivered |

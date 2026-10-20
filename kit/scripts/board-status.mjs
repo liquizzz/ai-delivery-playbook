@@ -5,7 +5,7 @@
 // Adds it to the board first if it is not there yet. A PR goes on the board when it has no task issue of its own
 // (a docs PR), so everything waiting for review or the owner's merge shows in In review.
 //   node scripts/board-status.mjs <issue or PR number> "<column>"
-// Columns: Backlog, Approved, Ready, In progress, In review, Testing (Full only), Done.
+// Columns: Backlog, Approved, Ready, In progress, In review, Testing (used at Full), Done.
 // Needs the gh CLI with the "project" scope. With no board it prints a note and exits 0, so it never blocks work.
 import { execFileSync } from "node:child_process";
 
@@ -34,10 +34,6 @@ if (!project) {
 const fields = JSON.parse(gh("project", "field-list", String(project.number), "--owner", owner, "--format", "json")).fields;
 const status = fields.find((f) => f.name === "Status");
 const option = status && status.options.find((o) => o.name.toLowerCase() === column.toLowerCase());
-if (!option && column.toLowerCase() === "testing") {
-  console.log("This board has no Testing column (Lite level). Board not updated.");
-  process.exit(0);
-}
 if (!option) {
   console.error(`Unknown column "${column}". Columns: ${status ? status.options.map((o) => o.name).join(", ") : "none"}.`);
   process.exit(1);

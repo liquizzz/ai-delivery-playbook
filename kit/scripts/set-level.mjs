@@ -78,10 +78,6 @@ if (unused.length) {
 if (level !== "full" && has(["show-ref", "--verify", "--quiet", "refs/heads/staging"], root)) {
   console.log("The staging branch is kept but no longer used: releases now go from dev to main.");
 }
-// The board's Testing column belongs to the Full level (setup-board.mjs). Changing the options through GitHub's API
-// would clear every card's column, so the owner adds or removes it by hand.
-if (level === "full") console.log('\nBoard: open it and add a "Testing" column between "In review" and "Done" (the + after the last column, then drag it into place).');
-else if (from === "full") console.log('\nBoard: the "Testing" column is no longer used. Move its cards to Done, then delete the column.');
 console.log(`\nNext: commit these changes on your branch and merge them as usual.${up
   ? ` Then tell the Lead: "We moved to ${LEVELS[level].title}. Draft what this level still lacks${translate}." and open a session in each new worktree.`
   : ` Every document and all history stay as they are.${translate ? ` Then tell the Lead: "Rewrite START-HERE.md in ${project.language}."` : ""}`}`);

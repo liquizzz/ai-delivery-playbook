@@ -11,7 +11,7 @@
 | Design | UI/UX session at G3 | The Lead runs the look and feel and shows the main screens at G3 |
 | Milestones | Buffer and risk table | One milestone; one-line buffer and risk |
 | Reports | Morning brief and end of day | Morning brief |
-| Testing | L0-L3 with a Test session, which checks each merged task in the board's Testing column; regression on staging | L0-L3 by the Dev and CI; no Testing column |
+| Testing | L0-L3 with a Test session, which checks each merged task in the board's Testing column; regression on staging | L0-L3 by the Dev and CI; the Testing column stays empty |
 | Release check | Regression and your acceptance | Your acceptance |
 | Always kept | | Setup first, gate issues, CR issues, labels, SRS and its revisions, level confirmation, SemVer tags, `role-guard`, hand-off prompts |
 
