@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.20 · **Status:** First draft; describes `main` after sessions open themselves (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.21 · **Status:** First draft; describes `main` after kit updates for running projects (2026-10-21) · **Last updated:** 2026-10-21
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.20 | (this commit) | 2026-10-20 | DEC-065 | §3 | Detached sessions go back into the project's sidebar group; `/setup` creates the group (FR-078) |
+| 0.21 | (this commit) | 2026-10-21 | DEC-066 | §3, §8 | Kit updates for running projects: `kitVersion`, `kit/update.mjs`, `/kit-update` (FR-079) |
+| 0.20 | 564e63b | 2026-10-20 | DEC-065 | §3 | Detached sessions go back into the project's sidebar group; `/setup` creates the group (FR-078) |
 | 0.19 | b3e1a42 | 2026-10-20 | DEC-065 | §3, §8 | Sessions opened by the hand-off session on the owner's yes, detached at once (FR-078) |
 | 0.18 | 80e22c3 | 2026-10-20 | DEC-064 | §3, §8 | Issue and PR numbers shown with link, title and CR (FR-077) |
 | 0.17 | 65fb0d5 | 2026-10-20 | DEC-063 | §2, §3.12, §8 | `init` installs the enabled plugins, `/setup` checks them first, no GitHub MCP (FR-076) |
@@ -94,6 +95,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-008 | Init shall install the secret-check pre-commit hook | DEC-038 | A staged line with a credential pattern blocks the commit |
 | FR-009 | Init shall keep existing files unless `--force` is given, and never write secrets | | Second run lists "Kept existing" |
 | FR-010 | Init's last lines shall name the Lead's folder, the session name and `/setup`, and say setup comes first | DEC-026 | Report text |
+| FR-079 | Init shall record the kit's version (`kitVersion`, the playbook commit) in `.claude/project.json`. `kit/update.mjs`, run by the Lead through `/kit-update` in its worktree with a clean tree, shall bring a running project up to the kit's version: replace kit files (deleting dropped ones only when untouched), replace `.github` files only when untouched, merge `CLAUDE.md` (keeping the project's title, description, Stage, Documents, Open decisions, stack lines, own rules, rows and sections) and `.claude/settings.json` (keeping every plugin, the project's permissions and hooks), never change Docker files, `CHANGELOG.md`, `README.md` or `docs/` outside `docs/templates/`, list what it did and the kit decisions since the old version, and write nothing with `--dry-run`. The PR always waits for the owner | DEC-066 | `kit/update.test.mjs`: an aged project is updated with each kind of file handled as stated; a second run changes nothing; a dirty tree and `main` are refused; a copy of the round-3 trial project updated with its description, decisions, stack, rules and design plugins kept |
 
 ### 3.2 Levels (`scripts/set-level.mjs`, `scripts/project-level.mjs`)
 | ID | Requirement | Origin | Acceptance |
@@ -287,4 +289,5 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-076 | DEC-063 | `scripts/plugins.mjs`, `init.mjs`, `commands/setup.md` | `kit/init.test.mjs` (plugins dry run, /setup check); init run on a temp folder installed the five plugins | Delivered |
 | FR-077 | DEC-064 | `kit/CLAUDE.md` (Links, hand-offs), `commands/progress.md` | `kit/init.test.mjs` (links) | Delivered; to confirm in transcripts of the habit tracker run |
 | FR-078 | DEC-065 | `kit/CLAUDE.md` (Opening sessions), `commands/setup.md`, `commands/next.md`, `commands/build.md`, `start-here/` | `kit/init.test.mjs` (sessions); scratch-project test: opened in `role/po`, detached | Delivered |
+| FR-079 | DEC-066 | `kit/update.mjs`, `commands/kit-update.md`, `init.mjs`, `scripts/project-level.mjs`, `.claude/roles/lead.md`, `kit/CLAUDE.md` (Ask the owner before) | `kit/update.test.mjs`; `kit/init.test.mjs` (kitVersion); trial-project copy | Delivered |
 | FR-060, FR-061 | DEC-048 | `.github/workflows/test.yml`, `CLAUDE.md` | CI | Delivered |

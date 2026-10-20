@@ -20,7 +20,7 @@
 | `docs/templates/` | The document templates (proposal, PRD, SRS, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
 | `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
 | `START-HERE.md` | The owner's steps for the project's level, as commands to type; rewritten by `set-level.mjs` |
-| `.claude/project.json`, `.claude/start-here/` | The project's name, level and repo; the `START-HERE.md` template for each level |
+| `.claude/project.json`, `.claude/start-here/` | The project's name, level, repo and kit version (`kitVersion`, the crewbook-build commit it came from); the `START-HERE.md` template for each level |
 | `scripts/set-level.mjs` | Changes the level (lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
 | `scripts/set-secret.mjs` | The owner sets one secret: hidden input, written to the git-ignored `.env.local` of every checkout; new worktrees copy it |
 | `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
@@ -49,6 +49,7 @@
 | `/progress` | Live state in ten lines |
 | `/gate G1`…`G6` | Checks a gate against the repo and GitHub |
 | `/send` | Sends the prompt of the last hand-off block to the session it names |
+| `/kit-update [path]` | Lead only: brings the project up to the newest kit through a PR you approve ([chapter 6](06-continuity.md#7-get-the-newest-kit)) |
 | `/auto` | Shows or switches what runs without you, shared by every session: `/auto relay on|off` (sessions pass prompts to each other) and `/auto merge on|off` (the Lead merges L0-L2 PRs after review and green CI); both start on |
 
 ## Plugins
@@ -73,6 +74,19 @@ The kit's `.claude/settings.json` enables the minimum set, so every role uses th
 The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: interviews use `superpowers:brainstorming`; the PRD and stories follow the templates; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; the look-and-feel options come from `ui-ux-pro-max` and screens are built with `frontend-design`; with polished documents, every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
 
 Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plugins`. Each plugin adds its skill list to every session's context, and claude-mem also adds context at each session start, so leave out what the project does not use. To see what a plugin costs, run `claude plugin details <plugin>` in a terminal: it lists the plugin's skills, agents and hooks and its projected token cost per session (the Codex plugin, for example, adds about 450 tokens). To add a project-specific plugin for the whole team, ask the Lead: "Add `<plugin>` to the project's plugin list."
+
+## Update the kit in a running project
+
+`kit/update.mjs` stays in crewbook-build and is not installed: `/kit-update` runs it from a clone (`~/.crewbook/crewbook-build` unless you give a path). It runs in the Lead's worktree with nothing uncommitted, and `--dry-run` prints the plan only. It looks every project file up in the kit's git history, so it knows whether you changed it:
+
+| Files | What the update does |
+|---|---|
+| `.claude/roles/`, `hooks/`, `commands/`, `start-here/`, `scripts/` (the kit's), `docs/templates/` | Replaced. A file the kit dropped is deleted if you never changed it. A file you changed is replaced too and listed, so the Lead can put your change back |
+| `.github/` | Replaced only if you never changed it; new files are added; the files you changed are kept and listed |
+| `CLAUDE.md` | The kit's sections and rules are replaced; your title, description, Stage, Documents, Open decisions, stack lines, own rules, own table rows and own sections stay |
+| `.claude/settings.json` | The kit's marketplaces, hooks and permissions are merged with yours; every plugin you enabled stays |
+| Docker files, `CHANGELOG.md`, `README.md`, `docs/` | Yours: never changed. The report says when the kit's Docker files changed since your version |
+| `START-HERE.md` | Rendered again in English projects; in other languages the Lead rewrites it |
 
 ## Change the kit for one project
 

@@ -30,6 +30,7 @@ The first time, install the tools listed in How to run (once per machine). Then 
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, short hand-off prompts, and roles opened only when there is work for them |
 | Quality you can check | Gates you approve, each with a For you block (a few things to try yourself, with links to the evidence), a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
 | Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check, a full test run of each release before it goes out), or back, without redoing anything |
+| Kit updates in a running project | `/kit-update` in the Lead brings the newest kit into a project that already runs: kit files are replaced, your own files, rules and decisions stay, and it lands through a PR you approve |
 | Releases you can run anywhere | Each version tag builds a Docker image; `node scripts/run.mjs v0.1.0` runs it, or rolls back to an older tag |
 
 ## The best tool for each stage

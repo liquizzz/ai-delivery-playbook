@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
-// Shared by init.mjs and set-level.mjs: what each level needs, the project record in .claude/project.json,
+// Shared by init.mjs, update.mjs and set-level.mjs: what each level needs, the project record in .claude/project.json,
 // the "Level:" line in CLAUDE.md and START-HERE.md rendered from .claude/start-here/<level>.md.
 import { execFileSync } from "node:child_process";
 import fs from "node:fs";
@@ -59,6 +59,20 @@ export function readProject(dir) {
 export function writeProject(dir, project) {
   fs.mkdirSync(path.join(dir, ".claude"), { recursive: true });
   fs.writeFileSync(path.join(dir, ".claude", "project.json"), JSON.stringify(project, null, 2) + "\n");
+}
+
+// The "- Language:" line of CLAUDE.md.
+export function languageLine(language, docsLanguage) {
+  return `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Everything the owner reads is in that language: replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box, and the words around a hand-off prompt. Code, commits, identifiers and file paths stay in English; so do commands and slash commands, each with a few words in the owner's language on what it does.`;
+}
+
+// The kit's version: the playbook commit it was taken from, or null without git.
+export function kitVersion(playbook) {
+  try {
+    return execFileSync("git", ["rev-parse", "HEAD"], { cwd: playbook, stdio: ["ignore", "pipe", "ignore"] }).toString().trim();
+  } catch {
+    return null;
+  }
 }
 
 // Replace the "- Level:" line of CLAUDE.md. Returns false if the line is missing.

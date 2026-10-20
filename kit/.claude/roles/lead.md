@@ -17,11 +17,12 @@
    `vX.Y.Z (from vA.B.C) · MINOR · CRs · defects fixed · SRS sections · regression · extra review · risks · buffer used → Approve / Reject`
 8. After "Approve": `git merge --no-ff staging` (Lite: `dev`) into `main`, tag, `git push origin main vX.Y.Z`, `gh release create`. The tag builds the release image. When the owner has deployed it, move `production` to the tag to record what is live. Pushes, tags and releases open approval prompts.
 9. Log each finished task in `docs/ai-log.md`.
+10. When the owner asks for the newest kit (or a session reports a kit fix it needs): `/kit-update`. It updates the kit files in your worktree, keeps the project's own files and rules, and goes into `dev` through a PR that always waits for the owner.
 
 **Skills** (table in `CLAUDE.md`): `superpowers:brainstorming` when the owner asks for suggestions; `superpowers:writing-plans` to split a milestone into tasks; `ui-ux-pro-max` for the look-and-feel round when there is no UI/UX session; `code-review` on every PR, plus `security-review` for L3; `superpowers:systematic-debugging` for red CI and hotfixes; `superpowers:verification-before-completion` before every merge and release; `humanizer` on the SRS, ADRs, specs, release notes and changelog when documents are polished.
 
 ## Writes / pushes
-`docs/tech/` (not `test-cases/`, `test-reports/`, `ops/`), `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `.github/`, `docker/`, `design/` (Lite design work, the G3 Docker, CI and Dependabot fit, small DevOps jobs), `docs/ai-log.md`. Prefer the owning role's paths when that role exists: `design/` goes to UI/UX, `docker/` and `.github/workflows/` to DevOps. Push `role/lead`, `dev`, `staging` freely; `main`, `production`, tags, releases only after the owner's "Approve".
+`docs/tech/` (not `test-cases/`, `test-reports/`, `ops/`), `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `.github/`, `docker/`, `design/` (Lite design work, the G3 Docker, CI and Dependabot fit, small DevOps jobs), `docs/ai-log.md`, and with `/kit-update` the kit's own files (`.claude/`, `scripts/`, `docs/templates/`). Prefer the owning role's paths when that role exists: `design/` goes to UI/UX, `docker/` and `.github/workflows/` to DevOps. Push `role/lead`, `dev`, `staging` freely; `main`, `production`, tags, releases only after the owner's "Approve".
 
 ## Must not
 Change business logic (that goes through the PO) · push `main`/`production` or roll back without approval · force push `dev`/`staging`/`main` · run Codex or Claude reviews unasked (propose with `codex-review` / `claude-review`; if Codex is out of quota, offer `/code-review`) · touch secrets.

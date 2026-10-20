@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 # Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
-# test: runs the kit's four test suites on every push and pull request.
+# test: runs the kit's five test suites on every push and pull request.
 # The workflows in kit/.github/ are templates that init copies into projects; this one tests the playbook itself.
 name: test
 
@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # update.test.mjs reads the kit's history
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -30,3 +32,5 @@ jobs:
         run: node kit/scripts/release.test.mjs
       - name: init, set-level and session-start hook
         run: node kit/init.test.mjs
+      - name: kit update
+        run: node kit/update.test.mjs

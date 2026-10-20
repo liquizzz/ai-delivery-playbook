@@ -61,4 +61,14 @@ Open `START-HERE.md` in your new project folder. Its first step tells you which 
 
 At Lite it goes: `/setup` (Lead), `/next <your idea>` and `/next` again (PO: proposal, then requirements), `/next` (Lead: design you approve, then the stack and the plan), `/build try` and `/build done` (Dev1), `/release` (Lead, after you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
 
+## 4. Get kit updates later
+
+The kit gets better between your projects. To bring a project that already runs up to the newest kit, type `/kit-update` in its Lead session. The Lead fetches crewbook-build, shows you what will change, updates the kit files in its own folder and keeps your project's files, rules and decisions. The update reaches `dev` through a PR that waits for your OK. A project made before `/kit-update` existed has no such command yet: run this once in its Lead folder (`<project>-wt/lead`), with your clone of crewbook-build next to the project:
+
+```bash
+node ../../crewbook-build/kit/update.mjs --dry-run
+```
+
+Then ask the Lead: "Update the kit as the dry run shows, then open a PR." From then on, `/kit-update` is there.
+
 When you want to know why a step works the way it does, the [book](README.md#the-book) has a chapter for it.

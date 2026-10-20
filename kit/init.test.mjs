@@ -35,6 +35,8 @@ try {
   check("lite: branches main and dev", branches(a) === "dev,main,role/lead");
   check("lite: only the Lead's worktree before setup", fs.existsSync(wt(a, "lead")) && !fs.existsSync(wt(a, "po")) && !fs.existsSync(wt(a, "dev1")));
   check("lite: role file in worktree", read(wt(a, "lead"), ".claude", "role").trim() === "lead");
+  check("lite: project.json records the kit version", /^[0-9a-f]{40}$/.test(JSON.parse(read(a, ".claude", "project.json")).kitVersion || ""));
+  check("lite: /kit-update for the Lead, asked before", fs.existsSync(path.join(a, ".claude", "commands", "kit-update.md")) && read(a, "CLAUDE.md").includes("kit updates (`/kit-update`)") && read(a, ".claude", "roles", "lead.md").includes("/kit-update"));
   check("lite: project.json with setup false", JSON.parse(read(a, ".claude", "project.json")).level === "lite" && JSON.parse(read(a, ".claude", "project.json")).setup === false);
   check("lite: CLAUDE.md name, description, level", /^# Tiny Todo$/m.test(read(a, "CLAUDE.md")) && read(a, "CLAUDE.md").includes("A one-page todo list.") && /^- Level: Lite /m.test(read(a, "CLAUDE.md")) && read(a, "CLAUDE.md").includes("set-level.mjs <lite|full>"));
   check("lite: START-HERE.md filled in", read(a, "START-HERE.md").includes("# Start here: Tiny Todo") && read(a, "START-HERE.md").includes(wt(a, "lead")) && !/\{\{\w+\}\}/.test(read(a, "START-HERE.md")));

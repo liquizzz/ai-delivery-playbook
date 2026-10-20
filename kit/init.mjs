@@ -15,12 +15,13 @@
 // (the Lead's /setup creates the other roles' worktrees) and, only if you choose it, creates the GitHub repo,
 // pushes the branches and sets up the labels and the board.
 // Existing files are kept unless --force is given. It never writes secrets.
+// To bring a project that already runs up to a newer kit, use update.mjs instead.
 import { execFileSync, execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import readline from "node:readline";
 import { fileURLToPath } from "node:url";
-import { LEVELS, LEVEL_ORDER, REMOVED_LEVELS, parseLevel, renderStartHere, setClaudeLevel, slugify, worktreePath, writeProject } from "./scripts/project-level.mjs";
+import { LEVELS, LEVEL_ORDER, REMOVED_LEVELS, kitVersion, languageLine, parseLevel, renderStartHere, setClaudeLevel, slugify, worktreePath, writeProject } from "./scripts/project-level.mjs";
 
 const argv = process.argv.slice(2);
 const flag = (name) => {
@@ -243,7 +244,7 @@ const fill = (rel, edit) => {
 fill("CLAUDE.md", (t) => t.replace("# <Project name>", `# ${name}`)
   .replace(/^- Documents: .*$/m, humanize ? "- Documents: polished (humanizer pass on each document)." : "- Documents: plain (no humanizer pass). To turn it on, the owner tells the Lead: \"Polish documents from now on.\"")
   .replace(/^<One paragraph: what the product does.*$/m, (line) => description || line)
-  .replace(/^- Language: .*$/m, `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Everything the owner reads is in that language: replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box, and the words around a hand-off prompt. Code, commits, identifiers and file paths stay in English; so do commands and slash commands, each with a few words in the owner's language on what it does.`));
+  .replace(/^- Language: .*$/m, languageLine(language, docsLanguage)));
 setClaudeLevel(dest, level);
 const owner = repo ? repo.split("/")[0].toLowerCase() : null;
 const project = repo ? repo.split("/")[1].toLowerCase() : slug;
@@ -259,7 +260,8 @@ fill(".claude/settings.json", (t) => {
   return JSON.stringify(s, null, 2) + "\n";
 });
 // setup: false until the Lead's /setup is done; the session-start hook keeps other roles waiting until then.
-writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design, humanize, setup: false });
+// kitVersion: the playbook commit the kit came from; update.mjs starts from it.
+writeProject(dest, { name, level, repo: repo || null, language, docsLanguage, design, humanize, setup: false, kitVersion: kitVersion(playbook) });
 renderStartHere(dest, { name, level, repo }, dest);
 created.push(".claude/project.json", "START-HERE.md");
 

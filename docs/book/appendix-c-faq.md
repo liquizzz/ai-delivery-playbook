@@ -44,6 +44,9 @@ Yes. The sessions write the code, the tests and the documents; you describe what
 **My project was made with the old Starter level.**
 Run `node scripts/set-level.mjs lite` in the Lead's worktree. Nothing is deleted.
 
+**My project runs on an older kit.**
+Type `/kit-update` in the Lead session ([chapter 6](06-continuity.md#7-get-the-newest-kit)). Without that command, run `node <crewbook-build>/kit/update.mjs --dry-run` in the Lead's folder once, then ask the Lead to apply it and open a PR.
+
 **Do I really need an SRS for a small change?**
 Yes. Even a one-line requirement change updates the SRS, so the SRS stays true. For L0 display changes with no requirement change, the SRS is untouched.
 

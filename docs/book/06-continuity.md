@@ -70,6 +70,21 @@ A session never does another role's work. If you ask one for it, you get a hand-
 
 Then open each role's session with the restart sentence. Fill in each `.env.local` yourself.
 
+## 7. Get the newest kit
+
+**What it does:** brings a project that already runs up to the newest Crewbook kit, so a long project gets the kit's fixes too.
+
+**Ask the Lead:**
+> /kit-update
+
+**Claude does:** fetches crewbook-build; shows you the kit versions, the kit decisions that change how you work, and what happens to each file; on your yes, replaces the kit files, keeps your own (Docker files, workflows you changed, `docs/`), merges `CLAUDE.md` (your description, Stage, Open decisions, stack and rules stay) and `.claude/settings.json` (your plugins and permissions stay); runs the tests and opens a PR into `dev`.
+
+**You check:** the list of files it kept because you changed them, and the PR. A kit update always waits for your OK, even with auto-merge on.
+
+**Claude asks before:** the update itself, and the merge. After the merge it tells every running session to merge `dev` and restart.
+
+A project made before `/kit-update` existed runs the update once by hand: `node <crewbook-build>/kit/update.mjs --dry-run` in the Lead's folder ([How to run](../../HOW-TO-RUN.md)).
+
 > **Token tip:** a fresh session with the restart sentence is often cheaper than a long, compacted one; restart instead of compacting a second time.
 
 Next: [Chapter 7: Front-end projects](07-frontend-projects.md).

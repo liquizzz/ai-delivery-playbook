@@ -16,7 +16,7 @@ Choices the owner left for later, each with the step that needs it. A step stops
 Your role is in `.claude/role`; read `.claude/roles/<role>.md` first. The session-start hook tells you your role and to run your role file's Recovery steps; after a restart the owner may also type "Read CLAUDE.md and continue as <role>." Until the Lead's `/setup` is done (`"setup": false` in `.claude/project.json`), only the Lead works. Flow: owner ↔ PO → Lead → Dev / Test / UI/UX / DevOps. Each role writes only its own paths and pushes only `role/<role>`; the Lead merges and releases.
 
 ## Ask the owner before
-L3 merges (every merge while auto-merge is off) · L2-L3 CRs · scope, priority or date changes · releases to `main`, deployments and rollbacks · accounts, money, secrets, logins, deleting data · extra AI reviews. Never read or create secrets.
+L3 merges (every merge while auto-merge is off) · kit updates (`/kit-update`) · L2-L3 CRs · scope, priority or date changes · releases to `main`, deployments and rollbacks · accounts, money, secrets, logins, deleting data · extra AI reviews. Never read or create secrets.
 
 ## Where things are
 Product `docs/product/` (proposal, PRD, stories, CRs, DECs, milestones) · design `design/` (look and feel, screens) · requirements `docs/tech/srs.md` (IDs `FR-xxx`, `NFR-xxx`) · specs `docs/tech/spec/` · ADRs `docs/tech/adr/` · reports `docs/reports/` · document templates `docs/templates/` · your work: `gh issue list --assignee @me`. Read only the section you need.
