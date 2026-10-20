@@ -53,30 +53,11 @@ Type `/release demo` to show it to someone without publishing, or `/release` to 
 
 ## 7. Run the release in Docker
 
-If the repo is private, log in once first, with these two commands:
+In the folder `{{main}}`:
 ```
-gh auth refresh -s read:packages
+node scripts/run.mjs v0.1.0
 ```
-```
-gh auth token | docker login ghcr.io -u {{owner}} --password-stdin
-```
-
-From the published image:
-```
-cd {{main}}
-git checkout main
-git pull
-$env:IMAGE_TAG="v0.1.0"; docker compose up --no-build -d app
-```
-On macOS or Linux, the last line is `IMAGE_TAG=v0.1.0 docker compose up --no-build -d app`.
-
-From source:
-```
-cd {{main}}
-git checkout v0.1.0
-$env:IMAGE_TAG="v0.1.0"; docker compose up --build -d app
-```
-Open http://localhost:3000. Stop with `docker compose down`, then `git checkout main`.
+It checks that Docker is running and port 3000 is free, downloads the release image (logging in to GitHub's registry for you when the repo is private), starts the app, waits until it answers and opens http://localhost:3000. `node scripts/run.mjs` alone runs the latest release, and `node scripts/run.mjs dev` the build being worked on. Stop it with `node scripts/run.mjs --stop`. If it asks for read access, run `gh auth refresh -s read:packages` once and try again.
 
 ## Any time
 

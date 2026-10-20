@@ -2,9 +2,12 @@
 # Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 #
 # Runs the project with Docker. Copy to the repo root as docker-compose.yml and adapt.
+#   A released version, the easy way: node scripts/run.mjs v1.4.0   (pulls, starts, waits until healthy, opens the browser)
 #   Local, from source:        docker compose up --build
-#   A released version:        IMAGE_TAG=v1.4.0 docker compose up --no-build
+#   A released version:        IMAGE_TAG=v1.4.0 docker compose up --no-build --wait
 #   Only the design prototype: docker compose up design
+# Each service has a healthcheck, so "--wait" (and run.mjs) return only when the app answers. The check uses wget,
+# which alpine and nginx images have; for an image without it, the Lead swaps in curl or the runtime itself at G3.
 # Where and how you run it beyond your machine (servers, cloud, domains, TLS) is your own choice.
 name: <project>
 
@@ -18,6 +21,12 @@ services:
       dockerfile: docker/design.Dockerfile
     ports:
       - "8080:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:80/ || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
   # design:end
 
   app:
@@ -31,6 +40,13 @@ services:
         required: false
     ports:
       - "3000:3000"
+    healthcheck:
+      # Any page that answers 200 when the app is ready; point it at a /health route once the app has one.
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:3000/ || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
     # depends_on: [db]
 
   # db:

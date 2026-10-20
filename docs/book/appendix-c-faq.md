@@ -74,7 +74,7 @@ Open the repo's Actions tab on GitHub. If it says "Workflows aren't being run on
 Run `node scripts/setup-board.mjs` in the project (it needs `gh auth refresh -s project`). It creates a GitHub Project linked to the repo with Crewbook's columns. Open it once and choose View → Layout → Board: GitHub's API cannot set the layout.
 
 **The release image cannot be pulled (`denied` or `unauthorized`).**
-Images of a private repo are private too. Log in once: `gh auth refresh -s read:packages`, then `gh auth token | docker login ghcr.io -u <your GitHub user> --password-stdin`.
+Images of a private repo are private too. `node scripts/run.mjs` logs in for you with the gh CLI; if it still fails, run `gh auth refresh -s read:packages` once and try again.
 
 **GitHub Actions minutes run out (GitHub Free).**
 Ask DevOps or the Lead: "Reduce CI minutes: cache dependencies and skip workflows for docs-only changes."

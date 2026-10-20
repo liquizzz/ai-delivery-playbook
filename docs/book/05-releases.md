@@ -72,7 +72,7 @@ For a demo (to a client, or just for you) without publishing, ask for `/release 
 
 **Claude asks you:** confirm the target version (proposed: the last tag before the current one) and the reason.
 
-**Claude does:** checks whether data changes in between can be undone (from the spec's rollback plan), gives you the exact command for your setup, e.g. `IMAGE_TAG=v1.3.2 docker compose up -d`, opens a `sev:high` defect for the fix, and records the rollback in the daily report and `CHANGELOG.md`.
+**Claude does:** checks whether data changes in between can be undone (from the spec's rollback plan), gives you the exact command for your setup, e.g. `node scripts/run.mjs v1.3.2` on your machine, opens a `sev:high` defect for the fix, and records the rollback in `CHANGELOG.md`.
 
 **You do:** run the rollback and confirm production works again.
 

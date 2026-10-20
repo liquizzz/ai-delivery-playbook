@@ -100,7 +100,7 @@ Say "All pass" when they do, approve the push to `main` and the tag.
 
 ### 7. Run the release
 
-Follow step 7 of `START-HERE.md` to run the image, and open the app.
+In the main folder, `node scripts/run.mjs v0.1.0`: it checks Docker, pulls the image, waits until the app answers and opens the browser. Capture the terminal and the app (shot 23).
 
 ## Shot list
 

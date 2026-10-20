@@ -212,7 +212,13 @@ Yes, release v0.1.0
 
 ## 7. Run the release (terminal)
 
-Run the commands in step 7 of `START-HERE.md`, then open http://localhost:3000.
+In the project's main folder:
+
+```bash
+node scripts/run.mjs v0.1.0
+```
+
+It opens http://localhost:3000 by itself when the app is ready. Stop it with `node scripts/run.mjs --stop`.
 
 ## Any time
 

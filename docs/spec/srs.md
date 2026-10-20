@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.15 · **Status:** First draft; describes `main` after `/auto` and the Lite G3 merge (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.16 · **Status:** First draft; describes `main` after `run.mjs` and the healthcheck (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.15 | (this commit) | 2026-10-20 | DEC-061 | §3, §8 | `/auto merge` and `/auto relay`, both on by default; Lead auto-merges L0-L2; Lite G3 approves the design with the rest (FR-071, FR-073, FR-074) |
+| 0.16 | (this commit) | 2026-10-20 | DEC-062 | §3, §8 | `scripts/run.mjs`, healthchecks, small images at G3 (FR-075) |
+| 0.15 | b855889 | 2026-10-20 | DEC-061 | §3, §8 | `/auto merge` and `/auto relay`, both on by default; Lead auto-merges L0-L2; Lite G3 approves the design with the rest (FR-071, FR-073, FR-074) |
 | 0.14 | bd087a0 | 2026-10-20 | DEC-060 | §3, §7, §8 | Morning brief and end-of-day report removed; `/progress report` saves a report on request (FR-052) |
 | 0.13 | 40e5f58 | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Same seven board columns at every level; the Testing column stays empty at Lite (FR-072, FR-044) |
 | 0.12 | 432fb38 | 2026-10-20 | DEC-059 | §3.4, §4, §8 | Board: review loop back to In review, docs PRs on the board, Testing column at Full (FR-072, FR-044) |
@@ -163,6 +164,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-071 | `/send` shall send the last hand-off prompt to the session it names; `/auto relay on|off` (on by default) shall set messages between sessions for every checkout at once without a commit; before a hand-off each session shall read the setting (`crew-settings.mjs handoff`), send the one-line prompt itself and name it in its recap when on, and show the hand-off block when off or when the receiving session is closed; the tip under a block shall show three times at most, only while messages are off, and stop once the owner used `/send` or `/auto` | DEC-057, DEC-061 | Hand-offs |
 | FR-073 | `/auto merge on|off` (on by default) shall let the Lead merge L0-L2 PRs into `dev` after its review and green CI without asking, reporting each merge in one recap line; L3 PRs, and every PR while it is off, shall wait for the owner | DEC-061 | Merges |
 | FR-074 | At Lite, G3 shall ask first whether the owner already has screens or the product has none, use existing screens as the design, treat picking a direction as a choice, and approve the design with the stack, SRS and plan in one approval | DEC-061 | G3 at Lite |
+| FR-075 | `node scripts/run.mjs [version|dev] [--source|--stop|--dry-run]` shall run a version in Docker with one command on every OS: check Docker and port 3000, log in to ghcr.io through gh when needed without printing the token, pull the image, start it and wait for its healthcheck, open the browser, and print the app's last log lines on failure; `docker-compose.yml` shall carry a healthcheck for each service; G3 shall keep the image small and the healthcheck working | DEC-062 | Running a release |
 | FR-072 | The board shall show every wait: an issue goes back to In progress when the Lead asks for changes and to In review again when the fixes are pushed; a PR with no task issue sits in In review until merged; at Full an L1-L3 task stays in Testing after the merge until the Test session passes it and closes it; every level's board has the same seven columns (`setup-board.mjs`) and the Testing column stays empty at Lite | DEC-059 | Board during a build |
 | FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
@@ -262,6 +264,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-072 | DEC-059 | `commands/build.md`, roles `lead.md`, `dev.md`, `test.md`, `kit/CLAUDE.md`, `scripts/board-status.mjs`, `scripts/setup-board.mjs` | `kit/init.test.mjs` (board) | Delivered; card moves to verify live in round 4 |
 | FR-071, FR-073 | DEC-057, DEC-061 | `commands/send.md`, `commands/auto.md`, `scripts/crew-settings.mjs`, `kit/CLAUDE.md`, `roles/lead.md` | `kit/init.test.mjs` (/auto, tips, auto-merge) | Delivered |
 | FR-074 | DEC-061 | `commands/next.md`, `commands/gate.md`, `roles/lead.md`, `start-here/lite.md` | `kit/init.test.mjs` (Lite G3) | Delivered |
+| FR-075 | DEC-062 | `scripts/run.mjs`, `docker/docker-compose.yml`, `commands/next.md`, `commands/release.md`, `start-here/` | `kit/init.test.mjs` (run.mjs dry run, healthcheck) | Delivered; live pull and healthcheck to verify in the habit tracker run |
 | FR-068 to FR-070 | DEC-056 | `commands/next.md`, `commands/gate.md`, `.claude/hooks/role-guard.cjs`, `hooks/pre-commit`, `scripts/new-role-worktree.mjs` | `init.test.mjs`, `role-guard.test.cjs` (88), `pre-commit.test.mjs` (11) | Delivered |
 | FR-065 to FR-067 | DEC-053 | `commands/setup.md`, role files, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `kit/init.test.mjs` (suite passes) | Delivered |
 | FR-064 | DEC-051 | `kit/CLAUDE.md`, `.github/ISSUE_TEMPLATE/task.yml`, `templates/milestone.md`, `commands/build.md` | `kit/init.test.mjs` (estimates) | Delivered |
