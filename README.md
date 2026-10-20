@@ -68,10 +68,13 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 Yes. You describe what you want, answer the sessions' questions and approve each gate; the sessions write the code, the tests and the documents. You do need to install a few tools once and type short commands such as `/next` and `/build try`. [How to run](HOW-TO-RUN.md) walks through each one.
 
 **How is this different from vibe coding?**
-Vibe coding ships whatever the last prompt produced. In Crewbook every change has a requirement, a review by the Lead, tests sized to the change and a gate you approve, so the tenth feature is as solid as the first.
+Vibe coding ships whatever the last prompt produced. In Crewbook every change has a requirement, a review by the Lead and tests sized to the change, and the risky ones and every release wait for your approval, so the tenth feature is as solid as the first.
 
 **How is it different from Claude Code agent teams or spec-driven kits?**
 Each role (PO, Lead, Dev, and Test, UI/UX or DevOps when needed) runs in its own session and git worktree, and a guard hook keeps it inside its role. The process covers the whole delivery: proposal, requirements (SRS), design, build, release, change requests and rollback, with six gates (G1 to G6).
+
+**How is Crewbook different from BMAD-METHOD or spec-kit?**
+All three start from a spec. Crewbook leads you one step at a time: one command per stage, a START-HERE file that lists every step, and at the end of each step the session tells you, or sends the next session, what comes next. You can approve without reading code: each gate shows what to try yourself, what a wrong result looks like and what the tests already prove, and routine changes merge on their own while anything touching money, security or personal data waits for you. The result is a real project, with a branch per role, reviewed pull requests, a kanban board, CI, tagged releases and a Docker image you run with one command. For a quick prototype spec-kit is faster; Crewbook is for software you will hand over, maintain or show a client.
 
 **What stack does it use?**
 Any. The Lead proposes a stack after you approve the design, and you choose.
