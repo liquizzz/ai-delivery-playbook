@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.3 · **Status:** First draft; describes `main` after the language rule (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.4 · **Status:** First draft; describes `main` after estimates in AI time (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.3 | (this commit) | 2026-10-20 | DEC-050 | §3.4, §8 | The owner's language covers recaps, questions and buttons (FR-063) |
+| 0.4 | (this commit) | 2026-10-20 | DEC-051 | §3.8, §8 | Estimates in AI time (FR-064) |
+| 0.3 | 8532327 | 2026-10-20 | DEC-050 | §3.4, §8 | The owner's language covers recaps, questions and buttons (FR-063) |
 | 0.2 | c123e80 | 2026-10-20 | DEC-049 | §3.4, §8 | No side sessions for another role's work (FR-062) |
 | 0.1 | d280151 | 2026-10-20 | DEC-001 to DEC-048 | All | First written, from the state after the round-3 fixes |
 
@@ -142,6 +143,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-043 | `/change <request>` shall turn a request into a CR with testable acceptance and a proposed level; L2-L3 CRs need the owner's approval; the Lead updates the SRS and spec before tasks are assigned | DEC-003, DEC-004 | `change.md` |
 | FR-044 | `scripts/board-status.mjs <n> "<column>"` shall move an issue on the project board | DEC-034 | Card moves |
 | FR-045 | An alignment edit to an approved document shall be L0 with a note in the PR; any other change goes through a CR | DEC-032 | `CLAUDE.md` rule |
+| FR-064 | Estimates shall be in AI time, split into AI working time, the owner's time and outside waits, starting from L0 15 min, L1 30 min, L2 1 h, L3 2 h per task; tasks over 2 h are split; each closed task records its actual AI time and the Lead recalibrates every milestone | DEC-051 | Task form, milestone template, `init.test.mjs` estimate check |
 
 ### 3.9 Release (`/release`, `scripts/release.mjs`)
 | ID | Requirement | Origin | Acceptance |
@@ -234,6 +236,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
+| FR-064 | DEC-051 | `kit/CLAUDE.md`, `.github/ISSUE_TEMPLATE/task.yml`, `templates/milestone.md`, `commands/build.md` | `kit/init.test.mjs` (estimates) | Delivered |
 | FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |
 | FR-024 to FR-027 | DEC-026, DEC-027, DEC-029 | `commands/setup.md`, `scripts/new-role-worktree.mjs`, `scripts/setup-labels.mjs` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
 | FR-028 to FR-033 | DEC-027 to DEC-029 | `commands/brief.md`, `.claude/roles/lead.md`, `uiux.md` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |

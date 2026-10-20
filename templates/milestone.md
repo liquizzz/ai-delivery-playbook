@@ -15,16 +15,22 @@ Save as `docs/product/milestones/vX.Y.Z.md`. Owned by the PO; the Lead keeps the
 | #<n> | <...> | type:feature | L2 | High |
 
 ## Estimate and buffer
-| Item | Days |
+In AI time, never in human developer days (rule "Estimates" in `CLAUDE.md`).
+
+| Item | Value |
 |---|---|
-| Sum of task estimates | <2> |
-| Risk buffer (+15% certain / +25% L2 or medium confidence / +40% L3, new work or outside dependency) | <0.5> |
-| **Committed** | **<2.5>** |
+| AI working time: sum of task estimates | <6 h> |
+| Risk buffer on AI time (+15% certain / +25% L2 or medium confidence / +40% L3 or new work) | <1.5 h> |
+| Sessions working in parallel | <2 (Dev1, Test)> |
+| Owner's time (reviews, acceptance, approvals) | <2 h> |
+| Outside waits (what, from whom, by when) | <client sample data, by YYYY-MM-DD> |
+| **Committed release date** | **<YYYY-MM-DD>** |
+| Speed used (AI time per task, L0 / L1 / L2 / L3) | <15 min / 30 min / 1 h / 2 h, or this project's measured numbers> |
 
 ## Items taken in during the milestone
-| Date | Item | Level | Cost (days) | Decided by | Buffer left |
+| Date | Item | Level | Cost (AI time) | Decided by | Buffer left |
 |---|---|---|---|---|---|
-| YYYY-MM-DD | #<n> <...> | L1 | 0.25 | PO | <0.25> |
+| YYYY-MM-DD | #<n> <...> | L1 | 30 min | PO | <1 h> |
 
 ## Moved to the next milestone
 | Item | Reason | Date |
@@ -34,7 +40,7 @@ Save as `docs/product/milestones/vX.Y.Z.md`. Owned by the PO; the Lead keeps the
 ## Risks
 | Risk | Likelihood | Impact | Response | Watcher | Status |
 |---|---|---|---|---|---|
-| <Broker API changes format> | Medium | 1 day late | <Adapter first, sample data> | Lead | Open |
+| <Broker API changes format> | Medium | <2 h of AI time, or a day of waiting> | <Adapter first, sample data> | Lead | Open |
 
 ## Result
-<Filled in at release: version, date, buffer used, what moved out, lessons.>
+<Filled in at release: version, date, buffer used, estimated and actual AI time per level, what moved out, lessons.>

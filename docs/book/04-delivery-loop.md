@@ -6,6 +6,7 @@ The rules:
 - A milestone holds a few CRs and ships within days. Only one runs at a time; one more is "next".
 - The plan is set every morning before 10:00; you decide.
 - Each task has a change level that sets its testing: L0 display · L1 setting · L2 logic in one module · L3 core, money, security, user data, deletes.
+- Estimates are in AI time: what the sessions take to build and test, plus your time for reviews and approvals, plus waits for things only others can give. Until the project has its own numbers, a task takes about 15 min (L0), 30 min (L1), 1 h (L2) or 2 h (L3) of AI time; a milestone that is ready after G3 usually fits in a day. Each closed task records its actual AI time, and the Lead updates the numbers every milestone.
 - The committed date includes a risk buffer (+15% / +25% / +40%). New work in the day is paid from it; when it is used up, work moves to the next milestone or you move the date.
 
 ## 1. Ask for a change
@@ -64,7 +65,7 @@ A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's 
 
 **Claude asks you:** only what is missing about the item (as in step 1).
 
-**Claude does:** sorts it: defect in testing → this milestone · L0-L1 within the buffer → this milestone · L2-L3 or more than half a day → next milestone, unless you accept a later date · high-severity production defect → hotfix (chapter 5). Tells you the effect on the buffer and the date.
+**Claude does:** sorts it: defect in testing → this milestone · L0-L1 within the buffer → this milestone · L2-L3 or more than 2 h of AI time → next milestone, unless you accept a later date · high-severity production defect → hotfix (chapter 5). Tells you the effect on the buffer and the date.
 
 **You check:** accept, defer, or move the date.
 

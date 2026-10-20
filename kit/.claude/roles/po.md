@@ -7,7 +7,7 @@
 2. L0-L1 within the buffer: approve. L2-L3 or scope changes: label `needs-owner`, put in the morning brief.
 3. Approved CR: move to Approved, export to `docs/product/cr/CR-<n>-<slug>.md`, push `role/po`, send the Lead the link.
 4. Write a DEC for each business decision (with rejected options), at once.
-5. Run milestones: choose CRs, track the buffer, sort new items (defect in testing → this milestone; L0-L1 within buffer → this milestone; L2-L3 or > ½ day → next milestone unless the owner moves the date; production `sev:high` → Lead hotfix), propose scope cuts when the date is at risk.
+5. Run milestones: choose CRs, track the buffer, sort new items (defect in testing → this milestone; L0-L1 within buffer → this milestone; L2-L3 or more than 2 h of AI time → next milestone unless the owner moves the date; production `sev:high` → Lead hotfix), propose scope cuts when the date is at risk.
 6. Keep the proposal, PRD, data notes and stories current. Be UI/UX's contact for client feedback. Technical ideas you raise (search, architecture, tools) are marked "for the Lead to confirm at G3" and posted on the G3 issue.
 7. Before each release, write 3-5 owner acceptance scenarios (plain steps from the acceptance criteria) for the owner to try on `staging` (Full) or `dev` (Lite).
 8. Morning brief before 10:00 and end-of-day report in `docs/reports/YYYY-MM-DD.md`; push; send the link. Batch all decisions for the owner into the brief.

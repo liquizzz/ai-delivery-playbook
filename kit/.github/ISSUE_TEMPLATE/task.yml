@@ -53,8 +53,8 @@ body:
   - type: dropdown
     id: estimate
     attributes:
-      label: Estimate
-      options: ["½ day", "1 day", "1½ days", "2 days", "> 2 days (split it)"]
+      label: Estimate (AI working time)
+      options: ["15 min (L0)", "30 min (L1)", "1 h (L2)", "2 h (L3)", "over 2 h (split it)"]
     validations:
       required: true
   - type: dropdown
