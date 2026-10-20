@@ -22,7 +22,7 @@ The first time, install the tools listed in How to run (once per machine). Then 
 
 | You get | How |
 |---|---|
-| A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree (its own folder of the project, one per session), the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
+| A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree (its own folder of the project, one per session), the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, the Claude Code plugins the team uses, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
 | A small team that knows its job | Every project starts with three sessions: PO (your requests), Lead (design, stack, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook (a script that checks every command and edit) blocks risky commands and edits outside the role |
 | The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
 | You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, in any order, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it. A product you name is tried in the browser, and facts you give are checked |
@@ -30,7 +30,7 @@ The first time, install the tools listed in How to run (once per machine). Then 
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, short hand-off prompts, and roles opened only when there is work for them |
 | Quality you can check | Gates you approve, each with a For you block (a few things to try yourself, with links to the evidence), a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
 | Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX, DevOps and a staging check, a full test run of each release before it goes out), or back, without redoing anything |
-| Releases you can run anywhere | Each version tag builds a Docker image; you run it, or roll back, by tag |
+| Releases you can run anywhere | Each version tag builds a Docker image; `node scripts/run.mjs v0.1.0` runs it, or rolls back to an older tag |
 
 ## What you still decide
 

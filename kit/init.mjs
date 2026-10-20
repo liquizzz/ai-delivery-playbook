@@ -8,6 +8,7 @@
 // Options: --name "<name>"  --level lite|full  --language <lang>  --docs-language <lang>  --design yes|no
 //          --humanize yes|no  --description "<text>"
 //          --github private|public|none  --repo <owner/name>  --yes (no questions, defaults)  --force
+//          --no-plugins (skip installing the Claude Code plugins; also CREWBOOK_NO_PLUGINS=1)
 //
 // It creates the folder and a git repo, copies the kit, fills in the project name, level and description,
 // writes START-HERE.md (the owner's steps for that level), creates the branches and the Lead's worktree
@@ -28,6 +29,7 @@ const flag = (name) => {
 };
 const force = argv.includes("--force");
 const yes = argv.includes("--yes");
+const installPlugins = !argv.includes("--no-plugins") && !process.env.CREWBOOK_NO_PLUGINS;
 const valued = new Set(["--name", "--level", "--language", "--docs-language", "--design", "--humanize", "--description", "--github", "--repo"]);
 const target = argv.find((a, i) => !a.startsWith("--") && !valued.has(argv[i - 1]));
 
@@ -370,6 +372,18 @@ for (const role of fresh ? ["lead"] : []) {
     created.push(`(worktree ${role}: ${worktreePath(dest, role)})`);
   } catch (e) {
     warnings.push(`Worktree ${role} failed: ${String(e.stderr || e.message).trim().split("\n")[0]}`);
+  }
+}
+
+// 2j. The Claude Code plugins the project enables: enabling them in .claude/settings.json does not download them.
+if (installPlugins) {
+  try {
+    const out = run("node", [path.join("scripts", "plugins.mjs")]);
+    const lines = out.split(/\r?\n/);
+    if (out.includes("/plugin install")) warnings.push(`Claude Code plugins: ${lines.join("\n    ")}`);
+    else created.push(`(${lines[0].replace(/\.$/, "")})`);
+  } catch (e) {
+    warnings.push(`Plugins not installed: ${String(e.stderr || e.message).trim().split(/\r?\n/)[0]}. The Lead's /setup checks them first.`);
   }
 }
 

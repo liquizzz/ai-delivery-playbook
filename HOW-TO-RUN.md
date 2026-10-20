@@ -16,7 +16,7 @@ gh auth login
 gh auth refresh -s project
 ```
 
-In any Claude Code session, install the plugins listed in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once), then run `/reload-plugins`: superpowers, code-review, claude-mem and context7 always; humanizer if you want polished documents; frontend-design and ui-ux-pro-max if the product has screens.
+You do not install Claude Code plugins by hand: `init` (step 2) installs the ones the project uses with the `claude` command, and the Lead's `/setup` checks them before anything else. If `init` cannot, it prints the `/plugin install` lines to paste into any session. The list is in [chapter 1](docs/book/01-setup.md#you-do-this-yourself-once).
 
 ## 1. Clone the playbook
 

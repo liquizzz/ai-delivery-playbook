@@ -30,6 +30,7 @@
 | `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages between sessions and auto-merge (both on until `/auto` turns them off), and the hand-off tips, shown three times at most while messages are off |
 | `scripts/board-status.mjs` | Moves an issue, or a PR with no task issue, to a board column (`node scripts/board-status.mjs 12 "In progress"`); the commands call it as work moves |
 | `scripts/run.mjs` | Runs a version in Docker with one command (`node scripts/run.mjs v0.1.0`, `dev`, `--source`, `--stop`): checks Docker and port 3000, logs in to ghcr.io when the repo is private, pulls the image, waits for the healthcheck, opens the browser |
+| `scripts/plugins.mjs` | Installs the Claude Code plugins `.claude/settings.json` enables (adds their marketplaces, then `claude plugin install --scope user`), or prints the `/plugin install` lines when the `claude` command is missing; `init` and `/setup` run it |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |
@@ -52,7 +53,7 @@
 
 ## Plugins
 
-The kit's `.claude/settings.json` declares the minimum set, so Claude Code offers to install it when a session opens the project and every role uses the same plugins.
+The kit's `.claude/settings.json` enables the minimum set, so every role uses the same plugins. Enabling a plugin there does not download it: `init` installs them with `scripts/plugins.mjs` (the `claude` command), `/setup` checks them first, and on another machine you run `node scripts/plugins.mjs` once.
 
 | Plugin | Marketplace (`/plugin marketplace add …`) | Who uses it | Level |
 |---|---|---|---|

@@ -20,6 +20,8 @@ const check = (label, cond) => {
     console.log(`FAIL ${label}`);
   }
 };
+// Tests never install plugins on this machine.
+process.env.CREWBOOK_NO_PLUGINS = "1";
 const node = (args, opts = {}) => execFileSync("node", args, { stdio: ["pipe", "pipe", "pipe"], ...opts }).toString();
 const git = (dir, ...args) => execFileSync("git", args, { cwd: dir }).toString().trim();
 const branches = (dir) => git(dir, "branch", "--format=%(refname:short)").split(/\r?\n/).sort().join(",");
@@ -52,6 +54,9 @@ try {
   check("run.mjs: one command pulls, waits for the healthcheck and opens the app", runDry.includes("docker compose pull app   (IMAGE_TAG=v0.1.0)") && runDry.includes("--wait") && runDry.includes("http://localhost:3000"));
   check("docker: healthcheck on the app, START-HERE runs run.mjs", read(a, "docker-compose.yml").includes("healthcheck:") && read(a, "START-HERE.md").includes("node scripts/run.mjs v0.1.0") && !read(a, "START-HERE.md").includes("docker login"));
   check("G3: small image and a working healthcheck", read(a, ".claude", "commands", "next.md").includes("Keep the image small") && read(a, ".claude", "commands", "release.md").includes("node scripts/run.mjs dev"));
+  const plug = node([path.join("scripts", "plugins.mjs"), "--dry-run"], { cwd: a });
+  check("plugins: installed from the enabled list, marketplaces first", plug.includes("claude plugin marketplace add thedotmack/claude-mem") && plug.includes("claude plugin install superpowers@claude-plugins-official --scope user") && plug.indexOf("marketplace add") < plug.indexOf("plugin install"));
+  check("plugins: /setup checks them before anything else", read(a, ".claude", "commands", "setup.md").includes("**Plugins first:**") && read(a, ".claude", "commands", "setup.md").includes("node scripts/plugins.mjs"));
   check("board: same seven columns at every level", ["Backlog", "Approved", "Ready", "In progress", "In review", "Testing", "Done"].every((c) => read(a, "scripts", "setup-board.mjs").includes(`["${c}",`)) && !read(a, "scripts", "setup-board.mjs").includes("readProject"));
   check("board: review loop, docs PRs and Testing in the roles", read(a, ".claude", "commands", "build.md").includes("Review the fixes for #<n>.") && read(a, ".claude", "roles", "dev.md").includes("back to In review") && read(a, ".claude", "roles", "lead.md").includes("Test #<n> on dev.") && read(a, ".claude", "roles", "test.md").includes("leave #n in Testing") && read(a, "CLAUDE.md").includes("goes on the board itself") && read(a, "scripts", "board-status.mjs").includes("pull_request"));
   check("gate: G1 needs no running app, G3 does", read(a, ".claude", "commands", "gate.md").includes("No app is needed yet") && /G3 Design, stack and SRS approved[^\n]*docker compose up --build/.test(read(a, ".claude", "commands", "gate.md")));
