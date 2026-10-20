@@ -4,7 +4,7 @@
 
 AI Delivery Playbook project. Steps for the owner: `START-HERE.md`.
 - Level: <Lite / Full process>. Change it with `node scripts/set-level.mjs <lite|full>`.
-- Language: talk to the owner in <language>; write documents in <language>. Code, commits and identifiers stay in English.
+- Language: talk to the owner in <language>; write documents in <language>. Everything the owner reads is in that language: replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box, and the words around a hand-off prompt. Code, commits, identifiers, file paths and slash commands stay in English.
 - Documents: <plain / polished>.
 - Stage: <Setup / Foundation, next gate G# / Delivery, milestone vX.Y.Z>.
 

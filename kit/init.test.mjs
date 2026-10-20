@@ -113,7 +113,8 @@ try {
   const d = path.join(tmp, "shop-vn");
   node([path.join(kit, "init.mjs"), d, "--language", "Vietnamese", "--docs-language", "Vietnamese", "--design", "yes", "--humanize", "yes", "--yes"]);
   check("humanize: plugin and CLAUDE.md line", read(d, ".claude", "settings.json").includes("humanizer@humanizer") && read(d, "CLAUDE.md").includes("- Documents: polished"));
-  check("language: written to CLAUDE.md", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese."));
+  check("language: written to CLAUDE.md, covering recaps and buttons", read(d, "CLAUDE.md").includes("talk to the owner in Vietnamese; write documents in Vietnamese.") && read(d, "CLAUDE.md").includes("end-of-turn recap"));
+  check("language: session-start names it", hook(wt(d, "lead")).includes("Talk to the owner in Vietnamese") && hook(wt(d, "lead")).includes("button labels"));
   check("design: pipeline kept", read(d, "docker-compose.yml").includes("design:") && fs.existsSync(path.join(d, ".github", "workflows", "image-design.yml")) && fs.existsSync(path.join(d, "docker", "design.Dockerfile")));
 
   // 5. set-level from the Lite lead worktree: up to full, down to lite; "starter" means lite

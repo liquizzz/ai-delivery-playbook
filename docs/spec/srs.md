@@ -2,14 +2,15 @@
 
 The requirements of the playbook itself: what `kit/init.mjs` and the kit it installs must do, and what the book promises. Structure follows the playbook's own [SRS template](../../templates/srs.md). The reasons behind each requirement are in [decisions.md](decisions.md) (DEC-0NN).
 
-**Version:** 0.2 · **Status:** First draft; describes `main` after the side-session rule (2026-10-20) · **Last updated:** 2026-10-20
+**Version:** 0.3 · **Status:** First draft; describes `main` after the language rule (2026-10-20) · **Last updated:** 2026-10-20
 
 ## Revision history
 Newest first. A change to the kit or the book that changes behaviour adds a row here in the same commit.
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.2 | (this commit) | 2026-10-20 | DEC-049 | §3.4, §8 | No side sessions for another role's work (FR-062) |
+| 0.3 | (this commit) | 2026-10-20 | DEC-050 | §3.4, §8 | The owner's language covers recaps, questions and buttons (FR-063) |
+| 0.2 | c123e80 | 2026-10-20 | DEC-049 | §3.4, §8 | No side sessions for another role's work (FR-062) |
 | 0.1 | d280151 | 2026-10-20 | DEC-001 to DEC-048 | All | First written, from the state after the round-3 fixes |
 
 ## 1. Introduction
@@ -102,6 +103,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-022 | A session that proposes another role's work shall mark it for that role to confirm and post it on that role's issue | DEC-022 | `CLAUDE.md` rule |
 | FR-062 | A session shall never start a side session for another role's work; the work goes to that role's session through a hand-off block, and the session-start hook repeats this rule | DEC-049 | `init.test.mjs` side-session check |
 | FR-023 | Sessions shall talk to the owner in the language set at init and write commands for the owner's shell | DEC-018, DEC-039 | `CLAUDE.md` Language line |
+| FR-063 | Everything the owner reads (replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box) shall be in the owner's language; the session-start hook shall name it | DEC-050 | `init.test.mjs` language checks |
 
 ### 3.5 Setup (`/setup`)
 | ID | Requirement | Origin | Acceptance |
@@ -232,6 +234,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-016 | DEC-026, DEC-041 | `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (session-start) | Delivered |
 | FR-017 to FR-023 | DEC-015 to DEC-022 | `kit/CLAUDE.md` | Trial transcripts | Delivered; round 4 to confirm |
 | FR-062 | DEC-049 | `kit/CLAUDE.md`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (side sessions) | Delivered |
+| FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |
 | FR-024 to FR-027 | DEC-026, DEC-027, DEC-029 | `commands/setup.md`, `scripts/new-role-worktree.mjs`, `scripts/setup-labels.mjs` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
 | FR-028 to FR-033 | DEC-027 to DEC-029 | `commands/brief.md`, `.claude/roles/lead.md`, `uiux.md` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
 | FR-034 to FR-038 | DEC-019, DEC-020, DEC-033 | `commands/gate.md`, `kit/CLAUDE.md` | `kit/init.test.mjs` (content checks) | Delivered |

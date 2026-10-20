@@ -241,7 +241,7 @@ const fill = (rel, edit) => {
 fill("CLAUDE.md", (t) => t.replace("# <Project name>", `# ${name}`)
   .replace(/^- Documents: .*$/m, humanize ? "- Documents: polished (humanizer pass on each document)." : "- Documents: plain (no humanizer pass). To turn it on, the owner tells the Lead: \"Polish documents from now on.\"")
   .replace(/^<One paragraph: what the product does.*$/m, (line) => description || line)
-  .replace(/^- Language: .*$/m, `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Code, commits and identifiers stay in English.`));
+  .replace(/^- Language: .*$/m, `- Language: talk to the owner in ${language}; write documents in ${docsLanguage}. Everything the owner reads is in that language: replies, questions, options and button labels, the For you block, the end-of-turn recap and next-step box, and the words around a hand-off prompt. Code, commits, identifiers, file paths and slash commands stay in English.`));
 setClaudeLevel(dest, level);
 const owner = repo ? repo.split("/")[0].toLowerCase() : null;
 const project = repo ? repo.split("/")[1].toLowerCase() : slug;
