@@ -43,9 +43,10 @@ The minimum team is PO + Lead + one Dev. Each role follows its file in `.claude/
 
 ## 2. How a task moves (nothing to ask)
 
-- The Dev commits on its branch, pushes, opens a PR into `dev` with `Closes #n` and sends the Lead the link.
-- The Lead reviews a PR before any other work, and squash-merges.
-- The issue closes and the board moves the card to Done.
+- The Dev commits on its branch, pushes, opens a PR into `dev` with `Closes #n` and sends the Lead the link. The card moves to In review.
+- The Lead reviews a PR before any other work. When it asks for changes, the card goes back to In progress, and to In review again when the Dev pushes the fixes. Then the Lead squash-merges.
+- Full: an L1-L3 task moves to Testing, where the Test session checks it on `dev` against its acceptance criteria. Lite has no Testing column.
+- The issue closes and the card moves to Done. A docs PR with no task issue of its own has its own card: In review while it waits for you, Done when merged.
 
 **You check:** "PRs waiting" in the end-of-day report.
 

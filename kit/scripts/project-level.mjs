@@ -91,3 +91,19 @@ export function renderStartHere(dir, project, root = dir) {
   fs.writeFileSync(path.join(dir, "START-HERE.md"), text);
   return true;
 }
+
+// The kanban board's columns (setup-board.mjs): [name, color, description]. Testing is for the Full level only,
+// where the Test session checks each merged task.
+const BOARD_COLUMNS = [
+  ["Backlog", "GRAY", "Captured, not yet approved"],
+  ["Approved", "BLUE", "Approved by the owner or the PO"],
+  ["Ready", "PURPLE", "Meets the Definition of Ready"],
+  ["In progress", "YELLOW", "One task per person"],
+  ["In review", "ORANGE", "PR open: waiting for the Lead's review or the owner's merge"],
+  ["Testing", "PINK", "Merged; the Test session checks it at its change level (Full)"],
+  ["Done", "GREEN", "Merged, CI green and, at Full, tested"],
+];
+
+export function boardColumns(level) {
+  return BOARD_COLUMNS.filter(([name]) => name !== "Testing" || level === "full");
+}

@@ -109,7 +109,7 @@ Full regression runs on `staging` before every release, whatever the levels.
 | `/release demo` | You want to show the milestone to someone | Full: regression, Docker, your acceptance scenarios | No tag; the demo runs the `:dev` image |
 | `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
 
-Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review, Done.
+Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review (back to In progress when the Lead asks for changes), Testing at Full, Done. Anything waiting for the Lead's review or your merge is in In review, docs PRs included.
 
 > **Token tip:** most tasks are L0-L1. Keeping them at "build + changed spot" is where most testing tokens are saved; do not ask for a full regression after each merge.
 

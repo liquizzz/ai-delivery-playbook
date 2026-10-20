@@ -7,7 +7,7 @@ import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const kit = path.dirname(fileURLToPath(import.meta.url));
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "playbook-init-"));
@@ -47,6 +47,9 @@ try {
   check("lite: design plugins left to setup", !read(a, ".claude", "settings.json").includes("ui-ux-pro-max@ui-ux-pro-max-skill\": true") && read(a, "CLAUDE.md").includes("setup enables `frontend-design`"));
   check("design first: look and feel at G3 in design/", read(a, "CLAUDE.md").includes("Design first, stack after") && read(a, "START-HERE.md").includes("design/look-and-feel.html") && read(a, ".claude", "commands", "next.md").includes("G3 runs in three parts"));
   check("setup: no stack question, opens gate issues and team folders", !read(a, ".claude", "commands", "setup.md").includes("stack in mind") && read(a, ".claude", "commands", "setup.md").includes("label") && read(a, ".claude", "commands", "setup.md").includes("new-role-worktree.mjs po"));
+  const { boardColumns } = await import(pathToFileURL(path.join(a, "scripts", "project-level.mjs")).href);
+  check("board: Testing column at Full only", boardColumns("full").some(([n]) => n === "Testing") && !boardColumns("lite").some(([n]) => n === "Testing") && boardColumns("lite").length === 6);
+  check("board: review loop, docs PRs and Testing in the roles", read(a, ".claude", "commands", "build.md").includes("Review the fixes for #<n>.") && read(a, ".claude", "roles", "dev.md").includes("back to In review") && read(a, ".claude", "roles", "lead.md").includes("Test #<n> on dev.") && read(a, ".claude", "roles", "test.md").includes("leave #n in Testing") && read(a, "CLAUDE.md").includes("goes on the board itself") && read(a, "scripts", "board-status.mjs").includes("pull_request"));
   check("gate: G1 needs no running app, G3 does", read(a, ".claude", "commands", "gate.md").includes("No app is needed yet") && /G3 Design, stack and SRS approved[^\n]*docker compose up --build/.test(read(a, ".claude", "commands", "gate.md")));
   check("lite: skills table in CLAUDE.md", read(a, "CLAUDE.md").includes("## Skills") && read(a, "CLAUDE.md").includes("superpowers:brainstorming") && read(a, "CLAUDE.md").includes("Try it in the browser"));
   const hook = (dir) => {
@@ -133,11 +136,13 @@ try {
   // 5. set-level from the Lite lead worktree: up to full, down to lite; "starter" means lite
   const lead = wt(a, "lead");
   const setLevel = (level) => node([path.join("scripts", "set-level.mjs"), level], { cwd: lead });
-  setLevel("full");
+  const up = setLevel("full");
   check("up to full: staging created", branches(a).includes("staging"));
   check("up to full: files updated in the worktree", JSON.parse(read(lead, ".claude", "project.json")).level === "full" && /^- Level: Full /m.test(read(lead, "CLAUDE.md")) && read(lead, "START-HERE.md").includes("Level: **Full process**"));
   check("up to full: START-HERE.md points at the main checkout's worktrees", read(lead, "START-HERE.md").includes(wt(a, "po")));
+  check("up to full: board note adds the Testing column", up.includes('add a "Testing" column'));
   const down = setLevel("lite");
+  check("down to lite: board note retires the Testing column", down.includes('"Testing" column is no longer used'));
   check("down to lite: staging kept", branches(a).includes("staging") && down.includes("staging branch is kept"));
   check("english project: no START-HERE rewrite asked", !down.includes("START-HERE.md in"));
   check("same level: nothing to do", setLevel("lite").includes("Already at level Lite"));

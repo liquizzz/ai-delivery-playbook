@@ -5,18 +5,12 @@
 // Run from the repo:  node scripts/setup-board.mjs
 // Needs the gh CLI with the "project" scope:  gh auth refresh -s project
 // GitHub's API cannot switch a project to the board layout: open the project once, choose View → Layout → Board, then Save.
-// Issues move between columns with: node scripts/board-status.mjs <issue> "<column>"
+// Issues and docs PRs move between columns with: node scripts/board-status.mjs <number> "<column>"
+// The Testing column is for the Full level, where the Test session checks each merged task; a Lite board has none.
 import { execFileSync } from "node:child_process";
+import { boardColumns, readProject } from "./project-level.mjs";
 
-const STATUSES = [
-  ["Backlog", "GRAY", "Captured, not yet approved"],
-  ["Approved", "BLUE", "Approved by the owner or the PO"],
-  ["Ready", "PURPLE", "Meets the Definition of Ready"],
-  ["In progress", "YELLOW", "One task per person"],
-  ["In review", "ORANGE", "PR open or waiting for the Lead"],
-  ["Testing", "PINK", "Being tested at its change level"],
-  ["Done", "GREEN", "Merged and tested"],
-];
+const STATUSES = boardColumns((readProject(process.cwd()) || {}).level);
 const FIELDS = [
   ["Role", ["po", "lead", "dev", "test", "uiux", "devops"]],
   ["Level", ["L0", "L1", "L2", "L3"]],
