@@ -6,6 +6,8 @@ Level: **Lite**. Three Claude Code sessions work like a small team you manage: P
 
 Done by `init`: the kit, branches `main` and `dev`, GitHub repo {{repo}} with labels and a kanban board, and the Lead's folder `{{lead}}`. The Lead's setup creates the PO's and Dev1's folders.
 
+**Where the code is:** `dev` holds the work in progress (every merged PR) and `main` the latest released version, so until v0.1.0 `main` holds just the kit. To read the code, open the `dev` branch on GitHub.
+
 **Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 design, stack and plan, G4 built, G5 tested, G6 released. Each approval request shows the gate's checks, then a **For you** block: what the gate means, what to try yourself (with links, the expected result and an example of a wrong one), and what tests and CI already prove. Try those items before you say "Approved". The book explains any step in more depth (chapter links in parentheses).
 
 **Hand-offs:** when work moves to another session, the report ends with the session to open and a prompt in its own box. Copy the box with its copy button and paste it into that session.

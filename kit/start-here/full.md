@@ -6,6 +6,8 @@ Level: **Full process**. You manage a team of Claude Code sessions: the Lead set
 
 Done by `init`: the kit, branches `main`, `dev` and `staging`, GitHub repo {{repo}} with labels and a kanban board, and the Lead's folder `{{lead}}`. The Lead creates every other session's folder when it is needed.
 
+**Where the code is:** `dev` holds the work in progress (every merged PR), `staging` the demo for the client, and `main` the latest released version, so until v0.1.0 `main` holds just the kit. To read the code, open the `dev` branch on GitHub.
+
 **Gates** are the points where a session stops and you approve before it goes on: G1 proposal, G2 requirements, G3 design, stack and SRS, G4 built, G5 accepted on `staging`, G6 released. Each approval request shows the gate's checks, then a **For you** block: what the gate means, what to try yourself (with links, the expected result and an example of a wrong one), and what tests and CI already prove. Try those items before you say "Approved". Appendix D of the book lists every step with its check: https://github.com/liquizzz/crewbook-build/blob/main/docs/book/appendix-d-checklist.md
 
 **Hand-offs:** when work moves to another session, the report ends with the session to open and a prompt in its own box. Copy the box with its copy button and paste it into that session.
