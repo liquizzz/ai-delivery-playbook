@@ -91,6 +91,7 @@ try {
   write(lead, "CLAUDE.md", claude);
   const settings = JSON.parse(read(lead, ".claude/settings.json"));
   settings.enabledPlugins["frontend-design@claude-plugins-official"] = true;
+  settings.enabledPlugins["rampstack-seo@anthropic-plugin-directory"] = true;
   settings.permissions.allow.push("Bash(uv *)");
   settings.hooks.PostToolUse = [{ hooks: [{ type: "command", command: "node own-hook.cjs" }] }];
   write(lead, ".claude/settings.json", JSON.stringify(settings, null, 2) + "\n");
@@ -116,6 +117,7 @@ try {
   check("CLAUDE.md: kit rules are the new ones", claude.includes("- **Opening sessions:**") && /^- Level: Lite /m.test(claude));
   const merged = JSON.parse(read(lead, ".claude/settings.json"));
   check("settings: own plugin, permission and hook kept", merged.enabledPlugins["frontend-design@claude-plugins-official"] === true && merged.permissions.allow.includes("Bash(uv *)") && merged.hooks.PostToolUse?.[0].hooks[0].command === "node own-hook.cjs");
+  check("settings: a plugin the kit turns off stays on when the project turned it on", merged.enabledPlugins["rampstack-seo@anthropic-plugin-directory"] === true);
   check("settings: kit hooks still there", JSON.stringify(merged.hooks.PreToolUse).includes("role-guard.cjs"));
   check("version recorded", JSON.parse(read(lead, ".claude/project.json")).kitVersion === git(playbook, "rev-parse", "HEAD") && JSON.parse(read(lead, ".claude/project.json")).setup === true);
   check("next steps for the Lead", run.out.includes("open a PR into dev"));

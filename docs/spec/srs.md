@@ -9,7 +9,8 @@ Newest first. A change to the kit or the book that changes behaviour adds a row 
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.22 | (this commit) | 2026-10-21 | DEC-067 | §3, §7, §8 | The PO up to G2 (with the SRS's functional part) and for the acceptance on `staging` and the handover; the Lead the owner's contact from G3 and every change (CR or ADR); one test round on `staging`, release with no new tests; Lite gets `staging`, Dev1 does the Test work; auto-merge at every level; data changes with update and rollback scripts (FR-004, FR-030, FR-043, FR-045, FR-046, FR-049, FR-072, FR-073, FR-080, FR-081) |
+| 0.23 | (this commit) | 2026-10-21 | DEC-068 | §3 | `rampstack-seo` off by default in the kit's settings (FR-076) |
+| 0.22 | 5193706 | 2026-10-21 | DEC-067 | §3, §7, §8 | The PO up to G2 (with the SRS's functional part) and for the acceptance on `staging` and the handover; the Lead the owner's contact from G3 and every change (CR or ADR); one test round on `staging`, release with no new tests; Lite gets `staging`, Dev1 does the Test work; auto-merge at every level; data changes with update and rollback scripts (FR-004, FR-030, FR-043, FR-045, FR-046, FR-049, FR-072, FR-073, FR-080, FR-081) |
 | 0.21 | 4ed7f22 | 2026-10-21 | DEC-066 | §3, §8 | Kit updates for running projects: `kitVersion`, `kit/update.mjs`, `/kit-update` (FR-079) |
 | 0.20 | 564e63b | 2026-10-20 | DEC-065 | §3 | Detached sessions go back into the project's sidebar group; `/setup` creates the group (FR-078) |
 | 0.19 | b3e1a42 | 2026-10-20 | DEC-065 | §3, §8 | Sessions opened by the hand-off session on the owner's yes, detached at once (FR-078) |
@@ -206,7 +207,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 |---|---|---|---|
 | FR-058 | The project `CLAUDE.md` shall name the skill for each task, and ban the superpowers worktree and subagent skills | DEC-041 | Skills table |
 | FR-059 | The kit's settings shall enable superpowers, code-review, claude-mem and context7, and humanizer only for polished documents; setup enables frontend-design and ui-ux-pro-max for products with screens | DEC-042 | `init.test.mjs` plugin checks |
-| FR-076 | `init` shall install the plugins `.claude/settings.json` enables through `scripts/plugins.mjs` (marketplaces first, then `claude plugin install --scope user`) or print the `/plugin install` lines when the `claude` command is missing, and skip this with `--no-plugins`; `/setup` shall check its skill list for the enabled plugins before anything else and stop with the install step when one is missing; the kit shall need no GitHub MCP | DEC-063 | Plugins on a new machine |
+| FR-076 | `init` shall install the plugins `.claude/settings.json` enables through `scripts/plugins.mjs` (marketplaces first, then `claude plugin install --scope user`) or print the `/plugin install` lines when the `claude` command is missing, and skip this with `--no-plugins`; the kit's settings shall set `rampstack-seo` to `false` so a user-level install stays off unless the project turns it on; `/setup` shall check its skill list for the enabled plugins before anything else and stop with the install step when one is missing; the kit shall need no GitHub MCP | DEC-063, DEC-068 | Plugins on a new machine |
 | FR-077 | Every issue or PR number a session shows the owner shall be a link with its short title and its CR when there is one; recaps and buttons, which hold no links, shall add a few words to the number; the hand-off "Next" line shall start with the linked issue | DEC-064 | Owner-facing text |
 | FR-078 | When a step needs a session that is not running, the handing-off session shall ask the owner once and, on yes and where the app allows it, start that session in the role's worktree with its title and first prompt, detach it to top level before it works and file it in the opener's sidebar group; otherwise it shall show the hand-off block | DEC-065 | Opening sessions |
 
@@ -260,11 +261,11 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | `docker compose up` at G1 | d280151 | DEC-027 | No app exists before the stack |
 | `docs/design/look-and-feel.html` path | d280151 | DEC-027 | UI/UX may only write `design/` |
 | `templates/next.md` | d280151 | DEC-012 | Only Starter used it |
-| The PO approving L0-L1 CRs within the buffer by itself; CRs written by the PO after G2 | (this commit) | DEC-067 | After G2 the Lead takes every change, and every functional change needs the client's approval on record |
-| Test checking each merged task at Full by default | (this commit) | DEC-067 | Each milestone is tested once, on `staging`; `/auto testing on` brings the per-task check back |
-| Lite releasing from `dev` without `staging` | (this commit) | DEC-067 | Both levels test on `staging` and release the accepted commit |
-| L3 PRs waiting for the owner with auto-merge on | (this commit) | DEC-067 | Nothing reaches `main` without `staging`, the PO's acceptance and the owner's release approval |
-| A docs PR per task for its actual AI time | (this commit) | DEC-067 | Times stay on the issue; the Lead copies them once per milestone |
+| The PO approving L0-L1 CRs within the buffer by itself; CRs written by the PO after G2 | 5193706 | DEC-067 | After G2 the Lead takes every change, and every functional change needs the client's approval on record |
+| Test checking each merged task at Full by default | 5193706 | DEC-067 | Each milestone is tested once, on `staging`; `/auto testing on` brings the per-task check back |
+| Lite releasing from `dev` without `staging` | 5193706 | DEC-067 | Both levels test on `staging` and release the accepted commit |
+| L3 PRs waiting for the owner with auto-merge on | 5193706 | DEC-067 | Nothing reaches `main` without `staging`, the PO's acceptance and the owner's release approval |
+| A docs PR per task for its actual AI time | 5193706 | DEC-067 | Times stay on the issue; the Lead copies them once per milestone |
 | Habit Tracker worked example | d280151 | DEC-047 | Made with Starter; to be redone at Lite |
 | github MCP and product-management as required plugins | c90aa5d | DEC-042 | Not used; the kit uses `gh` |
 
@@ -294,7 +295,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-050 to FR-054 | DEC-023, DEC-024, DEC-035 to DEC-037, DEC-039 | `kit/CLAUDE.md`, `commands/progress.md` | `kit/init.test.mjs` (content checks) | Delivered |
 | FR-055 to FR-057 | DEC-038 | `scripts/set-secret.mjs`, `scripts/new-role-worktree.mjs`, `hooks/pre-commit` | `kit/init.test.mjs` (set-secret) | Delivered |
 | FR-058, FR-059 | DEC-041, DEC-042 | `kit/CLAUDE.md`, `.claude/settings.json` | `kit/init.test.mjs` (plugins) | Delivered |
-| FR-076 | DEC-063 | `scripts/plugins.mjs`, `init.mjs`, `commands/setup.md` | `kit/init.test.mjs` (plugins dry run, /setup check); init run on a temp folder installed the five plugins | Delivered |
+| FR-076 | DEC-063, DEC-068 | `scripts/plugins.mjs`, `init.mjs`, `commands/setup.md` | `kit/init.test.mjs` (plugins dry run, /setup check); init run on a temp folder installed the five plugins | Delivered |
 | FR-077 | DEC-064 | `kit/CLAUDE.md` (Links, hand-offs), `commands/progress.md` | `kit/init.test.mjs` (links) | Delivered; to confirm in transcripts of the habit tracker run |
 | FR-078 | DEC-065 | `kit/CLAUDE.md` (Opening sessions), `commands/setup.md`, `commands/next.md`, `commands/build.md`, `start-here/` | `kit/init.test.mjs` (sessions); scratch-project test: opened in `role/po`, detached | Delivered |
 | FR-079 | DEC-066 | `kit/update.mjs`, `commands/kit-update.md`, `init.mjs`, `scripts/project-level.mjs`, `.claude/roles/lead.md`, `kit/CLAUDE.md` (Ask the owner before) | `kit/update.test.mjs`; `kit/init.test.mjs` (kitVersion); trial-project copy | Delivered |

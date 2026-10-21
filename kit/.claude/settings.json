@@ -18,7 +18,8 @@
     "code-review@claude-plugins-official": true,
     "claude-mem@thedotmack": true,
     "context7@claude-plugins-official": true,
-    "humanizer@humanizer": true
+    "humanizer@humanizer": true,
+    "rampstack-seo@anthropic-plugin-directory": false
   },
   "hooks": {
     "SessionStart": [

@@ -68,6 +68,7 @@ The kit's `.claude/settings.json` enables the minimum set, so every role uses th
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
 | product-management | `anthropics/knowledge-work-plugins` | PO | Optional: `write-spec`, `competitive-brief` and `stakeholder-update` for a PO who wants them; adds about 850 tokens and several connectors to each session |
 | humanizer | `blader/humanizer` | Every role that writes documents | Only with polished documents (init question 6) |
+| rampstack-seo | Anthropic plugin directory | Dev, PO on a public site | Off: the kit's `.claude/settings.json` sets it to `false`, so an install on your machine does not load SEO skills into every session. Set it to `true` for a product that needs SEO |
 
 ### Skills by task
 
