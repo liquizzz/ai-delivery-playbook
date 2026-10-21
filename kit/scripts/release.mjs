@@ -101,9 +101,8 @@ if (unreleasedMissed) {
   console.log(`!!! Its entries are missing from the version block above. Make the heading exactly "## [Unreleased]" and rerun.\n`);
 }
 
-// Lite releases from dev (also projects still marked with the removed Starter level); Full from staging (.claude/project.json).
-const level = fs.existsSync(".claude/project.json") ? JSON.parse(fs.readFileSync(".claude/project.json", "utf8")).level : "full";
-const releaseFrom = level === "full" ? "staging" : "dev";
+// Every level releases the staging commit that was tested and accepted, with no new tests.
+const releaseFrom = "staging";
 if (write) {
   save("CHANGELOG.md", changelog, changelogFile.crlf);
   if (srs) save(srsPath, srs, srsFile.crlf);

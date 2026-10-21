@@ -319,7 +319,7 @@ if (exists(SETTINGS)) {
 }
 
 // 6. The rest: docs folders, .gitignore lines, the secret-check hook, START-HERE, the project record.
-for (const f of ["docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones", "docs/tech/spec", "docs/tech/adr",
+for (const f of ["docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones", "docs/product/handover", "docs/tech/spec", "docs/tech/adr",
   "docs/tech/test-cases", "docs/tech/test-reports", "docs/tech/ops", "docs/reports", "docs/releases"]) {
   if (!exists(f)) {
     write(`${f}/.gitkeep`, "");

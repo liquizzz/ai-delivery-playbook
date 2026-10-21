@@ -11,7 +11,7 @@ import path from "node:path";
 export const LEVELS = {
   lite: {
     title: "Lite",
-    branches: ["dev"],
+    branches: ["dev", "staging"],
     worktrees: ["po", "lead", "dev1"],
     help: "PO, Lead and one Dev, each in its own session. The starting level for any client project or product.",
     line: "Lite (PO, Lead and Dev1 sessions; book chapter 8)",
@@ -20,7 +20,7 @@ export const LEVELS = {
     title: "Full",
     branches: ["dev", "staging"],
     worktrees: ["po", "lead"],
-    help: "Adds Test, UI/UX and DevOps sessions and a staging check. Money, security, personal data, or a client who signs off each release.",
+    help: "Adds Test, UI/UX and DevOps sessions. Money, security, personal data, or a client who signs off each release.",
     line: "Full process (PO and Lead, then Dev, Test, UI/UX and DevOps as needed; book chapter 2)",
   },
 };

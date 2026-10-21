@@ -5,7 +5,7 @@
 | Phase | Output | Gate you pass |
 |---|---|---|
 | 1 Planning | `docs/product/proposal.md` | G1 problem, users, option, scope, metric, timeline, budget agreed |
-| 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
+| 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/`, the functional part of `docs/tech/srs.md` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
 | 3 Design | `design/` (look and feel, screens), the stack ADR (architecture decision record), `docs/tech/srs.md` baseline, ADRs, C4 (architecture diagrams), test strategy, eval plan (how AI features are measured), first milestone | G3 design approved before the stack; stack ADR; SRS with FR/NFR IDs; test pass marks; board ready |
 
 Rules: proposal before PRD · real data during requirements · design before stack · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice. Each gate has its issue (label `gate`), and the gate's commits name it.
@@ -57,9 +57,9 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 4. Non-functional needs: speed, availability, security, monthly cost.
 5. Who confirms the business rules?
 
-**Claude does:** drafts `docs/product/prd.md`; with the Lead, analyses the real data into `docs/product/data-notes.md` (counts and structure only, never real records); writes one story per must-have with Given/When/Then criteria; records each business decision as a DEC.
+**Claude does:** drafts `docs/product/prd.md`; with the Lead, analyses the real data into `docs/product/data-notes.md` (counts and structure only, never real records); writes one story per must-have with Given/When/Then criteria and the functional part of the SRS (one `FR-xxx` per requirement, with its origin and acceptance); records each business decision as a DEC.
 
-**You check:** must-haves and non-goals; open questions answered; then pass G2 (step 2). From now on every change to requirements is a CR.
+**You check:** must-haves and non-goals; open questions answered; then pass G2 (step 2). From now on you work with the Lead: a feature added or cut is a CR with the client's approval, a change in how it is built an ADR ([chapter 4](04-delivery-loop.md)). You may close the PO session; the Lead opens it again at the end of the milestone.
 
 ## 4. Design, stack and SRS (phase 3)
 
@@ -77,7 +77,7 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 **Claude does,** in this order:
 1. **Design:** for a product with screens, 2-3 named look-and-feel directions in `design/look-and-feel.html`, then every main screen and state in the one you pick (Full: the Lead proposes the UI/UX session for this and gives you its prompt; Lite: the Lead does it). Meanwhile the Lead writes the flows, data and integrations. Full: you approve the design before the stack; with a prototype it is tagged `design-v1` ([chapter 7](07-frontend-projects.md)). Lite: your own screens are used as they are, picking a direction is a choice and not an approval, and the design is approved with the rest of G3.
 2. **Stack:** 2-3 options that fit the design and the requirements, from the lightest to the fullest; the one you pick is installed once on your machine before it is written down as an ADR with the rejected options. Docker and CI are fitted to it, so `docker compose up --build` starts the project.
-3. **SRS and plan:** `docs/tech/srs.md` version `0.0.0` ([template](../../templates/srs.md)) with FR/NFR IDs, data, interfaces, Revision History and traceability; the ADRs; at Full also C4 diagrams, the test strategy and the eval plan; milestone `v0.1.0` with its tasks in Ready.
+3. **SRS and plan:** the PO's SRS completed as version `0.0.0` ([template](../../templates/srs.md)) with NFR targets, data, interfaces, Revision History and traceability; the ADRs; at Full also C4 diagrams, the test strategy and the eval plan; milestone `v0.1.0` with its tasks in Ready.
 
 **You check:** the design, the stack choice and the first milestone; then pass G3 (step 2). The Lead then proposes the sessions the milestone needs and gives you a prompt for each. The delivery loop starts.
 

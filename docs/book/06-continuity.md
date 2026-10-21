@@ -39,7 +39,7 @@ A session never does another role's work. If you ask one for it, you get a hand-
 
 **Claude does:** finds the requirement in the SRS (`FR-xxx`, its origin and version), the CR and its acceptance criteria, the DEC or ADR behind it, the PRs and commits that built it and the release that shipped it; answers in a short chain: *FR-021 → CR-12 (DEC-4) → PR #47 → v1.4.0*, with links.
 
-**You check:** the chain. To change the behaviour, ask the PO for a CR that references it ([chapter 4](04-delivery-loop.md)).
+**You check:** the chain. To change the behaviour, ask the Lead for a change that references it: a CR if the client gets something different, an ADR if only the way it is built changes ([chapter 4](04-delivery-loop.md)).
 
 ## 4. Compact a long session
 
@@ -60,7 +60,7 @@ A session never does another role's work. If you ask one for it, you get a hand-
 
 ## 6. Move the team to another machine
 
-**Ask the PO** on the old machine:
+**Ask the Lead** on the old machine:
 > We are moving the team to another machine. Get every role ready.
 
 **Claude does:** asks each running session to commit and push its branch; lists the worktrees to recreate.

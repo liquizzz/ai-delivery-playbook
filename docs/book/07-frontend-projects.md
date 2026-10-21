@@ -25,7 +25,7 @@ Where the client opens the demo (your server, a cloud service, a tunnel) and how
 
 **What it does:** turns client needs into a clickable prototype the client can open.
 
-**Ask the PO:**
+**Ask the Lead:**
 > Start a design round for `<screens or flow>`.
 
 **Claude asks you:**
@@ -34,22 +34,22 @@ Where the client opens the demo (your server, a cloud service, a tunnel) and how
 3. Devices to support first (mobile, desktop).
 4. Who on the client side reviews, and by when?
 
-**Claude does:** the PO opens a Design issue and hands it to UI/UX; UI/UX builds the screens in `design/`, pushes and opens a PR; the Lead merges it through the fast lane (L0, no Test), which builds a new `:dev` design image; the PO tells you it is ready to view.
+**Claude does:** the Lead opens a Design issue and hands it to UI/UX (Lite: draws the screens itself); UI/UX builds the screens in `design/`, pushes and opens a PR; the Lead merges it through the fast lane (L0), which builds a new `:dev` design image, and tells you it is ready to view.
 
 **You check:** the screens, before they go to the client.
 
 ## 2. Process client feedback
 
-**Ask the PO:**
+**Ask the Lead:**
 > Client feedback on the design: `<paste or summarise>`.
 
 **Claude asks you:** which comments to accept, defer or reject, when they conflict or change business rules (each with a proposal).
 
-**Claude does:** records the feedback on the Design issue; UI/UX makes the next round; business-rule changes become CRs.
+**Claude does:** records the feedback on the Design issue; UI/UX makes the next round; a feature added or cut becomes a CR with the client's approval.
 
 ## 3. Approve the design
 
-**Ask the PO:**
+**Ask the Lead:**
 > The client approved the design.
 
 **Claude does:** the Lead tags `design-vN`; UI/UX writes the hand-off for Dev (screens, states, tokens, behaviour); the Lead creates the build tasks in `app/` for the next milestone; the demo is switched to `:design-vN`.

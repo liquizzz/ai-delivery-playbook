@@ -1,5 +1,5 @@
 name: Change Request (CR)
-description: New or changed business requirement. Opened by the PO.
+description: A functional change (the client gets something different). Opened by the Lead after G2. A technical change is an ADR instead.
 title: "CR: <short title>"
 labels: ["cr"]
 body:
@@ -8,6 +8,13 @@ body:
     attributes:
       label: Context
       description: Why is this change needed? Who has the problem?
+    validations:
+      required: true
+  - type: input
+    id: requested
+    attributes:
+      label: Requested by
+      description: Who asked, how (email, chat, meeting) and when, with a link to the message if there is one.
     validations:
       required: true
   - type: textarea
@@ -26,6 +33,27 @@ body:
         - Given … When … Then …
     validations:
       required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope before and after
+      placeholder: |
+        Before: …
+        After: …
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: AI time (from the Lead), the delivery date, the price, and whether it is billed.
+      placeholder: |
+        AI time: …
+        Date: unchanged / moves to …
+        Price: … (billed / included)
+  - type: textarea
+    id: approval
+    attributes:
+      label: Client approval
+      description: Filled in when the client approves, before work starts. Name, date, link to the message.
   - type: dropdown
     id: type
     attributes:

@@ -11,21 +11,30 @@ The rules:
 
 ## 1. Ask for a change
 
-**What it does:** turns any request (feature, change, fix) into an approved CR.
+**What it does:** records every change so the client cannot later say "I never asked for that", and the extra cost has a trail. A change is sorted by what the client receives:
 
-**Ask the PO:**
-> I want `<what, in business terms>`.
+| | Functional | Technical |
+|---|---|---|
+| What changes | What the client gets: a feature, behaviour a user sees, scope, acceptance, date or price | How it is built or run: a library, a provider, a model, the test approach, running cost |
+| Comes from | The client or you, to the Lead | The Lead, or you |
+| Recorded as | A CR with the client's approval and a row in `docs/product/changes.md` | An ADR; what the client must prepare and the risks you accepted go into the milestone file |
+| Who approves | The client (you record it) and you for L2-L3 | You, when it touches cost or accepts a risk |
+
+In the [news chatbot example](../examples/news-chatbot/walkthrough.md), moving the search to a self-hosted model to avoid paying for AI calls was technical, and so was skipping the full eval before the demo. Dropping the search of official sources for later was functional: the client got less.
+
+**Ask the Lead** (after G2 every change goes to the Lead; `/change` sorts it first):
+> /change `<what, in business terms>`
 
 **Claude asks you:**
-1. Who needs it and why?
-2. Acceptance: what must be true when it is done? (it proposes Given/When/Then)
-3. Feature, change or fix? Breaking for current users? (from 1.0.0)
-4. Priority, and this milestone or the next?
-5. Anything explicitly out of scope?
+1. Who asked, how (email, chat, meeting) and when?
+2. What changes for the user, from what to what?
+3. Acceptance: what must be true when it is done? (it proposes Given/When/Then)
+4. The price, and is it billed? (it gives the AI time and the date itself)
+5. Priority, this milestone or the next, anything out of scope?
 
-**Claude does:** opens a CR issue with labels and milestone; estimates the level with the Lead; if L0-L1 and within the buffer, approves it; if L2-L3 or a scope change, labels it `needs-owner` and asks you; once approved, exports it to `docs/product/cr/` and hands it to the Lead.
+**Claude does:** opens a CR issue with the scope before and after and the impact; when the client approves, records the approval (name, date, link) on it, exports it to `docs/product/cr/`, adds the row to `changes.md`, updates the SRS and writes the spec, all in one PR. A technical change becomes an ADR instead.
 
-**You check:** approve L2-L3 CRs when the PO asks.
+**You check:** the client's approval is recorded before work starts; approve L2-L3 CRs.
 
 ## 2. CR to tasks (nothing to ask)
 
@@ -34,7 +43,7 @@ The rules:
 - merges both into `dev` before any task starts;
 - creates task sub-issues with level, module, estimate, confidence, assignee; moves them to Ready.
 
-A task is Ready when its CR is approved, the SRS and spec are on `dev`, it has acceptance criteria linked to `FR-xxx`, nothing blocks it and its assignee is free.
+A task is Ready when its CR is approved by the client (or its ADR accepted), the SRS and spec are on `dev`, it has acceptance criteria linked to `FR-xxx`, nothing blocks it and its assignee is free.
 
 A task is Done when it is pushed, its PR (`Closes #n`) passed CI and the Lead's review, tests pass for its level, the SRS and `CHANGELOG.md` are updated, and it is merged into `dev`.
 
@@ -53,7 +62,7 @@ When you want it kept, for yourself or a client, type `/progress report` in the 
 
 ## 4. Something urgent comes up
 
-**Ask the PO:**
+**Ask the Lead:**
 > `<the new item>`. Can we fit it in this milestone?
 
 **Claude asks you:** only what is missing about the item (as in step 1).
@@ -64,7 +73,7 @@ When you want it kept, for yourself or a client, type `/progress report` in the 
 
 ## 5. The date is at risk
 
-**Claude does:** the PO proposes these steps on its own, in order: (1) use the buffer, (2) move the lowest-priority CR to the next milestone, (3) move the date.
+**Claude does:** the Lead proposes these steps on its own, in order: (1) use the buffer, (2) move the lowest-priority CR to the next milestone, (3) move the date.
 
 **You check:** choose. Only you can move the date.
 
@@ -72,7 +81,7 @@ When you want it kept, for yourself or a client, type `/progress report` in the 
 
 **What it does:** tests exactly what the change level requires, so small changes cost little and risky ones are covered. The level is confirmed before any test starts.
 
-| Level | Dev before the PR | Test after merge |
+| Level | Dev before the PR | Test after merge (only with `/auto testing on`, Full) |
 |---|---|---|
 | L0 Display | Build, lint, local look | None now; covered by the milestone regression |
 | L1 Setting | + unit tests for the change | Check the changed spot only |
@@ -80,7 +89,7 @@ When you want it kept, for yourself or a client, type `/progress report` in the 
 | L3 Core | + integration tests, edge cases | Core scenarios, related modules, part of the regression |
 
 **Claude does,** on its own for every task:
-1. The tester (Dev before the PR, Test after the merge) reads the task's level and the files actually changed, and writes one line on the issue: *"Level L1 confirmed: only the default page size changed; testing the list page only."*
+1. The tester (the Dev before the PR; Test after the merge when per-task testing is on) reads the task's level and the files actually changed, and writes one line on the issue: *"Level L1 confirmed: only the default page size changed; testing the list page only."*
 2. If the change is wider than its label, it raises the level (e.g. an "L1" that touched shared code or data becomes L3) and tells the Lead; it never lowers a level on its own.
 3. It tests only that scope, then records the result on the issue.
 
@@ -89,7 +98,7 @@ When you want it kept, for yourself or a client, type `/progress report` in the 
 
 **Claude does:** compares the diff with the level rules and confirms or raises it.
 
-Full regression runs on `staging` before every release, whatever the levels.
+Each task is checked once more at the end of the milestone, whatever its level, on `staging`: the regression (Full: Test; Lite: Dev1), then the PO's acceptance. The release adds no tests.
 
 ## 7. Build modes
 
@@ -99,10 +108,10 @@ Full regression runs on `staging` before every release, whatever the levels.
 |---|---|---|---|
 | `/build try [#n]` | You want to see a task working, try it, change direction | None; it only has to run | No. Committed and pushed to `role/<role>`; the issue stays In progress |
 | `/build done [#n]` | The task is finished | Exactly the task's confirmed level (section 6) | A PR the Lead merges; the Lead closes the issue when CI on `dev` is green |
-| `/release demo` | You want to show the milestone to someone | Full: regression, Docker, your acceptance scenarios | No tag; the demo runs the `:dev` image |
-| `/release` | You publish a version | Full | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
+| `/release demo` | You want to show the milestone to someone | Regression and the PO's acceptance on `staging`, your acceptance scenarios | No tag; the demo runs the `:staging` image |
+| `/release` | You publish a version | None more: the accepted `staging` commit is released | `main`, a tag and a versioned image ([chapter 5](05-releases.md)) |
 
-Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review (back to In progress when the Lead asks for changes), Testing at Full, Done. Anything waiting for the Lead's review or your merge is in In review, docs PRs included.
+Only `/build done` puts code into `dev`, so `dev` always holds tested work. The board follows each issue: Ready, In progress, In review (back to In progress when the Lead asks for changes), Testing (Full, only with `/auto testing on`), Done. Anything waiting for the Lead's review or your merge is in In review, docs PRs included.
 
 > **Token tip:** most tasks are L0-L1. Keeping them at "build + changed spot" is where most testing tokens are saved; do not ask for a full regression after each merge.
 

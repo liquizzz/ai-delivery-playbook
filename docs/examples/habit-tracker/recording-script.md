@@ -76,9 +76,9 @@ Say you have no screens yet, pick one of the 2-3 look-and-feel directions and as
 
 ### 5. Build (Lead, Dev1)
 
-In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", when the Lead asks. The Lead sends Dev1 its prompts and merges L0-L2 PRs by itself; capture one recap line that says what it sent and merged. Once, during a `/build try`, open the running app to show a task working before its tests.
+In the Lead: `/build`. Open `<project>-wt/dev1`, name it "Habit Tracker - Dev1", when the Lead asks. The Lead sends Dev1 its prompts and merges every PR by itself after its review; capture one recap line that says what it sent and merged. Once, during a `/build try`, open the running app to show a task working before its tests.
 
-Try one change mid-build, to show the change flow. In the PO:
+Try one change mid-build, to show the change flow. In the Lead:
 
 ```
 /change Show a small flame next to a streak of 7 days or more.
@@ -90,13 +90,13 @@ Try one change mid-build, to show the change flow. In the PO:
 /release demo
 ```
 
-Try the scenarios it lists, one of them at phone width. Then:
+The Lead merges `dev` into `staging`; Dev1 runs the regression and the PO accepts every criterion on `staging` (say yes when the Lead offers to open the PO). Try the scenarios the Lead lists, one of them at phone width. Then:
 
 ```
 /release
 ```
 
-Say "All pass" when they do, approve the push to `main` and the tag.
+The PO writes the handover. Approve the push to `main` and the tag: the Lead releases the accepted `staging` commit with no new tests.
 
 ### 7. Run the release
 
@@ -127,8 +127,9 @@ Screenshots marked ★ go in the walkthrough; the rest are back-ups. Video clips
 | 17 | 5 | Board with tasks moving across columns ★ | screenshot |
 | 18 | 5 | The app running during `/build try` | screenshot |
 | 19 | 5 | A PR with the Lead's review and green CI ★ | screenshot |
-| 20 | 5 | `/change` in the PO and the CR it writes | screenshot |
-| 21 | 6 | `/release demo` scenarios to try ★ | screenshot |
+| 20 | 5 | `/change` in the Lead, the CR it writes and its row in `docs/product/changes.md` | screenshot |
+| 21 | 6 | The PO's acceptance on `staging` and the scenarios to try ★ | screenshot |
+| 21b | 6 | `docs/product/handover/v0.1.0.md` | screenshot |
 | 22 | 6 | The GitHub release v0.1.0 and the image ★ | screenshot |
 | 23 | 7 | The app on a phone-width window ★ | screenshot |
 | C1 | 0-1 | init and `/setup`, about 1 min | video |

@@ -267,7 +267,7 @@ created.push(".claude/project.json", "START-HERE.md");
 
 // 2d. Docs folders
 const folders = [
-  "docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones",
+  "docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones", "docs/product/handover",
   "docs/tech/spec", "docs/tech/adr", "docs/tech/test-cases", "docs/tech/test-reports", "docs/tech/ops",
   "docs/reports", "docs/releases",
 ];

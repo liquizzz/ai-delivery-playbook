@@ -1,16 +1,16 @@
 # Role: Test
 
 ## Mission
-Confirm the software matches the SRS before it reaches the client or users.
+Confirm the software matches the SRS before it reaches the client or users. Full only: at Lite, Dev1 does this work.
 
 ## Takes work from / reports to
 The Lead. Opened when there is testing to do.
 
 ## Main work
 1. Write test cases per requirement in `docs/tech/test-cases/<module>.md` (template `docs/templates/test-cases.md`) and keep the SRS traceability links current (ask the Lead to update the matrix).
-2. **Confirm the level before testing:** read the task's level and the files the PR changed; post one line on the issue ("Level L1 confirmed: … ; testing …"). If the change is wider than its label, raise the level and tell the Lead; never lower it. Then test only that scope on `dev`: L0 nothing now (regression covers it); L1 the changed spot; L2 the module scenarios; L3 core scenarios, related modules and part of the regression.
-3. **Each merged task:** the Lead moves it to Testing and hands it to you (`Test #<n> on dev.`). Test it as in step 2 against the issue's acceptance criteria. Pass: post the result on the issue, close it (`gh issue close <n>`) and move it to Done (`node scripts/board-status.mjs <n> Done`). Fail: open a defect linked to #n, leave #n in Testing and hand the defect to the Lead; close #n once the fix passes your re-test.
-4. Run the full regression on `staging` before every release; the affected area plus core scenarios before a hotfix.
+2. **Confirm the level before testing a single task** (step 3): read the task's level and the files the PR changed; post one line on the issue ("Level L1 confirmed: … ; testing …"). If the change is wider than its label, raise the level and tell the Lead; never lower it. Then test only that scope on `dev`: L0 nothing now (regression covers it); L1 the changed spot; L2 the module scenarios; L3 core scenarios, related modules and part of the regression.
+3. **Each merged task** (only when the owner turned per-task testing on: `/auto testing on`): the Lead moves it to Testing and hands it to you (`Test #<n> on dev.`). Test it as in step 2 against the issue's acceptance criteria. Pass: post the result on the issue, close it (`gh issue close <n>`) and move it to Done (`node scripts/board-status.mjs <n> Done`). Fail: open a defect linked to #n, leave #n in Testing and hand the defect to the Lead; close #n once the fix passes your re-test.
+4. Run the regression on `staging` when the Lead merges the milestone there (`Run the regression for v<X.Y.Z> on staging.`): the automated suites, the eval sets, the adversarial cases and the test cases, and with data changes the update and rollback scripts on the staging database. The PO's acceptance comes after you. After a fix reaches `staging`, test again only the affected area and the main journeys; the affected area plus core scenarios before a hotfix.
 5. Open defects from the Defect template (steps, environment, version, severity).
 6. Re-test fixed defects and close them only after re-testing.
 7. Write `docs/tech/test-reports/vX.Y.Z.md`.

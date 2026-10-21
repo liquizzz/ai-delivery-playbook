@@ -20,7 +20,7 @@ Open a new session in the same folder: it recovers its state from the issues and
 That should not happen: each role has its own worktree and paths. Ask the Lead: "Check which paths each role touched in the last day and fix the overlap." Review `.claude/ownership.json`.
 
 **I want to talk to Dev directly.**
-That is normal while building: type `/build try #<n>` or `/build done #<n>` in Dev1 for a task it has. Anything new (a feature, a change, a fix) goes to the PO as a CR, so the plan and the issues stay in step.
+That is normal while building: type `/build try #<n>` or `/build done #<n>` in Dev1 for a task it has. Anything new goes to the Lead (a feature added or cut becomes a CR, a change in how it is built an ADR, a fault a defect), so the plan and the issues stay in step.
 
 ## Guardrails
 
@@ -51,13 +51,13 @@ Type `/kit-update` in the Lead session ([chapter 6](06-continuity.md#7-get-the-n
 Yes. Even a one-line requirement change updates the SRS, so the SRS stays true. For L0 display changes with no requirement change, the SRS is untouched.
 
 **The milestone keeps growing.**
-Ask the PO: "What did we take into this milestone, and what is the buffer left?" Move anything that does not fit to the next milestone.
+Ask the Lead: "What did we take into this milestone, and what is the buffer left?" Move anything that does not fit to the next milestone.
 
 **A client asks for a change by email.**
-Paste it to the PO: "Client request: …". It becomes a CR like any other.
+Paste it to the Lead: "Client request: …", with the email's date and sender. It becomes a CR with that request, the impact and price, and the client's approval when it comes, and a row in `docs/product/changes.md`, so you can show later what was asked and what it cost.
 
 **The owner is away for a few days.**
-Tell the PO: "I am away until `<date>`. Keep working on approved items only; queue every decision for my return." Nothing that needs you will happen; work continues on what is already approved.
+Tell the Lead: "I am away until `<date>`. Keep working on approved items only; queue every decision for my return." Nothing that needs you will happen; work continues on what is already approved.
 
 ## Tools
 

@@ -32,7 +32,7 @@ try {
   // 1. Lite with flags
   const a = path.join(tmp, "tiny-todo");
   node([path.join(kit, "init.mjs"), a, "--name", "Tiny Todo", "--level", "lite", "--description", "A one-page todo list.", "--yes"]);
-  check("lite: branches main and dev", branches(a) === "dev,main,role/lead");
+  check("lite: branches main, dev and staging", branches(a) === "dev,main,role/lead,staging");
   check("lite: only the Lead's worktree before setup", fs.existsSync(wt(a, "lead")) && !fs.existsSync(wt(a, "po")) && !fs.existsSync(wt(a, "dev1")));
   check("lite: role file in worktree", read(wt(a, "lead"), ".claude", "role").trim() === "lead");
   check("lite: project.json records the kit version", /^[0-9a-f]{40}$/.test(JSON.parse(read(a, ".claude", "project.json")).kitVersion || ""));
@@ -55,7 +55,7 @@ try {
   const runDry = node([path.join("scripts", "run.mjs"), "v0.1.0", "--dry-run"], { cwd: a });
   check("run.mjs: one command pulls, waits for the healthcheck and opens the app", runDry.includes("docker compose pull app   (IMAGE_TAG=v0.1.0)") && runDry.includes("--wait") && runDry.includes("http://localhost:3000"));
   check("docker: healthcheck on the app, START-HERE runs run.mjs", read(a, "docker-compose.yml").includes("healthcheck:") && read(a, "START-HERE.md").includes("node scripts/run.mjs v0.1.0") && !read(a, "START-HERE.md").includes("docker login"));
-  check("G3: small image and a working healthcheck", read(a, ".claude", "commands", "next.md").includes("Keep the image small") && read(a, ".claude", "commands", "release.md").includes("node scripts/run.mjs dev"));
+  check("G3: small image and a working healthcheck", read(a, ".claude", "commands", "next.md").includes("Keep the image small") && read(a, ".claude", "commands", "release.md").includes("node scripts/run.mjs staging"));
   const plug = node([path.join("scripts", "plugins.mjs"), "--dry-run"], { cwd: a });
   check("plugins: installed from the enabled list, marketplaces first", plug.includes("claude plugin marketplace add thedotmack/claude-mem") && plug.includes("claude plugin install superpowers@claude-plugins-official --scope user") && plug.indexOf("marketplace add") < plug.indexOf("plugin install"));
   check("plugins: /setup checks them before anything else", read(a, ".claude", "commands", "setup.md").includes("**Plugins first:**") && read(a, ".claude", "commands", "setup.md").includes("node scripts/plugins.mjs"));
@@ -94,8 +94,16 @@ try {
   const tips = [1, 2, 3, 4].map(() => crew("handoff"));
   check("hand-off tips: shown three times, then hidden", tips.slice(0, 3).every((x) => x.includes("tips: show")) && tips[3].includes("tips: hide"));
   fs.rmSync(path.join(a, ".git", "crewbook-settings.json"));
-  check("auto-merge: standing approval for L0-L2, L3 asks", read(a, "CLAUDE.md").includes("standing approval") && read(a, ".claude", "roles", "lead.md").includes("an L3 PR, or any PR while auto-merge is off, waits for the owner"));
+  check("auto-merge: standing approval for every level", read(a, "CLAUDE.md").includes("standing approval") && read(a, ".claude", "roles", "lead.md").includes("while auto-merge is off, every PR waits for the owner"));
   check("Lite G3: design inside the one approval", read(a, ".claude", "commands", "next.md").includes("inside the one G3 approval") && read(a, "START-HERE.md").includes("together with the rest of G3, once"));
+  check("/auto testing: off by default, switchable", crew("testing").includes("per-task testing: off") && crew("testing", "on").includes("on") && crew("status").includes("per-task testing: on") && crew("testing", "off").includes("off"));
+  check("two kinds of change, both by the Lead after G2", read(a, "CLAUDE.md").includes("**Two kinds of change.**") && read(a, "CLAUDE.md").includes("After G2 the owner brings both kinds to the Lead.") && read(a, ".claude", "commands", "change.md").includes("**Technical:** write the ADR") && read(a, ".github", "ISSUE_TEMPLATE", "cr.yml").includes("Client approval"));
+  check("PO: problem, requirements with the SRS's FRs, acceptance on staging, handover", ["**The problem (G1):**", "**The requirements (G2):**", "**Acceptance on `staging`**", "**Handover:**"].every((t) => read(a, ".claude", "roles", "po.md").includes(t)));
+  check("Lead: the owner's contact from G3, every change, release with no new tests", ["one contact", "**Changes**", "**Release (G6), no new tests:**"].every((t) => read(a, ".claude", "roles", "lead.md").includes(t)));
+  check("Lite: Dev1 does the Test work; data changes have update and rollback scripts", read(a, ".claude", "roles", "dev.md").includes("you also do the Test work") && read(a, "CLAUDE.md").includes("**Data changes.**"));
+  check("auto-merge: every level after review by level", read(a, "CLAUDE.md").includes("L3 `code-review` and `security-review`) and green CI without asking") && !read(a, "CLAUDE.md").includes("L3 PRs, and every PR while auto-merge is off, wait"));
+  check("templates: change register and handover; handover folder", fs.existsSync(path.join(a, "docs", "templates", "changes.md")) && fs.existsSync(path.join(a, "docs", "templates", "handover.md")) && fs.existsSync(path.join(a, "docs", "product", "handover")));
+  check("release: regression and PO acceptance on staging, handover at G5 and G6", read(a, ".claude", "commands", "release.md").includes("`Accept v<X.Y.Z> on staging.`") && read(a, ".claude", "commands", "gate.md").includes("docs/product/handover/vX.Y.Z.md"));
   check("hand-off rule reads the setting", read(a, "CLAUDE.md").includes("crew-settings.mjs handoff"));
   check("no side sessions for another role's work", read(a, "CLAUDE.md").includes("Never start a side session") && hook(wt(a, "lead")).includes("never start a side session"));
   check("CLAUDE.md: hand-off block, For you, links rules", read(a, "CLAUDE.md").includes("Started #n") && read(a, "CLAUDE.md").includes("`For you` block") && read(a, "CLAUDE.md").includes("prompt stands alone in a code block") && read(a, "CLAUDE.md").includes("**Links:**"));
@@ -127,7 +135,7 @@ try {
   node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "My Shop\n\n1\n\n\n\nA tiny shop.\nyes\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
   check("questions: folder from the suggested name", fs.existsSync(path.join(b, "CLAUDE.md")));
   check("questions: level 1 is Lite", JSON.parse(read(b, ".claude", "project.json")).level === "lite");
-  check("questions: no staging", !branches(b).includes("staging"));
+  check("questions: staging at Lite too", branches(b).includes("staging"));
 
   // 3. Answering "no" changes nothing
   node([path.join(kit, "init.mjs"), "--github", "none"], { cwd: tmp, input: "Nope\n\n\n\n\n\n\nno\n", env: { ...process.env, PLAYBOOK_INIT_INTERACTIVE: "1" } });
@@ -161,7 +169,7 @@ try {
   check("up to full: files updated in the worktree", JSON.parse(read(lead, ".claude", "project.json")).level === "full" && /^- Level: Full /m.test(read(lead, "CLAUDE.md")) && read(lead, "START-HERE.md").includes("Level: **Full process**"));
   check("up to full: START-HERE.md points at the main checkout's worktrees", read(lead, "START-HERE.md").includes(wt(a, "po")));
   const down = setLevel("lite");
-  check("down to lite: staging kept", branches(a).includes("staging") && down.includes("staging branch is kept"));
+  check("down to lite: staging kept and still used", branches(a).includes("staging") && !down.includes("no longer used: releases"));
   check("english project: no START-HERE rewrite asked", !down.includes("START-HERE.md in"));
   check("same level: nothing to do", setLevel("lite").includes("Already at level Lite"));
   check("starter: refused politely, means lite", setLevel("starter").includes("Already at level Lite"));

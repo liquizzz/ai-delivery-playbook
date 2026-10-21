@@ -5,7 +5,7 @@
 | Path in the project | What it does |
 |---|---|
 | `CLAUDE.md` | Shared rules every session reads: roles, your gates, "the owner leads", Open decisions, build modes, git rules, compact instructions |
-| `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, daily rhythm, recovery |
+| `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2). It also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell |
 | `.claude/hooks/role-guard.test.cjs` | 80 test cases for the hook, including wrapped and nested commands |
@@ -26,10 +26,10 @@
 | `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
 | `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
 | `scripts/setup-labels.mjs` | Creates the labels |
-| `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing (used at Full) · Done and fields Role, Module, Level, Priority |
-| `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages between sessions and auto-merge (both on until `/auto` turns them off), and the hand-off tips, shown three times at most while messages are off |
+| `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing (Full, with `/auto testing on`) · Done and fields Role, Module, Level, Priority |
+| `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages between sessions and auto-merge (both on until `/auto` turns them off), per-task testing (off), and the hand-off tips, shown three times at most while messages are off |
 | `scripts/board-status.mjs` | Moves an issue, or a PR with no task issue, to a board column (`node scripts/board-status.mjs 12 "In progress"`); the commands call it as work moves |
-| `scripts/run.mjs` | Runs a version in Docker with one command (`node scripts/run.mjs v0.1.0`, `dev`, `--source`, `--stop`): checks Docker and port 3000, logs in to ghcr.io when the repo is private, pulls the image, waits for the healthcheck, opens the browser |
+| `scripts/run.mjs` | Runs a version in Docker with one command (`node scripts/run.mjs v0.1.0`, `staging`, `dev`, `--source`, `--stop`): checks Docker and port 3000, logs in to ghcr.io when the repo is private, pulls the image, waits for the healthcheck, opens the browser |
 | `scripts/plugins.mjs` | Installs the Claude Code plugins `.claude/settings.json` enables (adds their marketplaces, then `claude plugin install --scope user`), or prints the `/plugin install` lines when the `claude` command is missing; `init` and `/setup` run it |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
@@ -45,12 +45,12 @@
 | `/build done` | Tests at the task's level, then a PR the Lead merges |
 | `/release demo` | Full checks, no tag |
 | `/release [version]` | A tagged version and its image |
-| `/change <request>` | A CR with its level and SRS update |
+| `/change <request>` | In the Lead after G2. Sorts the request: a functional change (a feature added or cut) becomes a CR (who asked, impact, price, the client's approval, a row in `changes.md`) with the SRS update; a technical change becomes an ADR |
 | `/progress` | Live state in ten lines |
 | `/gate G1`…`G6` | Checks a gate against the repo and GitHub |
 | `/send` | Sends the prompt of the last hand-off block to the session it names |
 | `/kit-update [path]` | Lead only: brings the project up to the newest kit through a PR you approve ([chapter 6](06-continuity.md#7-get-the-newest-kit)) |
-| `/auto` | Shows or switches what runs without you, shared by every session: `/auto relay on|off` (sessions pass prompts to each other) and `/auto merge on|off` (the Lead merges L0-L2 PRs after review and green CI); both start on |
+| `/auto` | Shows or switches what runs without you, shared by every session: `/auto relay on|off` (sessions pass prompts to each other) `/auto merge on|off` (the Lead merges every PR after its review by level and green CI), both on at the start, and `/auto testing on|off` (Full: Test checks each merged task; off at the start) |
 
 ## Plugins
 

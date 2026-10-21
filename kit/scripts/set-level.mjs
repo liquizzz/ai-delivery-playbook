@@ -75,9 +75,6 @@ if (unused.length) {
   console.log(`\nNo longer used at this level: ${unused.join(", ")}. Close those sessions; their branches and worktrees are kept.`);
   console.log(`Remove a worktree later with: git worktree remove "${worktreePath(root, unused[0])}"`);
 }
-if (level !== "full" && has(["show-ref", "--verify", "--quiet", "refs/heads/staging"], root)) {
-  console.log("The staging branch is kept but no longer used: releases now go from dev to main.");
-}
 console.log(`\nNext: commit these changes on your branch and merge them as usual.${up
   ? ` Then tell the Lead: "We moved to ${LEVELS[level].title}. Draft what this level still lacks${translate}." and open a session in each new worktree.`
   : ` Every document and all history stay as they are.${translate ? ` Then tell the Lead: "Rewrite START-HERE.md in ${project.language}."` : ""}`}`);

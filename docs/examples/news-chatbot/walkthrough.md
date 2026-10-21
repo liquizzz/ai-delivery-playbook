@@ -237,4 +237,5 @@ The build of v0.1.0 took one day: 20 tasks and about 40 PRs between the first ta
 | R3-48: the demo needed Dev1's stack and port | `node scripts/run.mjs <version>` and healthchecks in Docker (DEC-062) |
 | Empty reports folder | No daily reports; `/progress report` writes one when the owner wants it (DEC-060) |
 | Opening each session by hand | The Lead opens the next session in its worktree on the owner's yes (DEC-065) |
-| R3-42: the PO after G2 | Open: the owner is still deciding whether the PO stays after G2 |
+| R3-42: the PO after G2; CR-44 (technical) went through the PO with two docs PRs | The PO writes the problem, the requirements and the SRS's functional part up to G2, then accepts each milestone on `staging` and writes the handover; after G2 the Lead is the owner's one contact and takes every change: a feature added or cut is a CR with the client's approval and a row in `changes.md`, a change in how it is built an ADR (DEC-067) |
+| R3-49, R3-50: G5 not met, testing spread over several steps | Each milestone is tested once, on `staging`: the regression, then the PO's acceptance; the release adds no tests and a failure is rolled back; Test's check of each task is `/auto testing on` (DEC-067) |

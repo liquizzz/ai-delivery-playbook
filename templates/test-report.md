@@ -1,6 +1,6 @@
 # Test report v<X.Y.Z>
 
-Save as `docs/tech/test-reports/vX.Y.Z.md`. Written by Test for the regression on `staging` (G5), or for a hotfix check.
+Save as `docs/tech/test-reports/vX.Y.Z.md`. Written by Test (Lite: Dev1) for the regression on `staging` (G5), or for a hotfix check.
 
 | Field | Value |
 |---|---|

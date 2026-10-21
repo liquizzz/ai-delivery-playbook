@@ -5,7 +5,7 @@ Save as `docs/product/stories/US-NNN-<slug>.md`. Written by the PO.
 | Field | Value |
 |---|---|
 | PRD must-have | <#> |
-| SRS requirements | <FR-xxx, added by the Lead> |
+| SRS requirements | <FR-xxx, written by the PO at G2> |
 | Priority | Must / Should / Could |
 | Status | Draft / Approved / Delivered in <vX.Y.Z> |
 

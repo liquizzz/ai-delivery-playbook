@@ -30,12 +30,12 @@ Lite ([chapter 8](08-lite-mode.md)) is the starting level: three sessions, PO, L
 | # | Session | Type | You get |
 |---|---|---|---|
 | 1 | Terminal, then Lead | Run `node crewbook-build/kit/init.mjs`, then open Claude Code in the `lead` folder init created (`<project>-wt/lead`) and type `/setup` | Repo, kit, branches, the gate issues, and the PO's and Dev1's folders ([ch. 1](01-setup.md)) |
-| 2 | PO | `/next <idea>`, then `/next` again | The proposal (G1), then the PRD and stories (G2) ([ch. 3](03-foundation.md)) |
-| 3 | Lead | `/next` | A design you approve, then the stack, the SRS and the v0.1.0 tasks (G3) ([ch. 3](03-foundation.md)) |
+| 2 | PO | `/next <idea>`, then `/next` again | The proposal (G1), then the PRD, the stories and the functional part of the SRS (G2) ([ch. 3](03-foundation.md)) |
+| 3 | Lead | `/next` | A design you approve, then the stack, the completed SRS and the v0.1.0 tasks (G3); from here on the Lead is your one contact ([ch. 3](03-foundation.md)) |
 | 4 | Dev1 | `/build try #<n>` while you look, `/build done #<n>` per finished task | Code you can try at once; then tests at each task's level and a PR the Lead merges ([ch. 4](04-delivery-loop.md)) |
-| 5 | Lead | `/release` | Scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
+| 5 | Lead | `/release` | The milestone on `staging`: Dev1's regression, the PO's acceptance and the handover, scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
 | 6 | Terminal | The commands in the "Run the release in Docker" step of `START-HERE.md` | v0.1.0 running in Docker on your machine |
-| 7 | PO, then Dev1 | Prove the loop: close the sessions, open new ones, `/change <one fix>` | The fix as CR, task and v0.1.1, picked up from the record alone |
+| 7 | Lead, then Dev1 | Prove the loop: close the sessions, open new ones, `/change <one small feature>` | The change as CR, task and v0.1.1, picked up from the record alone |
 
 If the new sessions in step 7 pick up the fix without you explaining anything, keep building. Move to Full when money, security or personal data comes in, or when someone must sign off each release.
 
@@ -43,23 +43,25 @@ If the new sessions in step 7 pick up the fix without you explaining anything, k
 
 ```mermaid
 flowchart LR
-  O(["Owner<br/>(you)"]) <--> PO["PO session"]
-  PO --> Lead["Lead session"]
+  O(["Owner<br/>(you)"]) <-- "up to G2" --> PO["PO session"]
+  O <-- "from G3" --> Lead["Lead session"]
+  PO -- "SRS (functional part)" --> Lead
   Lead --> Dev["Dev session"]
+  Lead -. "acceptance on staging, handover" .-> PO
   Lead -.-> Test["Test session"]
   Lead -.-> DevOps["DevOps session"]
-  PO -.-> UX["UI/UX session"]
+  Lead -.-> UX["UI/UX session"]
 ```
 
-Solid lines are the three sessions most projects run (Lite). Dotted ones join at Full, only when there is work for them.
+Solid lines are the three sessions most projects run (Lite). Test, DevOps and UI/UX join at Full, only when there is work for them; the PO comes back at the end of each milestone.
 
-You are the owner. You talk mostly to the PO, decide at a few gates and approve every release. Each role is a separate Claude Code session with its own git worktree and role file. The work is written down in GitHub issues, repo documents and git, so a skipped step shows up, and any change can be traced and fixed later.
+You are the owner. Up to G2 you give the PO the problem and the requirements; from G3 on you work with the Lead, decide at a few gates and approve every release. The PO answers to the client: it checks each milestone on `staging` and writes the handover. Each role is a separate Claude Code session with its own git worktree and role file. The work is written down in GitHub issues, repo documents and git, so a skipped step shows up, and any change can be traced and fixed later.
 
 ## Principles
 
 1. You decide; AI drafts and builds.
 2. Every phase ends at a gate that only you pass.
-3. Every change is a CR and updates the always-current SRS.
+3. Every functional change is a CR with the client's approval, and every technical change an ADR; both update the always-current SRS.
 4. Write each decision down as soon as it is made.
 5. Requirements and spec are merged before any code for them starts.
 6. Test what the change level requires, no more and no less.
@@ -139,9 +141,9 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 |---|---|
 | Owner | You: the human who decides scope, priorities and releases |
 | Session | One Claude Code desktop conversation playing one role (PO, Lead, Dev, Test, UI/UX, DevOps) |
-| PO | Product owner: turns your requests into requirements, CRs and reports. The session you talk to most |
-| Lead | Tech lead: design, stack, task plan, review of every change, releases |
-| Lite / Full | The two levels of process. Lite runs PO, Lead and Dev; Full adds Test, UI/UX, DevOps and a staging check |
+| PO | Product owner: answers to the client. Turns your idea into the proposal, the PRD, the stories and the functional part of the SRS (G1-G2); at the end of each milestone checks it on `staging` against the acceptance criteria and writes the handover |
+| Lead | Tech lead and your one contact from G3: design, stack, task plan, every change (CR or ADR), review, releases |
+| Lite / Full | The two levels of process. Lite runs PO, Lead and Dev; Full adds Test, UI/UX and DevOps. Both test each milestone on `staging` |
 | Phase | One of the seven stages of the life cycle, from 1 Planning to 7 Maintenance |
 | Worktree | A separate folder of the same git repo, one per role, so sessions never edit the same files |
 | Branch | A line of work in git. `role/<role>` per role; `dev` (integration) → `staging` (release candidate) → `main` (released) → `production` (live) |
@@ -150,7 +152,7 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 | PR (pull request) | A request to merge a branch into another, e.g. `role/dev1` → `dev`. It shows the code changes, runs the checks (CI) and is where the Lead reviews. Every change reaches `dev` through a PR that says `Closes #n` |
 | CI | Automatic checks that run on every PR: lint, type check, tests, build |
 | Merge | Applying a reviewed PR to the target branch; only the Lead merges |
-| CR (change request) | A GitHub issue describing one business change (feature, change or fix), approved before any work starts |
+| CR (change request) | A GitHub issue describing one functional change (what the client gets: a feature, behaviour, scope, date or price), with who asked, its impact and price, approved by the client before any work starts. A technical change is an ADR instead |
 | SRS | Software Requirements Specification: the always-current description of what the system does, with numbered requirements (`FR-xxx`, `NFR-xxx`) and a revision history |
 | PRD | Product requirements document: what the product must do in business terms, with its must-haves and non-goals |
 | Story | One thing a user needs to do, with the criteria that show it works |

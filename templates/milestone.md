@@ -1,6 +1,6 @@
 # Milestone v<X.Y.Z>
 
-Save as `docs/product/milestones/vX.Y.Z.md`. Owned by the PO; the Lead keeps the estimates and the risk table current. One milestone is running at a time; one more is "next".
+Save as `docs/product/milestones/vX.Y.Z.md`. Owned by the Lead: the plan, the estimates, the items taken in, the risk table and what the client must prepare. One milestone is running at a time; one more is "next".
 
 | Field | Value |
 |---|---|
@@ -30,7 +30,7 @@ In AI time, never in human developer days (rule "Estimates" in `CLAUDE.md`).
 ## Items taken in during the milestone
 | Date | Item | Level | Cost (AI time) | Decided by | Buffer left |
 |---|---|---|---|---|---|
-| YYYY-MM-DD | #<n> <...> | L1 | 30 min | PO | <1 h> |
+| YYYY-MM-DD | #<n> <...> | L1 | 30 min | Lead (owner for price or date) | <1 h> |
 
 ## Moved to the next milestone
 | Item | Reason | Date |
@@ -41,6 +41,15 @@ In AI time, never in human developer days (rule "Estimates" in `CLAUDE.md`).
 | Risk | Likelihood | Impact | Response | Watcher | Status |
 |---|---|---|---|---|---|
 | <Broker API changes format> | Medium | <2 h of AI time, or a day of waiting> | <Adapter first, sample data> | Lead | Open |
+
+Status `Accepted` means the owner chose to ship with the risk; the handover lists it for the client.
+
+## What the client must prepare
+What the technical decisions (ADRs) need from the client before or at deployment; the handover lists it.
+
+| Item | From | Needed by |
+|---|---|---|
+| <A server with 4 CPU and 8 GB RAM> | <ADR-0006> | <v1.0.0 deployment> |
 
 ## Result
 <Filled in at release: version, date, buffer used, estimated and actual AI time per level, what moved out, lessons.>

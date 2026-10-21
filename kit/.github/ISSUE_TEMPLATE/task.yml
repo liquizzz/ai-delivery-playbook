@@ -1,12 +1,13 @@
 name: Task
-description: Work for Dev, Test or DevOps, created by the Lead as a sub-issue of a CR.
+description: Work for Dev, Test or DevOps, created by the Lead as a sub-issue of a CR, or from a technical ADR.
 title: "<module>: <what to do>"
 body:
   - type: input
     id: parent
     attributes:
-      label: Parent CR
-      placeholder: "#12"
+      label: Parent CR or ADR
+      description: The CR it comes from, the ADR for a technical change, or the milestone for a G3 task.
+      placeholder: "#12 / ADR-0006 / v0.1.0"
     validations:
       required: true
   - type: input
@@ -69,6 +70,6 @@ body:
     attributes:
       label: Definition of Ready
       options:
-        - label: CR approved (PO, plus the owner for L2-L3)
+        - label: CR approved by the client (plus the owner for L2-L3), or the ADR accepted
         - label: SRS and spec merged into dev
         - label: Nothing blocks it (dependencies, accounts, data, secrets)

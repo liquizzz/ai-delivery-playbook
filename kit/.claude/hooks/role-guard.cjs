@@ -24,7 +24,7 @@ const OWNER_GATED_BRANCHES = ["main", "production"];
 // Paths each role may edit, relative to the worktree root. "*" means everything.
 const DEFAULT_OWNERSHIP = {
   lead: ["*"],
-  po: ["docs/product/", "docs/reports/"],
+  po: ["docs/product/", "docs/reports/", "docs/tech/srs.md"],
   dev: ["app/", "src/", "packages/", "tests/unit/", "CHANGELOG.md", "package.json", "pnpm-lock.yaml", ".env.example"],
   test: ["tests/", "docs/tech/test-cases/", "docs/tech/test-reports/"],
   uiux: ["design/", "packages/tokens/"],
@@ -55,11 +55,21 @@ function roleFamily(role) {
   return (role || "").replace(/\d+$/, ""); // dev1, dev2 → dev
 }
 
-function loadOwnership(root) {
+// At Lite there is no Test session: Dev1 also does the Test work, so it also owns the Test paths.
+function levelOwnership(root) {
   try {
-    return { ...DEFAULT_OWNERSHIP, ...JSON.parse(fs.readFileSync(path.join(root, ".claude", "ownership.json"), "utf8")) };
+    const level = JSON.parse(fs.readFileSync(path.join(root, ".claude", "project.json"), "utf8")).level;
+    if (level === "lite") return { ...DEFAULT_OWNERSHIP, dev: [...DEFAULT_OWNERSHIP.dev, ...DEFAULT_OWNERSHIP.test] };
+  } catch {}
+  return DEFAULT_OWNERSHIP;
+}
+
+function loadOwnership(root) {
+  const base = levelOwnership(root);
+  try {
+    return { ...base, ...JSON.parse(fs.readFileSync(path.join(root, ".claude", "ownership.json"), "utf8")) };
   } catch {
-    return DEFAULT_OWNERSHIP;
+    return base;
   }
 }
 

@@ -91,7 +91,8 @@ const editCases = [
   ["dev1", ".env", "block"],
   ["dev1", ".env.example", "allow"],
   ["po", "docs/product/cr/CR-12.md", "allow"],
-  ["po", "docs/tech/srs.md", "block"],
+  ["po", "docs/tech/srs.md", "allow"],
+  ["po", "docs/tech/spec/CR-12.md", "block"],
   ["test", "docs/tech/test-reports/v1.4.0.md", "allow"],
   ["test", "app/src/login.ts", "block"],
   ["uiux", "packages/tokens/theme.css", "allow"],
@@ -114,6 +115,21 @@ const report = (kind, role, subject, expected, got) => {
 for (const [role, cmd, expected] of commandCases) report("cmd ", role, cmd, expected, outcome(checkCommand(cmd, role, process.cwd())));
 for (const [role, file, expected] of editCases) report("edit", role, file, expected, outcome(checkEdit(file, role, root, root)));
 
-const total = commandCases.length + editCases.length;
+// Lite: Dev1 also owns the Test paths; at Full it does not.
+const fs = require("fs");
+const os = require("os");
+const lite = fs.mkdtempSync(path.join(os.tmpdir(), "guard-lite-"));
+fs.mkdirSync(path.join(lite, ".claude"));
+fs.writeFileSync(path.join(lite, ".claude", "project.json"), JSON.stringify({ level: "lite" }));
+const levelCases = [
+  [lite, "dev1", "docs/tech/test-cases/chat.md", "allow"],
+  [lite, "dev1", "tests/e2e/chat.spec.ts", "allow"],
+  [lite, "dev1", "docs/tech/srs.md", "block"],
+  [root, "dev1", "docs/tech/test-cases/chat.md", "block"],
+];
+for (const [dir, role, file, expected] of levelCases) report("edit", role, `${path.basename(dir)}/${file}`, expected, outcome(checkEdit(path.join(dir, file), role, dir, dir)));
+fs.rmSync(lite, { recursive: true, force: true });
+
+const total = commandCases.length + editCases.length + levelCases.length;
 console.log(`\n${total - failed}/${total} passed`);
 process.exit(failed ? 1 : 0);

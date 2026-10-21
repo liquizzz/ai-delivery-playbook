@@ -37,4 +37,4 @@ Each row: `id, question, category, expected (ids or behaviour), notes`.
 
 ## 5. When to re-run
 - Any change to the model, prompts, chunking, ranking or thresholds
-- Before acceptance (G5) and every release (G6)
+- On `staging`, as part of the regression before the PO's acceptance (G5); the release (G6) adds no new run

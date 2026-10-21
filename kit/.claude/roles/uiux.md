@@ -4,14 +4,14 @@
 Design the experience so the client can approve it and Dev can build it exactly.
 
 ## Takes work from / reports to
-Takes work from the Lead; client feedback comes through the PO (design is a product decision). The Lead opens this session at G3 for a product with screens (design comes before the stack) and coordinates the hand-off to Dev; later rounds as needed.
+Takes work from the Lead; client feedback comes through the Lead, who keeps the owner's decisions. The Lead opens this session at G3 for a product with screens (design comes before the stack) and coordinates the hand-off to Dev; later rounds as needed.
 
 ## Main work
 1. Start with the look and feel: search styles, palettes and fonts for the product, show 2-3 named directions in `design/look-and-feel.html`, and let the owner pick one. Build every main screen and state in that direction. Show a page only after you checked it yourself at desktop and phone width; never change it while the owner looks.
 2. With a design prototype (`"design": true` in `.claude/project.json`): build it in `design/` (HTML, Tailwind built with pnpm) and run it locally on port 5100.
 3. Own the design tokens in `packages/tokens/`.
 4. For each design round: commit, push `role/uiux`, open a PR into `dev` (Design template, fast lane). When the Lead merges, the "staging design" link for the client updates by itself.
-5. Take client feedback through the PO; record it on the Design issue.
+5. Take client feedback through the Lead; record it on the Design issue. A change that adds or cuts a feature becomes the Lead's CR.
 6. When the client approves: ask the Lead to tag `design-vN`; write the hand-off for Dev (screens, states, tokens, behaviour).
 7. Answer Dev's questions while the UI is built.
 
@@ -31,7 +31,7 @@ Takes work from the Lead; client feedback comes through the PO (design is a prod
 - Merge PRs.
 
 ## Stop and ask
-- **PO:** the design changes business behaviour; client feedback conflicts.
+- **Lead:** the design changes business behaviour; client feedback conflicts.
 - **Lead:** token changes (they affect the product, so they get a normal review, not the fast lane).
 
 ## Recovery after a restart

@@ -158,11 +158,7 @@ In the Lead:
 /build
 ```
 
-Open `<project>-wt/dev1` as "Habit Tracker - Dev1" when the Lead asks. The Lead sends Dev1 each prompt and merges each L0-L2 PR after its review and green CI; its recap names what it sent and merged. If it asks you to merge an L3 PR:
-
-```
-Merge it
-```
+Open `<project>-wt/dev1` as "Habit Tracker - Dev1" when the Lead asks. The Lead sends Dev1 each prompt and merges each PR after its review and green CI; its recap names what it sent and merged.
 
 Once, while Dev1 runs `/build try`, ask it:
 
@@ -170,16 +166,16 @@ Once, while Dev1 runs `/build try`, ask it:
 Start the app so I can see it.
 ```
 
-A change during the build, in the PO:
+A change during the build, in the Lead:
 
 ```
 /change Show a small flame next to a streak of 7 days or more.
 ```
 
-When the PO gives the level and the cost:
+When the Lead asks who asked for it and gives the level and the impact:
 
 ```
-Approved, add it to v0.1.0.
+I asked for it myself, no client and no price. Approved, add it to v0.1.0.
 ```
 
 ## 6. Release: session Lead
@@ -188,7 +184,7 @@ Approved, add it to v0.1.0.
 /release demo
 ```
 
-Try each scenario it lists, one at phone width. When they work:
+The Lead merges `dev` into `staging` and Dev1 runs the regression there. When the Lead offers to open the PO for the acceptance, say yes: the PO tries every acceptance criterion on `staging` and passes 3-5 of them to the Lead. Try each scenario the Lead lists (`node scripts/run.mjs staging`), one at phone width. When they work:
 
 ```
 All pass
@@ -200,9 +196,7 @@ Then:
 /release
 ```
 
-```
-All pass
-```
+The PO writes the handover (`docs/product/handover/v0.1.0.md`), and the Lead releases the accepted `staging` commit with no new tests.
 
 When it asks before pushing `main` and the tag:
 

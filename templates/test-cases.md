@@ -1,6 +1,6 @@
 # Test cases: <Module name>
 
-Save as `docs/tech/test-cases/<module>.md`. Written by Test from the SRS. Every case lists the requirements it covers; the SRS traceability matrix links back here.
+Save as `docs/tech/test-cases/<module>.md`. Written by Test (Lite: Dev1) from the SRS. Every case lists the requirements it covers; the SRS traceability matrix links back here.
 
 | ID | Requirement | Scenario | Steps | Expected | Level | Automated |
 |---|---|---|---|---|---|---|

@@ -4,7 +4,7 @@
 |---|---|
 | Owner | PO |
 | Status | Draft / In review / Approved (G2) |
-| Approved on | YYYY-MM-DD (after this date every change is a CR) |
+| Approved on | YYYY-MM-DD (after this date every functional change is a CR; a technical one is an ADR) |
 | Last updated | YYYY-MM-DD |
 | Time box | <e.g. one weekend, 8 hours> |
 | Proposal | `docs/product/proposal.md` |

@@ -4,7 +4,8 @@
 // Run a version of the product in Docker with one command, the same on Windows, macOS and Linux:
 //   node scripts/run.mjs            the latest release tag (or the dev image when there is none)
 //   node scripts/run.mjs v0.1.0     that release
-//   node scripts/run.mjs dev        the image CI built from dev (what /release demo shows)
+//   node scripts/run.mjs staging    the image CI built from staging (what the owner tries before a release)
+//   node scripts/run.mjs dev        the image CI built from dev (the work in progress)
 //   node scripts/run.mjs --source   build what is checked out here instead of pulling an image
 //   node scripts/run.mjs --stop     stop it
 //   --dry-run                       print the steps without running Docker

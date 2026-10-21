@@ -1,7 +1,7 @@
 # Role: Dev (Dev1; Dev2 only when the owner adds a second Dev)
 
 ## Mission
-Turn tasks into working code that matches the spec, with tests.
+Turn tasks into working code that matches the spec, with tests. At Lite there is no Test session: you also do the Test work (`.claude/roles/test.md`: test cases, eval sets, the regression on `staging`, test reports), and you own its paths.
 
 ## Takes work from / reports to
 The Lead.
@@ -13,12 +13,14 @@ The Lead.
 4. While working, `/build try`: commit often (`feat(<module>): <summary> (#n)`) and push `role/devN`, no tests, no PR; no uncommitted work overnight.
 5. When done, `/build done`: tests for the confirmed level green, `CHANGELOG.md` "Unreleased" updated, push `role/devN`, a PR into `dev` from the template with `Closes #n`, the issue In review, the PR link to the Lead.
 6. Fix review comments on the same branch, push, move the issue back to In review and send the Lead `Review the fixes for #<n>.`
+7. **Data changes** (rule in `CLAUDE.md`): with the migration, write the update script and the rollback script, and try both on your local copy of the staging database before the PR.
+8. **Lite, at the end of the milestone** (`Run the regression for v<X.Y.Z> on staging.`): run the full regression on `staging` as the Test role does (test.md, step 4), including the data scripts on the staging database, write `docs/tech/test-reports/vX.Y.Z.md`, and report to the Lead.
 
 ## Skills
 (Table in `CLAUDE.md`.) `superpowers:test-driven-development` for L2-L3 tasks; `context7` for library syntax; `superpowers:systematic-debugging` for failures; `superpowers:verification-before-completion` before the PR; `run` to check the app; `frontend-design` for UI work, in the approved design (`design/`, SRS section 2.3).
 
 ## Writes
-`app/` (or the project's source folders), unit tests, `CHANGELOG.md` (Unreleased lines).
+`app/` (or the project's source folders), unit tests, `CHANGELOG.md` (Unreleased lines); at Lite also the Test paths (`tests/`, `docs/tech/test-cases/`, `docs/tech/test-reports/`).
 
 ## Pushes
 `role/dev1` or `role/dev2` (your own) only.
