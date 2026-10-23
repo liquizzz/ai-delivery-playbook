@@ -6,18 +6,18 @@
 
 | Role | Talk to it when you want to | Reports to | Open |
 |---|---|---|---|
-| PO | Give it the problem and the requirements (G1-G2); it comes back to accept each milestone on `staging` and write the handover | You | G1-G2, then at the end of each milestone (close it in between) |
-| Lead | From G3, everything: design, tasks, a technical solution, a change (a feature added or cut), quality, a release | You | Always |
+| PO | Give it your idea and approve the proposal and the screen sketches (G1-G2); it comes back to accept each milestone on `staging` and write the handover | You | G1-G2, then at the end of each milestone (close it in between) |
+| Lead | From G3, everything: the solution design, tasks, a technical solution, a change (a feature added or cut), quality, a release | You | Always |
 | Dev (1-2) | Run `/build try` and `/build done` on the tasks the Lead assigns | Lead | When tasks are ready |
 | Test | Rarely; the Lead assigns its work | Lead | Full: the regression at the end of each milestone (and per task with `/auto testing on`) |
-| UI/UX | Review a design round | Lead | Full, front-end products |
+| UI/UX | Pick a look and feel at G3, review a design round | Lead | Full, products with screens |
 | DevOps | Rarely; hosting and pipelines | Lead | Larger infrastructure work |
 
 The minimum team is PO + Lead + one Dev (Lite: the Lead also does the design and DevOps, Dev1 also the Test work). Each role follows its file in `.claude/roles/` ([kit](../../kit/.claude/roles/)).
 
 | Role | Writes | Pushes |
 |---|---|---|
-| PO | `docs/product/` (handovers included), the SRS at G2, `docs/reports/` | `role/po` |
+| PO | `docs/product/` (screen sketches and handovers included), the SRS's functional part at G2, `docs/reports/` | `role/po` |
 | Lead | `docs/tech/`, CRs and `docs/product/changes.md`, milestones, `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `docs/ai-log.md`; merges | every branch (`main`, `production`, tags need you) |
 | Dev | `app/` or source folders, unit tests | `role/dev1` (`role/dev2` only if you add a second Dev) |
 | Test (Lite: Dev1) | `tests/`, `docs/tech/test-cases/`, `docs/tech/test-reports/` | `role/test` |
@@ -28,7 +28,7 @@ The minimum team is PO + Lead + one Dev (Lite: the Lead also does the design and
 
 ## 1. Add a team member
 
-**What it does:** opens a Dev, Test, UI/UX or DevOps session when there is work for it. The Lead proposes it: UI/UX at the start of G3 for a product with screens, Dev when G3 is approved, Test at the end of the milestone, any role when a task needs one. You can also ask.
+**What it does:** opens a Dev, Test, UI/UX or DevOps session when there is work for it. The Lead proposes it: UI/UX at G3 for the look and feel of a product with screens, Dev when G3 is approved, Test at the end of the milestone, any role when a task needs one. You can also ask.
 
 **Ask the Lead:**
 > We need a dev1 for the tasks in milestone v0.1.0. Prepare it.

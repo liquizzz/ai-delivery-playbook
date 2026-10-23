@@ -4,14 +4,14 @@
 
 ## Working with sessions
 
-**A session starts work without asking anything, and gets it wrong.**
-Say: "Stop. Follow 'ask first, in rounds, then finish' in CLAUDE.md: ask me what you need, then redo it." Check that `CLAUDE.md` still contains that rule.
+**A session drafts something that is wrong.**
+Sessions draft first, because redoing costs them minutes. Say what to change, in your own words, or point at the part that is wrong; it redoes the draft and shows what changed. Its guesses are marked ⚠️, so check those first.
 
 **A session skipped a skill, for example said "done" without the verification step.**
 You do not have to name skills: each session is reminded of its skills when it starts. If one still skips a step, say "Follow the Skills table in CLAUDE.md and redo the last step."
 
 **A session asks too many questions.**
-Say "you decide" for the topics you do not care about; it settles them, lists its assumptions, and keeps asking only about the rest. The stack is the one decision it will not take for you unless you say so, and it comes after the design.
+Each step may ask at most three questions together, each with a suggested answer. If it asks more, or asks before it shows a draft, say: "Follow 'AI does the work; the owner decides' in CLAUDE.md: draft first, then ask." Say "you decide" for the topics you do not care about; it settles them and lists its assumptions.
 
 **A session forgot what it was doing.**
 Open a new session in the same folder: it recovers its state from the issues and git. You can also say "Read CLAUDE.md and continue as `<role>`." If it still drifts, ask the Lead: "Post the current state of #42 on the issue", then restart the session.
@@ -39,13 +39,19 @@ Approval prompts only cover pushes of `main` / `production`, tags, releases and 
 ## Process
 
 **I have never written code. Can I use this?**
-Yes. The sessions write the code, the tests and the documents; you describe what you want, answer their questions and approve each gate. Install the tools once with [How to run](../../HOW-TO-RUN.md), then follow the [Quick start](00-introduction.md#quick-start-from-idea-to-demo).
+Yes. The sessions write the code, the tests and the documents; you describe what you want, correct their drafts and approve each gate. Install the tools once with [How to run](../../HOW-TO-RUN.md), then follow the [Quick start](00-introduction.md#quick-start-from-idea-to-demo).
 
 **My project was made with the old Starter level.**
 Run `node scripts/set-level.mjs lite` in the Lead's worktree. Nothing is deleted.
 
 **My project runs on an older kit.**
 Type `/kit-update` in the Lead session ([chapter 6](06-continuity.md#7-get-the-newest-kit)). Without that command, run `node <crewbook-build>/kit/update.mjs --dry-run` in the Lead's folder once, then ask the Lead to apply it and open a PR.
+
+**A document is full of technical words.**
+Every document must be readable on the first read, and a technical one opens with "In short". Say: "Rewrite `<file>` in plain language, following the rule in CLAUDE.md."
+
+**I cannot picture what the product will look like.**
+Give the PO a one-line idea and ask for screens first: it sketches 2-3 grey screens you can click through, and you react to them. The proposal follows from what the screens show ([chapter 3](03-foundation.md)).
 
 **Do I really need an SRS for a small change?**
 Yes. Even a one-line requirement change updates the SRS, so the SRS stays true. For L0 display changes with no requirement change, the SRS is untouched.

@@ -48,7 +48,7 @@ It asks eight questions, each with a one-line hint. Press Enter to take the sugg
 | 4 | Working language | `English` | The sessions talk to you in it; you also choose the language of the documents |
 | 5 | Separate design prototype | `no` | Yes only if someone reviews a clickable design before the app is built |
 | 6 | Polished documents | `no` | Yes adds a humanizer pass to every document: reads better, costs more tokens. Worth it for documents other people read; turn it on later by telling the Lead |
-| 7 | One-line description | | Optional; Claude asks for the rest later |
+| 7 | One-line description | | Optional; you give your idea to the PO later |
 | 8 | GitHub repo | `private`, as `<you>/tiny-todo` | `none` to connect later |
 
 Then it installs the kit, creates the branches and the Lead's worktree, creates and pushes the GitHub repo with its labels and kanban board, and writes `START-HERE.md`.
@@ -57,9 +57,9 @@ Read the "Please check" lines at the end of its report. On a new repo, open its 
 
 ## 3. Follow START-HERE.md
 
-Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree, which is a second folder of the same project, one per session, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Setup comes first: it creates the other sessions' folders and ends with the next session's prompt in a box you copy. Each later step names the session, the command, what Claude asks you, and what you get.
+Open `START-HERE.md` in your new project folder. Its first step tells you which folder to open in Claude Code (a worktree, which is a second folder of the same project, one per session, such as `tiny-todo-wt\lead`) and the command to type there: `/setup`. Setup comes first: it creates the other sessions' folders and ends with the next session's prompt in a box you copy. Each later step names the session, the command, what you check, and what you get.
 
-At Lite it goes: `/setup` (Lead), `/next <your idea>` and `/next` again (PO: proposal, then requirements and the SRS's functional part), `/next` (Lead: design you approve, then the stack and the plan; from here on you work with the Lead), `/build try` and `/build done` (Dev1), `/release` (Lead: the milestone goes to `staging`, Dev1 runs the regression, the PO accepts it and writes the handover, you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
+At Lite it goes: `/setup` (Lead, no questions), `/next <your idea>` (PO: a one-page proposal and grey screen sketches you approve once, then the requirements and the SRS's functional part without asking again), `/next` (Lead: one solution design with the look and feel you approve, then the ADRs, the SRS baseline and the plan; from here on you work with the Lead), `/build try` and `/build done` (Dev1), `/release` (Lead: the milestone goes to `staging`, Dev1 runs the regression, the PO accepts it and writes the handover, you try it yourself), then run it in Docker. `/progress` tells you where the project stands at any time. Set API keys and passwords with `node scripts/set-secret.mjs <NAME>`, never in the chat.
 
 ## 4. Get kit updates later
 

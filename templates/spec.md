@@ -1,6 +1,6 @@
 # Spec CR-<n>: <CR title>
 
-Save as `docs/tech/spec/CR-<n>-<slug>.md`. Written by the Lead from an approved CR, merged into `dev` together with the SRS update **before** any task is assigned. The SRS (`docs/tech/srs.md`) stays the single description of the whole system; this spec holds the technical detail of one change.
+Save as `docs/tech/spec/CR-<n>-<slug>.md`. Written by the Lead from an approved CR, merged into `dev` together with the SRS update **before** any task is assigned. The SRS (`docs/tech/srs.md`) stays the single description of the whole system; this spec holds the technical detail of one change. Open with "In short": what changes for the user and how it is built, in two lines anyone can read.
 
 | Field | Value |
 |---|---|

@@ -17,8 +17,8 @@ These involve your machine, accounts or secrets:
 | claude-mem | Memory across sessions, so a restarted session finds its context | `/plugin marketplace add thedotmack/claude-mem` then `/plugin install claude-mem@thedotmack` |
 | context7 | Current library documentation for Dev sessions | `/plugin install context7@claude-plugins-official` |
 | humanizer | Only if you want polished documents (init question 6): each document reads like a person wrote it | `/plugin marketplace add blader/humanizer` then `/plugin install humanizer@humanizer` |
-| frontend-design | Products with screens: screens that look designed, in the look and feel you picked | `/plugin install frontend-design@claude-plugins-official` |
-| ui-ux-pro-max | Products with screens: searches styles, palettes and fonts for the look-and-feel options | `/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill` then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill` |
+| frontend-design | Products with screens, enabled by the Lead at G3: screens that look designed, in the look and feel you picked | `/plugin install frontend-design@claude-plugins-official` |
+| ui-ux-pro-max | Products with screens, enabled by the Lead at G3: searches styles, palettes and fonts for the look-and-feel options | `/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill` then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill` |
 
 Then run `/reload-plugins`. Optional plugins (Figma, Codex review, product-management for the PO…) are listed in [Appendix B](appendix-b-kit.md#plugins). You do not pick skills: the kit's `CLAUDE.md` names the skill for each task, and every session uses it. Every plugin adds to each session's context, so install only what the project uses ([chapter 9](09-token-budget.md)).
 
@@ -53,28 +53,23 @@ For scripts or CI: `node crewbook-build/kit/init.mjs <folder> --name "<name>" --
 
 **What it does:** fits `CLAUDE.md` to your project, opens the gate issues and milestones on GitHub, and creates the PO's folder (Lite: also Dev1's). Setup comes first: until it is done, any other session only tells you to finish it.
 
-**Ask:** open a Claude Code session in the `lead` worktree, titled `<Project> - Lead`, and type:
+**Ask:** open a Claude Code session in the `lead` worktree and type:
 > /setup
 
-**You say,** following the short guide Claude shows (anything can be "later"; it goes under Open decisions in `CLAUDE.md` and is asked again only when a step needs it):
-1. Whether a platform, language or database is required (by you, a client or a system it must work with). You do not choose a stack here: it comes at G3, after you approve the design ([chapter 3](03-foundation.md#4-design-stack-and-srs-phase-3)).
-2. Whether the product has screens, who uses it and where.
-3. What data it keeps, and whether it must survive a restart.
-4. Hard rules: data you must protect, systems it must work with, a deadline.
+**Claude asks you:** nothing. Your idea and any constraints (a required platform, a deadline, systems it must work with) come at G1, the stack at G3 ([chapter 3](03-foundation.md)).
 
 **Claude does:**
-- fills in `CLAUDE.md`; fits Docker and CI only if a stack is required; enables the design plugins for a product with screens;
-- creates the repo, labels and board if init did not, milestone v0.1.0, and one issue per foundation gate (G1, G2, G3);
+- fills in `CLAUDE.md`: the description from init, the stage and the Stack line ("chosen at G3, in the solution design");
+- creates milestone v0.1.0 (Full: also v0.2.0) and one issue per foundation gate: "G1 Proposal", "G2 Requirements", "G3 Design, stack and SRS";
+- in Claude Code desktop, renames its own session `<Project> - Lead` if needed and files it in a sidebar group named after the project;
 - marks the setup done, merges into `dev`, checks that CI ran on GitHub;
-- creates the PO's worktree (Lite: also Dev1's) and ends with the PO's prompt in a box to copy.
+- creates the PO's worktree (Lite: also Dev1's) and offers to open the PO's session for you.
 
 **You check:** the report, `CLAUDE.md` and the board on GitHub.
 
-**Claude asks before:** creating the repo, pushing `main`.
-
 ## 3. Open the next session
 
-**You do:** open a session in the folder the report names, titled `<Project> - PO`, and paste the prompt from the box. A session knows its role when it starts and finds where the work stands by itself; after a restart, open a new session in the same folder.
+**You do:** say yes when the Lead offers to open the PO's session; it opens `<Project> - PO` in the right folder, already given `/next`. Or open a session in the folder the report names, titled `<Project> - PO`, and paste the prompt from the box. A session knows its role when it starts and finds where the work stands by itself; after a restart, open a new session in the same folder.
 
 ## Change the level later
 
@@ -86,17 +81,12 @@ For scripts or CI: `node crewbook-build/kit/init.mjs <folder> --name "<name>" --
 
 ## 4. Run it with Docker
 
-**What it does:** makes every part of the product run in Docker, on your machine and anywhere else you choose. The kit installs `docker-compose.yml`, `docker/design.Dockerfile` and `docker/app.Dockerfile`; the `image-design` and `image-app` workflows build images into GitHub's container registry (`ghcr.io`).
+**What it does:** makes every part of the product run in Docker, on your machine and anywhere else you choose. The kit installs `docker-compose.yml`, `docker/design.Dockerfile` and `docker/app.Dockerfile`; the `image-design` and `image-app` workflows build images into GitHub's container registry (`ghcr.io`). The Lead does it by itself after you approve the solution design at G3 ([chapter 3](03-foundation.md#3-how-we-build-it-phase-3)).
 
-**Ask the Lead:**
-> Fit the Docker setup to our stack and check that it runs. Ask me what you need first.
+**Ask the Lead,** to check it again later:
+> Check that the Docker setup still runs.
 
-**Claude asks you:**
-1. Which services the product needs (web app, API, database, worker).
-2. Build and start commands for each.
-3. Environment variables each service needs (names only).
-
-**Claude does:** adapts `docker-compose.yml` and the Dockerfiles, replaces `<owner>` and `<project>`, runs `docker compose up --build` and checks each service starts, writes the variable names in `docs/tech/ops/`.
+**Claude does:** fits `docker-compose.yml` and the Dockerfiles to the stack in the solution design, replaces `<owner>` and `<project>`, runs `docker compose up --build` and checks each service starts, writes the variable names in `docs/tech/ops/`.
 
 **You do:** set each secret with `node scripts/set-secret.mjs <NAME>`.
 

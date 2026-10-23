@@ -25,14 +25,14 @@ In the [news chatbot example](../examples/news-chatbot/walkthrough.md), moving t
 **Ask the Lead** (after G2 every change goes to the Lead; `/change` sorts it first):
 > /change `<what, in business terms>`
 
-**Claude asks you:**
-1. Who asked, how (email, chat, meeting) and when?
-2. What changes for the user, from what to what?
-3. Acceptance: what must be true when it is done? (it proposes Given/When/Then)
-4. The price, and is it billed? (it gives the AI time and the date itself)
-5. Priority, this milestone or the next, anything out of scope?
+**Claude asks you:** only what your request does not say, at most three questions together, each with its suggested answer. A CR needs:
+1. Who asked, how (email, chat, meeting) and when.
+2. What changes for the user, from what to what.
+3. Acceptance: what must be true when it is done (it proposes the criteria in the user's words).
+4. The price, and whether it is billed (it gives the AI time and the date itself).
+5. Priority: this milestone or the next, and anything out of scope.
 
-**Claude does:** opens a CR issue with the scope before and after and the impact; when the client approves, records the approval (name, date, link) on it, exports it to `docs/product/cr/`, adds the row to `changes.md`, updates the SRS and writes the spec, all in one PR. A technical change becomes an ADR instead.
+**Claude does:** drafts the CR from your request at once, opens a CR issue with the scope before and after and the impact; when the client approves, records the approval (name, date, link) on it, exports it to `docs/product/cr/`, adds the row to `changes.md`, updates the SRS and writes the spec, all in one PR. A technical change becomes an ADR instead.
 
 **You check:** the client's approval is recorded before work starts; approve L2-L3 CRs.
 

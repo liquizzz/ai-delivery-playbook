@@ -2,7 +2,7 @@
 
 **You bring the idea. Your AI team ships the software.**
 
-A step-by-step Claude Code playbook and starter kit for building high-quality software from zero, whether you have written code for years or never written a line. You lead a crew of Claude Code sessions (PO, Lead, Dev) the way you would lead a real team, and nothing moves forward until you approve it. One command sets up your project. From then on every session knows its role, picks the right skill for each task, asks you only what it needs and keeps token use down.
+A step-by-step Claude Code playbook and starter kit for building high-quality software from zero, whether you have written code for years or never written a line. You lead a crew of Claude Code sessions (PO, Lead, Dev) the way you would lead a real team, and nothing moves forward until you approve it. One command sets up your project. From then on every session knows its role, picks the right skill for each task, drafts its step at once in plain words, asks you at most three questions and keeps token use down.
 
 Crewbook: Build is the first playbook in the Crewbook series.
 
@@ -23,10 +23,10 @@ The first time, install the tools listed in How to run (once per machine). Then 
 | You get | How |
 |---|---|
 | A ready project in one command | `init.mjs` creates the folder, git branches, the Lead's worktree (its own folder of the project, one per session), the GitHub repo (private or public) with labels and a kanban board, CI and Docker image builds, the Claude Code plugins the team uses, and `START-HERE.md`; the Lead's `/setup` then opens the gate issues and the other roles' worktrees |
-| A small team that knows its job | Every project starts with three sessions: PO (answers to the client: the requirements up to G2, then the acceptance on `staging` and the handover), Lead (your one contact from G3: design, stack, every change with its price and the client's approval, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook (a script that checks every command and edit) blocks risky commands and edits outside the role |
-| The right skill for each task, chosen in advance | Interviews use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
-| You lead, Claude keeps the process | Each step shows a short guide; you answer in your own words, in any order, Claude asks only about gaps and suggests only when you ask; "later" parks a decision until a step needs it. A product you name is tried in the browser, and facts you give are checked |
-| Design before stack | You see the look and feel and the main screens at G3; the stack is chosen after, to fit the approved design |
+| A small team that knows its job | Every project starts with three sessions: PO (answers to the client: the proposal, the screen sketches and the requirements up to G2, then the acceptance on `staging` and the handover), Lead (your one contact from G3: the solution design, every change with its price and the client's approval, review, release) and one Dev. Test, UI/UX and DevOps join only for high-stakes work. Each role has a role file with its rules and paths; a guard hook (a script that checks every command and edit) blocks risky commands and edits outside the role |
+| The right skill for each task, chosen in advance | Suggestions use brainstorming, code uses test-first development, failures use systematic debugging, nothing is called done without a verification step, and the Lead reviews every change. Documents can get a humanizer pass, which you turn on at init or later. A hook reminds each session at start, so you never name a skill |
+| AI does the work, you decide | You say what you want in your own words; the session drafts at once, asks at most three questions (each with a suggested answer), marks its guesses ⚠️ and redoes the draft as often as you like, then asks for one approval. "later" parks a decision until a step needs it, and "suggest" asks for ideas. A product you name is tried in the browser, an old system is read for what to keep, and facts you give are checked |
+| See it first, then build it | The PO sketches the main screens you can click through, so you approve a product you can see (G1 and G2, one approval). The Lead then shows the whole plan in one solution design: the parts, the stack and why, the data, the look and feel, the milestones and the risks (G3). Every document is in plain words |
 | Lower token cost | Tests sized to the change (levels L0 to L3), no `/goal` or `/loop`, compact rules per role, short hand-off prompts, and roles opened only when there is work for them |
 | Quality you can check | Gates you approve, each with a For you block (a few things to try yourself, with links to the evidence), a requirements document kept current with every change, CI on every push, and your own acceptance test before each release |
 | Room to grow | `node scripts/set-level.mjs` moves a project from Lite (three sessions) to Full (adds Test, UI/UX and DevOps sessions, for money, security, personal data or a client who signs off each release), or back, without redoing anything |
@@ -39,7 +39,7 @@ No single plugin is best at everything. Crewbook picks one for each stage and te
 
 | Stage | Tool | Why this one |
 |---|---|---|
-| Ideas and interviews | superpowers `brainstorming` | One question at a time, options explored before anything is written |
+| Ideas, when you ask for them | superpowers `brainstorming` | Options explored before anything is written |
 | Look and feel | ui-ux-pro-max | Searches real styles, palettes and fonts for 2-3 directions |
 | Screens | frontend-design | Screens that look designed, in the direction you picked |
 | Library facts | context7 | Current documentation in place of guesses |
@@ -66,7 +66,7 @@ The book gives each step as prompts (what to say, what Claude asks back, what it
 | 0 | [Introduction](docs/book/00-introduction.md) | Understand the model, the principles and how prompts work in this book |
 | 1 | [Setup](docs/book/01-setup.md) | Start a project, connect GitHub, open the first sessions |
 | 2 | [The team](docs/book/02-the-team.md) | Know who does what, how code moves, what the guardrails block |
-| 3 | [Foundation](docs/book/03-foundation.md) | Get the proposal, requirements and design approved (G1-G3) |
+| 3 | [Foundation](docs/book/03-foundation.md) | Picture the project (G1-G2), then how it is built (G3), with two approvals |
 | 4 | [The delivery loop](docs/book/04-delivery-loop.md) | Ask for changes, follow progress, keep the milestone on date |
 | 5 | [Releases](docs/book/05-releases.md) | Release, go live, hotfix, roll back |
 | 6 | [Continuity](docs/book/06-continuity.md) | Restart, compact, trace a change, switch machines without losing work |
@@ -86,19 +86,19 @@ The [Quick start in chapter 0](docs/book/00-introduction.md#quick-start-from-ide
 ## FAQ
 
 **Can I build an app with Claude Code if I can't code?**
-Yes. You describe what you want, answer the sessions' questions and approve each gate; the sessions write the code, the tests and the documents. You do need to install a few tools once and type short commands such as `/next` and `/build try`. [How to run](HOW-TO-RUN.md) walks through each one.
+Yes. You describe what you want, correct the sessions' drafts and approve each gate; the sessions write the code, the tests and the documents. You do need to install a few tools once and type short commands such as `/next` and `/build try`. [How to run](HOW-TO-RUN.md) walks through each one.
 
 **How is this different from vibe coding?**
 Vibe coding ships whatever the last prompt produced. In Crewbook every change has a requirement, a review by the Lead and tests sized to the change, and nothing is released before it is tested on `staging`, accepted by the PO and approved by you, so the tenth feature is as solid as the first.
 
 **How is it different from Claude Code agent teams or spec-driven kits?**
-Each role (PO, Lead, Dev, and Test, UI/UX or DevOps when needed) runs in its own session and git worktree, and a guard hook keeps it inside its role. The process covers the whole delivery: proposal, requirements (SRS), design, build, release, change requests and rollback, with six gates (G1 to G6).
+Each role (PO, Lead, Dev, and Test, UI/UX or DevOps when needed) runs in its own session and git worktree, and a guard hook keeps it inside its role. The process covers the whole delivery: proposal and screen sketches, requirements (SRS), solution design, build, release, change requests and rollback, with six gates (G1 to G6).
 
 **How is Crewbook different from BMAD-METHOD or spec-kit?**
 All three start from a spec. Crewbook uses the plugin that does each stage best (superpowers for brainstorming and test-first code, ui-ux-pro-max and frontend-design for the look and the screens, context7 for library facts) in place of one framework for everything. It leads you one step at a time: one command per stage, a START-HERE file that lists every step, and at the end of each step the session tells you, or sends the next session, what comes next. You can approve without reading code: each gate shows what to try yourself, what a wrong result looks like and what the tests already prove, and changes merge on their own after the Lead's review (a security review for money, security or personal data), while every release waits for you. The result is a real project, with a branch per role, reviewed pull requests, a kanban board, CI, tagged releases and a Docker image you run with one command. For a quick prototype spec-kit is faster; Crewbook is for software you will hand over, maintain or show a client.
 
 **What stack does it use?**
-Any. The Lead proposes a stack after you approve the design, and you choose.
+Any. The Lead proposes one in the solution design at G3, with the options it left out and why, and you approve it. A platform you or your client require is a constraint in the proposal.
 
 **What does it cost?**
 A Claude subscription that includes Claude Code, and GitHub (the free plan is enough). [Chapter 9](docs/book/09-token-budget.md) shows how the kit keeps token use down.

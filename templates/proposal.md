@@ -2,54 +2,45 @@
 
 | Field | Value |
 |---|---|
-| Client | <client> |
-| Prepared by | PO, with the owner |
-| Status | Draft / Approved (G1) |
+| Client | <client, or "own product"> |
+| Prepared by | PO, from the owner's idea |
+| Status | Draft / Approved (G1 and G2) |
 | Approved on | YYYY-MM-DD |
+| Screens | `docs/product/screens/index.html` |
 
-Save as `docs/product/proposal.md`.
+Save as `docs/product/proposal.md`. One page, in plain words: someone who has never seen the project understands it on the first read. Mark each guess ⚠️ so the owner can correct it. The owner approves this page together with the screen sketches.
 
-## 1. Problem and users
-- Problem: <who cannot do what, and what it costs them today>
-- Users: <primary users; other stakeholders and what they care about>
-- Success metric: <one measurable outcome, with a target>
+## Why
+<Who has the problem, what they cannot do today, and what it costs them. Two or three sentences.>
 
-## 2. Context and constraints
-- Current situation: <existing systems, process, what has been tried>
-- Data: <where it lives, who owns it, may it leave the client's environment?>
-- Technology and hosting: <platforms or systems the client requires, if any; the stack is chosen at G3, after the design>
-- Compliance and security: <laws, security unit requirements>
+## Who uses it
+- <user>: <what they do with it, where (browser, phone, desktop)>
 
-## 3. Options
-| Option | What it is | Effort | Cost to run | Risks |
-|---|---|---|---|---|
-| A | <...> | <AI time · owner's time · outside waits> | <per month> | <...> |
-| B | <...> | <...> | <...> | <...> |
+## How big
+<Number of users, how much data, how many screens or functions, how long it will take. For an existing system: what it has today (functions, screens, data) and how much of it moves over.>
 
-Recommended and chosen: <option>, because <reason tied to the constraints>.
+## What the first version does
+1. <something a user can do, in their words>
 
-## 4. Scope
-- In scope: <deliverables of this project>
-- Out of scope: <what is deliberately not included>
-- Later phases: <what may follow, quoted separately>
+## Later, and left out
+- Later: <what comes in the next versions>
+- Left out: <what we will not build, and why>
 
-## 5. Approach
-<Delivery with Crewbook: a Foundation stage (proposal, requirements, design, stack and SRS) followed by small, frequent releases (milestones). What the client reviews and when.>
+## How we know it works
+<One thing anyone can check, with a target. Example: "a reporter writes and sends an article for review in under 5 minutes".>
 
-## 6. Timeline
-| Phase | Dates | Client involvement |
-|---|---|---|
-| Planning | <...> | Approve this proposal |
-| Requirements | <...> | Confirm business rules, provide data access |
-| Design, stack and SRS | <...> | Approve the design, then the stack |
-| Delivery milestones | <...> | Review each staging demo; approve releases |
-| Go-live (1.0.0) | <...> | Approve go-live |
+## What we must respect
+<Systems it must work with, a platform the client requires, data that must stay inside, budget, deadline. The technical choices come in the solution design (G3).>
 
-## 7. Budget and assumptions
-- <effort, price or internal budget>
-- <assumptions the estimate depends on>
+## Existing system (only for a rewrite or a replacement)
+| Function | What it does today | Keep / drop / redo | When |
+|---|---|---|---|
+| <...> | <...> | <...> | <v0.1.0 / later> |
 
-## 8. Open questions for the client
+## Time and budget
+<The milestones in one line each, with AI time and the owner's time; the budget or price; what the client must prepare.>
+
+## Open questions
 | # | Question | Needed by |
 |---|---|---|
-| 1 | <...> | <phase> |
+| 1 | <...> | <step> |

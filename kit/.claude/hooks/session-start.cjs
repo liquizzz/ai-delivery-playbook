@@ -61,7 +61,7 @@ function reminder(cwd) {
     `Crewbook: you are the ${role} session. Read CLAUDE.md and ${roleDoc} before any work, run the Recovery steps in ${roleDoc}, then do what the owner asked.`,
     "Use the skill the Skills table in CLAUDE.md names for each task, every time, without waiting for the owner to ask.",
     skills ? `Your role's skills: ${skills}` : "",
-    "The owner leads: show the step's short guide, let them answer in their own words, ask only about gaps, suggest only when asked, write after they lock and confirm.",
+    "AI does the work; the owner decides: draft at once from what the owner says, ask once (at most three questions, each with a suggested answer), redo freely, write documents in plain language, and ask for one approval.",
     project.language ? `Talk to the owner in ${project.language} in everything they read, including the end-of-turn recap, the next-step box, questions and button labels; only code, commits, paths and commands stay in English.` : "Talk to the owner in the language CLAUDE.md sets, in everything they read, including the end-of-turn recap and button labels.",
     "Every approval request ends with the For you block, files and issues are clickable links, and a hand-off ends with the prompt alone in a code block (CLAUDE.md).",
     "Another role's work goes to that role's session through a hand-off; never start a side session for it.",

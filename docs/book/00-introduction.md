@@ -25,13 +25,13 @@ Anyone can build high-quality software from zero with this book, whether you cod
 
 ## Quick start: from idea to demo
 
-Lite ([chapter 8](08-lite-mode.md)) is the starting level: three sessions, PO, Lead and Dev1, that you direct like a small team. You run one command, then each step is one slash command the kit installs; Claude asks what it needs, then does the whole step. When work moves to another session, the report ends with the session to open and a prompt in a box you copy with one click. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
+Lite ([chapter 8](08-lite-mode.md)) is the starting level: three sessions, PO, Lead and Dev1, that you direct like a small team. You run one command, then each step is one slash command the kit installs; Claude drafts the whole step at once and you correct it. When work moves to another session, the report ends with the session to open and a prompt in a box you copy with one click. The project gets the same steps in its own `START-HERE.md` ([How to run](../../HOW-TO-RUN.md)).
 
 | # | Session | Type | You get |
 |---|---|---|---|
 | 1 | Terminal, then Lead | Run `node crewbook-build/kit/init.mjs`, then open Claude Code in the `lead` folder init created (`<project>-wt/lead`) and type `/setup` | Repo, kit, branches, the gate issues, and the PO's and Dev1's folders ([ch. 1](01-setup.md)) |
-| 2 | PO | `/next <idea>`, then `/next` again | The proposal (G1), then the PRD, the stories and the functional part of the SRS (G2) ([ch. 3](03-foundation.md)) |
-| 3 | Lead | `/next` | A design you approve, then the stack, the completed SRS and the v0.1.0 tasks (G3); from here on the Lead is your one contact ([ch. 3](03-foundation.md)) |
+| 2 | PO | `/next <your idea>` | A one-page proposal and sketches of the main screens you approve once (G1 and G2); then the PRD, the stories and the functional part of the SRS, written without asking you again ([ch. 3](03-foundation.md)) |
+| 3 | Lead | `/next` | One solution design with the look and feel that you approve once (G3); then the ADRs, the completed SRS and the v0.1.0 tasks; from here on the Lead is your one contact ([ch. 3](03-foundation.md)) |
 | 4 | Dev1 | `/build try #<n>` while you look, `/build done #<n>` per finished task | Code you can try at once; then tests at each task's level and a PR the Lead merges ([ch. 4](04-delivery-loop.md)) |
 | 5 | Lead | `/release` | The milestone on `staging`: Dev1's regression, the PO's acceptance and the handover, scenarios you try, then tagged v0.1.0 and its Docker image ([ch. 5](05-releases.md)) |
 | 6 | Terminal | The commands in the "Run the release in Docker" step of `START-HERE.md` | v0.1.0 running in Docker on your machine |
@@ -43,7 +43,7 @@ If the new sessions in step 7 pick up the fix without you explaining anything, k
 
 ```mermaid
 flowchart LR
-  O(["Owner<br/>(you)"]) <-- "up to G2" --> PO["PO session"]
+  O(["Owner<br/>(you)"]) <-- "G1-G2" --> PO["PO session"]
   O <-- "from G3" --> Lead["Lead session"]
   PO -- "SRS (functional part)" --> Lead
   Lead --> Dev["Dev session"]
@@ -55,7 +55,7 @@ flowchart LR
 
 Solid lines are the three sessions most projects run (Lite). Test, DevOps and UI/UX join at Full, only when there is work for them; the PO comes back at the end of each milestone.
 
-You are the owner. Up to G2 you give the PO the problem and the requirements; from G3 on you work with the Lead, decide at a few gates and approve every release. The PO answers to the client: it checks each milestone on `staging` and writes the handover. Each role is a separate Claude Code session with its own git worktree and role file. The work is written down in GitHub issues, repo documents and git, so a skipped step shows up, and any change can be traced and fixed later.
+You are the owner. You give the PO your idea and approve the proposal and the screen sketches (G1-G2); from G3 on you work with the Lead, decide at a few gates and approve every release. The PO answers to the client: it checks each milestone on `staging` and writes the handover. Each role is a separate Claude Code session with its own git worktree and role file. The work is written down in GitHub issues, repo documents and git, so a skipped step shows up, and any change can be traced and fixed later.
 
 ## Principles
 
@@ -103,7 +103,7 @@ There is no single-session level: one session playing every role runs slower tha
 >
 > **Ask:** the session to talk to and a prompt to copy.
 >
-> **Claude asks you:** the topics the session will ask about before it starts, one round at a time.
+> **Claude asks you:** what the session may ask: at most three questions together, each with its suggested answer.
 >
 > **Claude does:** what the session then does on its own, in full.
 >
@@ -111,12 +111,11 @@ There is no single-session level: one session playing every role runs slower tha
 >
 > **Claude asks before:** actions that open an approval prompt for you.
 
-Every session follows "the owner leads; Claude keeps the process" from the kit's `CLAUDE.md`. Each step shows a short guide of what it needs from you. You answer in your own words, in any order (a product you want to copy is a fine place to start), and Claude asks only about what is missing. A few words steer it:
+Every session follows "AI does the work; the owner decides" from the kit's `CLAUDE.md`. You say what you want in your own words (a product you want to copy, or an old system to replace, is a fine place to start). The session drafts at once, asks at most three questions together, each with its suggested answer, and marks its other guesses ⚠️. Redoing a draft costs the AI minutes, so correct it as often as you like; you approve once. Every document is written in plain words, and a technical one opens with "In short". A few words steer it:
 
-- "suggest": Claude proposes ideas. Otherwise it only asks.
+- "suggest": Claude proposes ideas. Otherwise it drafts from what you said.
 - "later": the topic goes under Open decisions and comes back only when a step needs it.
 - "you decide": Claude settles the rest and lists its calls so you can change them.
-- "lock": Claude shows a checklist of what you settled and what is still its assumption, asks once whether that is final or you want to review it, then writes.
 
 > **Token tip** boxes in each chapter show where cost adds up and how to avoid it.
 
@@ -126,7 +125,7 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 |---|---|
 | [1 Setup](01-setup.md) | Start a project and open the first sessions |
 | [2 The team](02-the-team.md) | Know which session does what and how work moves |
-| [3 Foundation](03-foundation.md) | Get proposal, requirements and design approved |
+| [3 Foundation](03-foundation.md) | Picture the project, then how it is built, with two approvals |
 | [4 The delivery loop](04-delivery-loop.md) | Ask for changes, run the day, test by level |
 | [5 Releases](05-releases.md) | Release, deploy, hotfix, roll back |
 | [6 Continuity](06-continuity.md) | Restart, compact, trace a change, switch machines |
@@ -141,8 +140,8 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 |---|---|
 | Owner | You: the human who decides scope, priorities and releases |
 | Session | One Claude Code desktop conversation playing one role (PO, Lead, Dev, Test, UI/UX, DevOps) |
-| PO | Product owner: answers to the client. Turns your idea into the proposal, the PRD, the stories and the functional part of the SRS (G1-G2); at the end of each milestone checks it on `staging` against the acceptance criteria and writes the handover |
-| Lead | Tech lead and your one contact from G3: design, stack, task plan, every change (CR or ADR), review, releases |
+| PO | Product owner: answers to the client. Turns your idea into the proposal and the screen sketches, then the PRD, the stories and the functional part of the SRS (G1-G2); at the end of each milestone checks it on `staging` against the acceptance criteria and writes the handover |
+| Lead | Tech lead and your one contact from G3: the solution design, task plan, every change (CR or ADR), review, releases |
 | Lite / Full | The two levels of process. Lite runs PO, Lead and Dev; Full adds Test, UI/UX and DevOps. Both test each milestone on `staging` |
 | Phase | One of the seven stages of the life cycle, from 1 Planning to 7 Maintenance |
 | Worktree | A separate folder of the same git repo, one per role, so sessions never edit the same files |
@@ -156,7 +155,9 @@ Every session follows "the owner leads; Claude keeps the process" from the kit's
 | SRS | Software Requirements Specification: the always-current description of what the system does, with numbered requirements (`FR-xxx`, `NFR-xxx`) and a revision history |
 | PRD | Product requirements document: what the product must do in business terms, with its must-haves and non-goals |
 | Story | One thing a user needs to do, with the criteria that show it works |
-| Given/When/Then | The form of an acceptance criterion: *Given* a starting state, *When* the user does something, *Then* this result shows |
+| Given/When/Then | The form of an acceptance criterion, written in the user's words with real example values: *Given* what is on the screen, *When* the user does something, *Then* what they see |
+| Screen sketch | A plain grey page you can click through, with example data, that shows one main screen before anything is built (`docs/product/screens/`) |
+| Solution design | The one document that shows how the product will be built: its parts, the stack and why, the data, the look and feel, the milestones and the risks (`docs/tech/solution-design.md`) |
 | Spec | The technical detail of one CR: behaviour, contracts, data, tasks |
 | DEC / ADR | A recorded business / technical decision, with the options that were rejected and why |
 | Milestone | The next release: a few CRs, shipped in a day or so |

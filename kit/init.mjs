@@ -253,7 +253,7 @@ fill("docker-compose.yml", (t) => {
   t = t.replaceAll("<project>", project);
   return owner ? t.replaceAll("<owner>", owner) : t;
 });
-// Plugins: humanizer only for polished documents; the design plugins are enabled by the setup step when the product has screens.
+// Plugins: humanizer only for polished documents; the Lead enables the design plugins at G3 when the product has screens.
 fill(".claude/settings.json", (t) => {
   const s = JSON.parse(t);
   if (!humanize) delete s.enabledPlugins["humanizer@humanizer"];
@@ -267,7 +267,7 @@ created.push(".claude/project.json", "START-HERE.md");
 
 // 2d. Docs folders
 const folders = [
-  "docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones", "docs/product/handover",
+  "docs/product/cr", "docs/product/dec", "docs/product/stories", "docs/product/milestones", "docs/product/handover", "docs/product/screens",
   "docs/tech/spec", "docs/tech/adr", "docs/tech/test-cases", "docs/tech/test-reports", "docs/tech/ops",
   "docs/reports", "docs/releases",
 ];

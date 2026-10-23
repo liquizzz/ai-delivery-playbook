@@ -4,21 +4,21 @@
 
 | Path in the project | What it does |
 |---|---|
-| `CLAUDE.md` | Shared rules every session reads: roles, your gates, "the owner leads", Open decisions, build modes, git rules, compact instructions |
+| `CLAUDE.md` | Shared rules every session reads: roles, your gates, "AI does the work; the owner decides", "Plain language", "See it first, then build it", Open decisions, build modes, git rules, compact instructions |
 | `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2). It also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell |
 | `.claude/hooks/role-guard.test.cjs` | 80 test cases for the hook, including wrapped and nested commands |
-| `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to ask you in rounds, so you never type it |
+| `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to draft at once, ask at most three questions and write in plain language, so you never type it |
 | `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
 | `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt ([Commands](#commands)). Each reads the level from `.claude/project.json` |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
 | `.github/pull_request_template.md` | PR checklist by change level, L3 safety checks, hand-off |
-| `.github/workflows/` | `ci` (builds the app image until setup adds the stack's lint and tests), `docs-check`, `codeql` (public repos, once setup sets `CODEQL_LANGUAGES`), `image-app` (each release tag also gets an SBOM and, on public repos, a provenance attestation), and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
-| `.github/dependabot.yml` | Security fixes only, one grouped PR per ecosystem, no version-bump PRs; setup adds the stack's ecosystem. Standards behind these checks: [Appendix E](appendix-e-standards.md) |
-| `docs/templates/` | The document templates (proposal, PRD, SRS, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
-| `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack in chapter 1, step 4 |
+| `.github/workflows/` | `ci` (builds the app image until the Lead adds the stack's lint and tests at G3), `docs-check`, `codeql` (public repos, once the Lead sets `CODEQL_LANGUAGES` at G3), `image-app` (each release tag also gets an SBOM and, on public repos, a provenance attestation), and `image-design` with a design prototype only: checks on every PR, Docker images built into `ghcr.io` |
+| `.github/dependabot.yml` | Security fixes only, one grouped PR per ecosystem, no version-bump PRs; the Lead adds the stack's ecosystem at G3. Standards behind these checks: [Appendix E](appendix-e-standards.md) |
+| `docs/templates/` | The document templates (proposal, PRD, SRS, solution design, CR, ADR, test cases, release checklist…), so every session fills in the same structure |
+| `docker-compose.yml`, `docker/*.Dockerfile`, `.dockerignore` | Runs every part in Docker; examples for a pnpm workspace, adapted to your stack by the Lead after G3 (chapter 1, step 4) |
 | `START-HERE.md` | The owner's steps for the project's level, as commands to type; rewritten by `set-level.mjs` |
 | `.claude/project.json`, `.claude/start-here/` | The project's name, level, repo and kit version (`kitVersion`, the crewbook-build commit it came from); the `START-HERE.md` template for each level |
 | `scripts/set-level.mjs` | Changes the level (lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
@@ -30,7 +30,7 @@
 | `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages between sessions and auto-merge (both on until `/auto` turns them off), per-task testing (off), and the hand-off tips, shown three times at most while messages are off |
 | `scripts/board-status.mjs` | Moves an issue, or a PR with no task issue, to a board column (`node scripts/board-status.mjs 12 "In progress"`); the commands call it as work moves |
 | `scripts/run.mjs` | Runs a version in Docker with one command (`node scripts/run.mjs v0.1.0`, `staging`, `dev`, `--source`, `--stop`): checks Docker and port 3000, logs in to ghcr.io when the repo is private, pulls the image, waits for the healthcheck, opens the browser |
-| `scripts/plugins.mjs` | Installs the Claude Code plugins `.claude/settings.json` enables (adds their marketplaces, then `claude plugin install --scope user`), or prints the `/plugin install` lines when the `claude` command is missing; `init` and `/setup` run it |
+| `scripts/plugins.mjs` | Installs the Claude Code plugins `.claude/settings.json` enables (adds their marketplaces, then `claude plugin install --scope user`), or prints the `/plugin install` lines when the `claude` command is missing; `init` runs it, `/setup` when a required plugin is missing, and the Lead at G3 when it enables the design plugins |
 | `scripts/release.mjs` | Computes the version from labels; updates `CHANGELOG.md` and the SRS (either line ending) |
 | `scripts/release.test.mjs` | Tests the release script without GitHub |
 | `.git/hooks/pre-commit` | Blocks commits with `.env` files or credential-like values |
@@ -39,8 +39,8 @@
 
 | Command | What it does |
 |---|---|
-| `/setup` | First step: constraints, `CLAUDE.md`, gate issues, milestone, the team's worktrees |
-| `/next <idea>` | The next foundation step up to its gate; G3 is design, then stack, then SRS |
+| `/setup` | First step, with no questions: `CLAUDE.md`, gate issues, milestone, the team's worktrees |
+| `/next <idea>` | The next foundation step up to your approval: in the PO, picture the project (proposal and screen sketches, G1 and G2); in the Lead, how we build it (the solution design, G3) |
 | `/build try` | Quick: no tests, no merge |
 | `/build done` | Tests at the task's level, then a PR the Lead merges |
 | `/release demo` | Full checks, no tag |
@@ -62,8 +62,8 @@ The kit's `.claude/settings.json` enables the minimum set, so every role uses th
 | code-review | built in | Lead | Required |
 | claude-mem | `thedotmack/claude-mem` | All roles | Required |
 | context7 | built in | Dev, Lead, DevOps | Required |
-| frontend-design | built in | UI/UX, Dev on front ends | Products with screens (setup enables it) |
-| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Lite | Products with screens (setup enables it) |
+| frontend-design | built in | UI/UX, Dev on front ends | Products with screens (the Lead enables it at G3) |
+| ui-ux-pro-max | `nextlevelbuilder/ui-ux-pro-max-skill` | UI/UX; the Lead at Lite | Products with screens (the Lead enables it at G3) |
 | figma | `anthropics/knowledge-work-plugins` | UI/UX | Only if the design lives in Figma |
 | codex | `openai/codex-plugin-cc` | Lead | Optional: independent review (chapter 2) |
 | product-management | `anthropics/knowledge-work-plugins` | PO | Optional: `write-spec`, `competitive-brief` and `stakeholder-update` for a PO who wants them; adds about 850 tokens and several connectors to each session |
@@ -72,7 +72,7 @@ The kit's `.claude/settings.json` enables the minimum set, so every role uses th
 
 ### Skills by task
 
-The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: interviews use `superpowers:brainstorming`; the PRD and stories follow the templates; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; the look-and-feel options come from `ui-ux-pro-max` and screens are built with `frontend-design`; with polished documents, every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
+The kit's `CLAUDE.md` has a Skills table, and each role file names its own skills, so you never choose one. In short: suggestions, when you ask for them, use `superpowers:brainstorming`; the screen sketches are plain grey HTML; the proposal, PRD, stories and solution design follow the templates; milestone planning uses `superpowers:writing-plans`; L2-L3 code uses `superpowers:test-driven-development`; failures use `superpowers:systematic-debugging`; every "done", PR, merge and release passes `superpowers:verification-before-completion`; the Lead reviews with `code-review`, adding `security-review` for L3; the look-and-feel options come from `ui-ux-pro-max` and screens are built with `frontend-design`; with polished documents, every document gets a `humanizer` pass. The superpowers skills for worktrees, branch finishing and subagents are not used, because the kit's own worktrees and merge rules replace them.
 
 Install a plugin with `/plugin install <name>@<marketplace>`, then `/reload-plugins`. Each plugin adds its skill list to every session's context, and claude-mem also adds context at each session start, so leave out what the project does not use. To see what a plugin costs, run `claude plugin details <plugin>` in a terminal: it lists the plugin's skills, agents and hooks and its projected token cost per session (the Codex plugin, for example, adds about 450 tokens). To add a project-specific plugin for the whole team, ask the Lead: "Add `<plugin>` to the project's plugin list."
 

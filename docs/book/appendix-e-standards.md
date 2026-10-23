@@ -12,7 +12,7 @@ Crewbook aims at software one owner can trust and maintain, with no lost documen
 | SRS with `FR-xxx` and `NFR-xxx` IDs, revision history, traceability matrix | ISO/IEC/IEEE 29148 (requirements), short form | `templates/srs.md` |
 | NFR rows | ISO/IEC 25010 quality characteristics | SRS section 6 |
 | Test strategy, exit criteria, product risks | ISO/IEC/IEEE 29119-3 (test plan), short form | `templates/test-strategy.md` |
-| Stories with Given/When/Then acceptance | BDD; user stories from Scrum | `templates/user-story.md`, brief |
+| Stories with Given/When/Then acceptance, in the user's words | BDD; user stories from Scrum | `templates/user-story.md`, brief |
 | ADRs with rejected options | Architecture Decision Records (Nygard) | `docs/tech/adr/` |
 | Architecture diagrams | C4 model | `templates/c4.md` |
 | CRs, change levels L0-L3, testing by level | Change management (ITIL), risk-based testing | Chapter 4, test strategy section 2 |
@@ -36,7 +36,7 @@ Crewbook aims at software one owner can trust and maintain, with no lost documen
 
 ## What the owner does for this
 
-No extra steps. `init` turns on Dependabot alerts and fixes, plus secret scanning on public repos; the setup step starts CodeQL; release tags build the SBOM and the attestation. The Lead retargets Dependabot's security PRs to `dev` and turns high or critical alerts into defects. To check a public release image yourself:
+No extra steps. `init` turns on Dependabot alerts and fixes, plus secret scanning on public repos; the Lead starts CodeQL at G3, once the stack is chosen; release tags build the SBOM and the attestation. The Lead retargets Dependabot's security PRs to `dev` and turns high or critical alerts into defects. To check a public release image yourself:
 ```
 gh attestation verify oci://ghcr.io/<owner>/<repo>-app:v0.1.0 -R <owner>/<repo>
 ```

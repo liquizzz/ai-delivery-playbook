@@ -9,7 +9,7 @@
 | Time box | <e.g. one weekend, 8 hours> |
 | Proposal | `docs/product/proposal.md` |
 
-Save as `docs/product/prd.md`. The detailed, always-current requirements live in the SRS (`docs/tech/srs.md`).
+Save as `docs/product/prd.md`. Written by the PO after the owner approved the proposal and the screen sketches, from what they show, in plain words; the owner does not approve it again. Each must-have names its screen. The detailed, always-current requirements live in the SRS (`docs/tech/srs.md`).
 
 ## 1. Problem
 <Who has the problem, what it is, and what it costs them today. 2-4 sentences.>

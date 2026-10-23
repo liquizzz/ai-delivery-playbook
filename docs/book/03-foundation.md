@@ -1,36 +1,36 @@
 # Chapter 3: Foundation (phases 1-3)
 
-**Purpose:** turn an idea into an approved proposal, approved requirements and an approved design with an SRS baseline, before any product code is written. Runs once per project.
+**Purpose:** go from an idea to a project you can picture, then to a plan you can picture, before any product code is written. The AI does the work; you approve twice. Runs once per project.
 
-| Phase | Output | Gate you pass |
-|---|---|---|
-| 1 Planning | `docs/product/proposal.md` | G1 problem, users, option, scope, metric, timeline, budget agreed |
-| 2 Requirements | `docs/product/prd.md`, `data-notes.md`, `stories/`, the functional part of `docs/tech/srs.md` | G2 must-haves, non-goals, metrics fixed; fields mapped to real data; a testable story per must-have |
-| 3 Design | `design/` (look and feel, screens), the stack ADR (architecture decision record), `docs/tech/srs.md` baseline, ADRs, C4 (architecture diagrams), test strategy, eval plan (how AI features are measured), first milestone | G3 design approved before the stack; stack ADR; SRS with FR/NFR IDs; test pass marks; board ready |
+| Phase | You approve | The AI then writes, without asking you again | Gate |
+|---|---|---|---|
+| 1-2 Picture the project (PO) | `docs/product/proposal.md` (one page) and the screen sketches in `docs/product/screens/` | `docs/product/prd.md`, `stories/`, `data-notes.md` when data comes from an existing system, the functional part of `docs/tech/srs.md` | G1 and G2, one approval |
+| 3 How we build it (Lead) | `docs/tech/solution-design.md` and the look and feel in `design/look-and-feel.html` | the ADRs (architecture decision records), the SRS baseline, C4 diagrams, test strategy and eval plan (Full), Docker and CI, milestone v0.1.0 and its tasks | G3 |
 
-Rules: proposal before PRD · real data during requirements · design before stack · no production code before G3 · UI flows first, then contracts, then back end · test plan before code · the first milestone is one thin end-to-end slice. Each gate has its issue (label `gate`), and the gate's commits name it.
+Rules: picture it before you build it · screens before requirements · the whole plan before the details · every document in plain words · no production code before G3 · the first milestone is one thin end-to-end slice. Each gate has its issue (label `gate`), and the gate's commits name it.
 
-## 1. Write the proposal (phase 1)
+How every step works: you say what you want in your own words. The session drafts at once, asks you at most three questions together (each with its suggested answer), marks its other guesses ⚠️, and redoes the draft as often as you like. Redoing costs the AI minutes, so correcting a draft is faster than answering questions first. You approve once.
 
-**What it does:** decides what to build, for whom, and whether it is worth it.
+## 1. Picture the project (phases 1-2)
+
+**What it does:** turns your idea into something you can see: a one-page proposal and sketches of the main screens.
 
 **Ask the PO:**
-> /next `<idea in two or three sentences>`
+> /next `<your idea>`
 
-Start wherever you like. If you name a product to copy or beat, the PO tries it in the browser first and reports how it works, its strengths and its weaknesses. It checks facts it can check, such as the libraries a live site loads.
+There are two ways to start, and the PO follows the one your words show:
+- **A clear idea.** Describe it as fully as you like, or point at a document or an old system to replace. The PO writes the proposal at once, then sketches the screens to confirm it.
+- **A vague idea.** One line is enough. The PO sketches 2-3 main screens first, from your idea and the closest products it knows. You react ("this, not that, and also..."), it redraws, and the proposal follows from what the screens show.
 
-**Claude asks you:**
-1. Who has the problem, and what does it cost them today?
-2. Who are the users and other stakeholders?
-3. One measurable success metric, with a target.
-4. Constraints: data location, existing systems, compliance, hosting.
-5. Budget and deadline.
-6. What is clearly out of scope?
-7. Material to read, yours or a client's (paths or links)?
+If you name a product to copy or beat, the PO tries it in the browser first. For an old system you are replacing, it reads its screens (you can log it in) and its code, and lists its functions with keep, drop or redo for each, instead of asking you what the new one should do.
 
-**Claude does:** drafts `docs/product/proposal.md` ([template](../../templates/proposal.md)) with two or three options (effort, cost, risk) and a recommendation; asks the Lead to check the effort of each option; sends you the options side by side.
+**Claude asks you:** at most three questions, only about what it could not guess, each with a suggested answer.
 
-**You check:** choose an option; adjust scope, budget, dates.
+**Claude does:** writes `docs/product/proposal.md` ([template](../../templates/proposal.md)): why, for whom, how big, what the first version does, what comes later and what is left out, how you will know it works, constraints, time and budget. Sketches the main screens in `docs/product/screens/`: plain grey pages you can click through, with realistic example data. A product without screens gets its main flows as numbered steps with examples.
+
+**You check:** the proposal and the screens. Approve, or say what to change. After "Approved" the PO writes the PRD, one story per must-have (with acceptance criteria that match the screens), the data notes and the functional part of the SRS (one `FR-xxx` per requirement), all in plain words, and opens the PR for the Lead. It asks you again only if writing them changes the scope.
+
+From now on you work with the Lead: a feature added or cut is a CR with the client's approval, a change in how it is built an ADR ([chapter 4](04-delivery-loop.md)). You may close the PO session; the Lead opens it again at the end of the milestone.
 
 ## 2. Pass a gate
 
@@ -41,45 +41,26 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 
 **Claude does:** runs `/gate G1` with the criteria for your level (Lite or Full), reports each criterion as pass / fail / unclear with evidence, and the smallest list of fixes. When the gate is ready, it adds a **For you** block in plain words: what the gate means for the product, one to three things to try or read yourself (each a link, with the expected result and an example of a wrong one), what you are confirming, and what tests, CI and review already prove, with links.
 
-**You check:** try the items in the For you block. You judge whether the product does what you want; the evidence covers the technical part, so you do not have to judge an ADR or a test report yourself. Then reply "G1 approved" (or what is wrong). The session records the approval date and closes the gate's issue. An item that waits for someone outside the team, such as a table description from the client, can be approved later when it has an issue and a due date.
+**You check:** try the items in the For you block. You judge whether the product does what you want; the evidence covers the technical part, so you do not have to judge an ADR or a test report yourself. Then reply "Approved" (or what is wrong). The session records the approval date and closes the gate's issue. An item that waits for someone outside the team, such as a table description from the client, can be approved later when it has an issue and a due date.
 
-## 3. Write the requirements (phase 2)
+## 3. How we build it (phase 3)
 
-**What it does:** fixes exactly what the product must do, on real data.
-
-**Ask the PO:**
-> /next
-
-**Claude asks you:**
-1. Business rules you already know (statuses, permissions, calculations).
-2. Where the real data is and how the team may read it (read-only copy, export, sample).
-3. Which nice-to-haves can wait.
-4. Non-functional needs: speed, availability, security, monthly cost.
-5. Who confirms the business rules?
-
-**Claude does:** drafts `docs/product/prd.md`; with the Lead, analyses the real data into `docs/product/data-notes.md` (counts and structure only, never real records); writes one story per must-have with Given/When/Then criteria and the functional part of the SRS (one `FR-xxx` per requirement, with its origin and acceptance); records each business decision as a DEC.
-
-**You check:** must-haves and non-goals; open questions answered; then pass G2 (step 2). From now on you work with the Lead: a feature added or cut is a CR with the client's approval, a change in how it is built an ADR ([chapter 4](04-delivery-loop.md)). You may close the PO session; the Lead opens it again at the end of the milestone.
-
-## 4. Design, stack and SRS (phase 3)
-
-**What it does:** shows you what you will get, then decides how to build it and writes the SRS everyone will work from. Design comes before the stack, because anyone can judge screens and few people can judge a stack.
+**What it does:** shows you the whole plan in one document before any technical detail, so you picture how the project will be built and why.
 
 **Ask the Lead:**
 > /next
 
-**Claude asks you:**
-1. Whether you already have screens (images, Figma, sketches), or a look in mind: a site you like, colours, light or dark.
-2. Any technology that is required or ruled out.
-3. Pass marks for AI features (if any), such as accuracy or latency.
-4. Scope of the first milestone (proposed: the thinnest end-to-end slice of must-have 1).
+**Claude asks you:** at most three questions, usually which look you prefer, a stack choice with no clear winner, and what v0.1.0 holds.
 
-**Claude does,** in this order:
-1. **Design:** for a product with screens, 2-3 named look-and-feel directions in `design/look-and-feel.html`, then every main screen and state in the one you pick (Full: the Lead proposes the UI/UX session for this and gives you its prompt; Lite: the Lead does it). Meanwhile the Lead writes the flows, data and integrations. Full: you approve the design before the stack; with a prototype it is tagged `design-v1` ([chapter 7](07-frontend-projects.md)). Lite: your own screens are used as they are, picking a direction is a choice and not an approval, and the design is approved with the rest of G3.
-2. **Stack:** 2-3 options that fit the design and the requirements, from the lightest to the fullest; the one you pick is installed once on your machine before it is written down as an ADR with the rejected options. Docker and CI are fitted to it, so `docker compose up --build` starts the project.
-3. **SRS and plan:** the PO's SRS completed as version `0.0.0` ([template](../../templates/srs.md)) with NFR targets, data, interfaces, Revision History and traceability; the ADRs; at Full also C4 diagrams, the test strategy and the eval plan; milestone `v0.1.0` with its tasks in Ready.
+**Claude does:** writes `docs/tech/solution-design.md` ([template](../../templates/solution-design.md)), in plain words with diagrams:
+- the system map: the modules, the parts every module shares, what depends on what;
+- the architecture: the stack, the framework or boilerplate and the design patterns, each with the options left out and the reason for the choice; the stack is installed on your machine before it is proposed;
+- the data, and for an old system how the data moves over and how both systems run side by side;
+- how one real function is built from start to end, the recipe every later function follows;
+- the look and feel: 2-3 named directions applied to the PO's sketches in `design/look-and-feel.html` (Full: the UI/UX session draws them; Lite: the Lead);
+- the milestones in order, with their time in AI hours, the risks and what the client must prepare.
 
-**You check:** the design, the stack choice and the first milestone; then pass G3 (step 2). The Lead then proposes the sessions the milestone needs and gives you a prompt for each. The delivery loop starts.
+**You check:** the solution design and the look. Approve, or say what to change. Then the Lead does the rest without you: an ADR for each choice, Docker and CI, the SRS completed as version `0.0.0` ([template](../../templates/srs.md)) with NFR targets and traceability, at Full also C4 diagrams, the test strategy and the eval plan, and milestone `v0.1.0` with its tasks in Ready. It runs `/gate G3` and asks you again only if that work changes something you approved. The Lead then proposes the sessions the milestone needs. The delivery loop starts.
 
 ## The SRS, in short
 
@@ -89,6 +70,6 @@ Start wherever you like. If you name a product to copy or beat, the PO tries it 
 
 To understand the product at any version, ask the Lead: "What does the system do about `<topic>`, and since which version?" It answers from the SRS.
 
-> **Token tip:** write what you already know in your first answer; Claude then asks only about the gaps, which saves rounds. A real decision now still saves rework later. Attach the material you have up front, and compact the PO and Lead after each gate.
+> **Token tip:** put what you already know, and any material you have, in your first message; the session then drafts more and asks less. Compact the PO and Lead after each gate.
 
 Next: [Chapter 4: The delivery loop](04-delivery-loop.md).

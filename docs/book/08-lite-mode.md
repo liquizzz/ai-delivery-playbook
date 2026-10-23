@@ -7,8 +7,8 @@
 | Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (a second Dev when two tasks can run in parallel) | PO, Lead (also design and DevOps), one Dev (also the Test work) |
 | Branches | `role/*` → `dev` → `staging` → `main` → `production` | Same |
 | Review | Lead reviews every PR | Lead reviews every PR |
-| Foundation | Proposal, PRD, data notes, stories, then design, stack, SRS, ADRs, C4, test strategy, eval plan | One-page proposal, short PRD with stories, then design, stack, SRS, ADRs only for real choices |
-| Design | UI/UX session at G3 | The Lead runs the look and feel and shows the main screens at G3 |
+| Foundation | One-page proposal and screen sketches, then PRD, data notes, stories; solution design, then ADRs, SRS, C4, test strategy, eval plan | One-page proposal and screen sketches, then PRD, stories; solution design, then ADRs, SRS; no C4, test strategy or eval plan |
+| Design | The PO's screen sketches at G1-G2; the UI/UX session draws the look and feel at G3 | The PO's screen sketches at G1-G2; the Lead draws the look and feel at G3 |
 | Milestones | Buffer and risk table | One milestone; one-line buffer and risk |
 | Reports | `/progress`; `/progress report` saves one | Same |
 | Testing | L0-L3 by the Dev and CI; at the end of the milestone Test's regression on `staging`, then the PO's acceptance there (`/auto testing on` adds a check of each merged task) | L0-L3 by the Dev and CI; at the end of the milestone Dev1's regression on `staging`, then the PO's acceptance there |
@@ -25,7 +25,7 @@ There is no single-session level. One session playing every role feels simpler b
 
 ## 2. Foundation
 
-The PO runs G1 and G2 with `/next` (the proposal, the PRD, the stories and the functional part of the SRS); from G3 on you work with the Lead, which runs G3 with `/next`: design first (the look and feel and the main screens, which you approve), then the stack, then the SRS and milestone v0.1.0 ([chapter 3](03-foundation.md)).
+Two approvals, both with `/next` ([chapter 3](03-foundation.md)). The PO pictures the project (G1 and G2): a one-page proposal and grey screen sketches you approve, then the PRD, the stories and the functional part of the SRS, written without asking you again. From G3 on you work with the Lead: one solution design with the look and feel you approve, then the ADRs, the SRS baseline, Docker and CI and milestone v0.1.0 with its tasks.
 
 ## 3. Build and release
 

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 // Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // Install the Claude Code plugins this project enables. Enabling a plugin in the project's .claude/settings.json
-// does not download it, so init runs this once, and /setup runs it again when it enables the design plugins.
+// does not download it, so init runs this once, and the Lead runs it again at G3 when it enables the design plugins.
 //   node scripts/plugins.mjs            install every plugin in "enabledPlugins" for this user (once per machine)
 //   node scripts/plugins.mjs --dry-run  print the commands only
 // It adds each plugin's marketplace (from "extraKnownMarketplaces"), then installs the plugin with the claude CLI.
