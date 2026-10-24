@@ -11,7 +11,7 @@
 | Design | The PO's screen sketches at G1-G2; the UI/UX session draws the look and feel at G3 | The PO's screen sketches at G1-G2; the Lead draws the look and feel at G3 |
 | Milestones | Buffer and risk table | One milestone; one-line buffer and risk |
 | Reports | `/progress`; `/progress report` saves one | Same |
-| Testing | L0-L3 by the Dev and CI; at the end of the milestone Test's regression on `staging`, then the PO's acceptance there (`/auto testing on` adds a check of each merged task) | L0-L3 by the Dev and CI; at the end of the milestone Dev1's regression on `staging`, then the PO's acceptance there |
+| Testing | L0-L3 by the Dev and CI; Test writes the test cases from the SRS while the Devs build; at the end of the milestone Test's regression on `staging`, then the PO's acceptance there (`/auto testing on` adds a check of each merged task) | L0-L3 by the Dev and CI; at the end of the milestone Dev1's regression on `staging`, then the PO's acceptance there |
 | Release check | Your scenarios on `staging` and the PO's handover; the release adds no tests | Same |
 | Always kept | | Setup first, gate issues, CR issues, labels, SRS and its revisions, level confirmation, SemVer tags, `role-guard`, hand-off prompts |
 

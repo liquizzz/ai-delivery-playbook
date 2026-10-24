@@ -123,6 +123,7 @@ try {
   check("new worktree: a git-ignored .env is carried too", read(wt(a, "dev1"), ".env.local").includes("STACK_KEY=from-dot-env") && git(a, "status", "--porcelain") === "");
   node([path.join("scripts", "new-role-worktree.mjs"), "dev4"], { cwd: wt(a, "lead") });
   check("several Devs: dev4 gets its own worktree, port and rules", read(wt(a, "dev4"), ".env.local").includes("PORT=5204") && read(wt(a, "dev4"), ".claude", "role").trim() === "dev4" && read(a, "CLAUDE.md").includes("**Several Devs**") && read(a, ".claude", "commands", "build.md").includes("up to four Devs") && read(a, ".github", "pull_request_template.md").includes("Self-review"));
+  check("Full: Test opens after G3 to write test cases", read(a, ".claude", "roles", "test.md").includes("**Test cases first**") && read(a, ".claude", "roles", "lead.md").includes("`Write the test cases for v<X.Y.Z>.`") && read(a, ".claude", "commands", "build.md").includes("`Write the test cases for v<X.Y.Z>.`") && read(a, ".claude", "commands", "gate.md").includes("`docs/tech/test-cases/` covers every requirement"));
   let badName = false;
   try {
     node([path.join("scripts", "set-secret.mjs"), "lower-case"], { cwd: wt(a, "lead"), input: "x\n" });

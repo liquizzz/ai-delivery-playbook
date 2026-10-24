@@ -9,7 +9,8 @@ Newest first. A change to the kit or the book that changes behaviour adds a row 
 
 | SRS version | Commit | Date | Decisions | Sections changed | Summary |
 |---|---|---|---|---|---|
-| 0.25 | (this commit) | 2026-10-24 | DEC-070 | §3, §8 | Up to four Devs, one module each, a single owner for shared files, the Dev's self-review before the PR (FR-085) |
+| 0.26 | (this commit) | 2026-10-24 | DEC-071 | §3, §8 | Full: Test opens after G3 to write the test cases while the Devs build (FR-032, FR-086) |
+| 0.25 | b51204e | 2026-10-24 | DEC-070 | §3, §8 | Up to four Devs, one module each, a single owner for shared files, the Dev's self-review before the PR (FR-085) |
 | 0.24 | 9937300 | 2026-10-23 | DEC-069 | §3, §7, §8 | Draft first, ask once, approve once; setup asks nothing; "Picture the project" (G1 and G2 in one approval, proposal and screen sketches, two ways to start); "How we build it" (one solution design at G3); plain language (FR-017, FR-018, FR-026, FR-029 to FR-031, FR-035, FR-081 to FR-084) |
 | 0.23 | 02193ac | 2026-10-21 | DEC-068 | §3 | `rampstack-seo` off by default in the kit's settings (FR-076) |
 | 0.22 | 5193706 | 2026-10-21 | DEC-067 | §3, §7, §8 | The PO up to G2 (with the SRS's functional part) and for the acceptance on `staging` and the handover; the Lead the owner's contact from G3 and every change (CR or ADR); one test round on `staging`, release with no new tests; Lite gets `staging`, Dev1 does the Test work; auto-merge at every level; data changes with update and rollback scripts (FR-004, FR-030, FR-043, FR-045, FR-046, FR-049, FR-072, FR-073, FR-080, FR-081) |
@@ -144,7 +145,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-082 | Every document the kit writes shall be in plain language for a reader with no technical background (everyday words, short sentences, terms explained, examples); IDs and template sections stay; technical documents open with "In short" | DEC-069 | `CLAUDE.md` rule "Plain language", templates |
 | FR-083 | The kit shall ship `templates/solution-design.md` and create `docs/product/screens/` | DEC-069 | `init.test.mjs` see-it-first check |
 | FR-084 | A secret the terminal will not take shall go into `.env.local` through an editor the Lead may open but never read; a secret pasted in the chat shall not be used | DEC-069 | `CLAUDE.md` Secrets line |
-| FR-032 | After G3 the Lead shall propose the sessions the milestone needs and create their worktrees on the owner's OK | DEC-008 | Hand-off blocks for the new sessions |
+| FR-032 | After G3 the Lead shall propose the sessions the milestone needs (at Full Dev1 and Test) and create their worktrees on the owner's OK | DEC-008, DEC-071 | Hand-off blocks for the new sessions |
 | FR-033 | Foundation work shall happen under the gate's issue, and commits shall name it | DEC-029 | Commit messages |
 
 ### 3.7 Gates (`/gate`)
@@ -161,6 +162,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 |---|---|---|---|
 | FR-039 | `/build` in the Lead shall split the milestone into tasks with level, role and estimate, put them in Ready, create any missing worktree on the owner's OK, and end with one hand-off block per session that starts | DEC-030, DEC-040 | `build.md` |
 | FR-085 | At Full the kit shall allow up to four Dev worktrees (`dev1` to `dev4`, ports 5201 to 5204); a Dev's own key in `.claude/ownership.json` shall limit its edits to its module; shared files shall have one owner; each Dev shall run `code-review` on its own L2-L3 diff before the PR, and the Lead's L2 review shall read the diff and that self-review | DEC-070 | `new-role-worktree.mjs`, `role-guard.cjs`, `CLAUDE.md` rule "Several Devs", `build.md`, PR template |
+| FR-086 | At Full the Test session shall write the test cases for every requirement of the milestone (and the automated tests it can write before the code) at the start of the milestone, while the Devs build, and run the regression on `staging` at the end; G4 shall check that the test cases cover the milestone | DEC-071 | `roles/test.md`, `lead.md`, `commands/build.md`, `next.md`, `gate.md` |
 | FR-040 | `/build try [#n]` shall code and run the task with no tests and no merge, commit `<type>(<module>): <summary> (#n)`, push the role branch and keep the issue In progress | DEC-030 | `build.md` |
 | FR-041 | `/build done [#n]` shall confirm the change level against the diff (raise, never lower), make the tests for that level green, run verification, open a PR into `dev` with `Closes #n` and the level, and move the issue to In review | DEC-004, DEC-030 | PR template fields |
 | FR-042 | The Lead shall review every PR (`code-review`, plus `security-review` for L3), merge into `dev`, and when CI on `dev` is green close the issue and move it to Done | DEC-031 | Closed issue in Done |
@@ -294,6 +296,7 @@ n/a: the playbook has no screens. Products made with it get a look-and-feel roun
 | FR-063 | DEC-050 | `kit/CLAUDE.md`, `kit/init.mjs`, `.claude/hooks/session-start.cjs` | `kit/init.test.mjs` (language) | Delivered |
 | FR-024 to FR-027 | DEC-026, DEC-027, DEC-029 | `commands/setup.md`, `scripts/new-role-worktree.mjs`, `scripts/setup-labels.mjs` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
 | FR-028 to FR-033 | DEC-027 to DEC-029, DEC-069 | `commands/next.md`, `commands/gate.md`, `.claude/roles/po.md`, `lead.md`, `uiux.md`, `start-here/` | `kit/init.test.mjs` (content checks) | Delivered; not yet run on a real project |
+| FR-086 | DEC-071 | `.claude/roles/test.md`, `lead.md`, `commands/build.md`, `next.md`, `setup.md`, `gate.md`, `start-here/full.md` | `kit/init.test.mjs` (Test after G3) | Delivered |
 | FR-085 | DEC-070 | `scripts/new-role-worktree.mjs`, `.claude/hooks/role-guard.cjs`, `kit/CLAUDE.md`, `commands/build.md`, `.github/pull_request_template.md` | `role-guard.test.cjs` (per-Dev modules), `kit/init.test.mjs` (dev4 worktree) | Delivered |
 | FR-082 to FR-084 | DEC-069 | `kit/CLAUDE.md`, `templates/`, `kit/init.mjs` | `kit/init.test.mjs` (see-it-first and foundation checks) | Delivered |
 | FR-034 to FR-038 | DEC-019, DEC-020, DEC-033 | `commands/gate.md`, `kit/CLAUDE.md` | `kit/init.test.mjs` (content checks) | Delivered |

@@ -12,7 +12,7 @@ Finish the setup of this Crewbook project. You are the Lead (check `.claude/role
    - in Claude Code desktop: if your own session's title is not "<Project> - Lead", rename it (`set_session_title`); if it is in no sidebar group, create one named after the project and file yourself in it (`create_group`, then `move_sessions` with `self`), so every session opened later joins the same group;
    - set `"setup": true` in `.claude/project.json`;
    - commit, merge into `dev`, push.
-3. From your own worktree, create the team's folders: `node scripts/new-role-worktree.mjs po` (Lite: also `dev1`). Full: UI/UX joins at G3 for the look and feel, Dev when G3 is approved, Test at the end of the milestone.
+3. From your own worktree, create the team's folders: `node scripts/new-role-worktree.mjs po` (Lite: also `dev1`). Full: UI/UX joins at G3 for the look and feel, Dev and Test when G3 is approved (Test writes the test cases while Dev builds).
 4. Check live state: `gh run list --limit 3`. If no run exists, tell the owner to open the repo's Actions tab and click "Enable Actions on this repository", then check again.
 5. Report in a few lines what was set up, with links. Then open the PO's session for the owner (rule "Opening sessions" in `CLAUDE.md`, first message `/next`, which asks for the idea); if the owner opens it themselves, end with the hand-off block for the PO (format in `CLAUDE.md`), for example:
 

@@ -28,7 +28,7 @@ The minimum team is PO + Lead + one Dev (Lite: the Lead also does the design and
 
 ## 1. Add a team member
 
-**What it does:** opens a Dev, Test, UI/UX or DevOps session when there is work for it. The Lead proposes it: UI/UX at G3 for the look and feel of a product with screens, Dev when G3 is approved, Test at the end of the milestone, any role when a task needs one. You can also ask.
+**What it does:** opens a Dev, Test, UI/UX or DevOps session when there is work for it. The Lead proposes it: UI/UX at G3 for the look and feel of a product with screens, Dev and Test when G3 is approved (Test writes the test cases while Dev builds and runs the regression at the end), any role when a task needs one. You can also ask.
 
 **Ask the Lead:**
 > We need a dev1 for the tasks in milestone v0.1.0. Prepare it.
