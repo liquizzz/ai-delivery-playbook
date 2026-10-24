@@ -19,7 +19,7 @@ The minimum team is PO + Lead + one Dev (Lite: the Lead also does the design and
 |---|---|---|
 | PO | `docs/product/` (screen sketches and handovers included), the SRS's functional part at G2, `docs/reports/` | `role/po` |
 | Lead | `docs/tech/`, CRs and `docs/product/changes.md`, milestones, `docs/releases/`, `CHANGELOG.md`, `CLAUDE.md`, `docs/ai-log.md`; merges | every branch (`main`, `production`, tags need you) |
-| Dev | `app/` or source folders, unit tests | `role/dev1` (`role/dev2` only if you add a second Dev) |
+| Dev | `app/` or source folders, unit tests; with several Devs only its module's folders (`.claude/ownership.json`) | `role/dev1` (at Full up to `role/dev4`, one per module) |
 | Test (Lite: Dev1) | `tests/`, `docs/tech/test-cases/`, `docs/tech/test-reports/` | `role/test` |
 | UI/UX | `design/`, `packages/tokens/` | `role/uiux` |
 | DevOps | `.github/workflows/`, `infra/`, `scripts/`, `docs/tech/ops/` | `role/devops` |

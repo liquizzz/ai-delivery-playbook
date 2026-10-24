@@ -95,7 +95,7 @@ Pick the level by what is at stake: even a small project that handles money need
 | Full | PO, Lead, Dev, and Test, UI/UX or DevOps when there is work for them | Money, security, personal data, or someone who signs off each release, even for a short project |
 | No process needed | | A one-off script or a spike you will throw away |
 
-There is no single-session level: one session playing every role runs slower than three sessions working side by side, and it hides the hand-offs you need to see. One Dev session is the default at every level. Add a second Dev (`dev2`) when two tasks can run in parallel; five or more sessions are hard for one owner to follow.
+There is no single-session level: one session playing every role runs slower than three sessions working side by side, and it hides the hand-offs you need to see. One Dev session is the default at every level. At Full you can run up to four Devs (`dev1` to `dev4`), one per module of the milestone that no other Dev touches. Each Dev runs `code-review` on its own PR first, so the Lead's review keeps up; add a Dev only while PRs do not queue for review.
 
 ## How each task is written in this book
 

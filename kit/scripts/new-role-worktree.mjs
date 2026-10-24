@@ -5,13 +5,13 @@
 // Run it from your own worktree (the Lead's has dev's version of this script):  node scripts/new-role-worktree.mjs <role>
 // The new worktree gets .env.local with its port and the secrets already set in the main checkout's .env.local
 // (and in a git-ignored .env there, if the stack uses one).
-// Roles: po, lead, dev1, dev2, test, uiux, devops
+// Roles: po, lead, dev1 to dev4 (Full: one Dev per module), test, uiux, devops
 import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
-const ROLES = ["po", "lead", "dev1", "dev2", "test", "uiux", "devops"];
-const PORTS = { uiux: 5100, dev1: 5201, dev2: 5202, test: 5300 };
+const ROLES = ["po", "lead", "dev1", "dev2", "dev3", "dev4", "test", "uiux", "devops"];
+const PORTS = { uiux: 5100, dev1: 5201, dev2: 5202, dev3: 5203, dev4: 5204, test: 5300 };
 
 const role = (process.argv[2] || "").toLowerCase();
 if (!ROLES.includes(role)) {

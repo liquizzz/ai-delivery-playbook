@@ -4,7 +4,7 @@
 
 | Area | Full process | Lite mode |
 |---|---|---|
-| Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (a second Dev when two tasks can run in parallel) | PO, Lead (also design and DevOps), one Dev (also the Test work) |
+| Sessions | PO, Lead, one Dev, and Test, UI/UX or DevOps when needed (up to four Devs, one per module) | PO, Lead (also design and DevOps), one Dev (also the Test work) |
 | Branches | `role/*` → `dev` → `staging` → `main` → `production` | Same |
 | Review | Lead reviews every PR | Lead reviews every PR |
 | Foundation | One-page proposal and screen sketches, then PRD, data notes, stories; solution design, then ADRs, SRS, C4, test strategy, eval plan | One-page proposal and screen sketches, then PRD, stories; solution design, then ADRs, SRS; no C4, test strategy or eval plan |

@@ -121,6 +121,8 @@ try {
   node([path.join("scripts", "new-role-worktree.mjs"), "dev1"], { cwd: wt(a, "lead") });
   check("new worktree: secrets copied, own port", read(wt(a, "dev1"), ".env.local").includes("DEMO_API_KEY=s3cret-value") && read(wt(a, "dev1"), ".env.local").includes("PORT=5201"));
   check("new worktree: a git-ignored .env is carried too", read(wt(a, "dev1"), ".env.local").includes("STACK_KEY=from-dot-env") && git(a, "status", "--porcelain") === "");
+  node([path.join("scripts", "new-role-worktree.mjs"), "dev4"], { cwd: wt(a, "lead") });
+  check("several Devs: dev4 gets its own worktree, port and rules", read(wt(a, "dev4"), ".env.local").includes("PORT=5204") && read(wt(a, "dev4"), ".claude", "role").trim() === "dev4" && read(a, "CLAUDE.md").includes("**Several Devs**") && read(a, ".claude", "commands", "build.md").includes("up to four Devs") && read(a, ".github", "pull_request_template.md").includes("Self-review"));
   let badName = false;
   try {
     node([path.join("scripts", "set-secret.mjs"), "lower-case"], { cwd: wt(a, "lead"), input: "x\n" });

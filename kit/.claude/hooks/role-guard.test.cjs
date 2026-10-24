@@ -47,6 +47,8 @@ const commandCases = [
   ["dev1", "git push origin HEAD:role/dev1", "allow"],
   ["dev1", "git push origin dev", "block"],
   ["dev1", "git push origin role/dev2", "block"],
+  ["dev4", "git push origin role/dev4", "allow"],
+  ["dev4", "git push origin role/dev3", "block"],
   ["dev1", "git push origin role/dev1:main", "block"],
   ["dev1", "git -C ../x push origin main", "block"],
   ["dev1", "git add . && git commit -m wip && git push origin main", "block"],
@@ -130,6 +132,21 @@ const levelCases = [
 for (const [dir, role, file, expected] of levelCases) report("edit", role, `${path.basename(dir)}/${file}`, expected, outcome(checkEdit(path.join(dir, file), role, dir, dir)));
 fs.rmSync(lite, { recursive: true, force: true });
 
-const total = commandCases.length + editCases.length + levelCases.length;
+// Several Devs: a Dev's own entry in ownership.json limits it to its module; Devs without one keep the family paths.
+const multi = fs.mkdtempSync(path.join(os.tmpdir(), "guard-multi-"));
+fs.mkdirSync(path.join(multi, ".claude"));
+fs.writeFileSync(path.join(multi, ".claude", "ownership.json"), JSON.stringify({ dev2: ["src/Modules/Media/", "tests/unit/Media/", "CHANGELOG.md"], dev3: ["src/Modules/Publishing/"] }));
+const multiCases = [
+  [multi, "dev2", "src/Modules/Media/Upload.cs", "allow"],
+  [multi, "dev2", "src/Modules/Publishing/Publish.cs", "block"],
+  [multi, "dev3", "src/Modules/Media/Upload.cs", "block"],
+  [multi, "dev3", "src/Modules/Publishing/Publish.cs", "allow"],
+  [multi, "dev1", "src/Modules/Users/Create.cs", "allow"],
+  [multi, "dev4", "src/Startup.cs", "allow"],
+];
+for (const [dir, role, file, expected] of multiCases) report("edit", role, `${path.basename(dir)}/${file}`, expected, outcome(checkEdit(path.join(dir, file), role, dir, dir)));
+fs.rmSync(multi, { recursive: true, force: true });
+
+const total = commandCases.length + editCases.length + levelCases.length + multiCases.length;
 console.log(`\n${total - failed}/${total} passed`);
 process.exit(failed ? 1 : 0);

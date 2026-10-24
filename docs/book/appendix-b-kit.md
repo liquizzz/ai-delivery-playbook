@@ -8,9 +8,9 @@
 | `.claude/roles/<role>.md` | One file per role: mission, inputs and outputs, paths, must-nots, when to ask, recovery |
 | `.claude/role` (per worktree, not committed) | The worktree's role name, read by the hook |
 | `.claude/hooks/role-guard.cjs` | Blocks or asks before risky commands and edits, per role (chapter 2). It also sees through wrappers and nested shells (`rtk git push`, `env … git push`, `bash -c "git push …"`, `powershell -Command "…"`) and refuses encoded PowerShell |
-| `.claude/hooks/role-guard.test.cjs` | 80 test cases for the hook, including wrapped and nested commands |
+| `.claude/hooks/role-guard.test.cjs` | 101 test cases for the hook, including wrapped and nested commands and per-Dev modules |
 | `.claude/hooks/session-start.cjs` | Runs when a session starts, resumes or is compacted: tells Claude its role, its role's skills, and to draft at once, ask at most three questions and write in plain language, so you never type it |
-| `.claude/ownership.json` (optional) | Overrides which paths each role may edit |
+| `.claude/ownership.json` (optional) | Overrides which paths each role may edit; with several Devs, one key per Dev (`"dev2": [...]`) limits it to its module |
 | `.claude/settings.json` | Registers the hook; shared allow and deny rules; the minimum plugin set |
 | `.claude/commands/` | The steps as slash commands, so the owner types a word and the session follows the full prompt ([Commands](#commands)). Each reads the level from `.claude/project.json` |
 | `.github/ISSUE_TEMPLATE/` | Issue forms: CR, Task, Defect, Design |
@@ -24,7 +24,7 @@
 | `scripts/set-level.mjs` | Changes the level (lite, full) up or down: branches, worktrees, `CLAUDE.md`, `START-HERE.md`; deletes nothing |
 | `scripts/set-secret.mjs` | The owner sets one secret: hidden input, written to the git-ignored `.env.local` of every checkout; new worktrees copy it |
 | `scripts/project-level.mjs` | What each level needs; shared by `init.mjs` and `set-level.mjs` |
-| `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port |
+| `scripts/new-role-worktree.mjs` | Creates a role's worktree, branch, role file and local port (`dev1` to `dev4`: ports 5201 to 5204) |
 | `scripts/setup-labels.mjs` | Creates the labels |
 | `scripts/setup-board.mjs` | Creates the kanban board: a GitHub Project linked to the repo, with columns Backlog · Approved · Ready · In progress · In review · Testing (Full, with `/auto testing on`) · Done and fields Role, Module, Level, Priority |
 | `scripts/crew-settings.mjs` | Settings shared by every session, kept in the repo's git folder (nothing to commit): messages between sessions and auto-merge (both on until `/auto` turns them off), per-task testing (off), and the hand-off tips, shown three times at most while messages are off |

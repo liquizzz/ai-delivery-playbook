@@ -57,7 +57,7 @@ for (const role of roles) {
   done.push(`created worktree ${role}: ${worktreePath(root, role)}`);
 }
 // Worktrees the level no longer uses: kept, only listed (the full process can use every role)
-const unused = level === "full" ? [] : LEVEL_ORDER.flatMap((l) => LEVELS[l].worktrees).concat(["dev2", "test", "uiux", "devops"])
+const unused = level === "full" ? [] : LEVEL_ORDER.flatMap((l) => LEVELS[l].worktrees).concat(["dev2", "dev3", "dev4", "test", "uiux", "devops"])
   .filter((r, i, all) => all.indexOf(r) === i && !LEVELS[level].worktrees.includes(r) && fs.existsSync(worktreePath(root, r)));
 
 project.level = level;

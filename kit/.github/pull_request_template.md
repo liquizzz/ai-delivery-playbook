@@ -16,6 +16,8 @@ Closes #
 - [ ] A unit test for the change (L1+)
 - [ ] Module tests and the main scenario run locally (L2+)
 - [ ] Integration tests, edge cases and `security-review` (L3)
+- [ ] Self-review: `code-review` on this diff, findings fixed (L2-L3): <how many>
+- [ ] Only my module's folders, or a shared file my task owns
 
 ## Documents
 - [ ] The SRS matches the behaviour (or no requirement changed)

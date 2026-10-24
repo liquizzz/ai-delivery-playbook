@@ -3,7 +3,7 @@
 // Crewbook by Hai Nguyen (github.com/liquizzz/crewbook-build)
 // role-guard: Claude Code PreToolUse hook for Bash, PowerShell and file edits.
 // Enforces Crewbook rules per role. The role is read from .claude/role in the
-// worktree (one word: po, lead, dev1, dev2, test, uiux, devops), written by scripts/new-role-worktree.mjs.
+// worktree (one word: po, lead, dev1 to dev4, test, uiux, devops), written by scripts/new-role-worktree.mjs.
 //
 //   Push    every role except the Lead pushes only role/<role>; nobody force-pushes dev, staging, main;
 //           nobody uses --no-verify; only the Lead merges PRs.
@@ -275,7 +275,9 @@ function checkEdit(filePath, role, root, cwd) {
   if (rel === ".env" || /(^|\/)\.env(\.[^/]*)?$/.test(rel) && !rel.endsWith(".example")) {
     return { block: "Real .env files are filled in by the owner, not by agents." };
   }
-  const owned = loadOwnership(root)[roleFamily(role)] || [];
+  // A role's own entry (for example "dev2": its module's folders) wins over its family's ("dev").
+  const map = loadOwnership(root);
+  const owned = map[role] || map[roleFamily(role)] || [];
   if (owned.includes("*")) return null;
   if (owned.some((p) => (p.endsWith("/") ? rel.startsWith(p) : rel === p))) return null;
   return { block: `Role "${role}" does not own ${rel}. Owned: ${owned.join(", ")}. Ask through the issue instead.` };
